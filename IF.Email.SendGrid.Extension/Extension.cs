@@ -1,0 +1,23 @@
+﻿using IF.Core.DependencyInjection.Model;
+using IF.Core.Email;
+using IF.Core.SendGrid;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+
+namespace IF.Email.SendGrid.Extension
+{
+    public static class Extension
+    {
+        public static IEmailSenderBuilder AddSendGrid(this IEmailSenderBuilder mailBuilder, IServiceCollection services, SendGridEmailSettings sendGridEmailSettings)
+        {
+
+            services.AddHttpClient<IDerinEmailService, SendGridApiEmailService>();            
+            services.AddSingleton(sendGridEmailSettings);            
+            return mailBuilder;
+        }
+
+
+    }
+
+
+}

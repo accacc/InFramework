@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C71DAC8C-672D-4EED-AD2D-EC69BCAC045E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Derin.Web.Mvc.FluentHtml</RootNamespace>
+    <AssemblyName>Derin.Web.Mvc.FluentHtml</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="netstandard" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionLink\ActionLink.cs" />
+    <Compile Include="ActionLink\ActionLinkBuilder.cs" />
+    <Compile Include="ActionLink\ActionLinkBuilderBase.cs" />
+    <Compile Include="ActionLink\ActionLinkSet.cs" />
+    <Compile Include="ActionLink\ActionLinkSetBuilder.cs" />
+    <Compile Include="ActionLink\ActionLinkSpecialBuilder.cs" />
+    <Compile Include="ActionLink\ActionLinkSpecialFactory.cs" />
+    <Compile Include="ActionLink\AjaxLinkBuilder.cs" />
+    <Compile Include="Base\HtmlContainerElement.cs" />
+    <Compile Include="Base\HtmlDivElement.cs" />
+    <Compile Include="Base\HtmlElement.cs" />
+    <Compile Include="Base\HtmlElementBuilder.cs" />
+    <Compile Include="Base\HtmlFormElement.cs" />
+    <Compile Include="Base\HtmlFormElementBuilder.cs" />
+    <Compile Include="Base\HtmlInputElement.cs" />
+    <Compile Include="Base\HtmlInputElementBuilder.cs" />
+    <Compile Include="Base\HtmlRouteableElement.cs" />
+    <Compile Include="Base\HtmlRouteableElementBuilder.cs" />
+    <Compile Include="Base\IActionLinkableElement.cs" />
+    <Compile Include="Base\IContainerElement.cs" />
+    <Compile Include="Base\IHtmlElement.cs" />
+    <Compile Include="Base\IHtmlElementBuilder.cs" />
+    <Compile Include="Base\UnobtrusiveAjaxBuilder.cs" />
+    <Compile Include="Bootstrap\BootstrapColumn.cs" />
+    <Compile Include="Bootstrap\BootstrapFormGroup.cs" />
+    <Compile Include="Bootstrap\BootstrapFormGroupBuilder.cs" />
+    <Compile Include="Bootstrap\BootstrapRow.cs" />
+    <Compile Include="Bootstrap\Tab\BootstrapTab.cs" />
+    <Compile Include="Bootstrap\Tab\BootstrapTabBuilder.cs" />
+    <Compile Include="Bootstrap\Tab\BootstrapTabLink.cs" />
+    <Compile Include="Bootstrap\Tab\BootstrapTabLinkBuilder.cs" />
+    <Compile Include="Bootstrap\Tab\BootstrapTabLinkFactory.cs" />
+    <Compile Include="Bootstrap\Tab\TabHelper.cs" />
+    <Compile Include="Button\Button.cs" />
+    <Compile Include="Button\ButtonBuilder.cs" />
+    <Compile Include="Button\ButtonFactory.cs" />
+    <Compile Include="CheckBox\CheckBox.cs" />
+    <Compile Include="CheckBox\CheckBoxBuilder.cs" />
+    <Compile Include="CheckBox\CheckBoxList.cs" />
+    <Compile Include="ContextMenu\ContextMenuBuilder.cs" />
+    <Compile Include="ContextMenu\Menu.cs" />
+    <Compile Include="DropDownList\DropDownList.cs" />
+    <Compile Include="DropDownList\DropDownListBuilder.cs" />
+    <Compile Include="FilterBox\FilterBox.cs" />
+    <Compile Include="FilterBox\FilterBoxFactory.cs" />
+    <Compile Include="Grid\GridHelper.cs" />
+    <Compile Include="HtmlElementFactory.cs" />
+    <Compile Include="HtmlElementForFactory.cs" />
+    <Compile Include="HtmlForm\AjaxForm.cs" />
+    <Compile Include="HtmlForm\AjaxFormBuilder.cs" />
+    <Compile Include="HtmlForm\BootstrapAjaxFilterForm.cs" />
+    <Compile Include="HtmlForm\HtmlForm.cs" />
+    <Compile Include="HtmlForm\HtmlFormBase.cs" />
+    <Compile Include="HtmlForm\HtmlFormBuilder.cs" />
+    <Compile Include="HtmlForm\HtmlFormBuilderBase.cs" />
+    <Compile Include="Icon\FontAwesomeIcon.cs" />
+    <Compile Include="Image\Image.cs" />
+    <Compile Include="Label\Label.cs" />
+    <Compile Include="Label\LabelBuilder.cs" />
+    <Compile Include="Label\LabelFactory.cs" />
+    <Compile Include="Modal\Modal.cs" />
+    <Compile Include="Modal\ModalBuilder.cs" />
+    <Compile Include="Modal\ModalButton.cs" />
+    <Compile Include="MvcHelper.cs" />
+    <Compile Include="PageLayout\PageLayout.cs" />
+    <Compile Include="PageLayout\PageLayoutFactory.cs" />
+    <Compile Include="Portlet\Portlet.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextBox\TextBox.cs" />
+    <Compile Include="TextBox\TextBoxBuilder.cs" />
+    <Compile Include="TextBox\TextboxBuilderBase.cs" />
+    <Compile Include="Validaton\ValidationMessage.cs" />
+    <Compile Include="Validaton\ValidationMessageBuilder.cs" />
+    <Compile Include="Validaton\ValidationMessageFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IF.Core\IF.Core.csproj">
+      <Project>{95504fa0-7454-4e21-8857-c77917fe1799}</Project>
+      <Name>IF.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

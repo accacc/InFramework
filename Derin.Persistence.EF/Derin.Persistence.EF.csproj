@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6CF31C7D-30EF-4566-BA71-993387357DAD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Derin.Persistence.EF</RootNamespace>
+    <AssemblyName>Derin.Persistence.EF</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="netstandard" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audit\AuditConfigurationSection.cs" />
+    <Compile Include="Audit\AuditDbContext.cs" />
+    <Compile Include="Audit\AuditEntity.cs" />
+    <Compile Include="Audit\EntityElement.cs" />
+    <Compile Include="Audit\EntityElementCollection.cs" />
+    <Compile Include="Audit\IAuditCommand.cs" />
+    <Compile Include="Audit\IAuditing.cs" />
+    <Compile Include="Audit\IShadowAuditableEntity.cs" />
+    <Compile Include="Audit\SelfAuditing.cs" />
+    <Compile Include="Audit\ShadowAuditing.cs" />
+    <Compile Include="Audit\SimpleAuditing.cs" />
+    <Compile Include="Audit\UserActivitiesAuditing.cs" />
+    <Compile Include="DbContextBuilder.cs" />
+    <Compile Include="DbContextExtension.cs" />
+    <Compile Include="DbContextInitializer.cs" />
+    <Compile Include="DbContextManager.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="GenericRepository.cs" />
+    <Compile Include="IDbContextStorage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleDbContextStorage.cs" />
+    <Compile Include="UnitOfWork.cs" />
+    <Compile Include="WebDbContextStorage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IF.Core\IF.Core.csproj">
+      <Project>{95504fa0-7454-4e21-8857-c77917fe1799}</Project>
+      <Name>IF.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IF.Persistence\IF.Persistence.csproj">
+      <Project>{e3383244-f33b-45a3-9a1a-6620bfc33672}</Project>
+      <Name>IF.Persistence</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
