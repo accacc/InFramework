@@ -1,0 +1,67 @@
+﻿@using IF.HealthChecks
+@using Microsoft.AspNetCore.Html
+
+@model IReadOnlyDictionary<string, IHealthCheckResult>
+
+
+@functions
+{
+    static readonly string[] LabelClass = new[] { "default", "danger", "success", "warning" };
+
+    public HtmlString StatusLabel(CheckStatus status)
+    {
+        return new HtmlString($@"<span class=""label label-{LabelClass[(int)status]}"">{status}</span>");
+    }
+
+}
+<table class="table-condensed">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var kvp in Model)
+        {
+            if (kvp.Key.StartsWith("Group"))
+            {
+                <tr><td colspan="3">&nbsp;</td></tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+            }
+
+
+            var composite = kvp.Value as CompositeHealthCheckResult;
+
+            if (composite != null)
+            {
+                <tr>
+                    <td><b>@kvp.Key</b></td>
+                    <td colspan="2">@StatusLabel(kvp.Value.CheckStatus)</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <blockquote>
+                            @{ await Html.RenderPartialAsync("StatusTable", composite.Results); }
+                        </blockquote>
+                    </td>
+                </tr>
+
+
+            }
+            else
+            {
+                <tr>
+                    <td>@kvp.Key</td>
+                    <td>@StatusLabel(kvp.Value.CheckStatus)</td>
+                    <td><pre>@kvp.Value.Description</pre></td>
+                </tr>
+            }
+        }
+
+
+    </tbody>
+</table>

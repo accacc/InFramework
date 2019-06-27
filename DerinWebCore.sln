@@ -81,6 +81,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Email.SendGrid.Extension
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Notification.OneSignal.Integration", "IF.Notification.OneSignal.Integration\IF.Notification.OneSignal.Integration.csproj", "{35F29769-E974-4F27-8901-7DB5AD9C1BBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Admin.UI", "IF.Admin.UI\IF.Admin.UI.csproj", "{E9FD5B40-2AB8-495D-ABA2-875BD7F02A40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -243,6 +245,10 @@ Global
 		{35F29769-E974-4F27-8901-7DB5AD9C1BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35F29769-E974-4F27-8901-7DB5AD9C1BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35F29769-E974-4F27-8901-7DB5AD9C1BBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9FD5B40-2AB8-495D-ABA2-875BD7F02A40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9FD5B40-2AB8-495D-ABA2-875BD7F02A40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9FD5B40-2AB8-495D-ABA2-875BD7F02A40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9FD5B40-2AB8-495D-ABA2-875BD7F02A40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

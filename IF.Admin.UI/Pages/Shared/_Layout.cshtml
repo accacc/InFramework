@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @if (ViewData["RefreshSeconds"] != null && Convert.ToInt32(ViewData["RefreshSeconds"]) > 0)
+    {
+        <meta http-equiv="refresh" content="@ViewData["RefreshSeconds"]">
+    }
+        <title>
+            @ViewData["Title"] - TutumluAnne.Log.AdminUI - @if (User.Identity.IsAuthenticated) { @User.Identity.Name; }
+        </title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    </environment>
+
+  
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="collapse navbar-collapse">
+                <div class="navbar-right">
+                    <a asp-page="/SqlServer" class="btn btn-info navbar-btn">Sql Server</a>
+                    <a asp-page="/Events" class="btn btn-info navbar-btn">Event Manager</a>
+                    <a asp-page="/ApplicationLog" class="btn btn-info navbar-btn">Application Logs</a>
+                    <a asp-page="/PerformanceLog" class="btn btn-info navbar-btn">Performance Logs</a>
+                    <a asp-page="/AuditLog" class="btn btn-info navbar-btn">Audit Logs</a>
+                    <a asp-page="/EmailLog" class="btn btn-info navbar-btn">Email Logs</a>
+                    <a asp-page="/SmsLog" class="btn btn-info navbar-btn">Sms Logs</a>
+                    <a asp-page="/NotificationLog" class="btn btn-info navbar-btn">Notification Logs</a>
+                    &nbsp;
+                    <a asp-page="/HealthChecks" class="btn btn-danger">Health Checks</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @:&nbsp;
+
+                        <a asp-page="/Account/Logout" class="btn btn-success">Logout</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        var blockUILoadingGifPath = "@Url.Content("~/img/loading.gif")";
+    </script>
+
+    <div class="container body-content">
+        @if (User.Identity.IsAuthenticated)
+        {@User.Identity.Name;
+    }
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2018 - TutumluAnne.Log.AdminUI</p>
+        </footer>
+    </div>
+
+
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/IF.Common.js" asp-append-version="true"></script>
+    <script src="~/js/IF.Ajax.js" asp-append-version="true"></script>
+    <script src="~/js/IF.Pagination.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.blockUI.js" asp-append-version="true"></script>
+    <script src="~/js/IF.More.js" asp-append-version="true"></script>
+    Verison : 1.17
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,29 @@
+﻿@using System;
+@using System.IO;
+@using Newtonsoft.Json;
+
+
+@model string
+
+
+
+@{
+    Layout = "_ModalLayout";
+}
+
+
+<h2>EMail Body</h2>
+
+
+@if (Model != null)
+{
+    @Html.Raw(@Model);
+}
+else
+{
+    <p>Kayıt bulunamadı.</p>
+}
+
+
+
+
