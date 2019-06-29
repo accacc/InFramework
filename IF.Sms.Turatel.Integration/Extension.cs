@@ -8,7 +8,7 @@ namespace IF.Sms.Turatel.Integration
     public static class Extension
     {
 
-        public static ISmsBuilder AddOneSignal(this ISmsBuilder smsBuilder, IServiceCollection services, IFSmsSettings settings)
+        public static ISmsBuilder AddTuratel(this ISmsBuilder smsBuilder, IServiceCollection services, IFSmsSettings settings)
         {
 
             services.AddHttpClient<IIFSmsService, TuratelSmsService>();
