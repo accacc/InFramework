@@ -29,6 +29,8 @@ namespace IF.Core.DependencyInjection
 
         IInFrameworkBuilder AddPerformanceLogger(Action<IPerformanceLoggerBuilder> action);
         IInFrameworkBuilder AddSmsLogger(Action<ISmsLoggerBuilder> action);
+
+        IInFrameworkBuilder AddSmsSender(Action<ISmsBuilder> action);
         IInFrameworkBuilder AddAuditLogger(Action<IAuditLoggerBuilder> action);
 
         IInFrameworkBuilder AddNotificationLogger(Action<INotificationLoggerBuilder> action);

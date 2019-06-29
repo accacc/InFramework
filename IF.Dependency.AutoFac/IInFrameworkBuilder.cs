@@ -260,6 +260,10 @@ namespace IF.Dependency.AutoFac
             this.container = this.builder.Build();
         }
 
-       
+        public IInFrameworkBuilder AddSmsSender(Action<ISmsBuilder> action)
+        {
+            action(new SmsBuilder(this));
+            return this;
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Derin.Tools.Publish
 
         public string frameworkIndent = "Derin";
 
-        public string baseFrameworkPath = @"C:/Projects/DerinWebCore";
+        public string baseFrameworkPath = @"C:/Projects/InFramework";
 
         public string fwDllPath = String.Empty;
 

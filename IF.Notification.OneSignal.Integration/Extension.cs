@@ -8,12 +8,12 @@ namespace IF.Notification.OneSignal.Integration
 {
     public static class Extension
     {
-        public static INotificationBuilder AddOneSignal(this INotificationBuilder mailBuilder, IServiceCollection services, OneSignalApiSettings settings)
+        public static INotificationBuilder AddOneSignal(this INotificationBuilder notificationBuilder, IServiceCollection services, OneSignalApiSettings settings)
         {
 
             services.AddHttpClient<INotificationService, OneSignalNotificationApi>();
             services.AddSingleton(settings);
-            return mailBuilder;
+            return notificationBuilder;
         }
 
 

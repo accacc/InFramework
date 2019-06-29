@@ -81,7 +81,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Email.SendGrid.Extension
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Notification.OneSignal.Integration", "IF.Notification.OneSignal.Integration\IF.Notification.OneSignal.Integration.csproj", "{35F29769-E974-4F27-8901-7DB5AD9C1BBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Admin.UI", "IF.Admin.UI\IF.Admin.UI.csproj", "{E9FD5B40-2AB8-495D-ABA2-875BD7F02A40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Admin.UI", "IF.Admin.UI\IF.Admin.UI.csproj", "{E9FD5B40-2AB8-495D-ABA2-875BD7F02A40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Sms.Turatel", "IF.Sms.Turatel\IF.Sms.Turatel.csproj", "{A1F39FE5-A0E7-4BA1-9A21-7ABB3771AF9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Sms.Turatel.Integration", "IF.Sms.Turatel.Integration\IF.Sms.Turatel.Integration.csproj", "{683B7230-E7AA-4AED-8058-83B76C809C19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -249,6 +253,14 @@ Global
 		{E9FD5B40-2AB8-495D-ABA2-875BD7F02A40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9FD5B40-2AB8-495D-ABA2-875BD7F02A40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9FD5B40-2AB8-495D-ABA2-875BD7F02A40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1F39FE5-A0E7-4BA1-9A21-7ABB3771AF9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1F39FE5-A0E7-4BA1-9A21-7ABB3771AF9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1F39FE5-A0E7-4BA1-9A21-7ABB3771AF9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1F39FE5-A0E7-4BA1-9A21-7ABB3771AF9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{683B7230-E7AA-4AED-8058-83B76C809C19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{683B7230-E7AA-4AED-8058-83B76C809C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{683B7230-E7AA-4AED-8058-83B76C809C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{683B7230-E7AA-4AED-8058-83B76C809C19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
