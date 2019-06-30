@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using IF.Core.EventBus;
-using IF.Core.EventBus.Log;
+using IF.Core.EventBus. Log;
 using IF.Core.Log;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

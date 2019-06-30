@@ -94,7 +94,7 @@ namespace TutumluAnne.Log.AdminUI.Pages
 
         private async Task SetModel()
         {
-            this.Events = await this.eventLogService.GetPaginatedEventLogsAsync(this.BeginDate,this.EndDate,this.ServiceName, this.EventType.ToString(),this.UniqueId,this.SourceId,this.PageNumber,this.PageSize);
+            this.Events = await this.eventLogService.GetPaginatedEventLogsAsync(this.BeginDate,this.EndDate,this.ServiceName, this.EventType,this.UniqueId,this.SourceId,this.PageNumber,this.PageSize);
         }
     }
 }
