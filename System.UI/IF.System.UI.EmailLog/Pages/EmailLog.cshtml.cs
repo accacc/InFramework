@@ -1,4 +1,5 @@
-﻿using IF.MongoDB;
+﻿using IF.Core.Email;
+using IF.MongoDB;
 using IF.MongoDB.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,9 +17,9 @@ namespace TutumluAnne.Log.AdminUI.Pages
     public class EmailLogModel : PageModel
     {
 
-        private readonly IMongoEmailLogRepository _logger;
+        private readonly IEmailLogService emailLogService;
 
-        public IEnumerable<EmailLog> Logs { get; set; }
+        public IEnumerable<IEmailLog> Logs { get; set; }
 
         public int Take { get; set; }
 
@@ -31,9 +32,9 @@ namespace TutumluAnne.Log.AdminUI.Pages
         public string To { get; set; }
         public string Type { get; set; }
 
-        public EmailLogModel(IMongoEmailLogRepository _logger)
+        public EmailLogModel(IEmailLogService emailLogService)
         {
-            this._logger = _logger;
+            this.emailLogService = emailLogService;
             this.Take = 50;
             this.Skip = 1;
             this.BeginDate = DateTime.Now.Date.AddDays(-15);
@@ -51,7 +52,7 @@ namespace TutumluAnne.Log.AdminUI.Pages
                 this.EndDate = EndDate;
                 this.To = To;
                 this.Type = type;
-                var pages = await _logger.GetPaginatedAsync(BeginDate, EndDate, To,type, skip, take);
+                var pages = await emailLogService.GetPaginatedAsync(BeginDate, EndDate, To,type, skip, take);
 
                 this.Logs = pages.Data;
             }
@@ -61,7 +62,7 @@ namespace TutumluAnne.Log.AdminUI.Pages
         {
 
 
-            string body = await this._logger.GetBodyAsync(uniqueId);
+            string body = await this.emailLogService.GetBodyAsync(uniqueId);
 
 
             return new PartialViewResult

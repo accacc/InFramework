@@ -1,4 +1,5 @@
 ﻿using IF.Core.Data;
+using IF.Core.Email;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
 using MongoDB.Bson;
@@ -34,7 +35,7 @@ namespace IF.MongoDB
 
        
 
-        public async Task<PagedListResponse<EmailLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string To, string type, int PageNumber = 0, int PageSize = 50)
+        public async Task<PagedListResponse<IEmailLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string To, string type, int PageNumber = 0, int PageSize = 50)
 
         {
 
@@ -61,13 +62,13 @@ namespace IF.MongoDB
             var fields = Builders<EmailLog>.Projection.Exclude(e => e.Body);
 
 
-            var list = await this.GetQuery<EmailLog>().Find(filter).Project<EmailLog>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.Date).ToListAsync();
+            var list = await this.GetQuery<EmailLog>().Find(filter).Project<IEmailLog>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.Date).ToListAsync();
             var count = await this.GetQuery<EmailLog>().CountDocumentsAsync(filter);
 
             
 
 
-            return new PagedListResponse<EmailLog>(list, PageNumber, PageSize, count);
+            return new PagedListResponse<IEmailLog>(list, PageNumber, PageSize, count);
         }
 
         public async Task<string> GetBodyAsync(Guid id)

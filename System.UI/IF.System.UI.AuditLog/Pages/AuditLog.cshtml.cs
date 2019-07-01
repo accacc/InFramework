@@ -1,6 +1,7 @@
 ﻿using IF.Core.Data;
 using IF.Core.EventBus;
 using IF.Core.EventBus.Log;
+using IF.Core.Log;
 using IF.MongoDB;
 using IF.MongoDB.Model;
 using Microsoft.AspNetCore.Authorization;
@@ -17,10 +18,10 @@ namespace TutumluAnne.Log.AdminUI.Pages
 //    [Authorize]
     public class AuditLogModel : PageModel
     {
-        private readonly IMongoAuditLogRepository logger;
+        private readonly IAuditLogService auditLogService;
         private readonly IEventLogService eventLogService;
 
-        public PagedListResponse<AuditLog> Logs { get; set; }
+        public PagedListResponse<IAuditLog> Logs { get; set; }
 
         
 
@@ -46,9 +47,9 @@ namespace TutumluAnne.Log.AdminUI.Pages
         [BindProperty(SupportsGet = true)]
         public string UserId { get; set; }
 
-        public AuditLogModel(IMongoAuditLogRepository logger)
+        public AuditLogModel(IAuditLogService auditLogService)
         {
-            this.logger = logger;
+            this.auditLogService = auditLogService;
             //this.eventLogService = eventLogService;
             this.PageSize = 30;
             this.PageNumber = 1;
@@ -60,7 +61,7 @@ namespace TutumluAnne.Log.AdminUI.Pages
         public async Task OnGet()
         {
 
-            this.Logs = await logger.GetPaginatedAsync(this.BeginDate, this.EndDate, null, null, PageNumber, PageSize);
+            this.Logs = await auditLogService.GetPaginatedAsync(this.BeginDate, this.EndDate, null, null, PageNumber, PageSize);
 
         }
 
@@ -88,19 +89,19 @@ namespace TutumluAnne.Log.AdminUI.Pages
 
         private async Task SetModel()
         {
-            this.Logs = await logger.GetPaginatedAsync(BeginDate, EndDate, this.Source, this.UserId,this.PageNumber, this.PageSize = 30);
+            this.Logs = await auditLogService.GetPaginatedAsync(BeginDate, EndDate, this.Source, this.UserId,this.PageNumber, this.PageSize = 30);
         }
 
         public async Task<PartialViewResult> OnGetDetail(Guid uniqueId)
         {
 
 
-            AuditLog details = await this.logger.GetDetailAsync(uniqueId);
+            IAuditLog details = await this.auditLogService.GetDetailAsync(uniqueId);
 
             return new PartialViewResult
             {
                 ViewName = "_AuditLogDetail",
-                ViewData = new ViewDataDictionary<AuditLog>(ViewData, details)
+                ViewData = new ViewDataDictionary<IAuditLog>(ViewData, details)
             };
         }
 

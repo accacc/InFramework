@@ -1,8 +1,10 @@
-﻿using IF.Core.Json;
+﻿using IF.Core.Data;
+using IF.Core.Json;
 using IF.Core.Log;
 using IF.MongoDB.Model;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IF.MongoDB
@@ -17,6 +19,21 @@ namespace IF.MongoDB
         {
             this.mongoLogRepository = mongoLogRepository;
             this.jsonSerializer = jsonSerializer;
+        }
+
+        public async Task<IAuditLog> GetDetailAsync(Guid uniqueId)
+        {
+            return await this.mongoLogRepository.GetDetailAsync(uniqueId);
+        }
+
+        public async Task<IEnumerable<IAuditLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit)
+        {
+            return await this.mongoLogRepository.GetLogsAsync(bodyText, updatedFrom, headerSizeLimit);
+        }
+
+        public async Task<PagedListResponse<IAuditLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string Source, string UserId, int skipNumber = 0, int takeNumber = 50)
+        {
+            return await this.mongoLogRepository.GetPaginatedAsync(BeginDate, EndDate, Source, UserId, skipNumber , takeNumber );
         }
 
         public void Log(object @object, Guid uniqueId, DateTime LogDate, string objectName, string IpAdress, string Channel,string UserId)

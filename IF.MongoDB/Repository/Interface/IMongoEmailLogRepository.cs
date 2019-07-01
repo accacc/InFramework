@@ -1,4 +1,5 @@
 ﻿using IF.Core.Data;
+using IF.Core.Email;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
 using System;
@@ -14,7 +15,7 @@ namespace IF.MongoDB
         Task<IEnumerable<EmailLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit);
 
         
-        Task<PagedListResponse<EmailLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string To, string type, int skipNumber = 0, int takeNumber = 50);
+        Task<PagedListResponse<IEmailLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string To, string type, int PageNumber = 0, int takeNumber = 50);
 
         Task<string> GetBodyAsync(Guid id);
 

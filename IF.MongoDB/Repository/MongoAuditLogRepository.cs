@@ -1,4 +1,5 @@
 ﻿using IF.Core.Data;
+using IF.Core.Log;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
 using MongoDB.Bson;
@@ -20,27 +21,20 @@ namespace IF.MongoDB
 
        
         //
-        public async Task<IEnumerable<AuditLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit)
+        public async Task<IEnumerable<IAuditLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit)
         {
-            try
-            {
                 var query = this.GetQuery<AuditLog>().Find(log => log.JsonObject.Contains(bodyText) && log.LogDate >= updatedFrom).SortBy(s=>s.LogDate);
 
                 return await query.ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+
         }
 
 
        
 
-        public async Task<AuditLog> GetDetailAsync(Guid uniqueId)
+        public async Task<IAuditLog> GetDetailAsync(Guid uniqueId)
         {
-            try
-            {
+            
 
                 var fields = Builders<AuditLog>.Projection.Include(e => e.JsonObject).Include(e=>e.ObjectName);
 
@@ -49,14 +43,10 @@ namespace IF.MongoDB
                 var detail =  await query.SingleOrDefaultAsync();
 
                 return detail;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            
         }
 
-        public async Task<PagedListResponse<AuditLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string Source,string UserId ,int PageNumber = 0, int PageSize = 50)
+        public async Task<PagedListResponse<IAuditLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string Source,string UserId ,int PageNumber = 0, int PageSize = 50)
 
         {
 
@@ -82,13 +72,13 @@ namespace IF.MongoDB
 
             var fields = Builders<AuditLog>.Projection.Exclude(e => e.JsonObject);
 
-            var list = await this.GetQuery<AuditLog>().Find(filter).Project<AuditLog>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.LogDate).ToListAsync();
+            var list = await this.GetQuery<AuditLog>().Find(filter).Project<IAuditLog>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.LogDate).ToListAsync();
 
 
             var count = await this.GetQuery<AuditLog>().CountDocumentsAsync(filter);
 
 
-            return new PagedListResponse<AuditLog>(list, PageNumber, PageSize, count);
+            return new PagedListResponse<IAuditLog>(list, PageNumber, PageSize, count);
         }
 
        

@@ -1,8 +1,10 @@
-﻿using IF.Core.Email;
+﻿using IF.Core.Data;
+using IF.Core.Email;
 using IF.Core.Log;
 using IF.Core.Performance;
 using IF.MongoDB.Model;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IF.MongoDB
@@ -17,7 +19,20 @@ namespace IF.MongoDB
             this.mongoEmailLogRepository = mongoEmailLogRepository;
         }
 
-       
+        public async Task<string> GetBodyAsync(Guid id)
+        {
+            return await this.mongoEmailLogRepository.GetBodyAsync(id);
+        }
+
+        public async Task<IEnumerable<IEmailLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit)
+        {
+            return await this.mongoEmailLogRepository.GetLogsAsync(bodyText,updatedFrom,headerSizeLimit);
+        }
+
+        public async Task<PagedListResponse<IEmailLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string To, string type, int skipNumber = 0, int takeNumber = 50)
+        {
+            return await this.mongoEmailLogRepository.GetPaginatedAsync(BeginDate, EndDate, To, type, skipNumber, takeNumber);
+        }
 
         public async Task LogAsync(string From, string To, string Body, DateTime Date, string Type, bool IsSent, string Subject, Guid UniqueId,Guid SourceId)
         {
