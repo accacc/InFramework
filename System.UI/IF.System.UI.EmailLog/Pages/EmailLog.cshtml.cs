@@ -1,7 +1,4 @@
 ﻿using IF.Core.Email;
-using IF.MongoDB;
-using IF.MongoDB.Model;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;

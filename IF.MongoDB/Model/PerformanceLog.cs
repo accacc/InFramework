@@ -26,13 +26,5 @@ namespace IF.MongoDB
         public DateTime LogDate { get; set; } = DateTime.Now;
     }
 
-    public class PerformanceLogLowStat
-    {
-        public string MethodName { get; set; }
-        public double Maximimum { get; set; }
-        public double Minimum { get; set; }
-
-        public int Count { get; set; }
-        public double Avarage { get; set; }
-    }
+   
 }

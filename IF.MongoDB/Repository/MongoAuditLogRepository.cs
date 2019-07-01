@@ -20,14 +20,7 @@ namespace IF.MongoDB
         }
 
        
-        //
-        public async Task<IEnumerable<IAuditLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit)
-        {
-                var query = this.GetQuery<AuditLog>().Find(log => log.JsonObject.Contains(bodyText) && log.LogDate >= updatedFrom).SortBy(s=>s.LogDate);
-
-                return await query.ToListAsync();
-
-        }
+        
 
 
        

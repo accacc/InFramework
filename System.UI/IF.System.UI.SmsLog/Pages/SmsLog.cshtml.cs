@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IF.MongoDB.Model;
-using IF.MongoDB.Repository;
-using Microsoft.AspNetCore.Mvc;
+﻿using IF.Core.Sms;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TutumluAnne.Log.AdminUI.Pages
 {
     public class SmsLogModel : PageModel
     {
-        private readonly IMongoSmsLogRepository _logger;
+        private readonly ISmsLogService smsLogService;
 
-        public IEnumerable<SmsLog> Logs { get; set; }
+        public IEnumerable<ISmsLog> Logs { get; set; }
 
         public int Take { get; set; }
 
@@ -26,9 +23,9 @@ namespace TutumluAnne.Log.AdminUI.Pages
         public string Number { get; set; }
         //public string Type { get; set; }
 
-        public SmsLogModel(IMongoSmsLogRepository _logger)
+        public SmsLogModel(ISmsLogService smsLogService)
         {
-            this._logger = _logger;
+            this.smsLogService = smsLogService;
             this.Take = 50;
             this.Skip = 1;
             this.BeginDate = DateTime.Now.Date.AddDays(-15);
@@ -46,7 +43,7 @@ namespace TutumluAnne.Log.AdminUI.Pages
                 this.EndDate = EndDate;
                 this.Number = Number;
                 //this.Type = type;
-                var pages = await _logger.GetPaginatedAsync(BeginDate, EndDate, Number,skip, take);
+                var pages = await smsLogService.GetPaginatedAsync(BeginDate, EndDate, Number,skip, take);
 
                 this.Logs = pages.Data;
             }

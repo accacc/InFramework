@@ -1,6 +1,7 @@
 ﻿using IF.Core.Log;
 using IF.Core.Performance;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IF.MongoDB
@@ -13,6 +14,11 @@ namespace IF.MongoDB
         public MongoPerformanceLogService(IMongoPerformanceLogRepository mongoLogRepository)
         {
             this.mongoLogRepository = mongoLogRepository;
+        }
+
+        public async Task<IEnumerable<PerformanceLogLowStat>> GetLowPerformanceLogsAsync()
+        {
+            return await this.mongoLogRepository.GetLowPerformanceLogsAsync();
         }
 
         public void Log(DateTime ExecutionDate, double ExecutionTime, string MethodName, Guid uniqueId)

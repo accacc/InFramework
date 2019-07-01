@@ -1,25 +1,21 @@
 ﻿using IF.Core.Data;
 using IF.Core.Log;
-using IF.MongoDB;
-using IF.MongoDB.Model;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace TutumluAnne.Log.AdminUI.Pages
 {
 
     //[Authorize]
-    
+
     public class ApplicationLogModel : PageModel
     {
 
         private readonly ILogService logService;
-        private readonly IMongoAuditLogRepository mongoAuditLogRepository;
+        private readonly IAuditLogService auditLogService;
 
         //public IEnumerable<ApplicationErrorLog> Logs { get; set; }
 
@@ -50,11 +46,11 @@ namespace TutumluAnne.Log.AdminUI.Pages
         [BindProperty(SupportsGet = true)]
         public string Channel { get; set; }
 
-        public ApplicationLogModel(ILogService logservice, IMongoAuditLogRepository mongoAuditLogRepository)
+        public ApplicationLogModel(ILogService logservice, IAuditLogService auditLogService)
         {
             this.logService = logservice;
-            this.mongoAuditLogRepository = mongoAuditLogRepository;
-            this.PageSize = 30;
+            this.auditLogService = auditLogService;
+            this.PageSize = 50;
             this.PageNumber = 1;
             this.BeginDate = DateTime.Now.Date.AddDays(-1);
             this.EndDate = DateTime.Now.Date.AddDays(1);

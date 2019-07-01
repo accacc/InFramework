@@ -12,7 +12,6 @@ namespace IF.MongoDB
     public interface IMongoEmailLogRepository:IRepository
     {
         
-        Task<IEnumerable<EmailLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit);
 
         
         Task<PagedListResponse<IEmailLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string To, string type, int PageNumber = 0, int takeNumber = 50);

@@ -10,7 +10,6 @@ namespace IF.MongoDB
     public interface IMongoPerformanceLogRepository:IRepository
     {       
 
-        Task<IEnumerable<PerformanceLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit);        
 
         Task<IEnumerable<PerformanceLogLowStat>> GetLowPerformanceLogsAsync();
     }

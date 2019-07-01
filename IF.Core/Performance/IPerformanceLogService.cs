@@ -10,5 +10,7 @@ namespace IF.Core.Performance
         Task LogAsync(DateTime ExecutionDate, double ExecutionTime, string MethodName, Guid uniqueId);
         void Log(DateTime ExecutionDate, double ExecutionTime, string MethodName, Guid uniqueId);
 
+        Task<IEnumerable<PerformanceLogLowStat>> GetLowPerformanceLogsAsync();
+
     }
 }

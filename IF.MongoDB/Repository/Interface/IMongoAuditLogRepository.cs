@@ -13,7 +13,6 @@ namespace IF.MongoDB
     {
         
 
-        Task<IEnumerable<IAuditLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit);        
 
         Task<IAuditLog> GetDetailAsync(Guid uniqueId);
 

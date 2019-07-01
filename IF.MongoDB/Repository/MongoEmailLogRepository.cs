@@ -23,14 +23,7 @@ namespace IF.MongoDB
         
 
         
-        //
-        public async Task<IEnumerable<EmailLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit)
-        {
-                var query = this.GetQuery<EmailLog>().Find(log => log.Body.Contains(bodyText) &&
-                                       log.Date >= updatedFrom).SortBy(s => s.Date); 
-
-                return await query.ToListAsync();
-        }
+        
 
 
        

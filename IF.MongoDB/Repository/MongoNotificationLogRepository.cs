@@ -1,4 +1,5 @@
 ﻿using IF.Core.Data;
+using IF.Core.Notification;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
 using MongoDB.Bson;
@@ -34,16 +35,7 @@ namespace IF.MongoDB
         
         }
 
-        //
-        public async Task<IEnumerable<NotificationLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit)
-        {
-            
-                var query = this.GetQuery<NotificationLog>().Find(log => log.Response.Contains(bodyText) &&
-                                       log.Date >= updatedFrom).SortBy(s => s.Date); 
-
-                return await query.ToListAsync();
-            
-        }
+        
 
 
         public async Task AddLogAsync(NotificationLog item)
@@ -53,7 +45,7 @@ namespace IF.MongoDB
           
         }
 
-        public async Task<PagedListResponse<NotificationLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string text, string deviceId, int PageNumber = 0, int PageSize = 50)
+        public async Task<PagedListResponse<INotificationLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string text, string deviceId, int PageNumber = 0, int PageSize = 50)
 
         {
 
@@ -78,13 +70,13 @@ namespace IF.MongoDB
             }
 
 
+            var fields = Builders<NotificationLog>.Projection.Exclude("_id");
 
-
-            var list = await this.GetQuery<NotificationLog>().Find(filter).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.Date).ToListAsync();
+            var list = await this.GetQuery<NotificationLog>().Find(filter).Project<INotificationLog>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.Date).ToListAsync();
             var count = await this.GetQuery<NotificationLog>().CountDocumentsAsync(filter);
 
 
-            return new PagedListResponse<NotificationLog>(list, PageNumber, PageSize, count);
+            return new PagedListResponse<INotificationLog>(list, PageNumber, PageSize, count);
         }
 
     }

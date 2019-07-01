@@ -1,4 +1,5 @@
-﻿using IF.MongoDB.Repository.Abstract;
+﻿using IF.Core.Performance;
+using IF.MongoDB.Repository.Abstract;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -16,14 +17,7 @@ namespace IF.MongoDB
 
         }
 
-        public async Task<IEnumerable<PerformanceLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit)
-        {
-
-            var query = this.GetQuery<PerformanceLog>().Find(log => log.LogDate >= updatedFrom).SortByDescending(s => s.LogDate);
-
-            return await query.ToListAsync();
-
-        }
+        
 
         public async Task<IEnumerable<PerformanceLogLowStat>> GetLowPerformanceLogsAsync()
         {

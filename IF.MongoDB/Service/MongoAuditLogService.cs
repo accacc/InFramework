@@ -26,10 +26,6 @@ namespace IF.MongoDB
             return await this.mongoLogRepository.GetDetailAsync(uniqueId);
         }
 
-        public async Task<IEnumerable<IAuditLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit)
-        {
-            return await this.mongoLogRepository.GetLogsAsync(bodyText, updatedFrom, headerSizeLimit);
-        }
 
         public async Task<PagedListResponse<IAuditLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string Source, string UserId, int skipNumber = 0, int takeNumber = 50)
         {

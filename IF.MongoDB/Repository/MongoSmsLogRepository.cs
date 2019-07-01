@@ -1,4 +1,5 @@
 ﻿using IF.Core.Data;
+using IF.Core.Sms;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
 using MongoDB.Bson;
@@ -18,34 +19,12 @@ namespace IF.MongoDB.Repository
         public MongoSmsLogRepository(string url, string db):base(url, db)
         {
             
-        }
+        }       
 
-        
-
-        public async Task<SmsLog> GetLogsAsync(Guid id)
-        {
-            
-                return await this.GetQuery<SmsLog>()
-                                .Find(log => log.UniqueId == id)
-                                .SingleOrDefaultAsync();
-            
-        }
-
-        //
-        public async Task<IEnumerable<SmsLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit)
-        {
-
-            var query = this.GetQuery<SmsLog>().Find(log => log.Message.Contains(bodyText) &&
-                                   log.Date >= updatedFrom).SortBy(s => s.Date);
-
-            return await query.ToListAsync();
-
-        }
+       
 
 
-   
-
-        public async Task<PagedListResponse<SmsLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string number, int PageNumber = 0, int PageSize = 50)
+        public async Task<PagedListResponse<ISmsLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string number, int PageNumber = 0, int PageSize = 50)
 
         {
 
@@ -63,15 +42,15 @@ namespace IF.MongoDB.Repository
                 filter = filter & userFilter;
             }
 
-         
+
+            var fields = Builders<SmsLog>.Projection.Exclude("_id");
 
 
-
-            var list = await this.GetQuery<SmsLog>().Find(filter).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.Date).ToListAsync();
+            var list = await this.GetQuery<SmsLog>().Find(filter).Project<ISmsLog>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.Date).ToListAsync();
             var count = await this.GetQuery<SmsLog>().CountDocumentsAsync(filter);
 
 
-            return new PagedListResponse<SmsLog>(list, PageNumber, PageSize, count);
+            return new PagedListResponse<ISmsLog>(list, PageNumber, PageSize, count);
         }
 
     }

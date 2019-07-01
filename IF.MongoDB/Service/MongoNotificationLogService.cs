@@ -1,9 +1,11 @@
-﻿using IF.Core.Email;
+﻿using IF.Core.Data;
+using IF.Core.Email;
 using IF.Core.Log;
 using IF.Core.Notification;
 using IF.Core.Performance;
 using IF.MongoDB.Model;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IF.MongoDB
@@ -18,9 +20,12 @@ namespace IF.MongoDB
             this.repository = repository;
         }
 
-       
-
         
+
+        public async Task<PagedListResponse<INotificationLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string logger, int PageSize = 0, int PageNumber = 50)
+        {
+            return await this.repository.GetPaginatedAsync(BeginDate, EndDate, userId, logger, PageSize , PageNumber );
+        }
 
         public async Task LogAsync(string DeviceId,bool Success, string Response, DateTime Date, Guid UniqueId,Guid SourceId)
         {

@@ -24,10 +24,7 @@ namespace IF.MongoDB
             return await this.mongoEmailLogRepository.GetBodyAsync(id);
         }
 
-        public async Task<IEnumerable<IEmailLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit)
-        {
-            return await this.mongoEmailLogRepository.GetLogsAsync(bodyText,updatedFrom,headerSizeLimit);
-        }
+        
 
         public async Task<PagedListResponse<IEmailLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string To, string type, int skipNumber = 0, int takeNumber = 50)
         {

@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\IF.Core\IF.Core.csproj" />
-    <ProjectReference Include="..\..\IF.MongoDB\IF.MongoDB.csproj" />
     <ProjectReference Include="..\..\IF.Web.Mvc.FluentHtml\IF.Web.Mvc.FluentHtml.csproj" />
   </ItemGroup>
 </Project>

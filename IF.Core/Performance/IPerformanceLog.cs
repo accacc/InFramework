@@ -14,8 +14,8 @@ namespace IF.Core.Performance
         double  ExecutionTime { get; set; }
         DateTime  ExecutionDate { get; set; }
 
-
-
-
     }
+
+
+   
 }

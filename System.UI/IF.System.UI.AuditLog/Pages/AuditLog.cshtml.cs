@@ -1,10 +1,6 @@
 ﻿using IF.Core.Data;
-using IF.Core.EventBus;
 using IF.Core.EventBus.Log;
 using IF.Core.Log;
-using IF.MongoDB;
-using IF.MongoDB.Model;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -15,7 +11,7 @@ using System.Threading.Tasks;
 namespace TutumluAnne.Log.AdminUI.Pages
 {
 
-//    [Authorize]
+    //    [Authorize]
     public class AuditLogModel : PageModel
     {
         private readonly IAuditLogService auditLogService;
@@ -47,10 +43,10 @@ namespace TutumluAnne.Log.AdminUI.Pages
         [BindProperty(SupportsGet = true)]
         public string UserId { get; set; }
 
-        public AuditLogModel(IAuditLogService auditLogService)
+        public AuditLogModel(IAuditLogService auditLogService, IEventLogService eventLogService)
         {
             this.auditLogService = auditLogService;
-            //this.eventLogService = eventLogService;
+            this.eventLogService = eventLogService;
             this.PageSize = 30;
             this.PageNumber = 1;
             this.BeginDate = DateTime.Now.Date.AddDays(-1);

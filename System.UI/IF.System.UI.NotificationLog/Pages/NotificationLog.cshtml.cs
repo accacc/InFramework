@@ -1,5 +1,4 @@
-﻿using IF.MongoDB;
-using IF.MongoDB.Model;
+﻿using IF.Core.Notification;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -13,9 +12,9 @@ namespace TutumluAnne.Log.AdminUI.Pages
     public class NotificationLogModel : PageModel
     {
 
-        private readonly IMongoNotificationLogRepository repository;
+        private readonly INotificationLogService notificationLogService;
 
-        public IEnumerable<NotificationLog> Logs { get; set; }
+        public IEnumerable<INotificationLog> Logs { get; set; }
 
         public int Take { get; set; }
 
@@ -28,9 +27,9 @@ namespace TutumluAnne.Log.AdminUI.Pages
         public string Logger { get; set; }
         public string UserId { get; set; }
 
-        public NotificationLogModel(IMongoNotificationLogRepository repository)
+        public NotificationLogModel(INotificationLogService notificationLogService)
         {
-            this.repository = repository;            
+            this.notificationLogService = notificationLogService;            
             this.Take = 50;
             this.Skip = 1;
             this.BeginDate = DateTime.Now.Date.AddDays(-15);
@@ -48,7 +47,7 @@ namespace TutumluAnne.Log.AdminUI.Pages
                 this.EndDate = EndDate;
                 this.UserId = UserId;
                 this.Logger = logger;
-                var pages = await repository.GetPaginatedAsync(BeginDate, EndDate, UserId, logger, skip, take);
+                var pages = await notificationLogService.GetPaginatedAsync(BeginDate, EndDate, UserId, logger, skip, take);
 
                 this.Logs = pages.Data;
             }

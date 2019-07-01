@@ -1,4 +1,5 @@
-﻿using IF.Core.Sms;
+﻿using IF.Core.Data;
+using IF.Core.Sms;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository;
 using System;
@@ -19,9 +20,11 @@ namespace IF.MongoDB.Service
             this.smsLogRepository = smsLogRepository;
         }
 
+        public async Task<PagedListResponse<ISmsLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string number, int PageSize = 0, int PageNumber = 50)
+        {
+            return await this.smsLogRepository.GetPaginatedAsync(BeginDate, EndDate,  number, PageSize, PageNumber );
+        }
 
-
-      
         public async Task LogAsync(string number, string message, DateTime Date, bool IsSent,string Error, string IntegrationId, Guid UniqueId,Guid SourceId)
         {
             SmsLog smsLog = new SmsLog();

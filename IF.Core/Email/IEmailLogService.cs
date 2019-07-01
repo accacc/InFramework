@@ -10,7 +10,6 @@ namespace IF.Core.Email
     {
         Task LogAsync(string From, string To, string Body, DateTime Date, string Type, bool IsSent, string Subject,Guid UniqueId, Guid SourceId);
 
-        Task<IEnumerable<IEmailLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit);
 
 
         Task<PagedListResponse<IEmailLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string To, string type, int PageNumber = 0, int PageSize = 50);

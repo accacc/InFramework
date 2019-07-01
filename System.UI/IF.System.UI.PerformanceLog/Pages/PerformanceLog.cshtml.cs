@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IF.MongoDB;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using IF.Core.Performance;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TutumluAnne.Log.AdminUI.Pages
 {
@@ -13,7 +10,7 @@ namespace TutumluAnne.Log.AdminUI.Pages
     //[Authorize]
     public class PerformanceLogModel : PageModel
     {
-        private readonly IMongoPerformanceLogRepository performanceLogRepository;
+        private readonly IPerformanceLogService performanceLogService;
 
         public IEnumerable<PerformanceLogLowStat> Stats { get; set; }
 
@@ -27,17 +24,17 @@ namespace TutumluAnne.Log.AdminUI.Pages
 
         public DateTime EndDate { get; set; }
 
-        public PerformanceLogModel(IMongoPerformanceLogRepository performanceLogRepository)
+        public PerformanceLogModel(IPerformanceLogService performanceLogService)
         {
-            this.performanceLogRepository = performanceLogRepository;
+            this.performanceLogService = performanceLogService;
             this.BeginDate = DateTime.Now.Date.AddDays(-15);
             this.EndDate = DateTime.Now.Date;
         }
 
 
-        public async Task OnGet(string searchString, int skip, int amount)
+        public async Task OnGet()
         {
-            Stats = await performanceLogRepository.GetLowPerformanceLogsAsync();
+            Stats = await performanceLogService.GetLowPerformanceLogsAsync();
         }
     }
 }

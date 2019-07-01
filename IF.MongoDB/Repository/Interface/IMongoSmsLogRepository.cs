@@ -1,4 +1,5 @@
 ﻿using IF.Core.Data;
+using IF.Core.Sms;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
 using System;
@@ -10,9 +11,8 @@ namespace IF.MongoDB.Repository
 {
     public interface IMongoSmsLogRepository: IRepository
     {
-        Task<IEnumerable<SmsLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit);
 
 
-        Task<PagedListResponse<SmsLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string number, int skipNumber = 0, int takeNumber = 50);
+        Task<PagedListResponse<ISmsLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string number, int PageSize = 0, int PageNumber = 50);
     }
 }

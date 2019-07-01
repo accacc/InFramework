@@ -1,4 +1,5 @@
 ﻿using IF.Core.Data;
+using IF.Core.Notification;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
 using System;
@@ -12,11 +13,10 @@ namespace IF.MongoDB
     public interface IMongoNotificationLogRepository:IRepository
     {
         
-        Task<IEnumerable<NotificationLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit);
 
         
 
-        Task<PagedListResponse<NotificationLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string logger, int skipNumber = 0, int takeNumber = 50);
+        Task<PagedListResponse<INotificationLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string logger, int PageSize = 0, int PageNumber = 50);
 
 
 

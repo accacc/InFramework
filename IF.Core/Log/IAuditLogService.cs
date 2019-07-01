@@ -12,7 +12,7 @@ namespace IF.Core.Log
 
         void Log(object @object, Guid uniqueId, DateTime LogDate, string objectName, string IpAdress, string Channel, string UserId);
 
-        Task<IEnumerable<IAuditLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit);
+        
 
         Task<IAuditLog> GetDetailAsync(Guid uniqueId);
 
