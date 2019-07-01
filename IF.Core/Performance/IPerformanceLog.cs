@@ -7,7 +7,7 @@ namespace IF.Core.Performance
 {
     public interface IPerformanceLog: IIFSystemTable
     {
-        Guid UniqueId { get; set; }
+        //Guid UniqueId { get; set; }
 
         string MethodName { get; set; }
 

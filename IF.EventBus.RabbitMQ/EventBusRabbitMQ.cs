@@ -207,7 +207,7 @@ namespace IF.EventBus.RabbitMQ
                 {
                     var message = Encoding.UTF8.GetString(ea.Body);
                     var @event = (IFEvent)JsonConvert.DeserializeObject(message, typeof(IFEvent));
-                    this.eventLogService.SaveEventAsync(@event, _queueName, EventStateEnum.PublishedFailed);
+                    await this.eventLogService.SaveEventAsync(@event, _queueName, EventStateEnum.PublishedFailed);
                     await _logger.ErrorAsync(ex, _queueName+":"+ ea.RoutingKey, "rabbitmq_eventbus", "",Guid.NewGuid(),"","");
                 }
 
@@ -249,11 +249,11 @@ namespace IF.EventBus.RabbitMQ
                         {
                             var eventType = _subsManager.GetEventTypeByName(eventName);
                             var @event = JsonConvert.DeserializeObject(message, eventType);
-                            this.eventLogService.SaveEventAsync((IFEvent)@event, _queueName, EventStateEnum.Processing);
+                            await this.eventLogService.SaveEventAsync((IFEvent)@event, _queueName, EventStateEnum.Processing);
                             var handler = scope.ResolveOptional(subscription.HandlerType);
                             var concreteType = typeof(IIFEventHandler<>).MakeGenericType(eventType);
                             await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { @event });
-                            this.eventLogService.SaveEventAsync((IFEvent)@event, _queueName, EventStateEnum.Processed);
+                            await this.eventLogService.SaveEventAsync((IFEvent)@event, _queueName, EventStateEnum.Processed);
                         }
                     }
                 }

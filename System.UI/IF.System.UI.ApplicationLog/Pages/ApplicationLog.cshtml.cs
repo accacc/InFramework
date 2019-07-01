@@ -1,4 +1,5 @@
 ﻿using IF.Core.Data;
+using IF.Core.Log;
 using IF.MongoDB;
 using IF.MongoDB.Model;
 using Microsoft.AspNetCore.Authorization;
@@ -17,12 +18,12 @@ namespace TutumluAnne.Log.AdminUI.Pages
     public class ApplicationLogModel : PageModel
     {
 
-        private readonly IMongoLogRepository mongoLogRepository;
+        private readonly ILogService logService;
         private readonly IMongoAuditLogRepository mongoAuditLogRepository;
 
         //public IEnumerable<ApplicationErrorLog> Logs { get; set; }
 
-        public PagedListResponse<ApplicationErrorLog> Logs { get; set; }
+        public PagedListResponse<IApplicationErrorLog> Logs { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public int PageSize { get; set; }
@@ -49,9 +50,9 @@ namespace TutumluAnne.Log.AdminUI.Pages
         [BindProperty(SupportsGet = true)]
         public string Channel { get; set; }
 
-        public ApplicationLogModel(IMongoLogRepository _logger, IMongoAuditLogRepository mongoAuditLogRepository)
+        public ApplicationLogModel(ILogService logservice, IMongoAuditLogRepository mongoAuditLogRepository)
         {
-            this.mongoLogRepository = _logger;
+            this.logService = logservice;
             this.mongoAuditLogRepository = mongoAuditLogRepository;
             this.PageSize = 30;
             this.PageNumber = 1;
@@ -63,7 +64,7 @@ namespace TutumluAnne.Log.AdminUI.Pages
         public async Task OnGet()
         {
 
-            this.Logs = await mongoLogRepository.GetPaginatedAsync(this.BeginDate, this.EndDate,null,null,null,null, PageNumber, PageSize);
+            this.Logs = await logService.GetPaginatedAsync(this.BeginDate, this.EndDate,null,null,null,null, PageNumber, PageSize);
 
         }
 
@@ -90,14 +91,14 @@ namespace TutumluAnne.Log.AdminUI.Pages
 
         private async Task SetModel()
         {
-            this.Logs = await mongoLogRepository.GetPaginatedAsync(BeginDate, EndDate, this.UserId, this.Message, this.Source, this.Channel, PageNumber, PageSize = 30);
+            this.Logs = await logService.GetPaginatedAsync(BeginDate, EndDate, this.UserId, this.Message, this.Source, this.Channel, PageNumber, PageSize = 30);
         }
 
         public async Task<PartialViewResult> OnGetStackTrace(Guid uniqueId)
         {
 
 
-            string stackTrace = await this.mongoLogRepository.GetStackTraceAsync(uniqueId);
+            string stackTrace = await this.logService.GetStackTraceAsync(uniqueId);
 
 
             return new PartialViewResult

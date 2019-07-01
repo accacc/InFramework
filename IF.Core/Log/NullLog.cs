@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IF.Core.Data;
 
 namespace IF.Core.Log
 {
@@ -25,6 +26,16 @@ namespace IF.Core.Log
         public async Task ErrorAsync(string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
         {
             await Task.FromResult("OK");
+        }
+
+        public async Task<PagedListResponse<IApplicationErrorLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string Message, string Source, string Channel, int skipNumber = 0, int takeNumber = 50)
+        {
+            return null;
+        }
+
+        public async Task<string> GetStackTraceAsync(Guid id)
+        {
+            return await Task.FromResult("OK");
         }
 
         public void Info(string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)

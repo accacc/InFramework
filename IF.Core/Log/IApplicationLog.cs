@@ -4,12 +4,11 @@ using System.Text;
 
 namespace IF.Core.Log
 {
-    public interface IApplicationErrorLog
+    public interface IApplicationErrorLog:IIFSystemTable
     {
 
         string Channel { get; set; }
 
-        Guid UniqueId { get; set; }
         string ExceptionMessage { get; set; }
 
         string Logger { get; set; }

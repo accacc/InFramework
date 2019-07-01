@@ -1,4 +1,5 @@
-﻿using IF.Core.Log;
+﻿using IF.Core.Data;
+using IF.Core.Log;
 using System;
 using System.Threading.Tasks;
 
@@ -110,6 +111,16 @@ namespace IF.MongoDB
             applicationLog.Level = "3";
 
             await this.mongoLogRepository.AddLogAsync(applicationLog);
+        }
+
+        public async Task<string> GetStackTraceAsync(Guid id)
+        {
+            return await this.mongoLogRepository.GetStackTraceAsync(id);
+        }
+
+        public async Task<PagedListResponse<IApplicationErrorLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string Message, string Source, string Channel, int skipNumber = 0, int takeNumber = 50)
+        {
+            return await this.mongoLogRepository.GetPaginatedAsync(BeginDate, EndDate, userId, Message, Source, Channel, skipNumber, takeNumber);
         }
     }
 }

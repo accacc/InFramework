@@ -1,88 +1,88 @@
-﻿using IF.Core.Log;
-using IF.Core.Elasticsearch;
-using IF.Elasticsearch.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using IF.Core.Log;
+//using IF.Core.Elasticsearch;
+//using IF.Elasticsearch.Model;
+//using System;
+//using System.Collections.Generic;
+//using System.Text;
+//using System.Threading.Tasks;
 
-namespace IF.Elasticsearch
-{
-    public class ElasticSearchLogService : ILogService
-    {
-
-
-        private readonly IElasticsearchApplicationLogProvider logger;
-
-        public ElasticSearchLogService(IElasticsearchApplicationLogProvider logger)
-        {
-            this.logger = logger;
-        }
+//namespace IF.Elasticsearch
+//{
+//    public class ElasticSearchLogService : ILogService
+//    {
 
 
+//        private readonly IElasticsearchApplicationLogProvider logger;
 
-        public void Error(Exception exception, string logger, string message, string UserId, Guid UniqueId,string IpAddress,string Channel)
-        {
-            ApplicationErrorLog applicationLog = GetLog(exception, logger, message, UserId, UniqueId,IpAddress, Channel);
-
-            this.logger.AddLog(applicationLog);
-        }
+//        public ElasticSearchLogService(IElasticsearchApplicationLogProvider logger)
+//        {
+//            this.logger = logger;
+//        }
 
 
-        public async Task ErrorAsync(Exception exception, string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
-        {
-            ApplicationErrorLog applicationLog = GetLog(exception, logger, message, UserId, UniqueId,IpAddress,  Channel);
 
-            await this.logger.AddLogAsync(applicationLog);
-        }
+//        public void Error(Exception exception, string logger, string message, string UserId, Guid UniqueId,string IpAddress,string Channel)
+//        {
+//            ApplicationErrorLog applicationLog = GetLog(exception, logger, message, UserId, UniqueId,IpAddress, Channel);
 
-        private static ApplicationErrorLog GetLog(Exception exception, string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
-        {
-            while (exception.InnerException != null)
-                exception = exception.InnerException;
+//            this.logger.AddLog(applicationLog);
+//        }
 
-            ApplicationErrorLog applicationLog = new ApplicationErrorLog();
-            applicationLog.Level = "1";
-            applicationLog.Logger = logger;
-            applicationLog.Message = message;
-            applicationLog.ExceptionMessage = exception.Message;
-            applicationLog.StackTrace = exception.StackTrace;
-            applicationLog.UserId = UserId;
-            applicationLog.UniqueId = UniqueId;
-            applicationLog.IPAddress = IpAddress;
-            applicationLog.MachineName = Environment.MachineName;
-            applicationLog.Channel = Channel;
-            return applicationLog;
-        }
 
-        public void Error(string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
-        {
-            throw new NotImplementedException();
-        }
+//        public async Task ErrorAsync(Exception exception, string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
+//        {
+//            ApplicationErrorLog applicationLog = GetLog(exception, logger, message, UserId, UniqueId,IpAddress,  Channel);
 
-        public Task ErrorAsync(string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
-        {
-            throw new NotImplementedException();
-        }
+//            await this.logger.AddLogAsync(applicationLog);
+//        }
 
-        public void Warn(string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
-        {
-            throw new NotImplementedException();
-        }
+//        private static ApplicationErrorLog GetLog(Exception exception, string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
+//        {
+//            while (exception.InnerException != null)
+//                exception = exception.InnerException;
 
-        public Task WarnAsync(string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
-        {
-            throw new NotImplementedException();
-        }
+//            ApplicationErrorLog applicationLog = new ApplicationErrorLog();
+//            applicationLog.Level = "1";
+//            applicationLog.Logger = logger;
+//            applicationLog.Message = message;
+//            applicationLog.ExceptionMessage = exception.Message;
+//            applicationLog.StackTrace = exception.StackTrace;
+//            applicationLog.UserId = UserId;
+//            applicationLog.UniqueId = UniqueId;
+//            applicationLog.IPAddress = IpAddress;
+//            applicationLog.MachineName = Environment.MachineName;
+//            applicationLog.Channel = Channel;
+//            return applicationLog;
+//        }
 
-        public void Info(string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
-        {
-            throw new NotImplementedException();
-        }
+//        public void Error(string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
+//        {
+//            throw new NotImplementedException();
+//        }
 
-        public Task InfoAsync(string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
-        {
-            throw new NotImplementedException();
-        }
-    }
-}
+//        public Task ErrorAsync(string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        public void Warn(string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        public Task WarnAsync(string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        public void Info(string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        public Task InfoAsync(string logger, string message, string UserId, Guid UniqueId, string IpAddress, string Channel)
+//        {
+//            throw new NotImplementedException();
+//        }
+//    }
+//}

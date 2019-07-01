@@ -17,7 +17,7 @@ namespace IF.Core.Email
         bool IsSent { get; set; }
         string Subject { get; set; }
 
-        Guid UniqueId { get; set; }
+        //Guid UniqueId { get; set; }
 
         Guid SourceId { get; set; }
     }

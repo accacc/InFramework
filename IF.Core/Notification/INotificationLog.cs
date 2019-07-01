@@ -12,7 +12,7 @@ namespace IF.Core.Notification
         bool Success { get; set; }
         string Response { get; set; }
 
-        Guid UniqueId { get; set; }
+        //Guid UniqueId { get; set; }
 
         DateTime Date { get; set; }
 

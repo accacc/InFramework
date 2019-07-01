@@ -139,7 +139,7 @@ namespace FOFramework.Tools.ProjectEditor
         {
             
 
-            try { Directory.Delete(@"C:\xGeneratorOutput\", true); } catch (Exception ex){}
+            try { Directory.Delete(@"C:\xGeneratorOutput\", true); } catch {}
             if ( !Directory.Exists(@"C:\xGeneratorOutput\")) { Directory.CreateDirectory(@"C:\xGeneratorOutput\"); }
             if ( !Directory.Exists(@"C:\xGeneratorOutput\Temp\")) { Directory.CreateDirectory(@"C:\xGeneratorOutput\Temp\"); }
 
