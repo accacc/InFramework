@@ -1,10 +1,11 @@
-﻿using System;
+﻿using IF.Core.Log;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace IF.Core.Performance
 {
-    public interface IPerformanceLog
+    public interface IPerformanceLog: IIFSystemTable
     {
         Guid UniqueId { get; set; }
 

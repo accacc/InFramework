@@ -14,8 +14,6 @@
   <ItemGroup>
     <ProjectReference Include="..\IF.Configuration\IF.Configuration.csproj" />
     <ProjectReference Include="..\IF.Core\IF.Core.csproj" />
-    <ProjectReference Include="..\IF.Elasticsearch\IF.Elasticsearch.csproj" />
-    <ProjectReference Include="..\IF.Redis\IF.Redis.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
-﻿using IF.Core.Performance;
+﻿using IF.Core.Log;
+using IF.Core.Performance;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;

@@ -1,0 +1,104 @@
+﻿@page
+@model TutumluAnne.Log.AdminUI.Pages.SmsLogModel
+@{
+    ViewData["Title"] = "SmsLog";
+}
+
+<h2>SmsLog</h2>
+
+<form method="post">
+
+    <div class="row">
+        <div class="col-xs-6">
+
+            Başlangıç Tarihi: <input type="text" class="form-control" id="BeginDate" name="BeginDate" value="@Model.BeginDate.ToShortDateString()">
+        </div>
+        <div class="col-xs-6">
+            Bitiş Tarihi: <input type="text" class="form-control" id="EndDate" name="EndDate" value="@Model.EndDate.ToShortDateString()">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            To: <input type="text" class="form-control" id="number" name="number" value="@Model.Number">
+        </div>
+        <div class="col-xs-6">
+            @*Type: <input type="text" class="form-control" id="type" name="type" value="@Model.Number">*@
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            Skip: <input type="text" class="form-control" id="Skip" name="Skip" value="@Model.Skip">
+        </div>
+        <div class="col-xs-6">
+            Take: <input type="text" class="form-control" id="Take" name="take" value="@Model.Take">
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-6">
+
+        </div>
+        <div class="col-xs-6">
+            <input class="btn btn-default" type="submit" value="Search" />
+        </div>
+    </div>
+</form>
+
+<br />
+
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <tr>
+            <th>
+                Tarih
+            </th>
+            <th>
+                Numara
+            </th>
+            <th>
+                Mesaj
+            </th>
+
+            <th>
+                Gönderildi mi?
+            </th>
+            <th>
+                Error
+            </th>
+            
+            
+        </tr>
+
+        @if (Model.Logs != null && Model.Logs.Any())
+        {
+            @foreach (var item in Model.Logs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Number)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Message)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsSent)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Error)
+                    </td>
+                    
+                </tr>
+            }
+        }
+        else
+        {
+            @:Veri bulunamadı,Lütfen Kriter seçiniz
+        }
+
+    </table>
+</div>

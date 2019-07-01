@@ -1,4 +1,6 @@
 ﻿using IF.Core.Data;
+using IF.Core.Log;
+using IF.MongoDB.Repository.Abstract;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -9,71 +11,19 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB
 {
-    public class MongoLogRepository : IMongoLogRepository
+
+
+    
+
+
+    public class MongoLogRepository : GenericRepository,IMongoLogRepository
     {
-        private readonly LogContext _context = null;
 
-        public MongoLogRepository(string url, string db)
+        public MongoLogRepository(string cnnString, string database):base(cnnString,database)
         {
-            _context = new LogContext(url, db);
+
         }
 
-        public async Task<IEnumerable<ApplicationErrorLog>> GetAllLogsAsync()
-        {
-            try
-            {
-                return await _context.Logs.Find(_ => true).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public async Task<ApplicationErrorLog> GetLogAsync(Guid id)
-        {
-            try
-            {
-                return await _context.Logs
-                                .Find(log => log.UniqueId == id)
-                                .SingleOrDefaultAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        //
-        public async Task<IEnumerable<ApplicationErrorLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit)
-        {
-            try
-            {
-                var query = _context.Logs.Find(log => log.ExceptionMessage.Contains(bodyText) &&
-                                       log.LogDate >= updatedFrom).SortByDescending(s => s.LogDate); 
-
-                return await query.ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-
-        public async Task AddLogAsync(ApplicationErrorLog item)
-        {
-            try
-            {
-                await _context.Logs.InsertOneAsync(item);
-            }
-            catch //(Exception ex)
-            {
-                //throw ex;
-            }
-        }
-
-        
         public async Task<string> GetStackTraceAsync(Guid id)
         {
 
@@ -81,7 +31,7 @@ namespace IF.MongoDB
             {
                 var fields = Builders<ApplicationErrorLog>.Projection.Include(e => e.StackTrace);
 
-                var log = await _context.Logs
+                var log = await this.GetQuery<ApplicationErrorLog>()
                                 .Find(e => e.UniqueId == id)
                                 .Project<ApplicationErrorLog>(fields)
                                 .SingleOrDefaultAsync();
@@ -134,9 +84,9 @@ namespace IF.MongoDB
 
             var fields = Builders<ApplicationErrorLog>.Projection.Exclude(e => e.StackTrace);
 
-            var list = await _context.Logs.Find(filter).Project<ApplicationErrorLog>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.LogDate).ToListAsync();
+            var list = await this.GetQuery<ApplicationErrorLog>().Find(filter).Project<ApplicationErrorLog>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.LogDate).ToListAsync();
 
-            var count = await _context.Logs.CountDocumentsAsync(filter);
+            var count = await this.GetQuery<ApplicationErrorLog>().CountDocumentsAsync(filter);
 
 
             return new PagedListResponse<ApplicationErrorLog>(list, PageNumber, PageSize, count);

@@ -1,0 +1,47 @@
+﻿@using System;
+@using System.IO;
+@using Newtonsoft.Json;
+
+
+@model IF.MongoDB.Model.AuditLog
+
+
+
+@{
+    Layout = "_ModalLayout";
+}
+
+
+<h2>Audit Log</h2>
+
+
+@if (Model != null)
+{
+    <b>@Model.ObjectName</b>
+    <br />
+    <pre> @Html.Raw(JsonPrettify(@Model.JsonObject));</pre>
+}
+else
+{
+    <p>Kayıt bulunamadı.</p>
+}
+
+
+@functions
+{
+
+
+public static string JsonPrettify(string json)
+{
+    using (var stringReader = new StringReader(json))
+    using (var stringWriter = new StringWriter())
+    {
+        var jsonReader = new JsonTextReader(stringReader);
+        var jsonWriter = new JsonTextWriter(stringWriter) { Formatting = Formatting.Indented };
+        jsonWriter.WriteToken(jsonReader);
+        return stringWriter.ToString();
+    }
+}
+
+}
+

@@ -1,16 +1,20 @@
 using IF.Configuration;
 using IF.Core.Database;
+using IF.Core.DependencyInjection;
 using IF.Core.EventBus;
 using IF.Core.EventBus.Log;
 using IF.Core.RabbitMQ;
 using IF.Core.Rest;
+using IF.Dependency.AutoFac;
 using IF.EventBus.Logging.EF;
 using IF.HealthChecks;
 using IF.HealthChecks.Checks;
 using IF.HealthChecks.RabbitMQ;
 using IF.HealthChecks.SqlServer;
+using IF.MongoDB.Integration;
 using IF.MongoDB;
 using IF.MongoDB.Repository;
+using IF.MongoDB.Repository.Interface;
 using IF.MongoDB.Service;
 using IF.Rest.Client;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -21,6 +25,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using IF.Rest.Client.Integration;
 
 namespace TutumluAnne.Log.AdminUI
 {
@@ -34,7 +39,7 @@ namespace TutumluAnne.Log.AdminUI
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -68,24 +73,33 @@ namespace TutumluAnne.Log.AdminUI
             var mongoDatabase = Configuration.GetSection("MongoConnection:Database").Value;
 
 
-            services.AddTransient<IMongoLogRepository>(provider => new MongoLogRepository(mongoConnectionString, mongoDatabase));
-            services.AddTransient<IMongoAuditLogRepository>(provider => new MongoAuditLogRepository(mongoConnectionString, mongoDatabase));
-            services.AddTransient<IMongoPerformanceLogRepository>(provider => new MongoPerformanceLogRepository(mongoConnectionString, mongoDatabase));
-            services.AddTransient<IMongoEmailLogRepository>(provider => new MongoEmailLogRepository(mongoConnectionString, mongoDatabase));
-            services.AddTransient<IMongoNotificationLogRepository>(provider => new MongoNotificationLogRepository(mongoConnectionString, mongoDatabase));
-            services.AddTransient<IMongoSmsLogRepository>(provider => new MongoSmsLogRepository(mongoConnectionString, mongoDatabase));
-            services.AddTransient<IEventLogService>(provider => new MongoEventLogService(mongoConnectionString, mongoDatabase));
+            IInFrameworkBuilder @if = new InFrameworkBuilder();
 
 
-            services.AddSingleton<IIFRestClient, IFRestClient>();
-            services.AddSingleton<IIFFluentRestClient, IFFluentRestClient>();
+            @if
+            //.AddApplicationSettings<IGatewayAppSettings>(settings)
+            .AddNewstonJson(json => json.Build())
+            .AddLogger(logger => { logger.AddMongoApplicationLogger(mongoConnectionString, mongoDatabase); })
+            .AddPerformanceLogger(logger => { logger.AddMongoPerformanceLogger(mongoConnectionString, mongoDatabase); })
+            .AddAuditLogger(logger => { logger.AddMongoAuditLogger(mongoConnectionString, mongoDatabase); })
+            .AddSmsLogger(logger => { logger.AddMongoSmsLogger(mongoConnectionString, mongoDatabase); })
+            .AddNotificationLogger(logger => { logger.AddMongoNotificationLogger(mongoConnectionString, mongoDatabase); })
+            .AddEmailLogger(logger => { logger.AddMongoEmailLogger(mongoConnectionString, mongoDatabase); })
+
+            .AddRestClient(a => a.AddFluent(services))            
+            ;
+
+
+            @if.RegisterType<MongoEventLogService, IEventLogService>(DependencyScope.Single);
+            @if.RegisterInstance<IMongoEventLogRepository>(new MongoEventLogRepository(mongoConnectionString,mongoDatabase), DependencyScope.Single);
+
 
 
 
             //var dbSetting = Configuration.GetSettings<DatabaseSettings>();
 
 
-            
+
 
             //services.AddHealthChecks(checks =>
             //{
@@ -136,6 +150,9 @@ namespace TutumluAnne.Log.AdminUI
             //    //checks.AddCheck("Long-running", async cancellationToken => { await Task.Delay(10000, cancellationToken); return HealthCheckResult.Healthy("I ran too long"); });
             //    //checks.AddCheck<CustomHealthCheck>("Custom");
             //});
+
+
+            return services.Build(@if);
 
         }
 

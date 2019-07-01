@@ -1,10 +1,11 @@
-﻿using System;
+﻿using IF.Core.Log;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace IF.Core.Notification
 {
-    public interface INotificationLog
+    public interface INotificationLog:IIFSystemTable
     {
         string Device { get; set; }
         //string Message { get; set; }

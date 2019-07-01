@@ -1,5 +1,6 @@
 ﻿using IF.Core.Data;
 using IF.MongoDB.Model;
+using IF.MongoDB.Repository.Abstract;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -10,69 +11,39 @@ using System.Threading.Tasks;
 namespace IF.MongoDB.Repository
 {
 
-    public class MongoSmsLogRepository : IMongoSmsLogRepository
+    public class MongoSmsLogRepository : GenericRepository,IMongoSmsLogRepository
     {
-        private readonly LogContext _context = null;
+        
 
-        public MongoSmsLogRepository(string url, string db)
+        public MongoSmsLogRepository(string url, string db):base(url, db)
         {
-            _context = new LogContext(url, db);
+            
         }
 
-        public async Task<IEnumerable<SmsLog>> GetAllLogsAsync()
-        {
-            try
-            {
-                return await _context.SmsLogs.Find(_ => true).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        
 
         public async Task<SmsLog> GetLogsAsync(Guid id)
         {
-            try
-            {
-                return await _context.SmsLogs
+            
+                return await this.GetQuery<SmsLog>()
                                 .Find(log => log.UniqueId == id)
                                 .SingleOrDefaultAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            
         }
 
         //
         public async Task<IEnumerable<SmsLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit)
         {
-            try
-            {
-                var query = _context.SmsLogs.Find(log => log.Message.Contains(bodyText) &&
-                                       log.Date >= updatedFrom).SortBy(s => s.Date);
 
-                return await query.ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var query = this.GetQuery<SmsLog>().Find(log => log.Message.Contains(bodyText) &&
+                                   log.Date >= updatedFrom).SortBy(s => s.Date);
+
+            return await query.ToListAsync();
+
         }
 
 
-        public async Task AddLogAsync(SmsLog item)
-        {
-            try
-            {
-                await _context.SmsLogs.InsertOneAsync(item);
-            }
-            catch// (Exception ex)
-            {
-                //throw ex;
-            }
-        }
+   
 
         public async Task<PagedListResponse<SmsLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string number, int PageNumber = 0, int PageSize = 50)
 
@@ -96,8 +67,8 @@ namespace IF.MongoDB.Repository
 
 
 
-            var list = await _context.SmsLogs.Find(filter).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.Date).ToListAsync();
-            var count = await _context.SmsLogs.CountDocumentsAsync(filter);
+            var list = await this.GetQuery<SmsLog>().Find(filter).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.Date).ToListAsync();
+            var count = await this.GetQuery<SmsLog>().CountDocumentsAsync(filter);
 
 
             return new PagedListResponse<SmsLog>(list, PageNumber, PageSize, count);

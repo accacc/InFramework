@@ -1,10 +1,11 @@
-﻿using System;
+﻿using IF.Core.Log;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace IF.Core.Email
 {
-    public interface IEmailLog
+    public interface IEmailLog:IIFSystemTable
     {
         string From { get; set; }
         string To { get; set; }

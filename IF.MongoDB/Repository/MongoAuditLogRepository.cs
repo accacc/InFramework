@@ -1,5 +1,6 @@
 ﻿using IF.Core.Data;
 using IF.MongoDB.Model;
+using IF.MongoDB.Repository.Abstract;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -9,47 +10,21 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB
 {
-    public class MongoAuditLogRepository : IMongoAuditLogRepository
+    public class MongoAuditLogRepository :GenericRepository, IMongoAuditLogRepository
     {
-        private readonly LogContext _context = null;
 
-        public MongoAuditLogRepository(string url, string db)
+        public MongoAuditLogRepository(string url, string db):base(url, db)
         {
-            _context = new LogContext(url, db);
+            
         }
 
-        public async Task<IEnumerable<AuditLog>> GetAllLogsAsync()
-        {
-            try
-            {
-                return await _context.AuditLogs.Find(_ => true).ToListAsync();
-            }
-            catch(Exception ex) 
-            {
-                throw ex;
-            }
-        }
-
-        public async Task<AuditLog> GetLogAsync(Guid id)
-        {
-            try
-            {
-                return await _context.AuditLogs
-                                .Find(log => log.UniqueId == id)
-                                .SingleOrDefaultAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
+       
         //
         public async Task<IEnumerable<AuditLog>> GetLogsAsync(string bodyText, DateTime updatedFrom, long headerSizeLimit)
         {
             try
             {
-                var query = _context.AuditLogs.Find(log => log.JsonObject.Contains(bodyText) && log.LogDate >= updatedFrom).SortBy(s=>s.LogDate);
+                var query = this.GetQuery<AuditLog>().Find(log => log.JsonObject.Contains(bodyText) && log.LogDate >= updatedFrom).SortBy(s=>s.LogDate);
 
                 return await query.ToListAsync();
             }
@@ -60,29 +35,7 @@ namespace IF.MongoDB
         }
 
 
-        public async Task AddLogAsync(AuditLog item)
-        {
-            try
-            {
-                await _context.AuditLogs.InsertOneAsync(item).ConfigureAwait(false);
-            }
-            catch //(Exception ex)
-            {
-                //throw ex;
-            }
-        }
-
-        public void AddLog(AuditLog auditLog)
-        {
-            try
-            {
-                _context.AuditLogs.InsertOne(auditLog);
-            }
-            catch //(Exception ex)
-            {
-                //throw ex;
-            }
-        }
+       
 
         public async Task<AuditLog> GetDetailAsync(Guid uniqueId)
         {
@@ -91,7 +44,7 @@ namespace IF.MongoDB
 
                 var fields = Builders<AuditLog>.Projection.Include(e => e.JsonObject).Include(e=>e.ObjectName);
 
-                var query = _context.AuditLogs.Find(log => log.UniqueId == uniqueId).Project<AuditLog>(fields);
+                var query = this.GetQuery<AuditLog>().Find(log => log.UniqueId == uniqueId).Project<AuditLog>(fields);
 
                 var detail =  await query.SingleOrDefaultAsync();
 
@@ -129,10 +82,10 @@ namespace IF.MongoDB
 
             var fields = Builders<AuditLog>.Projection.Exclude(e => e.JsonObject);
 
-            var list = await _context.AuditLogs.Find(filter).Project<AuditLog>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.LogDate).ToListAsync();
+            var list = await this.GetQuery<AuditLog>().Find(filter).Project<AuditLog>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.LogDate).ToListAsync();
 
 
-            var count = await _context.AuditLogs.CountDocumentsAsync(filter);
+            var count = await this.GetQuery<AuditLog>().CountDocumentsAsync(filter);
 
 
             return new PagedListResponse<AuditLog>(list, PageNumber, PageSize, count);

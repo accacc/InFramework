@@ -6,6 +6,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\AuditLog.cshtml.cs" />
+    <Compile Remove="Pages\Configs.cshtml.cs" />
+    <Compile Remove="Pages\Events.cshtml.cs" />
+    <Compile Remove="Pages\HealthChecks.cshtml.cs" />
+    <Compile Remove="Pages\NotificationLog.cshtml.cs" />
+    <Compile Remove="Pages\PerformanceLog.cshtml.cs" />
+    <Compile Remove="Pages\SmsLog.cshtml.cs" />
+    <Compile Remove="Pages\SqlServer.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\AuditLog.cshtml" />
+    <Content Remove="Pages\Configs.cshtml" />
+    <Content Remove="Pages\Events.cshtml" />
+    <Content Remove="Pages\HealthChecks.cshtml" />
+    <Content Remove="Pages\NotificationLog.cshtml" />
+    <Content Remove="Pages\PerformanceLog.cshtml" />
+    <Content Remove="Pages\SmsLog.cshtml" />
+    <Content Remove="Pages\SqlServer.cshtml" />
+    <Content Remove="Pages\_AuditLogDetail.cshtml" />
+    <Content Remove="Pages\_AuditLogTable.cshtml" />
+    <Content Remove="Pages\_EventsTable.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Pages\Shared\_CookieConsentPartial.cshtml" />
     <None Include="Pages\Shared\_Layout.cshtml" />
     <None Include="Pages\Shared\_ValidationScriptsPartial.cshtml" />
@@ -52,15 +77,28 @@
   <ItemGroup>
     <ProjectReference Include="..\IF.Configuration\IF.Configuration.csproj" />
     <ProjectReference Include="..\IF.Core\IF.Core.csproj" />
+    <ProjectReference Include="..\IF.Dependency.AutoFac\IF.Dependency.AutoFac.csproj" />
     <ProjectReference Include="..\IF.EventBus.Logging.EF\IF.EventBus.Logging.EF.csproj" />
     <ProjectReference Include="..\IF.HealthChecks.MongoDb\IF.HealthChecks.MongoDb.csproj" />
     <ProjectReference Include="..\IF.HealthChecks.RabbitMQ\IF.HealthChecks.RabbitMQ.csproj" />
     <ProjectReference Include="..\IF.HealthChecks.SqlServer\IF.HealthChecks.SqlServer.csproj" />
     <ProjectReference Include="..\IF.HealthChecks\IF.HealthChecks.csproj" />
+    <ProjectReference Include="..\IF.MongoDB.Integration\IF.MongoDB.Integration.csproj" />
     <ProjectReference Include="..\IF.MongoDB\IF.MongoDB.csproj" />
+    <ProjectReference Include="..\IF.Rest.Client.Integration\IF.Rest.Client.Integration.csproj" />
     <ProjectReference Include="..\IF.Rest.Client\IF.Rest.Client.csproj" />
     <ProjectReference Include="..\IF.Web.Mvc.FluentHtml\IF.Web.Mvc.FluentHtml.csproj" />
     <ProjectReference Include="..\IF.Web.Mvc\IF.Web.Mvc.csproj" />
+    <ProjectReference Include="..\System.UI\IF.System.UI.ApplicationLog\IF.System.UI.ApplicationLog.csproj" />
+    <ProjectReference Include="..\System.UI\IF.System.UI.AuditLog\IF.System.UI.AuditLog.csproj" />
+    <ProjectReference Include="..\System.UI\IF.System.UI.Configs\IF.System.UI.Configs.csproj" />
+    <ProjectReference Include="..\System.UI\IF.System.UI.EmailLog\IF.System.UI.EmailLog.csproj" />
+    <ProjectReference Include="..\System.UI\IF.System.UI.Events\IF.System.UI.Events.csproj" />
+    <ProjectReference Include="..\System.UI\IF.System.UI.HealthChecks\IF.System.UI.HealthChecks.csproj" />
+    <ProjectReference Include="..\System.UI\IF.System.UI.NotificationLog\IF.System.UI.NotificationLog.csproj" />
+    <ProjectReference Include="..\System.UI\IF.System.UI.PerformanceLog\IF.System.UI.PerformanceLog.csproj" />
+    <ProjectReference Include="..\System.UI\IF.System.UI.SmsLog\IF.System.UI.SmsLog.csproj" />
+    <ProjectReference Include="..\System.UI\IF.System.UI.SqlServer\IF.System.UI.SqlServer.csproj" />
   </ItemGroup>
 
 </Project>

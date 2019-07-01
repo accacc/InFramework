@@ -1,0 +1,68 @@
+﻿@page
+@model TutumluAnne.Log.AdminUI.Pages.SqlServerModel
+
+@{
+    ViewData["Title"] = "Sql Server Information";
+}
+
+<h2>Sql Server Information</h2>
+
+
+
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Database Source
+            </th>
+            <th>
+                Database
+            </th>
+
+            <th>
+                Use Integrated Security
+            </th>
+            <th>
+                Min Pool Size
+            </th>
+            <th>
+                Max Pool Size
+            </th>
+            <th>
+                Load Balance Timeout
+            </th>
+        </tr>
+
+
+        @foreach (var item in Model.ConnectionStrings)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataSource)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.InitialCatalog)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IntegratedSecurity)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.MinPoolSize) 
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxPoolSize) 
+            </td>
+            <td>@Html.DisplayFor(modelItem=>item.LoadBalanceTimeout)</td>
+        </tr>
+        }
+
+    </table>
+</div>

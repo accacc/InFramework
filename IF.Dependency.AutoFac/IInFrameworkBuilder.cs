@@ -4,6 +4,7 @@ using IF.Configuration;
 using IF.Core.Configuration;
 using IF.Core.Cqrs;
 using IF.Core.DependencyInjection;
+using IF.Core.DependencyInjection.Interface;
 using IF.Core.DependencyInjection.Model;
 using IF.Core.Handler;
 using IF.Core.Security;
@@ -107,14 +108,14 @@ namespace IF.Dependency.AutoFac
         }
 
 
-        public IInFrameworkBuilder AddRedisCache(Action<IRedisCacheBuilder> action)
-        {
-            action(new RedisCacheBuilder(this));
+        //public IInFrameworkBuilder AddRedisCache(Action<IRedisCacheBuilder> action)
+        //{
+        //    action(new RedisCacheBuilder(this));
 
-            return this;
+        //    return this;
 
 
-        }
+        //}
 
 
 
@@ -263,6 +264,12 @@ namespace IF.Dependency.AutoFac
         public IInFrameworkBuilder AddSmsSender(Action<ISmsBuilder> action)
         {
             action(new SmsBuilder(this));
+            return this;
+        }
+
+        public IInFrameworkBuilder AddRestClient(Action<IRestClientBuilder> action)
+        {
+            action(new RestClientBuilder(this));
             return this;
         }
     }

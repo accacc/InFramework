@@ -17,9 +17,9 @@ namespace IF.Rest.Client
 
         private RestMethodType methodType;
 
-        private Dictionary<string, string> headers;
+        //private Dictionary<string, string> headers;
 
-        private KeyValuePair<string, string> authorization;
+        //private KeyValuePair<string, string> authorization;
 
         private readonly IIFRestClient iFRestClient;
 

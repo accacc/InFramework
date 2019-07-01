@@ -1,0 +1,75 @@
+﻿@page
+@model TutumluAnne.Log.AdminUI.Pages.ApplicationLogModel
+
+
+@{
+    Layout = "_Layout";
+}
+
+@{
+    ViewData["Title"] = "ApplicationLogDiv";
+}
+
+<h2>Application Log</h2>
+
+
+
+
+<form method="post" asp-action="View">
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-xs-6">
+
+            Başlangıç Tarihi: <input type="text" class="form-control" id="BeginDate" name="BeginDate" value="@Model.BeginDate.ToShortDateString()">
+        </div>
+        <div class="col-xs-6">
+            Bitiş Tarihi: <input type="text" class="form-control" id="EndDate" name="EndDate" value="@Model.EndDate.ToShortDateString()">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            Kaynak: <input type="text" class="form-control" id="Source" name="Source" value="@Model.Source">
+        </div>
+        <div class="col-xs-6">
+            User Id: <input type="text" class="form-control" id="UserId" name="UserId" value="@Model.UserId">
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-6">
+            Kanal: <input type="text" class="form-control" id="Channel" name="Channel" value="@Model.Channel">
+        </div>
+        <div class="col-xs-6">
+            Message: <input type="text" class="form-control" id="Message" name="Message" value="@Model.Message">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            Skip: <input type="text" class="form-control" id="PageNumber" name="PageNumber" value="@Model.PageNumber">
+        </div>
+        <div class="col-xs-6">
+            Take: <input type="text" class="form-control" id="PageSize" name="PageSize" value="@Model.PageSize">
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-6">
+
+        </div>
+        <div class="col-xs-6">
+            <input class="btn btn-default" type="submit" value="Search" />
+        </div>
+    </div>
+
+
+    <br />
+
+    @*<partial name="_ApplicationLogTable" model="Model" />*@
+    @{await Html.RenderPartialAsync("_ApplicationLogTable",Model);}
+</form>
+
+
+

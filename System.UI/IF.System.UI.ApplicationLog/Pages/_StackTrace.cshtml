@@ -1,0 +1,25 @@
+﻿@using System;
+@using System.IO;
+@using Newtonsoft.Json;
+
+
+@model string
+
+
+
+
+@{
+    Layout = "_ModalLayout";
+}
+
+<h2>Stack Trace</h2>
+
+@if (Model != null)
+{<pre>@Model</pre>
+}
+else
+{
+    <p>Kayıt bulunamadı.</p>
+}
+
+

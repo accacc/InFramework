@@ -4,9 +4,14 @@ using System.Text;
 
 namespace IF.Core.Log
 {
-    public interface IAuditLog
+    public interface IIFSystemTable
     {
         Guid UniqueId { get; set; }
+    }
+
+    public interface IAuditLog:IIFSystemTable
+    {
+        
 
         DateTime LogDate { get; set; }
 

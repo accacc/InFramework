@@ -20,16 +20,16 @@ namespace IF.Rest.Client
 
         public string BaseUrl { get; set; }
 
-        public IFRestClient(string baseUrl)
-        {
-            this.client = new HttpClient();
-            this.BaseUrl = baseUrl;
-        }
+        //public IFRestClient(string baseUrl, HttpClient httpClient)
+        //{
+        //    this.client = httpClient;
+        //    this.BaseUrl = baseUrl;
+        //}
 
 
-        public IFRestClient()
+        public IFRestClient(HttpClient httpClient)
         {
-            this.client = new HttpClient();
+            this.client = httpClient;
         }
 
         public string Version { get; set; }
