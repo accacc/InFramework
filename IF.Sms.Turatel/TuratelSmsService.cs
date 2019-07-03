@@ -74,7 +74,7 @@ namespace IF.Sms.Turatel
                     new XElement("Option", "1"),
                     new XElement("Originator", başlık),
                     new XElement("Mesgbody", mesaj),
-                    new XElement("Numbers", numaralar.First()),
+                    new XElement("Numbers", string.Join(",", numaralar)),
                     new XElement("SDate", "")
                 )
             );
