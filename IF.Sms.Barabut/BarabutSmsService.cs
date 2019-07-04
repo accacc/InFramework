@@ -23,7 +23,7 @@ namespace Derin.SocialAndCommunication.Sms.Integration.InfoBip
 
         }
 
-        public IFSmsResponse SendSms(IFSmsRequest request)
+        public IFSmsResponse SendSms(IFSmsOnetoManyRequest request)
         {
 
             IFSmsResponse derinSmsResponse = new IFSmsResponse();

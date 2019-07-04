@@ -6,6 +6,6 @@ namespace IF.Core.Sms
 {
     public interface IIFSmsService
     {
-        IFSmsResponse SendSms(IFSmsRequest request);
+        IFSmsResponse SendSms(IFSmsOnetoManyRequest request);
     }
 }

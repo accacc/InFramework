@@ -24,7 +24,7 @@ namespace IF.Sms.Turatel
         }
 
 
-        public IFSmsResponse SendSms(IFSmsRequest request)
+        public IFSmsResponse SendSms(IFSmsOnetoManyRequest request)
         {
             IFSmsResponse response = new IFSmsResponse();
 
