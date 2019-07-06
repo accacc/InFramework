@@ -11,7 +11,8 @@ namespace IF.Sms.Turatel.Integration
         public static ISmsBuilder AddTuratel(this ISmsBuilder smsBuilder, IServiceCollection services, IFSmsSettings settings)
         {
 
-            services.AddHttpClient<IIFSmsService, TuratelSmsService>();
+            services.AddHttpClient<IIFSmsOneToManyServiceAsync, TuratelSmsService>();
+            services.AddHttpClient<IIFSmsManyToManyServiceAsync, TuratelSmsService>();
             services.AddSingleton(settings);
             return smsBuilder;
         }

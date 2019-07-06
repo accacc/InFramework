@@ -9,7 +9,7 @@ using System.Text;
 
 namespace IF.Sms.InfoBip
 {
-    public class InfoBipSmsService : IIFSmsService
+    public class InfoBipSmsService : IIFSmsOneToManyService
     {
 
         private string userName;

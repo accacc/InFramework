@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Derin.SocialAndCommunication.Sms.Integration.InfoBip
 {
-    public class BarabutSmsService : IIFSmsService
+    public class BarabutSmsService : IIFSmsOneToManyService
     {
 
         private string userName;
