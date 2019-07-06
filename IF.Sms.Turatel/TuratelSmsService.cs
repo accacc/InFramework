@@ -10,21 +10,29 @@ using System.Xml.Linq;
 
 namespace IF.Sms.Turatel
 {
+  
 
-
-    public class TuratelSmsService : IIFSmsOneToManyServiceAsync, IIFSmsManyToManyServiceAsync
+    public class TuratelSmsService : IIFSmsOneToManyServiceAsync//, IIFSmsManyToManyServiceAsync
     {
 
-        private readonly HttpClient httpClient;
+        private readonly TuratelSmsClient httpClient;
         private readonly IFSmsSettings settings;
 
-        public TuratelSmsService(HttpClient httpClient, IFSmsSettings settings)
+        public TuratelSmsService(TuratelSmsClient httpClient, IFSmsSettings settings)
         {
             this.httpClient = httpClient;
             this.settings = settings;
         }
 
-
+//        01 Kullanıcı adı ya da şifre hatalı
+//02 Kredisi yeterli değil
+//03 Geçersiz içerik
+//04 Bilinmeyen SMS tipi
+//05 Hatalı gönderen ismi
+//06 Mesaj metni ya da Alıcı bilgisi girilmemiş
+//07 İçerik uzun fakat Concat özelliği ayarlanmadığından mesaj birleştirilemiyor
+//08 Kullanıcının mesaj göndereceği gateway tanımlı değil ya da şu anda çalışmıyor
+//09 Yanlış tarih formatı.Tarih ddMMyyyyhhmm formatında olmalıdır
         public async Task<IFSmsResponse> SendSmsAsync(IFSmsOnetoManyRequest request)
         {
             IFSmsResponse response = new IFSmsResponse();
@@ -67,12 +75,7 @@ namespace IF.Sms.Turatel
 
 
 
-        private HttpClient GetHttpClient()
-        {
-
-
-            return this.httpClient;
-        }
+        
 
 
 
@@ -88,7 +91,7 @@ namespace IF.Sms.Turatel
                     new XElement("UserName", settings.UserName),
                     new XElement("PassWord", settings.Password),
                     new XElement("Type", "1"),
-                    new XElement("Concat", "1"),
+                    new XElement("Concat", "0"),
                     new XElement("Option", "1"),
                     new XElement("Originator", başlık),
                     new XElement("Mesgbody", mesaj),
@@ -98,7 +101,7 @@ namespace IF.Sms.Turatel
             );
 
 
-            var response = await Gonder(doc);
+            var response = await httpClient.Gonder(doc);
 
             return response;
         }
@@ -128,47 +131,7 @@ namespace IF.Sms.Turatel
         //    return response;
         //}
 
-        private async Task<SmsResult> Gonder(XDocument document)
-        {
-            document.Declaration = new XDeclaration("1.0", "utf-8", null);
-            var model = new SmsResult { IsSuccess = true };
-
-            this.httpClient.BaseAddress = new Uri("https://processor.smsorigin.com");
-            this.httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
-            this.httpClient.MaxResponseContentBufferSize = Int32.MaxValue;
-
-
-            var httpContent = new StringContent(document.ToString(), Encoding.UTF8, "text/html");
-
-            var response = await this.httpClient.PostAsync("xml/process.aspx", httpContent);
-
-            var returnValue = response.Content.ReadAsStringAsync().Result;
-
-            if (!response.IsSuccessStatusCode)
-            {
-                model.IsSuccess = false;
-            }
-
-            model.Desc = returnValue;
-            model.IntegrationId = returnValue.Replace("ID", "").Replace(":", "");
-
-            return model;
-        }
-
-        private string GetSHA1(string temp)
-        {
-            using (var sha1 = new System.Security.Cryptography.SHA1Managed())
-            {
-                var hash = sha1.ComputeHash(System.Text.Encoding.UTF8.GetBytes(temp));
-                var sb = new System.Text.StringBuilder(hash.Length * 2);
-                foreach (byte bb in hash)
-                {
-                    sb.Append(bb.ToString("X2"));
-                }
-
-                return sb.ToString();
-            }
-        }
+       
 
         public async Task<SmsResult> SendSmsM2M(IFSmsManyToManyRequest request)
         {
@@ -201,7 +164,7 @@ namespace IF.Sms.Turatel
            );            
 
 
-            var response = await Gonder(doc);
+            var response = await httpClient.Gonder(doc);
 
             return response;
         }
