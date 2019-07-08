@@ -12,7 +12,7 @@ namespace IF.Sms.Turatel
 {
   
 
-    public class TuratelSmsService : IIFSmsOneToManyServiceAsync//, IIFSmsManyToManyServiceAsync
+    public class TuratelSmsService : IIFSmsOneToManyServiceAsync,IIFSmsManyToManyServiceAsync
     {
 
         private readonly TuratelSmsClient httpClient;
@@ -155,7 +155,8 @@ namespace IF.Sms.Turatel
                    new XElement("UserName", settings.UserName),
                    new XElement("PassWord", settings.Password),
                    new XElement("Type", "1"),
-                   new XElement("Concat", "1"),
+                   new XElement("Concat", "0"),
+                    //new XElement("Option", "1"),
                    new XElement("Originator", request.Subject),
                    messageDoc,
 

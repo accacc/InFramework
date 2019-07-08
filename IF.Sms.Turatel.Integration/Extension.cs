@@ -12,7 +12,7 @@ namespace IF.Sms.Turatel.Integration
         {
 
             services.AddSingleton<IIFSmsOneToManyServiceAsync, TuratelSmsService>();
-           // services.AddSingleton<IIFSmsManyToManyServiceAsync, TuratelSmsService>();
+            services.AddSingleton<IIFSmsManyToManyServiceAsync, TuratelSmsService>();
             services.AddHttpClient<TuratelSmsClient>();
             services.AddSingleton(settings);
             return smsBuilder;
