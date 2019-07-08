@@ -29,11 +29,11 @@ namespace IF.MongoDB
 
             try
             {
-                var fields = Builders<ApplicationErrorLog>.Projection.Include(e => e.StackTrace);
+                var fields = Builders<ApplicationErrorLogMongoDB>.Projection.Include(e => e.StackTrace);
 
-                var log = await this.GetQuery<ApplicationErrorLog>()
+                var log = await this.GetQuery<ApplicationErrorLogMongoDB>()
                                 .Find(e => e.UniqueId == id)
-                                .Project<ApplicationErrorLog>(fields)
+                                .Project<ApplicationErrorLogMongoDB>(fields)
                                 .SingleOrDefaultAsync();
 
                 return log.StackTrace;
@@ -46,9 +46,9 @@ namespace IF.MongoDB
             
         }
 
-        public async Task<PagedListResponse<IApplicationErrorLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string Message, string Source, string Channel, int PageNumber = 0, int PageSize = 50)
+        public async Task<PagedListResponse<ApplicationErrorLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string Message, string Source, string Channel, int PageNumber = 0, int PageSize = 50)
         {
-            var filterBuilder = Builders<ApplicationErrorLog>.Filter;
+            var filterBuilder = Builders<ApplicationErrorLogMongoDB>.Filter;
             var start = new DateTime(BeginDate.Year, BeginDate.Month, BeginDate.Day);
             var end = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day);
 
@@ -82,14 +82,14 @@ namespace IF.MongoDB
                 filter = filter & textFilter;
             }
 
-            var fields = Builders<ApplicationErrorLog>.Projection.Exclude(e => e.StackTrace);
+            var fields = Builders<ApplicationErrorLogMongoDB>.Projection.Exclude(e => e.StackTrace).Exclude("_id"); 
 
-            var list = await this.GetQuery<ApplicationErrorLog>().Find(filter).Project<ApplicationErrorLog>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.LogDate).ToListAsync();
+            var list = await this.GetQuery<ApplicationErrorLogMongoDB>().Find(filter).Project<ApplicationErrorLog>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.LogDate).ToListAsync();
 
-            var count = await this.GetQuery<ApplicationErrorLog>().CountDocumentsAsync(filter);
+            var count = await this.GetQuery<ApplicationErrorLogMongoDB>().CountDocumentsAsync(filter);
 
 
-            return new PagedListResponse<IApplicationErrorLog>(list, PageNumber, PageSize, count);
+            return new PagedListResponse<ApplicationErrorLog>(list, PageNumber, PageSize, count);
         }
     }
 }

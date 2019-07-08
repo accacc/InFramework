@@ -34,7 +34,7 @@ namespace IF.Core.Log
 
         Task<string> GetStackTraceAsync(Guid id);
 
-        Task<PagedListResponse<IApplicationErrorLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string Message, string Source, string Channel, int PageNumber = 0, int PageSize = 50);
+        Task<PagedListResponse<ApplicationErrorLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string Message, string Source, string Channel, int PageNumber = 0, int PageSize = 50);
 
 
 

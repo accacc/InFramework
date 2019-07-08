@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB
 {
-    public class ApplicationErrorLog:IApplicationErrorLog
+    public class ApplicationErrorLogMongoDB:IApplicationErrorLog
     {
 
         [BsonId]

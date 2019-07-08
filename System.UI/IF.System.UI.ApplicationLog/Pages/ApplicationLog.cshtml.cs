@@ -19,7 +19,7 @@ namespace TutumluAnne.Log.AdminUI.Pages
 
         //public IEnumerable<ApplicationErrorLog> Logs { get; set; }
 
-        public PagedListResponse<IApplicationErrorLog> Logs { get; set; }
+        public PagedListResponse<ApplicationErrorLog> Logs { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public int PageSize { get; set; }

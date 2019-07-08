@@ -13,7 +13,7 @@ namespace IF.MongoDB
     {
         Task<string> GetStackTraceAsync(Guid id);
 
-        Task<PagedListResponse<IApplicationErrorLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string Message, string Source, string Channel, int skipNumber = 0, int takeNumber = 50);
+        Task<PagedListResponse<ApplicationErrorLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string Message, string Source, string Channel, int skipNumber = 0, int takeNumber = 50);
 
 
     }
