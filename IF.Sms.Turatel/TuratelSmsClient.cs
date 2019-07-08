@@ -39,9 +39,8 @@ namespace IF.Sms.Turatel
             {
                 model.IsSuccess = false;
             }
-
-            model.Desc = returnValue;
-            model.IntegrationId = returnValue.Replace("ID", "").Replace(":", "");
+            
+            model.Response = returnValue;
 
             return model;
         }

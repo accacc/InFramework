@@ -39,11 +39,11 @@ namespace IF.Sms.Turatel
 
             try
             {
-                var result = await this.MesajGonder(request.Subject, request.Message, request.Numbers, null);
+                var result = await this.SendSmsO2M(request);
 
-                response.IsSuccess = result.IsSuccess;
-                response.Code = result.Code.ToString();
-                response.ErrorMessage = result.Desc;
+                ConvertResponse(response, result);
+
+
             }
             catch (Exception ex)
             {
@@ -61,9 +61,7 @@ namespace IF.Sms.Turatel
             {
                 var result = await this.SendSmsM2M(request);
 
-                response.IsSuccess = result.IsSuccess;
-                response.Code = result.Code.ToString();
-                response.ErrorMessage = result.Desc;
+                ConvertResponse(response, result);
             }
             catch (Exception ex)
             {
@@ -74,14 +72,34 @@ namespace IF.Sms.Turatel
         }
 
 
+        public void ConvertResponse(IFSmsResponse response,SmsResult smsResult)
+        {
+            if (smsResult.IsSuccess == false)
+            {
+                response.IsSuccess = false;
+                response.ErrorCode = smsResult.Response;
+                return;
+            }
 
+            if (smsResult.Response.Contains("ID:"))
+            {
+                response.IsSuccess = true;
+                response.IntegrationId = smsResult.Response.Replace("ID", "").Replace(":", "");
+
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.ErrorCode = smsResult.Response;
+            }
+        }
         
 
 
 
        
 
-        public async Task<SmsResult> MesajGonder(string başlık, string mesaj, List<string> numaralar, DateTime? ileritarih)
+        public async Task<SmsResult> SendSmsO2M(IFSmsOnetoManyRequest request)
         {
             var doc = new XDocument(
                 new XElement("MainmsgBody",
@@ -93,9 +111,9 @@ namespace IF.Sms.Turatel
                     new XElement("Type", "1"),
                     new XElement("Concat", "0"),
                     new XElement("Option", "1"),
-                    new XElement("Originator", başlık),
-                    new XElement("Mesgbody", mesaj),
-                    new XElement("Numbers", string.Join(",", numaralar)),
+                    new XElement("Originator", request.Subject),
+                    new XElement("Mesgbody",request.Message),
+                    new XElement("Numbers", string.Join(",", request.Numbers)),
                     new XElement("SDate", "")
                 )
             );
@@ -106,31 +124,7 @@ namespace IF.Sms.Turatel
             return response;
         }
 
-        //public SmsResult MesajGonderDogrulamKodu(string başlık, string mesaj, string numara)
-        //{
-        //    var dogrulamaKodu = new Random().Next(100000, 999999);
-        //    var doc = new XDocument(
-        //        new XElement("MainmsgBody",
-        //            new XElement("Command", "0"),
-        //            new XElement("PlatformID", "1"),
-        //            new XElement("ChannelCode", settings.ChannelCode),
-        //            new XElement("UserName", settings.UserName),
-        //            new XElement("PassWord", settings.Password),
-        //            new XElement("Type", "1"),
-        //            new XElement("Concat", "1"),
-        //            new XElement("Option", "1"),
-        //            new XElement("Originator", başlık),
-        //            new XElement("Mesgbody", mesaj.Replace("@kod", dogrulamaKodu.ToString())),
-        //            new XElement("Numbers", numara),
-        //            new XElement("SDate", "")
-        //        )
-        //    );
-
-        //    var response = Gonder(doc);
-        //    response.EncryptedCode = GetSHA1(dogrulamaKodu.ToString());
-        //    return response;
-        //}
-
+     
        
 
         public async Task<SmsResult> SendSmsM2M(IFSmsManyToManyRequest request)
