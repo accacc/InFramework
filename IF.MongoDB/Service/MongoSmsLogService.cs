@@ -25,6 +25,11 @@ namespace IF.MongoDB.Service
             return await this.smsLogRepository.GetPaginatedAsync(BeginDate, EndDate,  number, PageSize, PageNumber );
         }
 
+        public Task<PagedListResponse<SmsBulkOneToManyOperation>> GetPaginatedSmsBulkOneToManyOperationAsync(DateTime BeginDate, DateTime EndDate, string bulkName, int PageNumber = 0, int PageSize = 50)
+        {
+            return await this.smsLogRepository.GetPaginatedSmsBulkOneToManyOperationAsync(BeginDate, EndDate, bulkName, PageSize, PageNumber);
+        }
+
         public async Task LogAsync(string number, string message, DateTime Date, bool IsSent,string Error, string IntegrationId, Guid UniqueId,Guid SourceId)
         {
             SmsLog smsLog = new SmsLog();

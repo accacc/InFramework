@@ -27,8 +27,7 @@ namespace IF.MongoDB
         public async Task<string> GetStackTraceAsync(Guid id)
         {
 
-            try
-            {
+          
                 var fields = Builders<ApplicationErrorLogMongoDB>.Projection.Include(e => e.StackTrace);
 
                 var log = await this.GetQuery<ApplicationErrorLogMongoDB>()
@@ -37,11 +36,7 @@ namespace IF.MongoDB
                                 .SingleOrDefaultAsync();
 
                 return log.StackTrace;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+          
 
             
         }

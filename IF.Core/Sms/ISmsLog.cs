@@ -24,4 +24,20 @@ namespace IF.Core.Sms
 
         Guid SourceId { get; set; }
     }
+
+    public class SmsBulkOneToManyOperation
+    {
+
+        //public IFormFile File { get; set; }
+        public string BulkName { get; set; }
+
+        public int SplitBy { get; set; }
+
+        public long Total { get; set; }
+        public string Message { get; set; }
+
+        public DateTime Date { get; set; } 
+
+
+    }
 }

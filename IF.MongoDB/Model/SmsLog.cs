@@ -30,4 +30,27 @@ namespace IF.MongoDB.Model
         public Guid UniqueId { get; set; }
         public Guid SourceId { get; set; }
     }
+
+   
+
+    public class SmsBulkOneToManyOperationMongoDb
+    {
+        [BsonId]
+        public ObjectId InternalId { get; set; }
+
+        //public IFormFile File { get; set; }
+        public string BulkName { get; set; }
+
+        public int SplitBy { get; set; }
+
+        public long Total { get; set; }
+        public string Message { get; set; }
+
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+
+
+        public DateTime Date { get; set; } = DateTime.Now;
+
+
+    }
 }

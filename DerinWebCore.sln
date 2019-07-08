@@ -103,21 +103,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.System.UI.PerformanceLog
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.MongoDB.Integration", "IF.MongoDB.Integration\IF.MongoDB.Integration.csproj", "{AE44F11E-BCB7-4A00-967B-7AB1526B7228}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.System.UI.Configs", "System.UI\IF.System.UI.Configs\IF.System.UI.Configs.csproj", "{88D30283-1533-41E2-8A9D-F1060A3B35E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.System.UI.Configs", "System.UI\IF.System.UI.Configs\IF.System.UI.Configs.csproj", "{88D30283-1533-41E2-8A9D-F1060A3B35E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.System.UI.SqlServer", "System.UI\IF.System.UI.SqlServer\IF.System.UI.SqlServer.csproj", "{DF892CB8-484D-4EB4-AC95-46EA1A852E58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.System.UI.SqlServer", "System.UI\IF.System.UI.SqlServer\IF.System.UI.SqlServer.csproj", "{DF892CB8-484D-4EB4-AC95-46EA1A852E58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Rest.Client.Integration", "IF.Rest.Client.Integration\IF.Rest.Client.Integration.csproj", "{F7DFA52B-6636-4ED0-B9E8-22A2DDA87A84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Rest.Client.Integration", "IF.Rest.Client.Integration\IF.Rest.Client.Integration.csproj", "{F7DFA52B-6636-4ED0-B9E8-22A2DDA87A84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.System.UI.ApplicationLog", "System.UI\IF.System.UI.ApplicationLog\IF.System.UI.ApplicationLog.csproj", "{0080AC7D-FBEC-481A-B9B5-1A2AAC7ACAAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.System.UI.ApplicationLog", "System.UI\IF.System.UI.ApplicationLog\IF.System.UI.ApplicationLog.csproj", "{0080AC7D-FBEC-481A-B9B5-1A2AAC7ACAAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.System.UI.Events", "System.UI\IF.System.UI.Events\IF.System.UI.Events.csproj", "{05D19A1D-66B4-4BDF-9034-25FD77815246}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.System.UI.Events", "System.UI\IF.System.UI.Events\IF.System.UI.Events.csproj", "{05D19A1D-66B4-4BDF-9034-25FD77815246}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{D341F4C3-4300-47AF-B531-88A33C727436}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HealthChecks", "HealthChecks", "{0810A118-F6A2-46A9-A328-7194EA078705}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3dPartyIntegrations", "3dPartyIntegrations", "{B2D90BD4-E1FF-482C-8B1B-28D666BCAB3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.System.UI.SmsOneToMany", "System.UI\IF.System.UI.SmsOneToMany\IF.System.UI.SmsOneToMany.csproj", "{C213B71B-257B-4E8C-8D07-8F9C8C960F2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -341,6 +343,10 @@ Global
 		{05D19A1D-66B4-4BDF-9034-25FD77815246}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05D19A1D-66B4-4BDF-9034-25FD77815246}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05D19A1D-66B4-4BDF-9034-25FD77815246}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C213B71B-257B-4E8C-8D07-8F9C8C960F2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C213B71B-257B-4E8C-8D07-8F9C8C960F2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C213B71B-257B-4E8C-8D07-8F9C8C960F2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C213B71B-257B-4E8C-8D07-8F9C8C960F2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -372,6 +378,7 @@ Global
 		{DF892CB8-484D-4EB4-AC95-46EA1A852E58} = {0A3C6658-C4EA-49D3-A0B7-5F1043DF8744}
 		{0080AC7D-FBEC-481A-B9B5-1A2AAC7ACAAC} = {0A3C6658-C4EA-49D3-A0B7-5F1043DF8744}
 		{05D19A1D-66B4-4BDF-9034-25FD77815246} = {0A3C6658-C4EA-49D3-A0B7-5F1043DF8744}
+		{C213B71B-257B-4E8C-8D07-8F9C8C960F2D} = {0A3C6658-C4EA-49D3-A0B7-5F1043DF8744}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F11D668-17FD-429B-8951-BB453418EBBA}

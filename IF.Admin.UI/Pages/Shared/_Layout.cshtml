@@ -33,14 +33,15 @@
         <div class="container">
             <div class="collapse navbar-collapse">
                 <div class="navbar-right">
-                    <a asp-page="/SqlServer" class="btn btn-info navbar-btn">Sql Server</a>
-                    <a asp-page="/Events" class="btn btn-info navbar-btn">Event Manager</a>
+                    @*<a asp-page="/SqlServer" class="btn btn-info navbar-btn">Sql Server</a>*@
+                    @*<a asp-page="/Events" class="btn btn-info navbar-btn">Event Manager</a>*@
                     <a asp-page="/ApplicationLog" class="btn btn-info navbar-btn">Application Logs</a>
-                    <a asp-page="/PerformanceLog" class="btn btn-info navbar-btn">Performance Logs</a>
-                    <a asp-page="/AuditLog" class="btn btn-info navbar-btn">Audit Logs</a>
-                    <a asp-page="/EmailLog" class="btn btn-info navbar-btn">Email Logs</a>
-                    <a asp-page="/SmsLog" class="btn btn-info navbar-btn">Sms Logs</a>
-                    <a asp-page="/NotificationLog" class="btn btn-info navbar-btn">Notification Logs</a>
+                    <a asp-page="/SmsOneToMany" class="btn btn-info navbar-btn">Sms OneTo Many</a>
+                    @*<a asp-page="/PerformanceLog" class="btn btn-info navbar-btn">Performance Logs</a>
+        <a asp-page="/AuditLog" class="btn btn-info navbar-btn">Audit Logs</a>
+        <a asp-page="/EmailLog" class="btn btn-info navbar-btn">Email Logs</a>
+        <a asp-page="/SmsLog" class="btn btn-info navbar-btn">Sms Logs</a>
+        <a asp-page="/NotificationLog" class="btn btn-info navbar-btn">Notification Logs</a>*@
                     &nbsp;
                     <a asp-page="/HealthChecks" class="btn btn-danger">Health Checks</a>
                     @if (User.Identity.IsAuthenticated)
