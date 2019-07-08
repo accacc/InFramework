@@ -26,4 +26,30 @@ namespace IF.Core.Log
 
         DateTime LogDate { get; set; }
     }
+
+
+    public class ApplicationErrorLog: IApplicationErrorLog
+    {
+
+    public     string Channel { get; set; }
+
+        public string ExceptionMessage { get; set; }
+
+        public string Logger { get; set; }
+
+        public string UserId { get; set; }
+
+        public string StackTrace { get; set; }
+
+        public string Message { get; set; }
+        public string Level { get; set; }
+
+        public string MachineName { get; set; }
+
+        public string IPAddress { get; set; }
+
+        public DateTime LogDate { get; set; }
+
+        public Guid UniqueId { get; set; }
+    }
 }
