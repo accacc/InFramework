@@ -10,6 +10,7 @@ namespace IF.Core.Handler
     public interface IBaseResponseContract
     {
 
+         int ExecutionTime { get; set; }
 
         string ErrorCode { get; set; }
 

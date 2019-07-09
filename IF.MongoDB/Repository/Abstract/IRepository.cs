@@ -13,6 +13,8 @@ namespace IF.MongoDB.Repository.Abstract
 
         IMongoCollection<T> GetQuery<T>(string tableName);
 
+        IMongoCollection<T> GetQuery<T>(string tableName, string database);
+
         Task<IEnumerable<T>> GetAllLogsAsync<T>();
 
         Task<T> GetLogAsync<T>(Guid id) where T : IIFSystemTable;

@@ -55,11 +55,58 @@ namespace IF.Core.Sms
 
     }
 
+    public interface ISmsBatchResultOneToMany
+    {
+
+        string BulkNumber { get; set; }
+
+        SmsOperationStatus Status { get; set; }
+
+        string ErrorCode { get; set; }
+
+        
+        DateTime CreatedDate { get; set; }
+
+        Guid SourceId { get; set; }
+
+        string IntegrationId { get; set; }
+
+        int BulkCount { get; set; }
+
+
+        DateTime UpdateDate { get; set; } 
+    }
+
+    public class SmsBatchResultOneToMany: ISmsBatchResultOneToMany
+    {
+
+        
+        public string BulkNumber { get; set; }
+
+        public SmsOperationStatus Status { get; set; }
+
+        public string ErrorCode { get; set; }
+
+        public int BulkCount { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        public Guid SourceId { get; set; }
+
+        public string IntegrationId { get; set; }
+
+        
+
+
+        public DateTime UpdateDate { get; set; } = DateTime.Now;
+    }
+
     public enum SmsOperationStatus
     {
         Ready = 0,
-        InProgress,
-        Completed,
+        InProgress=1,
+        Completed=2,
+        Cancalled=3,
+        Error=4
 
     }
 }

@@ -32,6 +32,8 @@ namespace IF.Core.Handler
 
         public List<string> Messages { get; set; }
 
+        public int ExecutionTime { get; set; }
+
         public void FromException(System.Exception exception)
         {
             this.ErrorMessage = exception.Message;

@@ -31,6 +31,7 @@
             <th>
                 Created Date
             </th>
+            <th>Batchs</th>
         </tr>
 
 
@@ -59,17 +60,18 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.CreatedDate)
                         </td>
-                        @*<td>
-                        <a class="btn btn-primary"
-                           href="@Url.Page("ApplicationLog","StackTrace", new {uniqueId = item.UniqueId })"
-                           if-ajax="true"
-                           if-ajax-method="get"
-                           if-ajax-mode="replace"
-                           if-ajax-show-dialog="true"
-                           if-ajax-modal-id="@Guid.NewGuid()">
-                            Stack Trace
-                        </a>
+                        <td>
+                            <a class="btn btn-primary"
+                               href="@Url.Page("SmsOneToManyOperation","Batchs", new { BulkName = item.BulkName })"
+                               if-ajax="true"
+                               if-ajax-method="get"
+                               if-ajax-mode="replace"
+                               if-ajax-show-dialog="true"
+                               if-ajax-modal-id="@Guid.NewGuid()">
+                                Batchs
+                            </a>
                     </td>
+                        @*
                     <td>
                         <a class="btn btn-primary"
                            href="@Url.Page("AuditLog","Detail", new {uniqueId = item.UniqueId })"

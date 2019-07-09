@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IF.System.UI.SmsOneToMany.Pages
@@ -83,19 +84,19 @@ namespace IF.System.UI.SmsOneToMany.Pages
             this.Logs = await logService.GetPaginatedSmsBulkOneToManyOperationAsync(this.BeginDate, this.EndDate, this.BulkName, PageNumber, PageSize);
         }
 
-        //public async Task<PartialViewResult> OnGetStackTrace(Guid uniqueId)
-        //{
+        public async Task<PartialViewResult> OnGetBatchs(string BulkName)
+        {
 
 
-        //    string stackTrace = await this.logService.GetStackTraceAsync(uniqueId);
+            List<SmsBatchResultOneToMany> list = await this.logService.GetSmsBulkResultOneToManyList(BulkName);
 
 
-        //    return new PartialViewResult
-        //    {
-        //        ViewName = "_StackTrace",
-        //        ViewData = new ViewDataDictionary<string>(ViewData, stackTrace)
-        //    };
-        //}
+            return new PartialViewResult
+            {
+                ViewName = "_BatchTable",
+                ViewData = new ViewDataDictionary<List<SmsBatchResultOneToMany>>(ViewData, list)
+            };
+        }
     }
 
 }

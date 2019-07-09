@@ -9,12 +9,13 @@ namespace IF.MongoDB.Repository.Abstract
     public abstract class GenericRepository: IRepository
     {
         private readonly IMongoDatabase _database = null;
+        private readonly MongoClient _client = null;
 
         public GenericRepository(string cnnString, string database)
         {
-            var client = new MongoClient(cnnString);
-            if (client != null)
-                _database = client.GetDatabase(database);
+            _client = new MongoClient(cnnString);
+            if (_client != null)
+                _database = _client.GetDatabase(database);
         }
 
         public IMongoCollection<T> GetQuery<T>()
@@ -25,6 +26,12 @@ namespace IF.MongoDB.Repository.Abstract
         public IMongoCollection<T> GetQuery<T>(string tableName)
         {
             return _database.GetCollection<T>(tableName);
+        }
+
+        public IMongoCollection<T> GetQuery<T>(string tableName,string database)
+        {
+            var db = _client.GetDatabase(database);
+            return db.GetCollection<T>(tableName);
         }
 
 
