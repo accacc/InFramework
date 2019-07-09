@@ -20,8 +20,8 @@ namespace IF.MongoDB.Integration
 
         public static ILoggerBuilder AddMongoApplicationLogger(this ILoggerBuilder logger, string url, string db)
         {
-            logger.Builder.RegisterType<MongoLogService, ILogService>(DependencyScope.Single);
-            logger.Builder.RegisterInstance<IMongoLogRepository>(new MongoLogRepository(url, db), DependencyScope.Single);
+            logger.Builder.RegisterType<MongoApplicationLogService, ILogService>(DependencyScope.Single);
+            logger.Builder.RegisterInstance< IMongoApplicationLogRepository>(new MongoApplicationLogRepository(url, db), DependencyScope.Single);
             return logger;
         }
 

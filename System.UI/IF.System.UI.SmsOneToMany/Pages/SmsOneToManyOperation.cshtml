@@ -1,5 +1,5 @@
 ﻿@page
-@model TutumluAnne.Log.AdminUI.Pages.ApplicationLogModel
+@model IF.System.UI.SmsOneToMany.Pages.SmsOneToManyOperationModel
 
 
 @{
@@ -7,7 +7,7 @@
 }
 
 @{
-    ViewData["Title"] = "ApplicationLogDiv";
+    ViewData["Title"] = "SmsOneToManyModel";
 }
 
 <h2>Application Log</h2>
@@ -29,15 +29,15 @@
 
     <div class="row">
         <div class="col-xs-6">
-            Kaynak: <input type="text" class="form-control" id="Source" name="Source" value="@Model.Source">
+            Kaynak: <input type="text" class="form-control" id="Source" name="Source" value="@Model.BulkName">
         </div>
         <div class="col-xs-6">
-            User Id: <input type="text" class="form-control" id="UserId" name="UserId" value="@Model.UserId">
+            
         </div>
     </div>
 
 
-    <div class="row">
+    @*<div class="row">
         <div class="col-xs-6">
             Kanal: <input type="text" class="form-control" id="Channel" name="Channel" value="@Model.Channel">
         </div>
@@ -53,7 +53,7 @@
         <div class="col-xs-6">
             Take: <input type="text" class="form-control" id="PageSize" name="PageSize" value="@Model.PageSize">
         </div>
-    </div>
+    </div>*@
     <br />
     <div class="row">
         <div class="col-xs-6">
@@ -68,7 +68,7 @@
     <br />
 
     @*<partial name="_ApplicationLogTable" model="Model" />*@
-    @{await Html.RenderPartialAsync("_ApplicationLogTable",Model);}
+    @{await Html.RenderPartialAsync("_SmsOneToManyOperationTable", Model);}
 </form>
 
 

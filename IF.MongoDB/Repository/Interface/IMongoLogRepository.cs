@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB
 {
-    public interface IMongoLogRepository: IRepository
+    public interface  IMongoApplicationLogRepository: IRepository
     {
         Task<string> GetStackTraceAsync(Guid id);
 
-        Task<PagedListResponse<ApplicationErrorLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string Message, string Source, string Channel, int skipNumber = 0, int takeNumber = 50);
+        Task<PagedListResponse<ApplicationErrorLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string Message, string Source, string Channel, int PageNumber = 0, int PageSize = 50);
 
 
     }

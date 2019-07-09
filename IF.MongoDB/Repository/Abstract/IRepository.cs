@@ -11,6 +11,8 @@ namespace IF.MongoDB.Repository.Abstract
     {
         IMongoCollection<T> GetQuery<T>();
 
+        IMongoCollection<T> GetQuery<T>(string tableName);
+
         Task<IEnumerable<T>> GetAllLogsAsync<T>();
 
         Task<T> GetLogAsync<T>(Guid id) where T : IIFSystemTable;

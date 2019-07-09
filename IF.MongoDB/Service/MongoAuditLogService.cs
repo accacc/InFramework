@@ -27,9 +27,9 @@ namespace IF.MongoDB
         }
 
 
-        public async Task<PagedListResponse<IAuditLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string Source, string UserId, int skipNumber = 0, int takeNumber = 50)
+        public async Task<PagedListResponse<IAuditLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string Source, string UserId, int PageNumber = 0, int PageSize = 50)
         {
-            return await this.mongoLogRepository.GetPaginatedAsync(BeginDate, EndDate, Source, UserId, skipNumber , takeNumber );
+            return await this.mongoLogRepository.GetPaginatedAsync(BeginDate, EndDate, Source, UserId, PageNumber , PageSize );
         }
 
         public void Log(object @object, Guid uniqueId, DateTime LogDate, string objectName, string IpAdress, string Channel,string UserId)

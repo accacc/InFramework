@@ -25,7 +25,20 @@ namespace IF.Core.Sms
         Guid SourceId { get; set; }
     }
 
-    public class SmsBulkOneToManyOperation
+
+    public interface ISmsBulkOneToManyOperation
+    {
+        string BulkName { get; set; }
+
+        int SplitBy { get; set; }
+
+        long Total { get; set; }
+        string Message { get; set; }
+
+        DateTime CreatedDate { get; set; }
+        SmsOperationStatus Status { get; set; }
+    }
+    public class SmsBulkOneToManyOperation:ISmsBulkOneToManyOperation
     {
 
         //public IFormFile File { get; set; }
@@ -36,8 +49,17 @@ namespace IF.Core.Sms
         public long Total { get; set; }
         public string Message { get; set; }
 
-        public DateTime Date { get; set; } 
+        public DateTime CreatedDate { get; set; }        
+        public SmsOperationStatus Status { get; set; }
 
+
+    }
+
+    public enum SmsOperationStatus
+    {
+        Ready = 0,
+        InProgress,
+        Completed,
 
     }
 }

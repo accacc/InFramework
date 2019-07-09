@@ -16,7 +16,7 @@ namespace IF.MongoDB
 
         Task<IAuditLog> GetDetailAsync(Guid uniqueId);
 
-        Task<PagedListResponse<IAuditLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string Source, string UserId,int skipNumber = 0, int takeNumber = 50);
+        Task<PagedListResponse<IAuditLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string Source, string UserId,int PageNumber = 0, int PageSize = 50);
         
     }
 }

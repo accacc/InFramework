@@ -14,7 +14,7 @@ namespace IF.MongoDB
         
 
         
-        Task<PagedListResponse<IEmailLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string To, string type, int PageNumber = 0, int takeNumber = 50);
+        Task<PagedListResponse<IEmailLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string To, string type, int PageNumber = 0, int PageSize = 50);
 
         Task<string> GetBodyAsync(Guid id);
 

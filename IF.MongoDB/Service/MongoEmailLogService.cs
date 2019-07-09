@@ -26,9 +26,9 @@ namespace IF.MongoDB
 
         
 
-        public async Task<PagedListResponse<IEmailLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string To, string type, int skipNumber = 0, int takeNumber = 50)
+        public async Task<PagedListResponse<IEmailLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string To, string type, int PageNumber = 0, int PageSize = 50)
         {
-            return await this.mongoEmailLogRepository.GetPaginatedAsync(BeginDate, EndDate, To, type, skipNumber, takeNumber);
+            return await this.mongoEmailLogRepository.GetPaginatedAsync(BeginDate, EndDate, To, type, PageNumber, PageSize);
         }
 
         public async Task LogAsync(string From, string To, string Body, DateTime Date, string Type, bool IsSent, string Subject, Guid UniqueId,Guid SourceId)

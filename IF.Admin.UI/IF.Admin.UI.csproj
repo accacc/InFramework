@@ -98,6 +98,7 @@
     <ProjectReference Include="..\System.UI\IF.System.UI.NotificationLog\IF.System.UI.NotificationLog.csproj" />
     <ProjectReference Include="..\System.UI\IF.System.UI.PerformanceLog\IF.System.UI.PerformanceLog.csproj" />
     <ProjectReference Include="..\System.UI\IF.System.UI.SmsLog\IF.System.UI.SmsLog.csproj" />
+    <ProjectReference Include="..\System.UI\IF.System.UI.SmsOneToMany\IF.System.UI.SmsOneToMany.csproj" />
     <ProjectReference Include="..\System.UI\IF.System.UI.SqlServer\IF.System.UI.SqlServer.csproj" />
   </ItemGroup>
 

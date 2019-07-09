@@ -62,8 +62,8 @@ namespace IF.MongoDB.Repository
             var start = new DateTime(BeginDate.Year, BeginDate.Month, BeginDate.Day);
             var end = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day);
 
-            var filter = filterBuilder.Gte(x => x.Date, new BsonDateTime(start)) &
-             filterBuilder.Lte(x => x.Date, new BsonDateTime(end));
+            var filter = filterBuilder.Gte(x => x.CreatedDate, new BsonDateTime(start)) &
+             filterBuilder.Lte(x => x.CreatedDate, new BsonDateTime(end));
 
 
             if (!String.IsNullOrWhiteSpace(bulkName))
@@ -76,8 +76,8 @@ namespace IF.MongoDB.Repository
             var fields = Builders<SmsBulkOneToManyOperationMongoDb>.Projection.Exclude("_id");
 
 
-            var list = await this.GetQuery<SmsBulkOneToManyOperationMongoDb>().Find(filter).Project<SmsBulkOneToManyOperation>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.Date).ToListAsync();
-            var count = await this.GetQuery<SmsBulkOneToManyOperationMongoDb>().CountDocumentsAsync(filter);
+            var list = await this.GetQuery<SmsBulkOneToManyOperationMongoDb>(nameof(SmsBulkOneToManyOperation)).Find(filter).Project<SmsBulkOneToManyOperation>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.CreatedDate).ToListAsync();
+            var count = await this.GetQuery<SmsBulkOneToManyOperationMongoDb>(nameof(SmsBulkOneToManyOperation)).CountDocumentsAsync(filter);
 
 
             return new PagedListResponse<SmsBulkOneToManyOperation>(list, PageNumber, PageSize, count);

@@ -22,6 +22,11 @@ namespace IF.MongoDB.Repository.Abstract
             return _database.GetCollection<T>(nameof(T));
         }
 
+        public IMongoCollection<T> GetQuery<T>(string tableName)
+        {
+            return _database.GetCollection<T>(tableName);
+        }
+
 
         public async Task<IEnumerable<T>> GetAllLogsAsync<T>()
         {

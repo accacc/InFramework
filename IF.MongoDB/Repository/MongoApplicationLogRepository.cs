@@ -16,10 +16,10 @@ namespace IF.MongoDB
     
 
 
-    public class MongoLogRepository : GenericRepository,IMongoLogRepository
+    public class MongoApplicationLogRepository : GenericRepository, IMongoApplicationLogRepository
     {
 
-        public MongoLogRepository(string cnnString, string database):base(cnnString,database)
+        public MongoApplicationLogRepository(string cnnString, string database):base(cnnString,database)
         {
 
         }

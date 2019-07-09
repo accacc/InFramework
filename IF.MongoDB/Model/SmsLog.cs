@@ -33,7 +33,7 @@ namespace IF.MongoDB.Model
 
    
 
-    public class SmsBulkOneToManyOperationMongoDb
+    public class SmsBulkOneToManyOperationMongoDb: ISmsBulkOneToManyOperation
     {
         [BsonId]
         public ObjectId InternalId { get; set; }
@@ -47,9 +47,9 @@ namespace IF.MongoDB.Model
         public string Message { get; set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-
-        public DateTime Date { get; set; } = DateTime.Now;
+        public SmsOperationStatus Status { get; set; }
 
 
     }

@@ -1,0 +1,98 @@
+﻿@using IF.Web.Mvc.FluentHtml.Pagination
+
+@model IF.System.UI.SmsOneToMany.Pages.SmsOneToManyOperationModel
+
+
+
+<div id="SmsOneToManyOperationDiv">
+    @(Html.Paging(Model.Logs)
+                    .Url(Url.Page("/SmsOneToManyOperation", "SmsOneToManyOperationPartial"))
+                    .MergeFormData(true)
+                    .UpdateId("SmsOneToManyOperationDiv")
+                    .Render()
+    )
+    <table class="table table-striped table-sm">
+        <tr>
+            <th>
+                Bulk Name
+            </th>
+            <th>
+                SplitBy
+            </th>
+            <th>
+                Total
+            </th>
+            <th>
+                Message
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Created Date
+            </th>
+        </tr>
+
+
+        @if (Model.Logs != null && Model.Logs.Data.Any())
+        {
+
+        @foreach (var item in Model.Logs.Data)
+         {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BulkName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SplitBy)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+                        <td>
+                            <div style="word-wrap: break-word; width: 300px">@item.Message</div>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        @*<td>
+                        <a class="btn btn-primary"
+                           href="@Url.Page("ApplicationLog","StackTrace", new {uniqueId = item.UniqueId })"
+                           if-ajax="true"
+                           if-ajax-method="get"
+                           if-ajax-mode="replace"
+                           if-ajax-show-dialog="true"
+                           if-ajax-modal-id="@Guid.NewGuid()">
+                            Stack Trace
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary"
+                           href="@Url.Page("AuditLog","Detail", new {uniqueId = item.UniqueId })"
+                           if-ajax="true"
+                           if-ajax-method="get"
+                           if-ajax-mode="replace"
+                           if-ajax-show-dialog="true"
+                           if-ajax-modal-id="@Guid.NewGuid()">
+                            Detay
+                        </a>
+                    </td>*@
+                    </tr>
+            }
+        }
+        else
+        {
+           @:Veri bulunamadı,Lütfen Kriter seçiniz
+        }
+    </table>
+    @(Html.Paging(Model.Logs)
+                    .Url(Url.Page("/SmsOneToManyOperation", "SmsOneToManyOperationPartial"))
+                    .MergeFormData(true)
+                    .UpdateId("SmsOneToManyOperationDiv")
+                    .Render()
+    )
+</div>

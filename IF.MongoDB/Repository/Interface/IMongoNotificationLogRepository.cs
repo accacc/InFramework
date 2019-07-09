@@ -16,7 +16,7 @@ namespace IF.MongoDB
 
         
 
-        Task<PagedListResponse<INotificationLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string logger, int PageSize = 0, int PageNumber = 50);
+        Task<PagedListResponse<INotificationLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string logger, int PageNumber = 0, int PageSize = 50);
 
 
 

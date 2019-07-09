@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB
 {
-    public class MongoLogService : ILogService
+    public class MongoApplicationLogService : ILogService
     {
 
-        private readonly IMongoLogRepository mongoLogRepository;
+        private readonly  IMongoApplicationLogRepository mongoLogRepository;
 
-        public MongoLogService(IMongoLogRepository mongoLogRepository)
+        public MongoApplicationLogService( IMongoApplicationLogRepository mongoLogRepository)
         {
             this.mongoLogRepository = mongoLogRepository;
         }
@@ -118,9 +118,9 @@ namespace IF.MongoDB
             return await this.mongoLogRepository.GetStackTraceAsync(id);
         }
 
-        public async Task<PagedListResponse<ApplicationErrorLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string Message, string Source, string Channel, int skipNumber = 0, int takeNumber = 50)
+        public async Task<PagedListResponse<ApplicationErrorLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string Message, string Source, string Channel, int PageNumber = 0, int PageSize = 50)
         {
-            return await this.mongoLogRepository.GetPaginatedAsync(BeginDate, EndDate, userId, Message, Source, Channel, skipNumber, takeNumber);
+            return await this.mongoLogRepository.GetPaginatedAsync(BeginDate, EndDate, userId, Message, Source, Channel, PageNumber, PageSize);
         }
     }
 }
