@@ -51,7 +51,10 @@ namespace IF.MongoDB.Model
 
         public SmsOperationStatus Status { get; set; }
 
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        public DateTime UpdatedDate { get; set; } = DateTime.Now;
 
+        public int BatchCount { get; set; }
     }
 
     public class SmsBatchResultOneToManyMongoDb : ISmsBatchResultOneToMany
@@ -76,8 +79,6 @@ namespace IF.MongoDB.Model
         public string IntegrationId { get; set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
-
-
         public DateTime UpdateDate { get; set; } = DateTime.Now;
     }
 }

@@ -37,6 +37,10 @@ namespace IF.Core.Sms
 
         DateTime CreatedDate { get; set; }
         SmsOperationStatus Status { get; set; }
+
+        DateTime UpdatedDate { get; set; }
+
+        int BatchCount { get; set; }
     }
     public class SmsBulkOneToManyOperation:ISmsBulkOneToManyOperation
     {
@@ -49,8 +53,11 @@ namespace IF.Core.Sms
         public long Total { get; set; }
         public string Message { get; set; }
 
-        public DateTime CreatedDate { get; set; }        
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
         public SmsOperationStatus Status { get; set; }
+
+        public int BatchCount { get; set; }
 
 
     }
@@ -106,8 +113,8 @@ namespace IF.Core.Sms
         Ready = 0,
         InProgress=1,
         Completed=2,
-        Cancalled=3,
-        Error=4
+        Cancelled=3,
+        Failed=4
 
     }
 }
