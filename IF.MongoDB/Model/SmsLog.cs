@@ -60,8 +60,9 @@ namespace IF.MongoDB.Model
         [BsonId]
         public ObjectId InternalId { get; set; }
 
-        public string BulkNumber { get; set; }
-        public int BulkCount { get; set; }
+        public int BatchNumber { get; set; }
+        public string BatchName { get; set; }
+        public int BatchCount { get; set; }
 
         public SmsOperationStatus Status { get; set; }
 

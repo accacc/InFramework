@@ -58,7 +58,8 @@ namespace IF.Core.Sms
     public interface ISmsBatchResultOneToMany
     {
 
-        string BulkNumber { get; set; }
+        int BatchNumber { get; set; }
+        string BatchName { get; set; }
 
         SmsOperationStatus Status { get; set; }
 
@@ -71,7 +72,7 @@ namespace IF.Core.Sms
 
         string IntegrationId { get; set; }
 
-        int BulkCount { get; set; }
+        int BatchCount { get; set; }
 
 
         DateTime UpdateDate { get; set; } 
@@ -80,14 +81,14 @@ namespace IF.Core.Sms
     public class SmsBatchResultOneToMany: ISmsBatchResultOneToMany
     {
 
-        
-        public string BulkNumber { get; set; }
+        public int BatchNumber { get; set; }
+        public string BatchName { get; set; }
 
         public SmsOperationStatus Status { get; set; }
 
         public string ErrorCode { get; set; }
 
-        public int BulkCount { get; set; }
+        public int BatchCount { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         public Guid SourceId { get; set; }

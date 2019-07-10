@@ -17,21 +17,28 @@
 
 <table class="table table-striped table-sm">
     <tr>
+
         <th>
-            Bulk Number
+            Batch Name
+        </th>
+        <th>
+            Batch Number
+        </th>
+        <th>
+            Batch Count
         </th>
         <th>
             IntegrationId
         </th>
         <th>
             Error Code
-        </th>        
+        </th>
         <th>
             Status
         </th>
         <th>
             Created Date
-        </th>        
+        </th>
     </tr>
 
 
@@ -40,26 +47,34 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BulkNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IntegrationId)
-                </td>
+    <tr>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.ErrorCode)
-                </td>
-                
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate)
-                </td>                
-                
-            </tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BatchName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BatchNumber)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.BatchCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IntegrationId)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.ErrorCode)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDate)
+        </td>
+
+    </tr>
         }
     }
     else
