@@ -2,12 +2,10 @@
 using Autofac.Extras.AggregateService;
 using IF.Configuration;
 using IF.Core.Configuration;
-using IF.Core.Cqrs;
 using IF.Core.DependencyInjection;
 using IF.Core.DependencyInjection.Interface;
 using IF.Core.DependencyInjection.Model;
 using IF.Core.Handler;
-using IF.Core.Security;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -30,11 +28,18 @@ namespace IF.Dependency.AutoFac
 
         public IInFrameworkBuilder AddCqrs(Action<ICqrsBuilder> action)
         {
-            this.RegisterType<DispatcherWithDI, IDispatcher>(DependencyScope.PerInstance);            
-            builder.RegisterAggregateService<IHandlerFactory>();
-            builder.RegisterAggregateService<IElasticSearchHandlerFactory>();
+            //this.RegisterType<DispatcherWithDI, IDispatcher>(DependencyScope.PerInstance);            
+            //builder.RegisterAggregateService<IHandlerFactory>();
+            //builder.RegisterAggregateService<IElasticSearchHandlerFactory>();
             action(new CqrsBuilder(this));
 
+            return this;
+        }
+
+
+        public IInFrameworkBuilder RegisterAggregateService<TInterface>() where TInterface : class
+        {
+            builder.RegisterAggregateService<TInterface>();
             return this;
         }
 
@@ -272,5 +277,7 @@ namespace IF.Dependency.AutoFac
             action(new RestClientBuilder(this));
             return this;
         }
+
+     
     }
 }

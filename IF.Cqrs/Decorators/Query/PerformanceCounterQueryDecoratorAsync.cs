@@ -32,9 +32,9 @@ namespace IF.Core.Cqrs.Decorators.Query
 
             stopwatch.Stop();
 
-            //await Log(request, stopwatch).ConfigureAwait(false);
+            await Log(request, stopwatch);
 
-            ThreadPool.QueueUserWorkItem(o => Log(request, stopwatch));
+            //ThreadPool.QueueUserWorkItem(o => Log(request, stopwatch));
 
             return response;
 
@@ -42,8 +42,8 @@ namespace IF.Core.Cqrs.Decorators.Query
 
         private async Task Log(TRequest request, Stopwatch stopwatch)
         {
-            Type type = typeof(TRequest);
-            string name = type.Name;
+            //Type type = typeof(TRequest);
+            string name = nameof(TRequest);
 
             await this.performanceLogService.LogAsync(DateTime.Now, stopwatch.Elapsed.TotalMilliseconds, name, request.UniqueId);
         }

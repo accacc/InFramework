@@ -1,53 +1,25 @@
-﻿using IF.Core.DependencyInjection;
-using IF.Core.Handler;
+﻿using IF.Core.DependencyInjection.Interface;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
 
-namespace IF.Dependency.AutoFac
+namespace IF.Core.DependencyInjection
 {
-    public class CqrsBuilder: ICqrsBuilder
-    {
-        private readonly IInFrameworkBuilder dependencyInjection;
+    
 
+    public class CqrsBuilder : ICqrsBuilder
+    {
+        public IInFrameworkBuilder Builder { get; }
 
         public CqrsBuilder(IInFrameworkBuilder dependencyInjection)
         {
-            this.dependencyInjection = dependencyInjection;
+            this.Builder = dependencyInjection;
         }
 
-        public IQueryHandlerBuilder AddQueryHandlers()
-        {
-
-            return new QueryHandlerBuilder(dependencyInjection, typeof(IQueryHandler<,>));
+        public IInFrameworkBuilder Build(Assembly[] assemblies)
+        {            
+            return this.Builder;
         }
-
-
-        public ICommandHandlerBuilder AddCommandHandlers()
-        {
-
-            return new CommandHandlerBuilder(dependencyInjection, typeof(ICommandHandler<>));
-
-        }
-
-
-        public IQueryHandlerBuilder AddQueryAsyncHandlers()
-        {
-
-            return new QueryHandlerBuilder(dependencyInjection, typeof(IQueryHandlerAsync<,>), true);
-        }
-
-
-        public IQueryHandlerBuilder AddElasticQueryAsyncHandlers()
-        {
-
-            return new QueryHandlerBuilder(dependencyInjection, typeof(IElasticQueryHandlerAsync<,>), true);
-        }
-
-
-        public ICommandHandlerBuilder AddCommandAsyncHandlers()
-        {
-
-            return new CommandHandlerBuilder(dependencyInjection, typeof(ICommandHandlerAsync<>), true);
-
-        }
-
     }
 }

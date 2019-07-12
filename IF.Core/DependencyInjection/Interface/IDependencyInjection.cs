@@ -12,6 +12,8 @@ namespace IF.Core.DependencyInjection
     public interface IInFrameworkBuilder
     {
 
+        IInFrameworkBuilder RegisterAggregateService<TInterface>() where TInterface : class;
+
         IInFrameworkBuilder AddEmailLogger(Action<IEmailLoggerBuilder> action);
         IInFrameworkBuilder RegisterType<T, K>(DependencyScope scope);
 

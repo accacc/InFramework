@@ -52,8 +52,8 @@ namespace Derin.Tools.Publish
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Validation.FluentValidation",Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.EventBus.RabbitMQ.Integration",Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.EventBus.Azure",Type = ProjectType.Standart });
-            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Core",Type = ProjectType.Standart });
-            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Jwt",Type = ProjectType.Standart });
+            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Core", Type = ProjectType.Standart });
+            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Cqrs",Type = ProjectType.Standart });
             //dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Json",Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.DynamicData",Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Persistence",Type = ProjectType.Standart });

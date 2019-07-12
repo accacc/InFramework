@@ -27,9 +27,9 @@ namespace IF.Core.Cqrs.Decorators.Command
 
         public async Task HandleAsync(TCommand command)
         {
-            //await Log(command).ConfigureAwait(false);
+            await Log(command);
 
-            ThreadPool.QueueUserWorkItem(o=>Log(command));
+            //ThreadPool.QueueUserWorkItem(o=>Log(command));
 
             await commandHandler.HandleAsync(command);
 
@@ -40,9 +40,9 @@ namespace IF.Core.Cqrs.Decorators.Command
         {
             if (!(command is IIgnoreAuditCommand))
             {
-                Type type = typeof(TCommand);
 
-                string name = type.Name;
+
+                string name = nameof(TCommand);
 
                 await this.auditLogService.LogAsync(command, command.UniqueId, DateTime.Now, name, command.ClientIp, command.ApplicationCode,command.UserId.ToString());
             }

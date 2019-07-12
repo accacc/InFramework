@@ -3,9 +3,8 @@ using IF.Core.Cqrs.Decorators.Query;
 using IF.Core.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace IF.Cqrs.Builders
+namespace IF.Dependency.AutoFac
 {
     public class QueryHandlerDecoratorBuilder : IQueryHandlerDecoratorBuilder
     {
@@ -46,7 +45,7 @@ namespace IF.Cqrs.Builders
         //        this.handlers.Add(typeof(SaveSimulateDataDecorator<,>));
         //    }
 
-
+            
 
 
         //    return this;
@@ -63,7 +62,7 @@ namespace IF.Cqrs.Builders
             {
                 this.handlers.Add(typeof(ErrorLoggingQueryDecorator<,>));
             }
-
+            
 
             return this;
 

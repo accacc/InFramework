@@ -9,7 +9,7 @@ namespace IF.Core.Cqrs
     {
 
         IHandlerFactory handlerFactory;
-        IIdentityService identityService;
+        //IIdentityService identityService;
         public DispatcherWithDI(IHandlerFactory handlerFactory)
         {
             this.handlerFactory = handlerFactory;

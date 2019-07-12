@@ -28,16 +28,15 @@ namespace IF.Core.Cqrs.Decorators.Command
 
             stopwatch.Stop();
 
-            //await Log(command, stopwatch).ConfigureAwait(false);
+           await Log(command, stopwatch);
 
-            ThreadPool.QueueUserWorkItem(o => Log(command, stopwatch));
+         //   ThreadPool.QueueUserWorkItem(o => Log(command, stopwatch));
         }
 
         private async Task Log(TCommand command, Stopwatch stopwatch)
-        {
-            Type type = typeof(TCommand);
+        {           
 
-            string name = type.Name;
+            string name = nameof(TCommand);
 
             await this.performanceLogService.LogAsync(DateTime.Now, stopwatch.Elapsed.Milliseconds, name, command.UniqueId);
         }

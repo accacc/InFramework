@@ -1,12 +1,12 @@
 ﻿using IF.Core.Cqrs;
-using IF.Core.Cqrs.Decorators.Command;
-using IF.Core.DependencyInjection;
+using IF.Core.Handler;
 using IF.Core.Validation;
+using IF.Core.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using IF.Core.Cqrs.Decorators.Command;
 
-namespace IF.Cqrs.Builders
+namespace IF.Dependency.AutoFac
 {
     public class CommandHandlerDecoratorBuilder : ICommandHandlerDecoratorBuilder
     {
@@ -52,7 +52,7 @@ namespace IF.Cqrs.Builders
                 this.handlers.Add(typeof(SaveAllCommandDataDecorator<>));
             }
 
-
+            
 
             return this;
         }
@@ -75,7 +75,7 @@ namespace IF.Cqrs.Builders
                 this.handlers.Add(typeof(ErrorLoggingCommandDecorator<>));
 
             }
-
+            
             return this;
 
         }
@@ -110,11 +110,11 @@ namespace IF.Cqrs.Builders
             }
 
             this.dependencyInjection.RegisterType<DataAnnotationValidator, IDataAnnotationValidator>(DependencyScope.Single);
-
+            
 
             return this;
         }
 
-
+       
     }
 }
