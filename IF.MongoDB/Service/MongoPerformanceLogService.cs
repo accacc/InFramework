@@ -28,7 +28,7 @@ namespace IF.MongoDB
             performanceLog.ExecutionTime = ExecutionTime;
             performanceLog.MethodName = MethodName;
             performanceLog.UniqueId = uniqueId;
-            this.mongoLogRepository.AddLog(performanceLog);
+            this.mongoLogRepository.Add(performanceLog);
         }
 
         public async Task LogAsync(DateTime ExecutionDate, double ExecutionTime, string MethodName, Guid uniqueId)
@@ -39,7 +39,7 @@ namespace IF.MongoDB
             performanceLog.ExecutionTime = ExecutionTime;
             performanceLog.MethodName = MethodName;
             performanceLog.UniqueId = uniqueId;
-            await this.mongoLogRepository.AddLogAsync(performanceLog);
+            await this.mongoLogRepository.AddAsync(performanceLog);
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB.Repository
 {
-    public interface IMongoSmsLogRepository: IRepository
+    public interface IMongoSmsLogRepository: IMongoDbRepository
     {
 
 

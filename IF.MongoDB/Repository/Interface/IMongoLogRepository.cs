@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB
 {
-    public interface  IMongoApplicationLogRepository: IRepository
+    public interface  IMongoApplicationLogRepository: IMongoDbRepository
     {
         Task<string> GetStackTraceAsync(Guid id);
 

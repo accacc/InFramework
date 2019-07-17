@@ -45,7 +45,7 @@ namespace IF.MongoDB
             emailLog.UniqueId = UniqueId;
             emailLog.SourceId = SourceId;
 
-            await this.mongoEmailLogRepository.AddLogAsync(emailLog);
+            await this.mongoEmailLogRepository.AddAsync(emailLog);
         }
     }
 }

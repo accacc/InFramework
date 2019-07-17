@@ -7,7 +7,7 @@ using IF.MongoDB.Repository.Abstract;
 
 namespace IF.MongoDB
 {
-    public interface IMongoPerformanceLogRepository:IRepository
+    public interface IMongoPerformanceLogRepository:IMongoDbRepository
     {       
 
 

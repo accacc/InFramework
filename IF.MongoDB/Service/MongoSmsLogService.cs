@@ -48,7 +48,7 @@ namespace IF.MongoDB.Service
             smsLog.IntegrationId = IntegrationId;
             smsLog.SourceId = SourceId;
 
-            await this.smsLogRepository.AddLogAsync(smsLog);
+            await this.smsLogRepository.AddAsync(smsLog);
         }
     }
 }

@@ -41,7 +41,7 @@ namespace IF.MongoDB
             auditLog.Channel = Channel;
             auditLog.ClientId = IpAdress;
             auditLog.UserId = UserId;
-            this.mongoLogRepository.AddLog(auditLog);
+            this.mongoLogRepository.Add(auditLog);
         }
 
         public async Task LogAsync(object @object, Guid uniqueId, DateTime LogDate,string objectName,string ClientId,string Channel,string UserId)
@@ -53,7 +53,7 @@ namespace IF.MongoDB
             auditLog.Channel = Channel;
             auditLog.ClientId = ClientId;
             auditLog.UserId = UserId;
-            await this.mongoLogRepository.AddLogAsync(auditLog).ConfigureAwait(false);
+            await this.mongoLogRepository.AddAsync(auditLog).ConfigureAwait(false);
 
         }
     }

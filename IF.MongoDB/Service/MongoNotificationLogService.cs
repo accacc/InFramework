@@ -37,7 +37,7 @@ namespace IF.MongoDB
             log.Success = Success;
             log.SourceId = SourceId;
 
-            await this.repository.AddLogAsync(log);
+            await this.repository.AddAsync(log);
             
         }
     }

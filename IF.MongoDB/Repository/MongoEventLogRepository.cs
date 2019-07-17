@@ -94,7 +94,7 @@ namespace IF.MongoDB.Repository
             var eventLogEntry = new EventLogMondoDb(@event);
             eventLogEntry.State = eventState;
             eventLogEntry.ServiceName = serviceName;
-            await this.AddLogAsync(eventLogEntry);
+            await this.AddAsync(eventLogEntry);
 
 
         }

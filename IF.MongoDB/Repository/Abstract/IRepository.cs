@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB.Repository.Abstract
 {
-    public interface IRepository
+    public interface IMongoDbRepository
     {
         IMongoCollection<T> GetQuery<T>();
 
@@ -15,15 +15,16 @@ namespace IF.MongoDB.Repository.Abstract
 
         IMongoCollection<T> GetQuery<T>(string tableName, string database);
 
-        Task<IEnumerable<T>> GetAllLogsAsync<T>();
+        Task<IEnumerable<T>> GetAllAsync<T>();
 
-        Task<T> GetLogAsync<T>(Guid id) where T : IIFSystemTable;
+        Task<T> GetAsync<T>(Guid id) where T : IIFSystemTable;
 
 
-        Task AddLogAsync<T>(T item);
+        Task AddAsync<T>(T item);
 
-        void AddLog<T>(T item);
+        void Add<T>(T item);
 
+        Task DropDatabaseAsync(string dbName);
 
     }
 }

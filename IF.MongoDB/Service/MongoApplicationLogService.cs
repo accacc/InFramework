@@ -19,7 +19,7 @@ namespace IF.MongoDB
         {
             ApplicationErrorLogMongoDB applicationLog = GetLog(exception, logger, message, UserId,UniqueId,IpAdress,Channel);
 
-            this.mongoLogRepository.AddLogAsync(applicationLog);
+            this.mongoLogRepository.AddAsync(applicationLog);
         }
 
 
@@ -27,7 +27,7 @@ namespace IF.MongoDB
         {
             ApplicationErrorLogMongoDB applicationLog = GetLog(exception, logger, message, UserId,UniqueId,IpAdress, Channel);
 
-            await this.mongoLogRepository.AddLogAsync(applicationLog);
+            await this.mongoLogRepository.AddAsync(applicationLog);
 
 
         }
@@ -55,7 +55,7 @@ namespace IF.MongoDB
         {
             ApplicationErrorLogMongoDB applicationLog = GetLog(logger, message, UserId, UniqueId,IpAdress,Channel);
 
-            this.mongoLogRepository.AddLogAsync(applicationLog);
+            this.mongoLogRepository.AddAsync(applicationLog);
         }
 
         private static ApplicationErrorLogMongoDB GetLog(string logger, string message, string UserId, Guid UniqueId, string IpAdress, string Channel)
@@ -77,7 +77,7 @@ namespace IF.MongoDB
         {
             ApplicationErrorLogMongoDB applicationLog = GetLog(logger, message, UserId, UniqueId,IpAdress, Channel);
 
-            await this.mongoLogRepository.AddLogAsync(applicationLog);
+            await this.mongoLogRepository.AddAsync(applicationLog);
         }
 
         public void Warn(string logger, string message, string UserId, Guid UniqueId, string IpAdress, string Channel)
@@ -85,7 +85,7 @@ namespace IF.MongoDB
             ApplicationErrorLogMongoDB applicationLog = GetLog(logger, message, UserId, UniqueId,IpAdress,Channel);
             applicationLog.Level = "2";
 
-            this.mongoLogRepository.AddLogAsync(applicationLog);
+            this.mongoLogRepository.AddAsync(applicationLog);
         }
 
         public async Task WarnAsync(string logger, string message, string UserId, Guid UniqueId, string IpAdress, string Channel)
@@ -93,14 +93,14 @@ namespace IF.MongoDB
             ApplicationErrorLogMongoDB applicationLog = GetLog(logger, message, UserId, UniqueId,IpAdress,Channel);
             applicationLog.Level = "2";
 
-            await this.mongoLogRepository.AddLogAsync(applicationLog);
+            await this.mongoLogRepository.AddAsync(applicationLog);
         }
 
         public void Info(string logger, string message, string UserId, Guid UniqueId, string IpAdress, string Channel)
         {
             ApplicationErrorLogMongoDB applicationLog = GetLog(logger, message, UserId, UniqueId,IpAdress,Channel);
 
-            this.mongoLogRepository.AddLogAsync(applicationLog);
+            this.mongoLogRepository.AddAsync(applicationLog);
 
             applicationLog.Level = "3";
         }
@@ -110,7 +110,7 @@ namespace IF.MongoDB
             ApplicationErrorLogMongoDB applicationLog = GetLog(logger, message, UserId, UniqueId,IpAdress,Channel);
             applicationLog.Level = "3";
 
-            await this.mongoLogRepository.AddLogAsync(applicationLog);
+            await this.mongoLogRepository.AddAsync(applicationLog);
         }
 
         public async Task<string> GetStackTraceAsync(Guid id)
