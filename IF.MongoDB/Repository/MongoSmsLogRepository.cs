@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 namespace IF.MongoDB.Repository
 {
 
-    public class MongoSmsLogRepository : GenericRepository,IMongoSmsLogRepository
+    public class MongoSmsLogRepository : MongoDbGenericRepository,IMongoSmsLogRepository
     {
         
 
-        public MongoSmsLogRepository(MongoConnectionSettings settings) : base(settings)
-        {
+        //public MongoSmsLogRepository(MongoConnectionSettings settings) : base(settings)
+        //{
             
-        }
+        //}
 
         public MongoSmsLogRepository(IMongoDbConnectionStrategy connectionStrategy) : base(connectionStrategy)
         {

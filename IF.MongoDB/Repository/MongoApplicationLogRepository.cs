@@ -17,14 +17,14 @@ namespace IF.MongoDB
     
 
 
-    public class MongoApplicationLogRepository : GenericRepository, IMongoApplicationLogRepository
+    public class MongoApplicationLogRepository : MongoDbGenericRepository, IMongoApplicationLogRepository
     {
 
 
-        public MongoApplicationLogRepository(MongoConnectionSettings settings) : base(settings)
-        {
+        //public MongoApplicationLogRepository(MongoConnectionSettings settings) : base(settings)
+        //{
 
-        }
+        //}
         public MongoApplicationLogRepository(IMongoDbConnectionStrategy connectionStrategy) :base(connectionStrategy)
         {
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB.Repository.Interface
 {
-    public interface IMongoEventBusLogRepository :IMongoDbRepository
+    public interface IMongoEventBusLogRepository :IMongoDbGenericRepository
     {
 
         Task SaveEventAsync(IFEvent @event, string serviceName, EventStateEnum eventState);

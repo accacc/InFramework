@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB
 {
-    public interface IMongoNotificationLogRepository:IMongoDbRepository
+    public interface IMongoNotificationLogRepository:IMongoDbGenericRepository
     {
         
 

@@ -21,18 +21,18 @@ namespace IF.MongoDB.Integration
     public static class BuilderExtensions
     {
 
-        public static IMongoBuilder AddMongoSingleConnectionStrategy(this IMongoBuilder builder, MongoConnectionSettings settings, Action<ISingleConnectionStrategyBuilder> action)
+        public static IMongoBuilder AddMongoSingleConnectionStrategy(this IMongoBuilder builder, MongoConnectionSettings settings, Action<IMongoDbSingleConnectionStrategyBuilder> action)
         {
             builder.Container.RegisterInstance(settings, DependencyScope.Single);
             builder.Container.RegisterType<MongoDbSingleConnectionStrategy, IMongoDbConnectionStrategy>(DependencyScope.Single);
-            action(new SingleConnectionStrategyBuilder(builder.Container));
+            action(new MongoDbSingleConnectionStrategyBuilder(builder.Container));
             return builder;
         }
 
         public static IMongoBuilder AddMongoPerServiceConnectionStrategy(this IMongoBuilder builder,MongoConnectionSettings settings ,Action<IMongoDbPerServiceConnectionStrategy> action)
         {
             builder.Container.RegisterInstance(settings, DependencyScope.Single);
-            builder.Container.RegisterType<MongoDbPerServiceConnectionStrategy, IMongoDbPerServiceConnectionStrategy>(DependencyScope.Single);
+            builder.Container.RegisterType<Repository.Abstract.MongoDbPerServiceConnectionStrategy, IMongoDbConnectionStrategy>(DependencyScope.PerInstance);
             action(new MongoDbPerServiceConnectionStrategy(builder.Container));
             return builder;
         }

@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB
 {
-    public class MongoEmailLogRepository :GenericRepository,IMongoEmailLogRepository
+    public class MongoEmailLogRepository :MongoDbGenericRepository,IMongoEmailLogRepository
     {
         
 
-        public MongoEmailLogRepository(MongoConnectionSettings settings) : base(settings)
-        {
+        //public MongoEmailLogRepository(MongoConnectionSettings settings) : base(settings)
+        //{
             
-        }
+        //}
 
         public MongoEmailLogRepository(IMongoDbConnectionStrategy connectionStrategy) : base(connectionStrategy)
         {

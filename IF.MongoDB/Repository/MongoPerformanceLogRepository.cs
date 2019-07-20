@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB
 {
-    public class MongoPerformanceLogRepository : GenericRepository, IMongoPerformanceLogRepository
+    public class MongoPerformanceLogRepository : MongoDbGenericRepository, IMongoPerformanceLogRepository
     {
 
 
-        public MongoPerformanceLogRepository(MongoConnectionSettings settings) : base(settings)
-        {
+        //public MongoPerformanceLogRepository(MongoConnectionSettings settings) : base(settings)
+        //{
 
-        }
+        //}
 
         public MongoPerformanceLogRepository(IMongoDbConnectionStrategy connectionStrategy) : base(connectionStrategy)
         {

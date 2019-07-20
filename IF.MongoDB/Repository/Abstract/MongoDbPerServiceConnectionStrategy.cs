@@ -1,17 +1,18 @@
-﻿using System;
+﻿using IF.Core.MongoDb;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using IF.Core.MongoDb;
-using MongoDB.Driver;
 
 namespace IF.MongoDB.Repository.Abstract
 {
-    public class MongoDbSingleConnectionStrategy : IMongoDbConnectionStrategy
+
+    public class MongoDbPerServiceConnectionStrategy : IMongoDbConnectionStrategy
     {
         private readonly MongoClient client = null;
 
         public MongoConnectionSettings ConnectionSettings { get; set; }
-        public MongoDbSingleConnectionStrategy(MongoConnectionSettings settings)
+        public MongoDbPerServiceConnectionStrategy(MongoConnectionSettings settings)
         {
             client = new MongoClient(settings.ConnectionString);
             this.ConnectionSettings = settings;

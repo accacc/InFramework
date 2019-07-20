@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB.Repository.Abstract
 {
-    public interface IMongoDbRepository
+    public interface IMongoDbGenericRepository
     {
         IMongoCollection<T> GetQuery<T>();
 

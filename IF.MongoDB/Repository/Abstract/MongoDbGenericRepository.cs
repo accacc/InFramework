@@ -7,26 +7,20 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB.Repository.Abstract
 {
-    public abstract class GenericRepository: IMongoDbRepository
+    public abstract class MongoDbGenericRepository: IMongoDbGenericRepository
     {
         private readonly IMongoDatabase database = null;
         private readonly IMongoClient client = null;
         private readonly IMongoDbConnectionStrategy connectionStrategy;
 
-        public GenericRepository(IMongoDbConnectionStrategy connectionStrategy)
+        public MongoDbGenericRepository(IMongoDbConnectionStrategy connectionStrategy)
         {
             this.connectionStrategy = connectionStrategy;
             this.client = this.connectionStrategy.GetConnection();
             this.database = this.client.GetDatabase(this.connectionStrategy.ConnectionSettings.Database);
         }
 
-        public GenericRepository(MongoConnectionSettings settings)
-        {
-            var client = new MongoClient(settings.ConnectionString);
-            if (client != null)
-                this.database = client.GetDatabase(settings.Database);
-        }
-
+       
         public IMongoCollection<T> GetQuery<T>()
         {
             return database.GetCollection<T>(nameof(T));

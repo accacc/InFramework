@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB
 {
-    public class MongoAuditLogRepository :GenericRepository, IMongoAuditLogRepository
+    public class MongoAuditLogRepository :MongoDbGenericRepository, IMongoAuditLogRepository
     {
 
         public MongoAuditLogRepository(IMongoDbConnectionStrategy connectionStrategy) : base(connectionStrategy)
@@ -21,10 +21,10 @@ namespace IF.MongoDB
         }
 
 
-        public MongoAuditLogRepository(MongoConnectionSettings settings) : base(settings)
-        {
+        //public MongoAuditLogRepository(MongoConnectionSettings settings) : base(settings)
+        //{
 
-        }
+        //}
 
 
 

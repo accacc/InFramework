@@ -15,11 +15,11 @@ using IF.MongoDB.Service;
 
 namespace IF.MongoDB.Integration
 {
-    public class SingleConnectionStrategyBuilder : ISingleConnectionStrategyBuilder
+    public class MongoDbSingleConnectionStrategyBuilder : IMongoDbSingleConnectionStrategyBuilder
     {
 
         private readonly IInFrameworkBuilder dependencyInjection;
-        public SingleConnectionStrategyBuilder(IInFrameworkBuilder dependencyInjection)
+        public MongoDbSingleConnectionStrategyBuilder(IInFrameworkBuilder dependencyInjection)
         {
             this.dependencyInjection = dependencyInjection;
         }

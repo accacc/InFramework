@@ -16,16 +16,19 @@ namespace IF.MongoDB.Repository
 {
     
 
-    public class MongoEventBusLogRepository : GenericRepository, IMongoEventBusLogRepository
+    public class MongoEventBusLogRepository : MongoDbGenericRepository, IMongoEventBusLogRepository
     {
 
 
-
-
-        public MongoEventBusLogRepository(MongoConnectionSettings settings) : base(settings)
+        public MongoEventBusLogRepository(IMongoDbConnectionStrategy connectionStrategy) : base(connectionStrategy)
         {
 
         }
+
+        //public MongoEventBusLogRepository(MongoConnectionSettings settings) : base(settings)
+        //{
+
+        //}
 
 
         public Task<List<EventLog>> GetEventLogsBySourceIdAsync(Guid sourceId)
