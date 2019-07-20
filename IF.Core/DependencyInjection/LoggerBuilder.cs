@@ -3,11 +3,11 @@ using IF.Core.Log;
 
 namespace IF.Dependency.AutoFac
 {
-    public class LoggerBuilder: ILoggerBuilder
+    public class ApplicationLoggerBuilder: IApplicationLoggerBuilder
     {
         public IInFrameworkBuilder Builder { get; }
 
-        public LoggerBuilder(IInFrameworkBuilder dependencyInjection)
+        public ApplicationLoggerBuilder(IInFrameworkBuilder dependencyInjection)
         {
             this.Builder = dependencyInjection;
         }

@@ -1,6 +1,7 @@
 ﻿using IF.Core.Data;
 using IF.Core.EventBus;
 using IF.Core.EventBus.Log;
+using IF.Core.MongoDb;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
 using IF.MongoDB.Repository.Interface;
@@ -15,13 +16,13 @@ namespace IF.MongoDB.Repository
 {
     
 
-    public class MongoEventLogRepository : GenericRepository, IMongoEventLogRepository
+    public class MongoEventBusLogRepository : GenericRepository, IMongoEventBusLogRepository
     {
 
 
 
 
-        public MongoEventLogRepository(string url,string db):base(url, db)
+        public MongoEventBusLogRepository(MongoConnectionSettings settings) : base(settings)
         {
 
         }

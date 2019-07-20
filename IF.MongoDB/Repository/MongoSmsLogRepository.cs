@@ -1,4 +1,5 @@
 ﻿using IF.Core.Data;
+using IF.Core.MongoDb;
 using IF.Core.Sms;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
@@ -16,12 +17,15 @@ namespace IF.MongoDB.Repository
     {
         
 
-        public MongoSmsLogRepository(string url, string db):base(url, db)
+        public MongoSmsLogRepository(MongoConnectionSettings settings) : base(settings)
         {
             
-        }       
+        }
 
-       
+        public MongoSmsLogRepository(IMongoDbConnectionStrategy connectionStrategy) : base(connectionStrategy)
+        {
+
+        }
 
 
         public async Task<PagedListResponse<ISmsLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string number, int PageNumber = 0, int PageSize = 50)

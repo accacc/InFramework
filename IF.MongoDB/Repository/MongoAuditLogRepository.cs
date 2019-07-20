@@ -1,5 +1,6 @@
 ﻿using IF.Core.Data;
 using IF.Core.Log;
+using IF.Core.MongoDb;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
 using MongoDB.Bson;
@@ -14,16 +15,19 @@ namespace IF.MongoDB
     public class MongoAuditLogRepository :GenericRepository, IMongoAuditLogRepository
     {
 
-        public MongoAuditLogRepository(string url, string db):base(url, db)
+        public MongoAuditLogRepository(IMongoDbConnectionStrategy connectionStrategy) : base(connectionStrategy)
         {
             
         }
 
-       
-        
+
+        public MongoAuditLogRepository(MongoConnectionSettings settings) : base(settings)
+        {
+
+        }
 
 
-       
+
 
         public async Task<IAuditLog> GetDetailAsync(Guid uniqueId)
         {

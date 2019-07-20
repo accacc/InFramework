@@ -1,4 +1,5 @@
 ﻿using IF.Core.Log;
+using IF.Core.MongoDb;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -8,29 +9,37 @@ namespace IF.MongoDB.Repository.Abstract
 {
     public abstract class GenericRepository: IMongoDbRepository
     {
-        private readonly IMongoDatabase _database = null;
-        private readonly MongoClient _client = null;
+        private readonly IMongoDatabase database = null;
+        private readonly IMongoClient client = null;
+        private readonly IMongoDbConnectionStrategy connectionStrategy;
 
-        public GenericRepository(string cnnString, string database)
+        public GenericRepository(IMongoDbConnectionStrategy connectionStrategy)
         {
-            _client = new MongoClient(cnnString);
-            if (_client != null)
-                _database = _client.GetDatabase(database);
+            this.connectionStrategy = connectionStrategy;
+            this.client = this.connectionStrategy.GetConnection();
+            this.database = this.client.GetDatabase(this.connectionStrategy.ConnectionSettings.Database);
+        }
+
+        public GenericRepository(MongoConnectionSettings settings)
+        {
+            var client = new MongoClient(settings.ConnectionString);
+            if (client != null)
+                this.database = client.GetDatabase(settings.Database);
         }
 
         public IMongoCollection<T> GetQuery<T>()
         {
-            return _database.GetCollection<T>(nameof(T));
+            return database.GetCollection<T>(nameof(T));
         }
 
         public IMongoCollection<T> GetQuery<T>(string tableName)
         {
-            return _database.GetCollection<T>(tableName);
+            return database.GetCollection<T>(tableName);
         }
 
         public IMongoCollection<T> GetQuery<T>(string tableName,string database)
         {
-            var db = _client.GetDatabase(database);
+            var db = this.client.GetDatabase(database);
             return db.GetCollection<T>(tableName);
         }
 
@@ -60,7 +69,7 @@ namespace IF.MongoDB.Repository.Abstract
 
         public async Task DropDatabaseAsync(string dbName)
         {
-            await this._client.DropDatabaseAsync(dbName);
+            await this.client.DropDatabaseAsync(dbName);
         }
     }
 

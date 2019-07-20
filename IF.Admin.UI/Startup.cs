@@ -26,6 +26,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using IF.Rest.Client.Integration;
+using IF.Core.MongoDb;
 
 namespace TutumluAnne.Log.AdminUI
 {
@@ -60,18 +61,16 @@ namespace TutumluAnne.Log.AdminUI
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-
-
-
             //var cultureInfo = new CultureInfo("tr-TR");
 
             //CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
             //CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
+            var mongoSettings = new MongoConnectionSettings();
+            mongoSettings.ConnectionString =  Configuration.GetSection("MongoConnection:ConnectionString").Value;
+            mongoSettings.Database =  Configuration.GetSection("MongoConnection:Database").Value;
 
-            var mongoConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
-            var mongoDatabase = Configuration.GetSection("MongoConnection:Database").Value;
-
+            
 
             IInFrameworkBuilder @if = new InFrameworkBuilder();
 
@@ -79,27 +78,24 @@ namespace TutumluAnne.Log.AdminUI
             @if
             //.AddApplicationSettings<IGatewayAppSettings>(settings)
             .AddNewstonJson(json => json.Build())
-            .AddLogger(logger => { logger.AddMongoApplicationLogger(mongoConnectionString, mongoDatabase); })
-            .AddPerformanceLogger(logger => { logger.AddMongoPerformanceLogger(mongoConnectionString, mongoDatabase); })
-            .AddAuditLogger(logger => { logger.AddMongoAuditLogger(mongoConnectionString, mongoDatabase); })
-            .AddSmsLogger(logger => { logger.AddMongoSmsLogger(mongoConnectionString, mongoDatabase); })
-            .AddNotificationLogger(logger => { logger.AddMongoNotificationLogger(mongoConnectionString, mongoDatabase); })
-            .AddEmailLogger(logger => { logger.AddMongoEmailLogger(mongoConnectionString, mongoDatabase); })
-
+            .AddMongo(m=>m.AddMongoPerServiceConnectionStrategy(mongoSettings,c=>
+            {
+                c.AddApplicationLogger();
+                c.AddAuditLogger();
+                c.AddPerformanceLogger();
+                c.AddSmsLogger();
+                c.AddAuditLogger();
+                c.AddEmailLogger();
+            }                
+            ))
             .AddRestClient(a => a.AddFluent(services))            
             ;
 
 
-            @if.RegisterType<MongoEventLogService, IEventLogService>(DependencyScope.Single);
-            @if.RegisterInstance<IMongoEventLogRepository>(new MongoEventLogRepository(mongoConnectionString,mongoDatabase), DependencyScope.Single);
-
-
-
+            @if.RegisterType<MongoEventBusLogService, IEventLogService>(DependencyScope.Single);
+            @if.RegisterType<MongoEventBusLogRepository,IMongoEventBusLogRepository>(DependencyScope.Single);
 
             //var dbSetting = Configuration.GetSettings<DatabaseSettings>();
-
-
-
 
             //services.AddHealthChecks(checks =>
             //{

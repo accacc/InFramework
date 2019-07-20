@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IF.Core.DependencyInjection
 {
-    public interface IEventBusBuilder
+    public interface IEventBusLogBuilder
     {
         IInFrameworkBuilder Builder { get; }
         IInFrameworkBuilder Build(Assembly[] assemblies);

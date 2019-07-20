@@ -23,10 +23,10 @@ namespace IF.Core.DependencyInjection
 
         IInFrameworkBuilder RegisterInstance<T>(T instance, DependencyScope scope);
 
-        IInFrameworkBuilder AddEventBus(Action<IEventBusBuilder> action);
+        IInFrameworkBuilder AddEventBus(Action<IEventBusLogBuilder> action);
         IInFrameworkBuilder AddRazorTemplates(Action<IRazorTemlateBuilder> action);
 
-        IInFrameworkBuilder AddLogger(Action<ILoggerBuilder> action);
+        IInFrameworkBuilder AddApplicationLogger(Action<IApplicationLoggerBuilder> action);
 
         IInFrameworkBuilder AddIdentity(Action<IIdentityBuilder> action);
 
@@ -41,6 +41,8 @@ namespace IF.Core.DependencyInjection
 
         IInFrameworkBuilder AddEmailSender(Action<IEmailSenderBuilder> action);
         IInFrameworkBuilder AddNotificationSender(Action<INotificationBuilder> action);
+
+        IInFrameworkBuilder AddMongo(Action<IMongoBuilder> action);
 
         void RegisterClosedType(Assembly[] assembly, Type type, DependencyScope scope);
 

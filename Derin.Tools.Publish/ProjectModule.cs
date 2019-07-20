@@ -69,7 +69,8 @@ namespace Derin.Tools.Publish
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.HealthChecks.Elasticsearch",Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.NetCore.Scheduler",Type = ProjectType.Core });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Redis",Type = ProjectType.Standart });
-            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.MongoDB",Type = ProjectType.Standart });
+            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.MongoDB", Type = ProjectType.Standart });
+            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.MongoDB.Integration", Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Dependency.AutoFac", Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Email.SendGrid", Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Notification.OneSignal", Type = ProjectType.Standart });
@@ -86,7 +87,7 @@ namespace Derin.Tools.Publish
 
 
 
-
+            dllUniqueNames.OrderBy(o=>o);
 
 
 

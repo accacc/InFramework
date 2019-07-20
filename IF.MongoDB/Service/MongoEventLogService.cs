@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB.Service
 {
-    public class MongoEventLogService : IEventLogService
+    public class MongoEventBusLogService : IEventLogService
     {
-        private readonly IMongoEventLogRepository repository;
-        public MongoEventLogService(IMongoEventLogRepository repository)
+        private readonly IMongoEventBusLogRepository repository;
+        public MongoEventBusLogService(IMongoEventBusLogRepository repository)
         {
             this.repository = repository;
         }

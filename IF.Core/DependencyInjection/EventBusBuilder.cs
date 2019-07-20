@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace IF.Dependency.AutoFac
 {
-    public class EventBusBuilder: IEventBusBuilder
+    public class EventBusBuilder: IEventBusLogBuilder
     {
         public IInFrameworkBuilder Builder { get; }
 

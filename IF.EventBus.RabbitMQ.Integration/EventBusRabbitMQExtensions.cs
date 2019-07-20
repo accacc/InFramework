@@ -16,7 +16,7 @@ namespace IF.EventBus.RabbitMQ.Integration
 {
     public static class EventBusRabbitMQExtensions
     {
-        public static IEventBusBuilder AddRabbitMQEventBus(this IEventBusBuilder eventBusBuilder, IServiceCollection services,RabbitMQConnectionSettings settings,string applicationName)
+        public static IEventBusLogBuilder AddRabbitMQEventBus(this IEventBusLogBuilder eventBusBuilder, IServiceCollection services,RabbitMQConnectionSettings settings,string applicationName)
         {
             
 

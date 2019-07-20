@@ -1,5 +1,6 @@
 ﻿using IF.Core.Data;
 using IF.Core.Log;
+using IF.Core.MongoDb;
 using IF.MongoDB.Repository.Abstract;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -19,7 +20,12 @@ namespace IF.MongoDB
     public class MongoApplicationLogRepository : GenericRepository, IMongoApplicationLogRepository
     {
 
-        public MongoApplicationLogRepository(string cnnString, string database):base(cnnString,database)
+
+        public MongoApplicationLogRepository(MongoConnectionSettings settings) : base(settings)
+        {
+
+        }
+        public MongoApplicationLogRepository(IMongoDbConnectionStrategy connectionStrategy) :base(connectionStrategy)
         {
 
         }

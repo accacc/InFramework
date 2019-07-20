@@ -1,4 +1,5 @@
-﻿using IF.Core.Performance;
+﻿using IF.Core.MongoDb;
+using IF.Core.Performance;
 using IF.MongoDB.Repository.Abstract;
 using MongoDB.Driver;
 using System;
@@ -12,12 +13,15 @@ namespace IF.MongoDB
     {
 
 
-        public MongoPerformanceLogRepository(string url, string db) : base(url, db)
+        public MongoPerformanceLogRepository(MongoConnectionSettings settings) : base(settings)
         {
 
         }
 
-        
+        public MongoPerformanceLogRepository(IMongoDbConnectionStrategy connectionStrategy) : base(connectionStrategy)
+        {
+
+        }
 
         public async Task<IEnumerable<PerformanceLogLowStat>> GetLowPerformanceLogsAsync()
         {

@@ -8,6 +8,6 @@ namespace IF.Core.DependencyInjection.Interface
     {
         IInFrameworkBuilder Builder { get; }
 
-        IInFrameworkBuilder Build(string cnnString, string Database);
+        
     }
 }

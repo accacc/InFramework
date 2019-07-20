@@ -51,9 +51,15 @@ namespace IF.Dependency.AutoFac
         }
 
 
-        public IInFrameworkBuilder AddEventBus(Action<IEventBusBuilder> action)
+        public IInFrameworkBuilder AddEventBus(Action<IEventBusLogBuilder> action)
         {
             action(new EventBusBuilder(this));
+            return this;
+        }
+
+        public IInFrameworkBuilder AddMongo(Action<IMongoBuilder> action)
+        {
+            action(new MongoBuilder(this));
             return this;
         }
 
@@ -75,9 +81,9 @@ namespace IF.Dependency.AutoFac
             return this;
         }
 
-        public IInFrameworkBuilder AddLogger(Action<ILoggerBuilder> action)
+        public IInFrameworkBuilder AddApplicationLogger(Action<IApplicationLoggerBuilder> action)
         {
-            action(new LoggerBuilder(this));
+            action(new ApplicationLoggerBuilder(this));
             return this;
         }
 

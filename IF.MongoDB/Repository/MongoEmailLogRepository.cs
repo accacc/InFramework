@@ -1,5 +1,6 @@
 ﻿using IF.Core.Data;
 using IF.Core.Email;
+using IF.Core.MongoDb;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
 using MongoDB.Bson;
@@ -15,18 +16,15 @@ namespace IF.MongoDB
     {
         
 
-        public MongoEmailLogRepository(string url, string db):base(url, db)
+        public MongoEmailLogRepository(MongoConnectionSettings settings) : base(settings)
         {
             
         }
 
-        
+        public MongoEmailLogRepository(IMongoDbConnectionStrategy connectionStrategy) : base(connectionStrategy)
+        {
 
-        
-        
-
-
-       
+        }
 
         public async Task<PagedListResponse<IEmailLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string To, string type, int PageNumber = 0, int PageSize = 50)
 

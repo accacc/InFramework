@@ -14,10 +14,6 @@ namespace IF.Core.DependencyInjection
             this.Builder = dependencyInjection;
         }
 
-        public IInFrameworkBuilder Build(string cnnString,string Database)
-        {
-            
-            return this.Builder;
-        }
+       
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace IF.Core.DependencyInjection
 {
-    public interface ILoggerBuilder
+    public interface IApplicationLoggerBuilder
     {
         IInFrameworkBuilder Builder { get; }
         IInFrameworkBuilder AddNullLogger();

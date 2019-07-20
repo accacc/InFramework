@@ -1,4 +1,5 @@
 ﻿using IF.Core.Data;
+using IF.Core.MongoDb;
 using IF.Core.Notification;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
@@ -15,11 +16,15 @@ namespace IF.MongoDB
     {
         
 
-        public MongoNotificationLogRepository(string url, string db):base(url, db)
+        public MongoNotificationLogRepository(MongoConnectionSettings settings) : base(settings)
         {
             
         }
 
+        public MongoNotificationLogRepository(IMongoDbConnectionStrategy connectionStrategy) : base(connectionStrategy)
+        {
+
+        }
         public async Task<IEnumerable<NotificationLog>> GetAllLogsAsync()
         {
             return await this.GetQuery<NotificationLog>().Find(_ => true).ToListAsync();
