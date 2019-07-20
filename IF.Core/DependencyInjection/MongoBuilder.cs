@@ -7,11 +7,11 @@ namespace IF.Core.DependencyInjection
 {
     public class MongoBuilder:IMongoBuilder
     {
-        public IInFrameworkBuilder Builder { get; }
+        public IInFrameworkBuilder Container { get; }
 
         public MongoBuilder(IInFrameworkBuilder dependencyInjection)
         {
-            this.Builder = dependencyInjection;
+            this.Container = dependencyInjection;
         }
 
        

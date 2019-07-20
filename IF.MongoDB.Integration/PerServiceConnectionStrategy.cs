@@ -15,11 +15,11 @@ using System.Text;
 
 namespace IF.MongoDB.Integration
 {
-    public class PerServiceConnectionStrategy : IPerServiceConnectionStrategy
+    public class MongoDbPerServiceConnectionStrategy : IMongoDbPerServiceConnectionStrategy
     {
 
         private readonly IInFrameworkBuilder dependencyInjection;
-        public PerServiceConnectionStrategy(IInFrameworkBuilder dependencyInjection)
+        public MongoDbPerServiceConnectionStrategy(IInFrameworkBuilder dependencyInjection)
         {
             this.dependencyInjection = dependencyInjection;
         }

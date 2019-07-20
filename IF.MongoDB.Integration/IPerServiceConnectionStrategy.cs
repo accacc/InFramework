@@ -6,7 +6,7 @@ using System.Text;
 
 namespace IF.MongoDB.Integration
 {
-    public interface IPerServiceConnectionStrategy
+    public interface IMongoDbPerServiceConnectionStrategy
     {
         IApplicationLoggerBuilder AddApplicationLogger();
 

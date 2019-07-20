@@ -6,7 +6,7 @@ namespace IF.Core.DependencyInjection.Interface
 {
     public interface IMongoBuilder
     {
-        IInFrameworkBuilder Builder { get; }
+        IInFrameworkBuilder Container { get; }
 
         
     }
