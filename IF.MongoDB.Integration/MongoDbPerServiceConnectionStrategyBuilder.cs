@@ -15,11 +15,11 @@ using System.Text;
 
 namespace IF.MongoDB.Integration
 {
-    public class MongoDbPerServiceConnectionStrategy : IMongoDbPerServiceConnectionStrategy
+    public class MongoDbPerServiceConnectionStrategyBuilder : IMongoDbConnectionStrategyBuilder
     {
 
         private readonly IInFrameworkBuilder dependencyInjection;
-        public MongoDbPerServiceConnectionStrategy(IInFrameworkBuilder dependencyInjection)
+        public MongoDbPerServiceConnectionStrategyBuilder(IInFrameworkBuilder dependencyInjection)
         {
             this.dependencyInjection = dependencyInjection;
         }
@@ -74,7 +74,7 @@ namespace IF.MongoDB.Integration
             return new SmsLoggerBuilder(this.dependencyInjection);
         }
 
-        public  IEventBusLogBuilder AddEventLogger( )
+        public  IEventBusLogBuilder AddEventBusLogger( )
         {
             this.dependencyInjection.RegisterType<MongoEventBusLogService, IEventLogService>(DependencyScope.Single);
             this.dependencyInjection.RegisterType<MongoEventBusLogRepository,IMongoEventBusLogRepository>( DependencyScope.Single);

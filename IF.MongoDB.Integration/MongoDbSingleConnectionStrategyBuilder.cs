@@ -15,7 +15,7 @@ using IF.MongoDB.Service;
 
 namespace IF.MongoDB.Integration
 {
-    public class MongoDbSingleConnectionStrategyBuilder : IMongoDbSingleConnectionStrategyBuilder
+    public class MongoDbSingleConnectionStrategyBuilder : IMongoDbConnectionStrategyBuilder
     {
 
         private readonly IInFrameworkBuilder dependencyInjection;

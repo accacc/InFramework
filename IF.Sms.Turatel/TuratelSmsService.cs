@@ -110,7 +110,7 @@ namespace IF.Sms.Turatel
                     new XElement("PassWord", settings.Password),
                     new XElement("Type", "1"),
                     new XElement("Concat", "0"),
-                    new XElement("Option", "1"),
+                    //new XElement("Option", "1"),
                     new XElement("Originator", request.Subject),
                     new XElement("Mesgbody",request.Message),
                     new XElement("Numbers", string.Join(",", request.Numbers)),
