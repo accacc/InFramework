@@ -30,7 +30,7 @@ namespace IF.Sms.InfoBip
 
         }
 
-        public IFSmsResponse SendSms(IFSmsOnetoManyRequest request)
+        public IFSmsResponse SendSms(IFSmsOneToManyRequest request)
         {
             //var ruleEngine = new InfoBipSmsRuleEngine();
 

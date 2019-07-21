@@ -7,7 +7,7 @@ namespace IF.MongoDB.Service
 {
     public class MongoSmsBatchService : ISmsBatchService
     {
-        public IFSmsResponse Send(IFSmsOnetoManyRequest request)
+        public IFSmsResponse Send(IFSmsOneToManyRequest request)
         {
             throw new NotImplementedException();
         }

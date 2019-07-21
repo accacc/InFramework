@@ -22,7 +22,7 @@ namespace IF.Sms.Turatel
             this.httpClient.MaxResponseContentBufferSize = Int32.MaxValue;
         }
 
-        public async Task<SmsResult> Gonder(XDocument document)
+        public async Task<HttpRequestResult> PostXmlAsync(XDocument document)
         {
             document.Declaration = new XDeclaration("1.0", "utf-8", null);
             
@@ -33,7 +33,7 @@ namespace IF.Sms.Turatel
 
             var returnValue = response.Content.ReadAsStringAsync().Result;
 
-            var model = new SmsResult { IsSuccess = true };
+            var model = new HttpRequestResult { IsSuccess = true };
 
             if (!response.IsSuccessStatusCode)
             {

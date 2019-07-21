@@ -6,6 +6,6 @@ namespace IF.Core.Sms
 {
     public interface ISmsBatchService
     {
-        IFSmsResponse Send(IFSmsOnetoManyRequest request);
+        IFSmsResponse Send(IFSmsOneToManyRequest request);
     }
 }

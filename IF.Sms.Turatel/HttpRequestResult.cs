@@ -4,7 +4,7 @@ using System.Text;
 
 namespace IF.Sms.Turatel
 {
-    public class SmsResult
+    public class HttpRequestResult
     {
         public bool IsSuccess { get; set; }
 

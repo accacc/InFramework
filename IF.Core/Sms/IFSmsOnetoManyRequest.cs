@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IF.Core.Sms
 {
-    public class IFSmsOnetoManyRequest : BaseRequest
+    public class IFSmsOneToManyRequest : BaseRequest
     {
         public string Subject { get; set; }
 

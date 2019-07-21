@@ -7,7 +7,7 @@ namespace IF.Core.Sms
 {
     public interface IIFSmsOneToManyService
     {
-        IFSmsResponse SendSms(IFSmsOnetoManyRequest request);
+        IFSmsResponse SendSms(IFSmsOneToManyRequest request);
 
     }
 
@@ -19,7 +19,13 @@ namespace IF.Core.Sms
 
     public interface IIFSmsOneToManyServiceAsync
     {
-        Task<IFSmsResponse> SendSmsAsync(IFSmsOnetoManyRequest request);
+        Task<IFSmsResponse> SendSmsAsync(IFSmsOneToManyRequest request);
+
+    }
+
+    public interface IIFSmsOneToManyReportServiceAsync
+    {
+        Task<IFSmsOneToManyReportResponse> ReportSmsAsync(IFSmsOneToManyReportRequest request);
 
     }
 

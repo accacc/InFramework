@@ -12,7 +12,7 @@ namespace IF.Sms.Turatel
 {
   
 
-    public class TuratelSmsService : IIFSmsOneToManyServiceAsync,IIFSmsManyToManyServiceAsync
+    public class TuratelSmsService : IIFSmsOneToManyServiceAsync,IIFSmsManyToManyServiceAsync, IIFSmsOneToManyReportServiceAsync
     {
 
         private readonly TuratelSmsClient httpClient;
@@ -33,7 +33,7 @@ namespace IF.Sms.Turatel
 //07 İçerik uzun fakat Concat özelliği ayarlanmadığından mesaj birleştirilemiyor
 //08 Kullanıcının mesaj göndereceği gateway tanımlı değil ya da şu anda çalışmıyor
 //09 Yanlış tarih formatı.Tarih ddMMyyyyhhmm formatında olmalıdır
-        public async Task<IFSmsResponse> SendSmsAsync(IFSmsOnetoManyRequest request)
+        public async Task<IFSmsResponse> SendSmsAsync(IFSmsOneToManyRequest request)
         {
             IFSmsResponse response = new IFSmsResponse();
 
@@ -72,7 +72,7 @@ namespace IF.Sms.Turatel
         }
 
 
-        public void ConvertResponse(IFSmsResponse response,SmsResult smsResult)
+        public void ConvertResponse(IFSmsResponse response,HttpRequestResult smsResult)
         {
             if (smsResult.IsSuccess == false)
             {
@@ -99,7 +99,7 @@ namespace IF.Sms.Turatel
 
        
 
-        public async Task<SmsResult> SendSmsO2M(IFSmsOnetoManyRequest request)
+        public async Task<HttpRequestResult> SendSmsO2M(IFSmsOneToManyRequest request)
         {
             var doc = new XDocument(
                 new XElement("MainmsgBody",
@@ -119,7 +119,7 @@ namespace IF.Sms.Turatel
             );
 
 
-            var response = await httpClient.Gonder(doc);
+            var response = await httpClient.PostXmlAsync(doc);
 
             return response;
         }
@@ -127,7 +127,7 @@ namespace IF.Sms.Turatel
      
        
 
-        public async Task<SmsResult> SendSmsM2M(IFSmsManyToManyRequest request)
+        public async Task<HttpRequestResult> SendSmsM2M(IFSmsManyToManyRequest request)
         {
 
             var messageDoc = new XElement("Messages");
@@ -159,12 +159,83 @@ namespace IF.Sms.Turatel
            );            
 
 
-            var response = await httpClient.Gonder(doc);
+            var response = await httpClient.PostXmlAsync(doc);
 
             return response;
         }
 
-       
+        public async Task<IFSmsOneToManyReportResponse> ReportSmsAsync(IFSmsOneToManyReportRequest request)
+        {
+            IFSmsOneToManyReportResponse response = new IFSmsOneToManyReportResponse();
+
+            try
+            {
+                //string xml = @"<Request>
+                //            <Command>36</Command>
+                //            <PlatformID>1</PlatformID>
+                //            <ChannelCode>583</ChannelCode>
+                //            <UserName>soltekzen</UserName>
+                //            <PassWord>7804433032</PassWord>
+                //            <MessagePacketId>587521462</MessagePacketId>
+                //            <Option>1</Option>
+                //            </Request>";
+
+                var doc = new XDocument(
+                    new XElement("Request",
+                        new XElement("Command", "36"),
+                        new XElement("PlatformID", "1"),
+                        new XElement("ChannelCode", settings.ChannelCode),
+                        new XElement("UserName", settings.UserName),
+                        new XElement("PassWord", settings.Password),
+                        new XElement("MessagePacketId", request.IntegrationId),
+                        new XElement("Option", "1")
+                    )
+                );
+
+                var httpRequestResult = await this.httpClient.PostXmlAsync(doc);
+
+                if (!httpRequestResult.IsSuccess)
+                {
+                    response.IsSuccess = false;
+                    response.ErrorCode = httpRequestResult.Response;
+                    return response;
+                }
+
+                bool IsSuccess = httpRequestResult.Response.Substring(0, 3) == "OK|";
+
+                if (!IsSuccess)
+                {
+                    response.IsSuccess = false;
+                    response.ErrorCode = httpRequestResult.Response;
+                    return response;
+                }
+
+                var responseString = httpRequestResult.Response.Substring(3, httpRequestResult.Response.Length - 3);
+
+                char char30 = (char)30;
+
+
+                var responseArray = responseString.Split(char30);
+
+                response.Results = new List<IFSmsNumberResult>();
+
+                char char9 = (char)9;
+
+                foreach (var itemString in responseArray)
+                {
+                    var itemArray = itemString.Split(char9);
+
+                    response.Results.Add(new IFSmsNumberResult { Number = itemArray[0], SentDate = itemArray[2], Status = itemArray[1] });
+                }
+            }
+            catch (Exception ex)
+            {
+
+                response.FromException(ex);
+            }
+
+            return response;
+        }
     }
 }
 

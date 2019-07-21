@@ -46,7 +46,7 @@ namespace IF.System.UI.SmsOneToMany.Pages
             
             this.PageSize = 50;
             this.PageNumber = 1;
-            this.BeginDate = DateTime.Now.Date.AddMonths(6);
+            this.BeginDate = DateTime.Now.Date.AddMonths(-6);
             this.EndDate = DateTime.Now.Date.AddDays(1);
         }
 
