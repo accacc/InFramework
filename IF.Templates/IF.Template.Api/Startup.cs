@@ -34,6 +34,7 @@ namespace IF.Template.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
             @if.AddSwagger(services, "v1", "InFramework Template Api", true);
 
             return services.Build(@if);
