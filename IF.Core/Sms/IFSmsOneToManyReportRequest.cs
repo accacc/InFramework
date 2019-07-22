@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IF.Core.Sms
 {
-    public class IFSmsOneToManyReportRequest:BaseRequest
+    public class IFSmsStatusRequest:BaseRequest
     {
         public string IntegrationId { get; set; }
     }

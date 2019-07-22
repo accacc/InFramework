@@ -23,9 +23,9 @@ namespace IF.Core.Sms
 
     }
 
-    public interface IIFSmsOneToManyReportServiceAsync
+    public interface IIFSmsStatusServiceAsync
     {
-        Task<IFSmsOneToManyReportResponse> ReportSmsAsync(IFSmsOneToManyReportRequest request);
+        Task<IFSmsStatusResponse> ReportSmsAsync(IFSmsStatusRequest request);
 
     }
 

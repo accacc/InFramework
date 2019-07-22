@@ -12,7 +12,7 @@ namespace IF.Sms.Turatel
 {
   
 
-    public class TuratelSmsService : IIFSmsOneToManyServiceAsync,IIFSmsManyToManyServiceAsync, IIFSmsOneToManyReportServiceAsync
+    public class TuratelSmsService : IIFSmsOneToManyServiceAsync,IIFSmsManyToManyServiceAsync, IIFSmsStatusServiceAsync
     {
 
         private readonly TuratelSmsClient httpClient;
@@ -164,9 +164,9 @@ namespace IF.Sms.Turatel
             return response;
         }
 
-        public async Task<IFSmsOneToManyReportResponse> ReportSmsAsync(IFSmsOneToManyReportRequest request)
+        public async Task<IFSmsStatusResponse> ReportSmsAsync(IFSmsStatusRequest request)
         {
-            IFSmsOneToManyReportResponse response = new IFSmsOneToManyReportResponse();
+            IFSmsStatusResponse response = new IFSmsStatusResponse();
 
             try
             {

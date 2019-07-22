@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IF.Core.Sms
 {
-    public class IFSmsOneToManyReportResponse:BaseResponse
+    public class IFSmsStatusResponse:BaseResponse
     {
         public List<IFSmsNumberResult> Results { get; set; }
     }

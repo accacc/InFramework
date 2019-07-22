@@ -41,6 +41,18 @@ namespace IF.Core.Sms
         DateTime UpdatedDate { get; set; }
 
         int BatchCount { get; set; }
+
+        string SenderPrefixName { get; set; }
+
+        string CallBackPrefixName { get; set; }
+
+        string CallBackMessageTemplate { get; set; }
+
+        string CallBackNumberId { get; set; }
+
+        DateTime StartDate { get; set; }
+
+        DateTime EndDate { get; set; }
     }
     public class SmsBulkOneToManyOperation:ISmsBulkOneToManyOperation
     {
@@ -58,6 +70,19 @@ namespace IF.Core.Sms
         public SmsOperationStatus Status { get; set; }
 
         public int BatchCount { get; set; }
+
+
+        public string SenderPrefixName { get; set; }
+
+        public string CallBackPrefixName { get; set; }
+
+        public string CallBackMessageTemplate { get; set; }
+
+        public string CallBackNumberId { get; set; }
+
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
 
 
     }
