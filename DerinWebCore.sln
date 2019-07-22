@@ -127,6 +127,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "net4", "net4", "{6FF81239-4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Derin.JWT", "Derin.JWT\Derin.JWT.csproj", "{41B1AC53-2A40-4CB0-AA36-E0A4EBBC9FB2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Swagger.Integration", "IF.Swagger.Integration\IF.Swagger.Integration.csproj", "{B83CB2D7-F114-48EB-80A6-C6EA8EB28D77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -361,6 +363,10 @@ Global
 		{41B1AC53-2A40-4CB0-AA36-E0A4EBBC9FB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41B1AC53-2A40-4CB0-AA36-E0A4EBBC9FB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41B1AC53-2A40-4CB0-AA36-E0A4EBBC9FB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B83CB2D7-F114-48EB-80A6-C6EA8EB28D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B83CB2D7-F114-48EB-80A6-C6EA8EB28D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B83CB2D7-F114-48EB-80A6-C6EA8EB28D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B83CB2D7-F114-48EB-80A6-C6EA8EB28D77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

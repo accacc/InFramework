@@ -75,13 +75,13 @@ namespace Derin.Tools.Publish
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Email.SendGrid", Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Notification.OneSignal", Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.HealthChecks.MongoDb", Type = ProjectType.Standart });
+            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Swagger.Integration", Type = ProjectType.Standart });
 
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Sms.InfoBip", Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Sms.Barabut", Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.EventBus.Logging.EF", Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Email.SendGrid.Extension", Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Notification.OneSignal.Integration", Type = ProjectType.Standart });
-            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Sms.Turatel.Integration", Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Sms.Turatel", Type = ProjectType.Standart });
 
 
