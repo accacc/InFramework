@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
+using IF.Configuration;
 using IF.Core.DependencyInjection;
+using IF.Cqrs.Builders;
 using IF.Dependency.AutoFac;
+using IF.EventBus.RabbitMQ.Integration;
 using IF.Swagger.Integration;
+using IF.Template.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using System;
+using System.Reflection;
 
 namespace IF.Template.Api
 {
@@ -35,7 +35,73 @@ namespace IF.Template.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            @if.AddSwagger(services, "v1", "InFramework Template Api", true);
+            var settings =this.Configuration.GetSettings<IFTemplateSettings>();
+
+            var domain = Assembly.Load("IF.Template.Domain");
+
+            @if.AddSwagger(services, "v1", "InFramework Template Api", true)
+               .AddApplicationSettings<IIFTemplateSettings>(settings)
+                   .AddCqrs(cqrs =>
+                   {
+
+                       cqrs.AddHandler(
+
+                           handler =>
+                           {
+                               handler.AddQueryHandlers()
+                               .Decoration(d => d
+                                     .AddPerformanceCounter()
+                                     //.AddSimulatation()
+                                     .AddErrorLogging()
+                                     .AddAuditing()
+                                     //.AddIdentity()
+                                     )
+                               .Build(new Assembly[] { domain });
+
+
+                               handler.AddQueryAsyncHandlers()
+                                   .Decoration(d => d
+                                       //.AddSearching()
+                                       .AddPerformanceCounter()
+                                       //.AddSimulatation()
+
+                                       .AddErrorLogging()
+                                       .AddAuditing()
+                                   //.AddIdentity()
+                                   )
+                                   .Build(new Assembly[] { domain });
+
+
+
+                               handler.AddCommandHandlers()
+                                     .Decoration(d => d
+                                         .AddPerformanceCounter()
+                                         .AddErrorLogging()
+                                         .AddDataAnnonationValidation()
+                                     //.AddAuditing()
+                                     //.AddIdentity()
+                                     )
+                                    .Build(new Assembly[] { domain });
+
+
+                               handler.AddCommandAsyncHandlers()
+                                      .Decoration(d => d
+                                       .AddPerformanceCounter()
+                                       .AddErrorLogging()
+                                       .AddDataAnnonationValidation()
+                                   //.AddAuditing()
+                                   //.AddIdentity()
+                                   )
+                                   .Build(new Assembly[] { domain });
+                           });
+                   })
+                    .AddEventBus(bus =>
+                    {
+                        bus.AddRabbitMQEventBus(services, settings.RabbitMQConnection, "if_template").Build(new Assembly[] { domain });
+
+                    })
+
+                ;
 
             return services.Build(@if);
         }

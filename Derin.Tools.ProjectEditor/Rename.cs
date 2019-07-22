@@ -211,7 +211,7 @@ namespace FOFramework.Tools.ProjectEditor
                 var fileDir = openFileDialog1.FileName;
 
                 textBoxOldSolutionName.Text = fileName;
-                textBoxOldSolutionDirectory.Text = fileDir.Replace(fileName, string.Empty);
+                textBoxOldSolutionDirectory.Text = fileDir.Replace(fileName, string.Empty)+ "IF.Templates";
 
                 var directories = Directory.GetDirectories(textBoxOldSolutionDirectory.Text);
 
