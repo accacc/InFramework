@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FOProjectTemplate.Core.Reflection;
+using IF.Core.Security;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Security.Claims;
-using Derin.Core.Expressions;
-using Derin.Core.Security;
-using FOProjectTemplate.Core.Reflection;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Derin.JWT
 {
