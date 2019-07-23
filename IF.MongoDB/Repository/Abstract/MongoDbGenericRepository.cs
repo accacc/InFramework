@@ -26,6 +26,11 @@ namespace IF.MongoDB.Repository.Abstract
             return database.GetCollection<T>(nameof(T));
         }
 
+        //public async Task BulkUpdateAsync<T>(string name, List<UpdateOneModel<T>> list,bool Is)
+        //{
+        //    this.GetQuery<T>(name).BulkWriteAsync(list,)
+        //}
+
         public IMongoCollection<T> GetQuery<T>(string tableName)
         {
             return database.GetCollection<T>(tableName);
