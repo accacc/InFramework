@@ -201,6 +201,13 @@ namespace IF.Sms.Turatel
                     return response;
                 }
 
+                if(httpRequestResult.Response.Length<3)
+                {
+                    response.IsSuccess = false;
+                    response.ErrorCode = httpRequestResult.Response;
+                    return response;
+                }
+
                 bool IsSuccess = httpRequestResult.Response.Substring(0, 3) == "OK|";
 
                 if (!IsSuccess)
