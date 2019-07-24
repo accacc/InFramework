@@ -9,6 +9,6 @@ namespace IF.Core.Sms
     {
         public string Prefix { get; set; }
 
-        public string Status { get; set; }
+        public string MessageStatus { get; set; }
     }
 }

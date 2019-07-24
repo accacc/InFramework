@@ -219,7 +219,7 @@ namespace IF.Sms.Turatel
                     new XElement("ChannelCode", settings.ChannelCode),
                     new XElement("UserName", settings.UserName),
                     new XElement("ApplicationID", application.ID),
-                    new XElement("Status", request.Status)
+                    new XElement("Status", request.MessageStatus)
                 )
             );
 
