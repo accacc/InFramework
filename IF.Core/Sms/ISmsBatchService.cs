@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Text;
 
-namespace IF.Core.Sms
-{
-    public interface ISmsBatchService
-    {
-        IFSmsResponse Send(IFSmsOneToManyRequest request);
-    }
-}
+//namespace IF.Core.Sms
+//{
+//    public interface ISmsBatchService
+//    {
+//        IFSmsResponse Send(IFSmsOneToManyRequest request);
+//    }
+//}

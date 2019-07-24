@@ -1,4 +1,6 @@
 ﻿using IF.Core.Sms;
+using IF.Core.Sms.Interface;
+using IF.Core.Xml;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,12 +10,13 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace IF.Sms.Turatel
 {
-  
 
-    public class TuratelSmsService : IIFSmsOneToManyServiceAsync,IIFSmsManyToManyServiceAsync, IIFSmsStatusServiceAsync
+
+    public class TuratelSmsService : IIFSmsOneToManyServiceAsync, IIFSmsManyToManyServiceAsync, IIFSmsStatusServiceAsync,IIFSmsCallbackServiceAsync
     {
 
         private readonly TuratelSmsClient httpClient;
@@ -25,15 +28,15 @@ namespace IF.Sms.Turatel
             this.settings = settings;
         }
 
-//        01 Kullanıcı adı ya da şifre hatalı
-//02 Kredisi yeterli değil
-//03 Geçersiz içerik
-//04 Bilinmeyen SMS tipi
-//05 Hatalı gönderen ismi
-//06 Mesaj metni ya da Alıcı bilgisi girilmemiş
-//07 İçerik uzun fakat Concat özelliği ayarlanmadığından mesaj birleştirilemiyor
-//08 Kullanıcının mesaj göndereceği gateway tanımlı değil ya da şu anda çalışmıyor
-//09 Yanlış tarih formatı.Tarih ddMMyyyyhhmm formatında olmalıdır
+        //        01 Kullanıcı adı ya da şifre hatalı
+        //02 Kredisi yeterli değil
+        //03 Geçersiz içerik
+        //04 Bilinmeyen SMS tipi
+        //05 Hatalı gönderen ismi
+        //06 Mesaj metni ya da Alıcı bilgisi girilmemiş
+        //07 İçerik uzun fakat Concat özelliği ayarlanmadığından mesaj birleştirilemiyor
+        //08 Kullanıcının mesaj göndereceği gateway tanımlı değil ya da şu anda çalışmıyor
+        //09 Yanlış tarih formatı.Tarih ddMMyyyyhhmm formatında olmalıdır
         public async Task<IFSmsResponse> SendSmsAsync(IFSmsOneToManyRequest request)
         {
             IFSmsResponse response = new IFSmsResponse();
@@ -72,107 +75,7 @@ namespace IF.Sms.Turatel
             return response;
         }
 
-
-        public void ConvertResponse(IFSmsResponse response,HttpRequestResult smsResult)
-        {
-            if (smsResult.IsSuccess == false)
-            {
-                response.IsSuccess = false;
-                response.ErrorCode = smsResult.Response;
-                return;
-            }
-
-            if (smsResult.Response.Contains("ID:"))
-            {
-                response.IsSuccess = true;
-                response.IntegrationId = smsResult.Response.Replace("ID", "").Replace(":", "");
-
-            }
-            else
-            {
-                response.IsSuccess = false;
-                response.ErrorCode = smsResult.Response;
-            }
-        }
-        
-
-
-
-       
-
-        public async Task<HttpRequestResult> SendSmsO2M(IFSmsOneToManyRequest request)
-        {
-            var doc = new XDocument(
-                new XElement("MainmsgBody",
-                    new XElement("Command", "0"),
-                    new XElement("PlatformID", "1"),
-                    new XElement("ChannelCode", settings.ChannelCode),
-                    new XElement("UserName", settings.UserName),
-                    new XElement("PassWord", settings.Password),
-                    new XElement("Type", "1"),
-                    new XElement("Concat", "0"),
-                    //new XElement("Option", "1"),
-                    new XElement("Originator", request.Subject),
-                    new XElement("Mesgbody",request.Message),
-                    new XElement("Numbers", string.Join(",", request.Numbers)),
-                    new XElement("SDate", DatetimeToString(request.StartDate)),
-                    new XElement("EDate", DatetimeToString(request.EndDate))
-                )
-            );
-
-
-            var response = await httpClient.PostXmlAsync(doc);
-
-            return response;
-        }
-
-     private string DatetimeToString(DateTime? date)
-        {
-            if (!date.HasValue) return "";
-
-            return date.Value.ToString("yyyy-MM-dd-HH-mm-ss");
-        }
-       
-
-        public async Task<HttpRequestResult> SendSmsM2M(IFSmsManyToManyRequest request)
-        {
-
-            var messageDoc = new XElement("Messages");
-
-            foreach (var message in request.Messages)
-            {
-                messageDoc.Add(
-                    new XElement("Message",
-                        new XElement("Mesgbody", message.Message),
-                        new XElement("Number", message.Number)));
-            }
-
-
-            var doc = new XDocument(
-               new XElement("MainmsgBody",
-                   new XElement("Command", "1"),
-                   new XElement("PlatformID", "1"),
-                   new XElement("ChannelCode", settings.ChannelCode),
-                   new XElement("UserName", settings.UserName),
-                   new XElement("PassWord", settings.Password),
-                   new XElement("Type", "1"),
-                   new XElement("Concat", "0"),
-                    //new XElement("Option", "1"),
-                   new XElement("Originator", request.Subject),
-                   messageDoc,
-
-                    new XElement("SDate", DatetimeToString(request.StartDate)),
-                    new XElement("EDate", DatetimeToString(request.EndDate))
-               )
-           );            
-
-
-            var response = await httpClient.PostXmlAsync(doc);
-
-            return response;
-        }
-
-        public async Task<IFSmsStatusResponse> ReportSmsAsync(IFSmsStatusRequest request)
+        public async Task<IFSmsStatusResponse> GetSmsStatusAsync(IFSmsStatusRequest request)
         {
             IFSmsStatusResponse response = new IFSmsStatusResponse();
 
@@ -202,6 +105,8 @@ namespace IF.Sms.Turatel
 
                 var httpRequestResult = await this.httpClient.PostXmlAsync(doc);
 
+
+
                 if (!httpRequestResult.IsSuccess)
                 {
                     response.IsSuccess = false;
@@ -209,7 +114,7 @@ namespace IF.Sms.Turatel
                     return response;
                 }
 
-                if(httpRequestResult.Response.Length<3)
+                if (httpRequestResult.Response.Length < 3)
                 {
                     response.IsSuccess = false;
                     response.ErrorCode = httpRequestResult.Response;
@@ -252,6 +157,178 @@ namespace IF.Sms.Turatel
             return response;
         }
 
+        public async Task<IFSmsCallbackResponse> GetSmsCallbackAsync(IFSmsCallbackRequest request)
+        {
+            IFSmsCallbackResponse response = new IFSmsCallbackResponse();
+
+
+            try
+            {
+
+
+                var doc = new XDocument(
+                new XElement("MainReportRoot",
+                    new XElement("Command", "24"),
+                    new XElement("PlatformID", "1"),
+                    new XElement("ChannelCode", settings.ChannelCode),
+                    new XElement("UserName", settings.UserName),
+                    new XElement("PassWord", settings.Password)
+                )
+            );
+
+                var httpRequestResult = await this.httpClient.PostXmlAsync(doc);
+
+                if (!httpRequestResult.IsSuccess)
+                {
+                    response.IsSuccess = false;
+                    response.ErrorCode = httpRequestResult.Response;
+                    return response;
+                }
+
+                bool IsSuccess = httpRequestResult.Response.Substring(0, 3) == "OK|";
+
+                if (!IsSuccess)
+                {
+                    response.IsSuccess = false;
+                    response.ErrorCode = httpRequestResult.Response;
+                    return response;
+                }
+
+                var responseString = httpRequestResult.Response.Substring(3, httpRequestResult.Response.Length - 3);
+
+                var applications = IFXmlSerializer.Deserialize<IFSmsApplicationXmls>(responseString);
+
+                response.List = new List<Core.Sms.IFSmsCallbackXmlMessages>();
+
+                foreach (var application in applications.IApplication.Where(a => a.Prefix == request.Prefix).ToList())
+                {
+                    //string xml = @"<MainReportRoot> 
+                    //     <Command>25</Command> 
+                    //     <PlatformID>1</PlatformID> 
+                    //     <ChannelCode>583</ChannelCode>
+                    //     <UserName>soltekzen</UserName>
+                    //     <PassWord>7804433032</PassWord>
+                    //     <ApplicationID>10462</ApplicationID>
+                    //     <Status>2</Status>                         
+                    //</MainReportRoot>";
+
+                    var callbackDoc = new XDocument(
+                new XElement("MainReportRoot",
+                    new XElement("Command", "25"),
+                    new XElement("PlatformID", "1"),
+                    new XElement("ChannelCode", settings.ChannelCode),
+                    new XElement("UserName", settings.UserName),
+                    new XElement("ApplicationID", application.ID),
+                    new XElement("Status", request.Status)
+                )
+            );
+
+                    var httpRequestResult2 = await this.httpClient.PostXmlAsync(callbackDoc);
+
+                    if (!httpRequestResult2.IsSuccess)
+                    {
+                        response.IsSuccess = false;
+                        response.ErrorCode = httpRequestResult2.Response;
+                        return response;
+                    }
+
+                    var callbackSms = IFXmlSerializer.Deserialize<IFSmsCallbackXmlMessages>(responseString);
+
+                    response.List.Add(callbackSms);
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                response.FromException(ex);
+            }
+
+            return response;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        private async Task<HttpRequestResult> SendSmsO2M(IFSmsOneToManyRequest request)
+        {
+            var doc = new XDocument(
+                new XElement("MainmsgBody",
+                    new XElement("Command", "0"),
+                    new XElement("PlatformID", "1"),
+                    new XElement("ChannelCode", settings.ChannelCode),
+                    new XElement("UserName", settings.UserName),
+                    new XElement("PassWord", settings.Password),
+                    new XElement("Type", "1"),
+                    new XElement("Concat", "0"),
+                    //new XElement("Option", "1"),
+                    new XElement("Originator", request.Subject),
+                    new XElement("Mesgbody", request.Message),
+                    new XElement("Numbers", string.Join(",", request.Numbers)),
+                    new XElement("SDate", DatetimeToString(request.StartDate)),
+                    new XElement("EDate", DatetimeToString(request.EndDate))
+                )
+            );
+
+
+            var response = await httpClient.PostXmlAsync(doc);
+
+
+
+            return response;
+        }
+
+
+        private async Task<HttpRequestResult> SendSmsM2M(IFSmsManyToManyRequest request)
+        {
+
+            var messageDoc = new XElement("Messages");
+
+            foreach (var message in request.Messages)
+            {
+                messageDoc.Add(
+                    new XElement("Message",
+                        new XElement("Mesgbody", message.Message),
+                        new XElement("Number", message.Number)));
+            }
+
+
+            var doc = new XDocument(
+               new XElement("MainmsgBody",
+                   new XElement("Command", "1"),
+                   new XElement("PlatformID", "1"),
+                   new XElement("ChannelCode", settings.ChannelCode),
+                   new XElement("UserName", settings.UserName),
+                   new XElement("PassWord", settings.Password),
+                   new XElement("Type", "1"),
+                   new XElement("Concat", "0"),
+                   //new XElement("Option", "1"),
+                   new XElement("Originator", request.Subject),
+                   messageDoc,
+
+                    new XElement("SDate", DatetimeToString(request.StartDate)),
+                    new XElement("EDate", DatetimeToString(request.EndDate))
+               )
+           );
+
+
+            var response = await httpClient.PostXmlAsync(doc);
+
+            return response;
+        }
+
+       
+
         private DateTime GetDateTime(string date)
         {
             return DateTime.ParseExact(date, "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
@@ -268,6 +345,38 @@ namespace IF.Sms.Turatel
             return SmsState.Unknown;
 
         }
+
+        private string DatetimeToString(DateTime? date)
+        {
+            if (!date.HasValue) return "";
+
+            return date.Value.ToString("yyyy-MM-dd-HH-mm-ss");
+        }
+
+
+        private void ConvertResponse(IFSmsResponse response, HttpRequestResult smsResult)
+        {
+            if (smsResult.IsSuccess == false)
+            {
+                response.IsSuccess = false;
+                response.ErrorCode = smsResult.Response;
+                return;
+            }
+
+            if (smsResult.Response.Contains("ID:"))
+            {
+                response.IsSuccess = true;
+                response.IntegrationId = smsResult.Response.Replace("ID", "").Replace(":", "");
+
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.ErrorCode = smsResult.Response;
+            }
+        }
+
+        
     }
 }
 
