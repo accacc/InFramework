@@ -64,9 +64,9 @@ namespace IF.MongoDB.Model
 
         public string CallBackNumberId { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
     }
 
     public class SmsBatchResultOneToManyMongoDb : ISmsBatchResultOneToMany

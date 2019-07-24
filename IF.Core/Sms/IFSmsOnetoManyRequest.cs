@@ -14,9 +14,9 @@ namespace IF.Core.Sms
         public Guid SourceId { get; set; }
 
 
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public List<string> Numbers { get; set; }
 
     }

@@ -1,6 +1,7 @@
 ﻿using IF.Core.Sms;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -114,7 +115,8 @@ namespace IF.Sms.Turatel
                     new XElement("Originator", request.Subject),
                     new XElement("Mesgbody",request.Message),
                     new XElement("Numbers", string.Join(",", request.Numbers)),
-                    new XElement("SDate", "")
+                    new XElement("SDate", DatetimeToString(request.StartDate)),
+                    new XElement("EDate", DatetimeToString(request.EndDate))
                 )
             );
 
@@ -124,7 +126,12 @@ namespace IF.Sms.Turatel
             return response;
         }
 
-     
+     private string DatetimeToString(DateTime? date)
+        {
+            if (!date.HasValue) return "";
+
+            return date.Value.ToString("yyyy-MM-dd-HH-mm-ss");
+        }
        
 
         public async Task<HttpRequestResult> SendSmsM2M(IFSmsManyToManyRequest request)
@@ -154,7 +161,8 @@ namespace IF.Sms.Turatel
                    new XElement("Originator", request.Subject),
                    messageDoc,
 
-                   new XElement("SDate", "")
+                    new XElement("SDate", DatetimeToString(request.StartDate)),
+                    new XElement("EDate", DatetimeToString(request.EndDate))
                )
            );            
 
@@ -232,7 +240,7 @@ namespace IF.Sms.Turatel
                 {
                     var itemArray = itemString.Split(char9);
 
-                    response.Results.Add(new IFSmsNumberResult { Number = itemArray[0], SentDate = itemArray[2], Status = itemArray[1] });
+                    response.Results.Add(new IFSmsNumberResult { Number = itemArray[0], SentDate = GetDateTime(itemArray[2]), State = GetSmsState(itemArray[1]) });
                 }
             }
             catch (Exception ex)
@@ -242,6 +250,23 @@ namespace IF.Sms.Turatel
             }
 
             return response;
+        }
+
+        private DateTime GetDateTime(string date)
+        {
+            return DateTime.ParseExact(date, "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
+        }
+
+        private SmsState GetSmsState(string state)
+        {
+            int intState = Convert.ToInt32(state);
+
+            if (intState == 3) return SmsState.Success;
+            if (intState == 5) return SmsState.Failed;
+            if (intState == 6) return SmsState.Waiting;
+            if (intState == 9) return SmsState.Expired;
+            return SmsState.Unknown;
+
         }
     }
 }

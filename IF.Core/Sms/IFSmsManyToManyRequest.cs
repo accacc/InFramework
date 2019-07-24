@@ -9,14 +9,13 @@ namespace IF.Core.Sms
     {
         public string Subject { get; set; }
 
-
-
         public Guid SourceId { get; set; }
 
-
-
-
         public List<IFSmsManyToManyModel> Messages { get; set; }
+
+        public DateTime? StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
     }
 
     public class IFSmsManyToManyModel

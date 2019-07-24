@@ -50,9 +50,9 @@ namespace IF.Core.Sms
 
         string CallBackNumberId { get; set; }
 
-        DateTime StartDate { get; set; }
+        DateTime? StartDate { get; set; }
 
-        DateTime EndDate { get; set; }
+        DateTime? EndDate { get; set; }
     }
     public class SmsBulkOneToManyOperation:ISmsBulkOneToManyOperation
     {
@@ -80,9 +80,9 @@ namespace IF.Core.Sms
 
         public string CallBackNumberId { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
 
     }
