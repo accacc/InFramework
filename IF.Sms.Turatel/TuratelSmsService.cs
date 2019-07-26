@@ -176,29 +176,33 @@ namespace IF.Sms.Turatel
                 )
             );
 
-                var httpRequestResult = await this.httpClient.PostXmlAsync(doc);
+                var httpRequestApplicationsResult = await this.httpClient.PostXmlAsync(doc);
 
-                if (!httpRequestResult.IsSuccess)
+                if (!httpRequestApplicationsResult.IsSuccess)
                 {
                     response.IsSuccess = false;
-                    response.ErrorCode = httpRequestResult.Response;
+                    response.ErrorCode = httpRequestApplicationsResult.Response;
                     return response;
                 }
 
-                bool IsSuccess = httpRequestResult.Response.Substring(0, 3) == "OK|";
+                bool IsSuccess = httpRequestApplicationsResult.Response.Substring(0, 3) == "OK|";
 
                 if (!IsSuccess)
                 {
                     response.IsSuccess = false;
-                    response.ErrorCode = httpRequestResult.Response;
+                    response.ErrorCode = httpRequestApplicationsResult.Response;
                     return response;
                 }
 
-                var responseString = httpRequestResult.Response.Substring(3, httpRequestResult.Response.Length - 3);
+                var responseString = httpRequestApplicationsResult.Response.Substring(3, httpRequestApplicationsResult.Response.Length - 3);
 
                 var applications = IFXmlSerializer.Deserialize<IFSmsApplicationXmls>(responseString);
 
                 response.List = new List<Core.Sms.IFSmsCallbackXmlMessages>();
+
+                string status = "2";
+
+                if (!String.IsNullOrWhiteSpace(request.MessageStatus)) status = request.MessageStatus;
 
                 foreach (var application in applications.IApplication.Where(a => a.Prefix == request.Prefix).ToList())
                 {
@@ -223,12 +227,12 @@ namespace IF.Sms.Turatel
                 )
             );
 
-                    var httpRequestResult2 = await this.httpClient.PostXmlAsync(callbackDoc);
+                    var httpRequestCallbackResult = await this.httpClient.PostXmlAsync(callbackDoc);
 
-                    if (!httpRequestResult2.IsSuccess)
+                    if (!httpRequestCallbackResult.IsSuccess)
                     {
                         response.IsSuccess = false;
-                        response.ErrorCode = httpRequestResult2.Response;
+                        response.ErrorCode = httpRequestCallbackResult.Response;
                         return response;
                     }
 
