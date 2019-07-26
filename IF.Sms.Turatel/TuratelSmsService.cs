@@ -223,7 +223,7 @@ namespace IF.Sms.Turatel
                     new XElement("ChannelCode", settings.ChannelCode),
                     new XElement("UserName", settings.UserName),
                     new XElement("ApplicationID", application.ID),
-                    new XElement("Status", request.MessageStatus)
+                    new XElement("Status", status)
                 )
             );
 
@@ -239,14 +239,12 @@ namespace IF.Sms.Turatel
                     {
                         response.IsSuccess = false;
                         response.ErrorCode = httpRequestCallbackResult.Response;
-                        return response;
                     }
 
                     if (!httpRequestCallbackResult.IsSuccess)
                     {
                         response.IsSuccess = false;
                         response.ErrorCode = httpRequestCallbackResult.Response;
-                        return response;
                     }
 
                     var callbackSms = IFXmlSerializer.Deserialize<IFSmsCallbackXmlMessages>(httpRequestCallbackResult.Response);
@@ -254,7 +252,7 @@ namespace IF.Sms.Turatel
                     response.List.Add(callbackSms);
                 }
 
-
+                return response;
 
             }
             catch (Exception ex)
