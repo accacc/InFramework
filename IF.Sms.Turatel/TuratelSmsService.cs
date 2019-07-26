@@ -229,6 +229,19 @@ namespace IF.Sms.Turatel
 
                     var httpRequestCallbackResult = await this.httpClient.PostXmlAsync(callbackDoc);
 
+
+                    //02 Hatalı mesaj toplama ID bilgisi
+                    //04 Hatalı durum bilgisi
+                    //06 Mesaj toplama uygulamasında listelenecek kayıt bulunamadı
+                    //09 Hatalı tarih formatı
+
+                    if (httpRequestCallbackResult.Response.Length==2)
+                    {
+                        response.IsSuccess = false;
+                        response.ErrorCode = httpRequestCallbackResult.Response;
+                        return response;
+                    }
+
                     if (!httpRequestCallbackResult.IsSuccess)
                     {
                         response.IsSuccess = false;
@@ -236,7 +249,7 @@ namespace IF.Sms.Turatel
                         return response;
                     }
 
-                    var callbackSms = IFXmlSerializer.Deserialize<IFSmsCallbackXmlMessages>(responseString);
+                    var callbackSms = IFXmlSerializer.Deserialize<IFSmsCallbackXmlMessages>(httpRequestCallbackResult.Response);
 
                     response.List.Add(callbackSms);
                 }

@@ -33,16 +33,16 @@ namespace IF.Sms.Turatel
 
             var returnValue = response.Content.ReadAsStringAsync().Result;
 
-            var model = new HttpRequestResult { IsSuccess = true };
+            var result = new HttpRequestResult { IsSuccess = true };
 
             if (!response.IsSuccessStatusCode)
             {
-                model.IsSuccess = false;
+                result.IsSuccess = false;
             }
             
-            model.Response = returnValue;
+            result.Response = returnValue;
 
-            return model;
+            return result;
         }
 
         private string GetSHA1(string temp)
