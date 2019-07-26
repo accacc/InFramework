@@ -216,12 +216,24 @@ namespace IF.Sms.Turatel
                     //     <Status>2</Status>                         
                     //</MainReportRoot>";
 
+
+                    //01 Kullanıcı Adı veya Şifre Hatalı
+                    //02 Takip no hatalı
+                    //03 Takip no boş
+                    //04 Gönderim başarısız(Parametrik gönderim ise mesaj metinleri yada numaralar boştur)
+                    //05 Takip no’ya ait gönderim bulunamadı ya da şu anda gönderiliyor
+                    //07 Takip no’ya ait gönderim bulunamadı 08 Gönderim kullanıcı tarafından iptal edilmiş
+
+
+                    //9053XXXXXXXXchr(32)3chr(32)20090901180000
+
                     var callbackDoc = new XDocument(
                 new XElement("MainReportRoot",
                     new XElement("Command", "25"),
                     new XElement("PlatformID", "1"),
                     new XElement("ChannelCode", settings.ChannelCode),
                     new XElement("UserName", settings.UserName),
+                    new XElement("PassWord", settings.Password),
                     new XElement("ApplicationID", application.ID),
                     new XElement("Status", status)
                 )
@@ -239,12 +251,14 @@ namespace IF.Sms.Turatel
                     {
                         response.IsSuccess = false;
                         response.ErrorCode = httpRequestCallbackResult.Response;
+                        continue;
                     }
 
                     if (!httpRequestCallbackResult.IsSuccess)
                     {
                         response.IsSuccess = false;
                         response.ErrorCode = httpRequestCallbackResult.Response;
+                        continue;
                     }
 
                     var callbackSms = IFXmlSerializer.Deserialize<IFSmsCallbackXmlMessages>(httpRequestCallbackResult.Response);
