@@ -127,7 +127,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "net4", "net4", "{6FF81239-4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Derin.JWT", "Derin.JWT\Derin.JWT.csproj", "{41B1AC53-2A40-4CB0-AA36-E0A4EBBC9FB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Swagger.Integration", "IF.Swagger.Integration\IF.Swagger.Integration.csproj", "{B83CB2D7-F114-48EB-80A6-C6EA8EB28D77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Swagger.Integration", "IF.Swagger.Integration\IF.Swagger.Integration.csproj", "{B83CB2D7-F114-48EB-80A6-C6EA8EB28D77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Derin.Web.Mvc", "Derin.Web.Mvc\Derin.Web.Mvc.csproj", "{0799836D-E741-4A3C-96CB-E4817A29FC15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -367,6 +369,10 @@ Global
 		{B83CB2D7-F114-48EB-80A6-C6EA8EB28D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B83CB2D7-F114-48EB-80A6-C6EA8EB28D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B83CB2D7-F114-48EB-80A6-C6EA8EB28D77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0799836D-E741-4A3C-96CB-E4817A29FC15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0799836D-E741-4A3C-96CB-E4817A29FC15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0799836D-E741-4A3C-96CB-E4817A29FC15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0799836D-E741-4A3C-96CB-E4817A29FC15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -400,6 +406,7 @@ Global
 		{05D19A1D-66B4-4BDF-9034-25FD77815246} = {0A3C6658-C4EA-49D3-A0B7-5F1043DF8744}
 		{9CFCA4FA-458B-4ECE-882E-551A5E5C6EE0} = {0A3C6658-C4EA-49D3-A0B7-5F1043DF8744}
 		{41B1AC53-2A40-4CB0-AA36-E0A4EBBC9FB2} = {6FF81239-4805-4578-AD79-B203C2808EC9}
+		{0799836D-E741-4A3C-96CB-E4817A29FC15} = {6FF81239-4805-4578-AD79-B203C2808EC9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F11D668-17FD-429B-8951-BB453418EBBA}
