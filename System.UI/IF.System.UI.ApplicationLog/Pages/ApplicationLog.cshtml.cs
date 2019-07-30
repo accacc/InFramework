@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Threading.Tasks;
 
-namespace TutumluAnne.Log.AdminUI.Pages
+namespace IF.System.UI.ApplicationLog.Pages
 {
 
     //[Authorize]

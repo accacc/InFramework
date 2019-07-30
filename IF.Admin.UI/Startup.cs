@@ -1,22 +1,12 @@
-using IF.Configuration;
-using IF.Core.Database;
 using IF.Core.DependencyInjection;
-using IF.Core.EventBus;
 using IF.Core.EventBus.Log;
-using IF.Core.RabbitMQ;
-using IF.Core.Rest;
+using IF.Core.MongoDb;
 using IF.Dependency.AutoFac;
-using IF.EventBus.Logging.EF;
-using IF.HealthChecks;
-using IF.HealthChecks.Checks;
-using IF.HealthChecks.RabbitMQ;
-using IF.HealthChecks.SqlServer;
 using IF.MongoDB.Integration;
-using IF.MongoDB;
 using IF.MongoDB.Repository;
 using IF.MongoDB.Repository.Interface;
 using IF.MongoDB.Service;
-using IF.Rest.Client;
+using IF.Rest.Client.Integration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,10 +15,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using IF.Rest.Client.Integration;
-using IF.Core.MongoDb;
 
-namespace TutumluAnne.Log.AdminUI
+namespace IF.Admin.UI
 {
     public class Startup
     {

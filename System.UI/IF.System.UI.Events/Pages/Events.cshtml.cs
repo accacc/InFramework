@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Threading.Tasks;
 
-namespace TutumluAnne.Log.AdminUI.Pages
+namespace IF.System.UI.Events.Pages
 {
     public class EventsModel : PageModel
     {

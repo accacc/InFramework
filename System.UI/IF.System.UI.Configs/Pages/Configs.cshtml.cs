@@ -17,7 +17,7 @@
 //using Microsoft.Extensions.Configuration;
 //using Microsoft.AspNetCore.Authorization;
 
-//namespace TutumluAnne.Log.AdminUI.Pages
+//namespace IF.System.UI.Configs.Pages
 //{
 //    public class ConfigModel
 //    {
@@ -91,7 +91,7 @@
 //            catch (Exception ex)
 //            {
 
-                
+
 //                model.Name = baseUrl + "Error Occured : " + ex.GetBaseException().Message;
 //            }
 

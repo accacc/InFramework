@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace TutumluAnne.Log.AdminUI
+namespace IF.Admin.UI
 {
     public class Program
     {

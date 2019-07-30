@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TutumluAnne.Log.AdminUI
+namespace IF.Admin.UI
 {
     public class CustomHealthCheck : IHealthCheck
     {
