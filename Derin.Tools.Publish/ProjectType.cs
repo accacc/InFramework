@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Derin.Tools.Publish
+namespace IF.Tools.Publish
 {
     public enum ProjectType
     {

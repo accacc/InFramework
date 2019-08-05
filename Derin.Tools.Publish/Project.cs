@@ -1,7 +1,7 @@
 ﻿using IF.Core.Data;
 using System.Collections.Generic;
 
-namespace Derin.Tools.Publish
+namespace IF.Tools.Publish
 {
     public class Project:BaseJsonDto
     {

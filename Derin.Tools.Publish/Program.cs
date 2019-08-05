@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Derin.Tools.Publish
+namespace IF.Tools.Publish
 {
     static class Program
     {

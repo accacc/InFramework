@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Derin.Tools.Publish
+namespace IF.Tools.Publish
 {
     public partial class EditFrameworkToProjectDialog : Form
     {

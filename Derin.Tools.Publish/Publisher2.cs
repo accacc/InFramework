@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
-namespace Derin.Tools.Publish
+namespace IF.Tools.Publish
 {
     public partial class Publisher2 : Form
     {

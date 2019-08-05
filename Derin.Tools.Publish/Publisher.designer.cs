@@ -1,4 +1,4 @@
-﻿namespace Derin.Tools.Publish
+﻿namespace IF.Tools.Publish
 {
     public partial class Publisher
     {

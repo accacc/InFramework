@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{19A482D1-C4D7-4592-9E6F-6D7602592E2B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Derin.Tools.Publish</RootNamespace>
-    <AssemblyName>Derin.Tools.Publish</AssemblyName>
+    <RootNamespace>IF.Tools.Publish</RootNamespace>
+    <AssemblyName>IF.Tools.Publish</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
