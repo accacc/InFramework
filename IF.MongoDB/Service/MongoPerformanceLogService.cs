@@ -1,10 +1,12 @@
 ﻿using IF.Core.Log;
 using IF.Core.Performance;
+using IF.MongoDB.Model;
+using IF.MongoDB.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace IF.MongoDB
+namespace IF.MongoDB.Service
 {
     public class MongoPerformanceLogService : IPerformanceLogService
     {

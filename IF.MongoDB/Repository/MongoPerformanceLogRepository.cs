@@ -1,13 +1,15 @@
 ﻿using IF.Core.MongoDb;
 using IF.Core.Performance;
+using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
+using IF.MongoDB.Repository.Interface;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IF.MongoDB
+namespace IF.MongoDB.Repository
 {
     public class MongoPerformanceLogRepository : MongoDbGenericRepository, IMongoPerformanceLogRepository
     {

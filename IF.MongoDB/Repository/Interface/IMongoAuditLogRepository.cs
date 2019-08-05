@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IF.MongoDB
+namespace IF.MongoDB.Repository.Interface
 {
     public interface IMongoAuditLogRepository:IMongoDbGenericRepository
     {

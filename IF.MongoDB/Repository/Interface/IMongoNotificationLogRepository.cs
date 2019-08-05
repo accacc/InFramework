@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IF.MongoDB
+namespace IF.MongoDB.Repository.Interface
 {
     public interface IMongoNotificationLogRepository:IMongoDbGenericRepository
     {

@@ -3,6 +3,7 @@ using IF.Core.MongoDb;
 using IF.Core.Sms;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
+using IF.MongoDB.Repository.Interface;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;

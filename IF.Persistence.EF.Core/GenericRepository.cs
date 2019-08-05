@@ -1,16 +1,14 @@
-﻿using IF.Core.Persistence;
-using IF.Core.Data;
+﻿using IF.Core.Data;
+using IF.Persistence.EF.Core;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using IF.Core.Data;
-using IF.Persistence.EF.Core;
 using System.Transactions;
 
-namespace IF.Persistence.EF
+namespace IF.Persistence.EF.Core
 {
     public class GenericRepository : IRepository
     {

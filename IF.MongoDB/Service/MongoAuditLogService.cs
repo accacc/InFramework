@@ -2,12 +2,13 @@
 using IF.Core.Json;
 using IF.Core.Log;
 using IF.MongoDB.Model;
+using IF.MongoDB.Repository.Interface;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace IF.MongoDB
+namespace IF.MongoDB.Service
 {
     public class MongoAuditLogService : IAuditLogService
     {

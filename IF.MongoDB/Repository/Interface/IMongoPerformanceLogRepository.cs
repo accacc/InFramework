@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using IF.Core.Performance;
 using IF.MongoDB.Repository.Abstract;
 
-namespace IF.MongoDB
+namespace IF.MongoDB.Repository.Interface
 {
     public interface IMongoPerformanceLogRepository:IMongoDbGenericRepository
     {       

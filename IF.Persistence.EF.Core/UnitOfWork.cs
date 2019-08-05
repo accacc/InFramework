@@ -9,7 +9,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IF.Persistence.EF
+namespace IF.Persistence.EF.Core
 {
     internal class UnitOfWork : IUnitOfWork
     {

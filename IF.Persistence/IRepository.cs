@@ -1,12 +1,11 @@
 ﻿using IF.Core.Data;
-using IF.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace IF.Core.Persistence
+namespace IF.Persistence
 {
     public partial interface IRepository
     {

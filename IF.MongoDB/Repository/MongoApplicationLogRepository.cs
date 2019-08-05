@@ -1,7 +1,9 @@
 ﻿using IF.Core.Data;
 using IF.Core.Log;
 using IF.Core.MongoDb;
+using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
+using IF.MongoDB.Repository.Interface;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -10,7 +12,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IF.MongoDB
+namespace IF.MongoDB.Repository
 {
 
 

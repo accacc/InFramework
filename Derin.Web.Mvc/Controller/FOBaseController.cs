@@ -1,9 +1,8 @@
-﻿using IF.Core.Configuration;
+﻿using Derin.Core.Mvc.ActionResult;
+using Derin.Core.Mvc.Exception;
+using IF.Core.Configuration;
 using IF.Core.Data;
 using IF.Core.Exception;
-using IF.Core.Handler;
-using Derin.Core.Mvc.ActionResult;
-using Derin.Core.Mvc.Exception;
 using System.IO;
 using System.Threading;
 using System.Web.Helpers;
@@ -18,7 +17,7 @@ namespace Derin.Core.Mvc.Controller
 
 
         public ICultureSettingsService cultureSettingsService = DependencyResolver.Current.GetService<ICultureSettingsService>();
-        public IDispatcher dispatcher = DependencyResolver.Current.GetService<IDispatcher>();
+        
 
 
 

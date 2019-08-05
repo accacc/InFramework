@@ -3,6 +3,7 @@ using IF.Core.MongoDb;
 using IF.Core.Notification;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
+using IF.MongoDB.Repository.Interface;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -10,7 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IF.MongoDB
+namespace IF.MongoDB.Repository
 {
     public class MongoNotificationLogRepository :MongoDbGenericRepository,IMongoNotificationLogRepository
     {

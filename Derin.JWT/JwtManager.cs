@@ -1,4 +1,4 @@
-﻿using FOProjectTemplate.Core.Reflection;
+﻿using IF.Core.Reflection;
 using IF.Core.Security;
 using Microsoft.IdentityModel.Tokens;
 using System;

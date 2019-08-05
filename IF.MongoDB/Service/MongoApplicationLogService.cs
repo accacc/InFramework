@@ -1,9 +1,11 @@
 ﻿using IF.Core.Data;
 using IF.Core.Log;
+using IF.MongoDB.Model;
+using IF.MongoDB.Repository.Interface;
 using System;
 using System.Threading.Tasks;
 
-namespace IF.MongoDB
+namespace IF.MongoDB.Service
 {
     public class MongoApplicationLogService : ILogService
     {

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
-namespace IF.Core.Persistence
+namespace IF.Persistence
 {
     public interface IDbContext
     {

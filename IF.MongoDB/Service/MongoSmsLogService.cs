@@ -2,6 +2,7 @@
 using IF.Core.Sms;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository;
+using IF.MongoDB.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
