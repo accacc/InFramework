@@ -10,7 +10,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Derin.SocialAndCommunication.Sms.Integration.InfoBip
+namespace IF.SocialAndCommunication.Sms.Integration.InfoBip
 {
     public class XmlServiceClient : IDisposable
     {

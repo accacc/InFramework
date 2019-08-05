@@ -7,7 +7,6 @@
 //using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
-//using Derin.Persistence.EF.Audit;
 //using IF.Core.Audit;
 //using System.Linq.Expressions;
 //using System.Threading;

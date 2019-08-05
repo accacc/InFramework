@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Derin.SocialAndCommunication.Sms.Integration.InfoBip
+namespace IF.SocialAndCommunication.Sms.Integration.InfoBip
 {
     public class Messenger
     {

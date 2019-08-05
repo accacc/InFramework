@@ -4,7 +4,7 @@ using IF.Sms.Barabut;
 using System;
 using System.Collections.Generic;
 
-namespace Derin.SocialAndCommunication.Sms.Integration.InfoBip
+namespace IF.SocialAndCommunication.Sms.Integration.InfoBip
 {
     public class BarabutSmsService : IIFSmsOneToManyService
     {

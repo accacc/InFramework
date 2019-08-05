@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Authentication;
 using System.Text;
 
-namespace Derin.SocialAndCommunication.Sms.Integration.InfoBip
+namespace IF.SocialAndCommunication.Sms.Integration.InfoBip
 {
     internal static class WebRequestUtils
     {
