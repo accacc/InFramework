@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace TutumluAnne.Log.AdminUI.Pages
+namespace IF.System.UI.SqlServer.Pages
 {
 
     //[Authorize]
