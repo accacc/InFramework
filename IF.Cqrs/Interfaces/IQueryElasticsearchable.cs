@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IF.Core.Data
+namespace IF.Core.Interfaces
 {
     public interface IQueryElasticsearchable
     {

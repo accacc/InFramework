@@ -1,6 +1,7 @@
 ﻿using IF.Core.DependencyInjection;
 using IF.Core.Data;
 using IF.Core.DependencyInjection.Interface;
+using IF.Core.Interfaces;
 
 namespace IF.Dependency.Builders
 {

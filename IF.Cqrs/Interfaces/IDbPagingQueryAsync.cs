@@ -1,7 +1,7 @@
 ﻿using IF.Core.Data;
 using System.Threading.Tasks;
 
-namespace IF.Core.Data
+namespace IF.Core.Interfaces
 {
     public interface IDbPagingQueryAsync<T>
     {

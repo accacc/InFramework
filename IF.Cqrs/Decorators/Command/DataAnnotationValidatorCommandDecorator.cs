@@ -1,4 +1,5 @@
 ﻿using IF.Core.Data;
+using IF.Core.Interfaces;
 using IF.Core.Validation;
 using System;
 

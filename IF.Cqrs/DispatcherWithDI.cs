@@ -3,6 +3,7 @@ using IF.Core.Data;
 using IF.Core.Security;
 using System.Threading.Tasks;
 using IF.Cqrs.Exception;
+using IF.Core.Interfaces;
 
 namespace IF.Cqrs
 {
