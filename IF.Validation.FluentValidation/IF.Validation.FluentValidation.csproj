@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IF.Core\IF.Core.csproj" />
+    <ProjectReference Include="..\IF.Cqrs\IF.Cqrs.csproj" />
   </ItemGroup>
 
 </Project>
