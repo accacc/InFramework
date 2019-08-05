@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Linq;
 
-namespace Derin.Core.Mvc.Filters
+namespace IF.Web.Mvc.Filters
 {
     public static class KeepDataHelperTempData
     {

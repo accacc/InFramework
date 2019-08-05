@@ -5,7 +5,7 @@
 //using System.Web.Mvc;
 //using System.Globalization;
 
-//namespace Derin.Core.Mvc.Filters
+//namespace IF.Web.Mvc.Filters
 //{
 //    public class DateTimeFilter : ActionFilterAttribute
 //    {

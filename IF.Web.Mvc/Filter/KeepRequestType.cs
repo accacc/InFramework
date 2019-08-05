@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Derin.Core.Mvc.Filter
+namespace IF.Web.Mvc.Filter
 {
     public enum KeepRequestType
     {

@@ -1,9 +1,9 @@
-﻿//using Derin.Core.Mvc.Filter;
+﻿//using IF.Web.Mvc.Filter;
 //using System;
 //using System.Linq;
 //using System.Web.Mvc;
 
-//namespace Derin.Core.Mvc.Filters
+//namespace IF.Web.Mvc.Filters
 //{
    
 

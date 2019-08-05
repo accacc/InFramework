@@ -1,10 +1,10 @@
-﻿using Derin.Core.Mvc.Filter;
+﻿using IF.Web.Mvc.Filter;
 using IF.Web.Mvc.Session;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Linq;
 
-namespace Derin.Core.Mvc.Filters
+namespace IF.Web.Mvc.Filters
 {
 
 
