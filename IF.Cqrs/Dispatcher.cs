@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IF.Core.Cqrs
+namespace IF.Cqrs
 {
     public class Dispatcher : IDispatcher
     {

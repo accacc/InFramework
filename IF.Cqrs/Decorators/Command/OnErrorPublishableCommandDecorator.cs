@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IF.Core.Cqrs.Decorators.Command
+namespace IF.Cqrs.Decorators.Command
 {
     public class OnErrorPublishableCommandDecorator<TCommand> : IOnErrorPublishableCommandAsync<TCommand> where TCommand : BaseCommand
     {

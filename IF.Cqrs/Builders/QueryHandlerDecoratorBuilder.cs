@@ -1,10 +1,10 @@
-﻿using IF.Core.Cqrs;
-using IF.Core.Cqrs.Decorators.Query;
+﻿using IF.Cqrs;
+using IF.Cqrs.Decorators.Query;
 using IF.Core.DependencyInjection;
 using System;
 using System.Collections.Generic;
 
-namespace IF.Dependency.AutoFac
+namespace IF.Dependency.Builders
 {
     public class QueryHandlerDecoratorBuilder : IQueryHandlerDecoratorBuilder
     {

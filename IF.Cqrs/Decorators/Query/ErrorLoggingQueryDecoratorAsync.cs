@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IF.Core.Cqrs.Decorators.Query
+namespace IF.Cqrs.Decorators.Query
 {
     public class ErrorLoggingQueryDecoratorAsync<TRequest, TResponse> : IQueryHandlerAsync<TRequest, TResponse> where TResponse : BaseResponse, new() where TRequest : BaseRequest
     {

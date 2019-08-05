@@ -3,7 +3,7 @@
 //using IF.Core.Json;
 //using System;
 
-//namespace IF.Core.Cqrs.Decorators.Query
+//namespace IF.Cqrs.Decorators.Query
 //{
 //    public class SaveSimulateDataDecorator<TRequest, TResponse> : IQueryHandler<TRequest, TResponse>
 //        where TRequest : BaseRequest

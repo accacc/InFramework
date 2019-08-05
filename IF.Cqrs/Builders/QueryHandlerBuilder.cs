@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace IF.Dependency.AutoFac
+namespace IF.Dependency.Builders
 {
     public class QueryHandlerBuilder: IQueryHandlerBuilder
     {

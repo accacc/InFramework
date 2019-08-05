@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IF.Core.Cqrs.Decorators.Command
+namespace IF.Cqrs.Decorators.Command
 {
     public class ErrorLoggingCommandDecoratorAsync<TCommand> : ICommandHandlerAsync<TCommand> where TCommand : BaseCommand
     {

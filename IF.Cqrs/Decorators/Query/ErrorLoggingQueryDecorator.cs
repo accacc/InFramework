@@ -5,7 +5,7 @@ using IF.Core.Log;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IF.Core.Cqrs.Decorators.Query
+namespace IF.Cqrs.Decorators.Query
 {
     public class ErrorLoggingQueryDecorator<TRequest, TResponse> : IQueryHandler<TRequest, TResponse> where TResponse : BaseResponse, new() where TRequest : BaseRequest
     {

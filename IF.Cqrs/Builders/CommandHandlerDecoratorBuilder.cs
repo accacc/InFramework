@@ -1,12 +1,12 @@
-﻿using IF.Core.Cqrs;
+﻿using IF.Cqrs;
 using IF.Core.Handler;
 using IF.Core.Validation;
 using IF.Core.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using IF.Core.Cqrs.Decorators.Command;
+using IF.Cqrs.Decorators.Command;
 
-namespace IF.Dependency.AutoFac
+namespace IF.Dependency.Builders
 {
     public class CommandHandlerDecoratorBuilder : ICommandHandlerDecoratorBuilder
     {

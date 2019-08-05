@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IF.Core.Cqrs.Decorators.Query
+namespace IF.Cqrs.Decorators.Query
 {
     public class IdentityQueryDecorator<TRequest, TResponse> : IQueryHandler<TRequest, TResponse> where TRequest : BaseRequest
         where TResponse : BaseResponse

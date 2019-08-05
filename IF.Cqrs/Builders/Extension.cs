@@ -1,11 +1,8 @@
-﻿using IF.Core.Cqrs;
-using IF.Core.DependencyInjection;
+﻿using IF.Core.DependencyInjection;
 using IF.Core.DependencyInjection.Interface;
 using IF.Core.Handler;
-using IF.Dependency.AutoFac;
+using IF.Dependency.Builders;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IF.Cqrs.Builders
 {

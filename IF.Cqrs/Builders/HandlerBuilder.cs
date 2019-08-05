@@ -1,7 +1,7 @@
 ﻿using IF.Core.DependencyInjection;
 using IF.Core.Handler;
 
-namespace IF.Dependency.AutoFac
+namespace IF.Dependency.Builders
 {
     public class HandlerBuilder: IHandlerBuilder
     {

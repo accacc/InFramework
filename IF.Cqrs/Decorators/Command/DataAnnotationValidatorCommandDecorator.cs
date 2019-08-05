@@ -2,7 +2,7 @@
 using IF.Core.Validation;
 using System;
 
-namespace IF.Core.Cqrs
+namespace IF.Cqrs.Decorators.Command
 {
     public class DataAnnotationValidatorCommandDecorator<TCommand> : ICommandHandler<TCommand> where TCommand : BaseCommand
     {

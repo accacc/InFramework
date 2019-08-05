@@ -3,7 +3,7 @@ using IF.Core.Validation;
 using System;
 using System.Threading.Tasks;
 
-namespace IF.Core.Cqrs
+namespace IF.Cqrs.Decorators.Command
 {
 
     public class DataAnnotationValidatorCommandDecoratorAsync<TCommand> : ICommandHandlerAsync<TCommand> where TCommand : BaseCommand

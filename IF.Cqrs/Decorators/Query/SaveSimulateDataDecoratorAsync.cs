@@ -9,7 +9,7 @@
 //using System;
 //using System.Threading.Tasks;
 
-//namespace IF.Core.Cqrs.Decorators.Query
+//namespace IF.Cqrs.Decorators.Query
 //{
 //    public class SaveSimulateDataDecoratorAsync<TRequest, TResponse> : IQueryHandlerAsync<TRequest, TResponse>
 //            where TRequest : BaseRequest

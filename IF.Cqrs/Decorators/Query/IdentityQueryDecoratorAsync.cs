@@ -11,7 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace IF.Core.Cqrs.Decorators.Query
+namespace IF.Cqrs.Decorators.Query
 {
 
    

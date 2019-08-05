@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace IF.Core.Cqrs.Decorators
+namespace IF.Cqrs.Decorators
 {
     public interface IIgnoreAuditRequest:IBaseRequest
     {

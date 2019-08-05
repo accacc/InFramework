@@ -3,7 +3,7 @@ using IF.Core.Handler;
 using IF.Core.Security;
 using System.Threading.Tasks;
 
-namespace IF.Core.Cqrs
+namespace IF.Cqrs
 {
     public class DispatcherWithDI : IDispatcher
     {
