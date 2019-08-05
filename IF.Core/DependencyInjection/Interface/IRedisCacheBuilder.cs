@@ -1,4 +1,4 @@
-﻿namespace IF.Core.DependencyInjection
+﻿namespace IF.Core.DependencyInjection.Interface
 {
     public interface IRedisCacheBuilder
     {

@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System;
 
-namespace IF.Core.Handler
+namespace IF.Core.Data
 {
     public class BaseRequest: IUserIdentity, IBaseRequestContract,IBaseRequest
     {

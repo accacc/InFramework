@@ -1,17 +1,13 @@
 ﻿using IF.Core.DependencyInjection;
-using IF.Core.DependencyInjection.Model;
+using IF.Core.DependencyInjection.Interface;
 using IF.Core.EventBus.Log;
 using IF.Core.Log;
 using IF.Core.Notification;
 using IF.Core.Performance;
 using IF.Core.Sms;
-using IF.Dependency.AutoFac;
 using IF.MongoDB.Repository;
 using IF.MongoDB.Repository.Interface;
 using IF.MongoDB.Service;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IF.MongoDB.Integration
 {

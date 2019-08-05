@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace FOProjectTemplate.Core.Reflection
+namespace IF.Core.Reflection
 {
     public static class ReflectionHelper
     {

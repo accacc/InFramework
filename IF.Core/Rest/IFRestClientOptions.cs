@@ -160,7 +160,7 @@ namespace IF.Core.Rest
 
         private TimeSpan GetNextWaitInterval(int numberOfAttempts)
         {
-            var random = new Random();
+            var random = new System.Random();
 
             var delta = (int)((Math.Pow(2.0, numberOfAttempts) - 1.0) *
                                random.Next(

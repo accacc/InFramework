@@ -11,6 +11,7 @@ using IF.Core.Common;
 using System.Data.Common;
 using IF.EventBus.Logging.EF;
 using IF.Core.EventBus.Log;
+using IF.Core.DependencyInjection.Interface;
 
 namespace IF.EventBus.RabbitMQ.Integration
 {

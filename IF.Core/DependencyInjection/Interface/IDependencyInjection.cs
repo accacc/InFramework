@@ -1,11 +1,9 @@
 ﻿using IF.Core.Configuration;
-using IF.Core.DependencyInjection.Interface;
-using IF.Core.DependencyInjection.Model;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace IF.Core.DependencyInjection
+namespace IF.Core.DependencyInjection.Interface
 {
 
 

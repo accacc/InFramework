@@ -1,5 +1,5 @@
 ﻿using IF.Core.DependencyInjection;
-using IF.Core.DependencyInjection.Model;
+using IF.Core.DependencyInjection.Interface;
 using IF.Core.Module;
 using IF.RazorViewEngine;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;

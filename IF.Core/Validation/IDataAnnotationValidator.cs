@@ -1,4 +1,4 @@
-﻿using IF.Core.Handler;
+﻿using IF.Core.Data;
 
 namespace IF.Core.Validation
 {

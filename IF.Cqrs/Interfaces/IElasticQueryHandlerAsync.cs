@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IF.Core.Handler
+namespace IF.Core.Data
 {
     public interface IElasticQueryHandlerAsync<TRequest, TResponse>
        where TRequest : BaseRequest

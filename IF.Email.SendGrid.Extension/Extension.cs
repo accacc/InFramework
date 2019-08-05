@@ -1,4 +1,4 @@
-﻿using IF.Core.DependencyInjection.Model;
+﻿using IF.Core.DependencyInjection.Interface;
 using IF.Core.Email;
 using IF.Core.SendGrid;
 using Microsoft.Extensions.DependencyInjection;

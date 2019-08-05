@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace IF.Core
+namespace IF.Core.Random
 {
     public class RandomGenerator : IRandomGenerator
     {

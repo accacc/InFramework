@@ -1,4 +1,5 @@
 using IF.Core.DependencyInjection;
+using IF.Core.DependencyInjection.Interface;
 using IF.Core.EventBus.Log;
 using IF.Core.MongoDb;
 using IF.Dependency.AutoFac;

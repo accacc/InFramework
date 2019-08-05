@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using IF.Core.Handler;
+using IF.Core.Data;
 using IF.Persistence.EF.Core;
 using System.Transactions;
 

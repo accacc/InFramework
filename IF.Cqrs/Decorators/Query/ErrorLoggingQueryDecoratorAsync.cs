@@ -1,6 +1,6 @@
 ﻿using IF.Core.Configuration;
 using IF.Core.Exception;
-using IF.Core.Handler;
+using IF.Core.Data;
 using IF.Core.Log;
 
 using System;

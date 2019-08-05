@@ -242,7 +242,6 @@ namespace IF.Tools.Publish
                 new NameValueDto(@"C:/Projects/TutumluAnne.ViewRenderService/packages/InFramework", "Razor Template Engine"),
                 //new NameValueDto(@"C:/Users/MBC-PC/Documents/Source/Repos/yeni.tutumluanne/yeni.tutumluanne/packages/InFramework", "Tutumlu Anne İyzico İş"),
                 new NameValueDto(@"C:/Projects/groseri/packages/InFramework","Groseri Kampanya"),
-                new NameValueDto(@"C:/Projects/InFramework.ProjectTemplates/packages/InFramework","Default"),
                 new NameValueDto(@"C:/Projects/b2c.nezih/b2c.nezih/packages/InFramework","Nezih Ev"),
                 new NameValueDto(@"C:/temp/packages/"+frameworkIndent,"Temp"),
                 new NameValueDto(@"C:/Projects/DerinCampaignCore/packages/InFramework","Kampanya Core"),

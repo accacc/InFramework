@@ -1,5 +1,5 @@
 ﻿using IF.Core.Data;
-using IF.Core.Handler;
+using IF.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace InFramework.Core.Localization
+namespace IF.Core.Localization
 {
     public interface ITranslatorService
     {

@@ -1,6 +1,6 @@
 ﻿using IF.Core.Data;
 
-namespace IF.Core.Handler
+namespace IF.Core.Data
 {
     public interface IDbPagingQuery<T>
     {

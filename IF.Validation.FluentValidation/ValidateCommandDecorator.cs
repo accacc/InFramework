@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using IF.Core.Handler;
+using IF.Core.Data;
 using System;
 
 namespace IF.Validation.FluentValidation

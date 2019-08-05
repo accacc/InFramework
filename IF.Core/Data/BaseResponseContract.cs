@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace IF.Core.Handler
+namespace IF.Core.Data
 {
     public class BaseResponseContract : IBaseResponseContract
     {

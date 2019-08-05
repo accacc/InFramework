@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IF.Core.Handler
+namespace IF.Core.Data
 {
     public interface IBaseRequestContract
     {

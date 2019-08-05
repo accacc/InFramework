@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IF.Core
+namespace IF.Core.Random
 {
     public interface IRandomGenerator
     {

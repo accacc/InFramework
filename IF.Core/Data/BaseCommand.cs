@@ -1,7 +1,7 @@
 ﻿using IF.Core.Security;
 using System;
 
-namespace IF.Core.Handler
+namespace IF.Core.Data
 {
     public class BaseCommand : BaseResponseContract,IUserIdentity,IBaseRequestContract,IBaseCommand
     {

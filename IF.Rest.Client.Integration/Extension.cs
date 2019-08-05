@@ -1,5 +1,5 @@
 ﻿using IF.Core.DependencyInjection.Interface;
-using IF.Core.DependencyInjection.Model;
+using IF.Core.DependencyInjection.Interface;
 using IF.Core.Notification;
 using IF.Core.OneSignal;
 using IF.Core.Rest;

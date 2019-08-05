@@ -1,19 +1,15 @@
-﻿using IF.Core.Security;
-using FOProjectTemplate.Core.Reflection;
+﻿using IF.Core.Exception;
+using IF.Core.Jwt;
+using IF.Core.Reflection;
+using IF.Core.Security;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq.Expressions;
 using System.Security.Claims;
-using IF.Core.Jwt;
-using IF.Core.Exception;
 
 namespace IF.Jwt
 {
-
-
-
-
     public class JwtManager : IJwtManager
     {
         /// <summary>

@@ -1,13 +1,13 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-//namespace IF.Core.Services
-//{
-//    public interface IBaseService
-//    {
-//        string GetServiceId();
-//    }
-//}
+namespace IF.Core.Services
+{
+    public interface IBaseService
+    {
+        string GetServiceId();
+    }
+}

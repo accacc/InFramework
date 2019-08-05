@@ -1,10 +1,11 @@
 ﻿using IF.Cqrs;
-using IF.Core.Handler;
+using IF.Core.Data;
 using IF.Core.Validation;
 using IF.Core.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using IF.Cqrs.Decorators.Command;
+using IF.Core.DependencyInjection.Interface;
 
 namespace IF.Dependency.Builders
 {

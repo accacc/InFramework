@@ -1,8 +1,9 @@
 ﻿using IF.Core.DependencyInjection;
+using IF.Core.DependencyInjection.Interface;
 using IF.Core.EventBus;
 using System.Reflection;
 
-namespace IF.Dependency.AutoFac
+namespace IF.Core.DependencyInjection
 {
     public class EventBusBuilder: IEventBusLogBuilder
     {

@@ -1,7 +1,8 @@
 ﻿using IF.Core.DependencyInjection;
+using IF.Core.DependencyInjection.Interface;
 using IF.Core.Json;
 
-namespace IF.Dependency.AutoFac
+namespace IF.Core.DependencyInjection
 {
     public class JsonBuilder:IJsonBuilder
     {

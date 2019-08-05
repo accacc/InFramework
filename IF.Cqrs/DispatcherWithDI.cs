@@ -1,7 +1,8 @@
 ﻿using IF.Core.Exception;
-using IF.Core.Handler;
+using IF.Core.Data;
 using IF.Core.Security;
 using System.Threading.Tasks;
+using IF.Cqrs.Exception;
 
 namespace IF.Cqrs
 {

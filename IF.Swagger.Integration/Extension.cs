@@ -1,4 +1,5 @@
 ﻿using IF.Core.DependencyInjection;
+using IF.Core.DependencyInjection.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;

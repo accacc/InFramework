@@ -3,6 +3,7 @@ using IF.Cqrs.Decorators.Query;
 using IF.Core.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using IF.Core.DependencyInjection.Interface;
 
 namespace IF.Dependency.Builders
 {

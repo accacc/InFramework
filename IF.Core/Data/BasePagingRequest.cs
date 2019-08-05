@@ -1,7 +1,7 @@
 ﻿using IF.Core.Data;
 using System.Collections.Generic;
 
-namespace IF.Core.Handler
+namespace IF.Core.Data
 {
 
 

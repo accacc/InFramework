@@ -1,4 +1,4 @@
-﻿using IF.Core.DependencyInjection.Model;
+﻿using IF.Core.DependencyInjection.Interface;
 using IF.Core.Security;
 using System;
 using System.Collections.Generic;

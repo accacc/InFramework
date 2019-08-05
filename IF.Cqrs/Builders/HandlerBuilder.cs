@@ -1,5 +1,6 @@
 ﻿using IF.Core.DependencyInjection;
-using IF.Core.Handler;
+using IF.Core.Data;
+using IF.Core.DependencyInjection.Interface;
 
 namespace IF.Dependency.Builders
 {

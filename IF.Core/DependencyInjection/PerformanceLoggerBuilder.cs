@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IF.Core.DependencyInjection.Interface;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

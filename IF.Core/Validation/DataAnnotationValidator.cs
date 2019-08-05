@@ -1,5 +1,5 @@
 ﻿using IF.Core.Exception;
-using IF.Core.Handler;
+using IF.Core.Data;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
