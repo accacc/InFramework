@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="IF.Core">
       <HintPath>..\packages\InFramework\IF.Core.dll</HintPath>
     </Reference>

@@ -41,6 +41,12 @@
     <Reference Include="IF.EventBus.RabbitMQ.Integration">
       <HintPath>..\packages\InFramework\IF.EventBus.RabbitMQ.Integration.dll</HintPath>
     </Reference>
+    <Reference Include="IF.Persistence">
+      <HintPath>..\packages\InFramework\IF.Persistence.dll</HintPath>
+    </Reference>
+    <Reference Include="IF.Persistence.EF.Core">
+      <HintPath>..\packages\InFramework\IF.Persistence.EF.Core.dll</HintPath>
+    </Reference>
     <Reference Include="IF.Swagger.Integration">
       <HintPath>..\packages\InFramework\IF.Swagger.Integration.dll</HintPath>
     </Reference>

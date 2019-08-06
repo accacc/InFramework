@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IF.Core.Interfaces;
+using IF.Template.Contract.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IF.Template.Api.Controllers
@@ -19,12 +20,12 @@ namespace IF.Template.Api.Controllers
         }
 
 
-        //[HttpGet]
-        //[Route("api/User/GetUsers")]
-        //public PagedListResponse<GetUsersQueryViewModel> GetUsers([FromQuery] GetUsersQuery request)
-        //{
-        //    var result = _dispatcher.Query<GetUsersQuery, PagedListResponse<GetUsersQueryViewModel>>(request);
-        //    return result;
-        //}
+        [HttpGet]
+        [Route("api/User/GetUsers")]
+        public async Task<UserListResponse> GetUsers([FromQuery] UserListRequest request)
+        {
+            var result = await dispatcher.QueryAsync<UserListRequest, UserListResponse>(request);
+            return result;
+        }
     }
 }

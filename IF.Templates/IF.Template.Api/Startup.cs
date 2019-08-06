@@ -5,11 +5,15 @@ using IF.Core.DependencyInjection.Interface;
 using IF.Cqrs.Builders;
 using IF.Dependency.AutoFac;
 using IF.EventBus.RabbitMQ.Integration;
+using IF.Persistence;
+using IF.Persistence.EF.Core;
 using IF.Swagger.Integration;
 using IF.Template.Domain;
+using IF.Template.Persistence.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -37,6 +41,13 @@ namespace IF.Template.Api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             var settings =this.Configuration.GetSettings<IFTemplateSettings>();
+
+            services.AddDbContext<IFDbContext>(options =>
+            {
+                options.UseSqlServer(settings.Database.ConnectionString);
+            }, ServiceLifetime.Transient);
+
+            services.AddTransient<IRepository>(provider => new GenericRepository(provider.GetService<IFDbContext>()));
 
             var domain = Assembly.Load("IF.Template.Domain");
 

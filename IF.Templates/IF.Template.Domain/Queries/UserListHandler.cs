@@ -2,6 +2,7 @@
 using IF.Persistence;
 using IF.Template.Contract.Queries;
 using IF.Template.Persistence.EF.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +21,15 @@ namespace IF.Template.Domain.Queries
             this.repository = repository;
         }
 
-        public Task<UserListResponse> HandleAsync(UserListRequest request)
+        public async Task<UserListResponse> HandleAsync(UserListRequest request)
         {
-            var user = this.repository.GetQuery<IFUser>()
+            var user = await this.repository.GetQuery<IFUser>()
               .Select(x => new UserDto
               {
                   Id = x.Id,
                   UserName = x.UserName,                 
                   Email = x.Email
-              }).ToList();
+              }).ToListAsync();
 
             return new UserListResponse { Data = user };
         }

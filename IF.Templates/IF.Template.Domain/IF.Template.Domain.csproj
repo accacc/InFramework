@@ -20,10 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\IF.Template.Contract\IF.Template.Contract.csproj" />
     <ProjectReference Include="..\IF.Template.Persistence.EF\IF.Template.Persistence.EF.csproj" />
   </ItemGroup>
