@@ -1,6 +1,4 @@
-﻿
-
-using IF.Core.Localization;
+﻿using IF.Core.Localization;
 
 namespace IF.Core.Data
 {

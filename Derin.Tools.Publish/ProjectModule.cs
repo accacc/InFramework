@@ -83,6 +83,7 @@ namespace IF.Tools.Publish
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Email.SendGrid.Extension", Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Notification.OneSignal.Integration", Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Sms.Turatel", Type = ProjectType.Standart });
+            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Emarsys", Type = ProjectType.Standart });
 
 
 

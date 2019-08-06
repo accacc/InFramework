@@ -133,6 +133,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Derin.Web.Mvc", "Derin.Web.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Emarsys", "IF.Emarsys\IF.Emarsys.csproj", "{BA4259E3-1CEF-432B-B668-0144E01C7496}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Tools.Templates.Editor", "IF.Tools.Templates.Editor\IF.Tools.Templates.Editor.csproj", "{13963957-1578-4E03-83D2-EB448F465D59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -379,6 +381,10 @@ Global
 		{BA4259E3-1CEF-432B-B668-0144E01C7496}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA4259E3-1CEF-432B-B668-0144E01C7496}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA4259E3-1CEF-432B-B668-0144E01C7496}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13963957-1578-4E03-83D2-EB448F465D59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13963957-1578-4E03-83D2-EB448F465D59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13963957-1578-4E03-83D2-EB448F465D59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13963957-1578-4E03-83D2-EB448F465D59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -414,6 +420,7 @@ Global
 		{41B1AC53-2A40-4CB0-AA36-E0A4EBBC9FB2} = {6FF81239-4805-4578-AD79-B203C2808EC9}
 		{0799836D-E741-4A3C-96CB-E4817A29FC15} = {6FF81239-4805-4578-AD79-B203C2808EC9}
 		{BA4259E3-1CEF-432B-B668-0144E01C7496} = {B2D90BD4-E1FF-482C-8B1B-28D666BCAB3D}
+		{13963957-1578-4E03-83D2-EB448F465D59} = {D341F4C3-4300-47AF-B531-88A33C727436}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F11D668-17FD-429B-8951-BB453418EBBA}
