@@ -131,6 +131,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Swagger.Integration", "I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Derin.Web.Mvc", "Derin.Web.Mvc\Derin.Web.Mvc.csproj", "{0799836D-E741-4A3C-96CB-E4817A29FC15}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Emarsys", "IF.Emarsys\IF.Emarsys.csproj", "{BA4259E3-1CEF-432B-B668-0144E01C7496}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -373,6 +375,10 @@ Global
 		{0799836D-E741-4A3C-96CB-E4817A29FC15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0799836D-E741-4A3C-96CB-E4817A29FC15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0799836D-E741-4A3C-96CB-E4817A29FC15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA4259E3-1CEF-432B-B668-0144E01C7496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA4259E3-1CEF-432B-B668-0144E01C7496}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA4259E3-1CEF-432B-B668-0144E01C7496}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA4259E3-1CEF-432B-B668-0144E01C7496}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -407,6 +413,7 @@ Global
 		{9CFCA4FA-458B-4ECE-882E-551A5E5C6EE0} = {0A3C6658-C4EA-49D3-A0B7-5F1043DF8744}
 		{41B1AC53-2A40-4CB0-AA36-E0A4EBBC9FB2} = {6FF81239-4805-4578-AD79-B203C2808EC9}
 		{0799836D-E741-4A3C-96CB-E4817A29FC15} = {6FF81239-4805-4578-AD79-B203C2808EC9}
+		{BA4259E3-1CEF-432B-B668-0144E01C7496} = {B2D90BD4-E1FF-482C-8B1B-28D666BCAB3D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F11D668-17FD-429B-8951-BB453418EBBA}
