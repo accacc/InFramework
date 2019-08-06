@@ -160,12 +160,18 @@ namespace IF.Tools.Templates.Editor
             //}
 
             var source = new DirectoryInfo(@"C:\Projects\InFramework\IF.Templates");
-            var target = new DirectoryInfo(@"C:\temp\templateproject\IF.Templates");
+            var target = new DirectoryInfo(@"C:\temp\templateproject\Derin.Emarsys");
 
             CopyFilesRecursively(source, target);
 
-            File.Copy(@"C:\Projects\InFramework\" + template.SolutionName + ".sln", @"C:\temp\templateproject\" + template.SolutionName + ".sln", true);
+            File.Copy(@"C:\Projects\InFramework\" + template.SolutionName + ".sln", @"C:\temp\templateproject\" + template.SolutionName.Replace("IF.Templates", "Derin.Emarsys") + ".sln", true);
 
+
+
+            string text = File.ReadAllText(@"C:\temp\templateproject\" + template.SolutionName.Replace("IF.Templates", "Derin.Emarsys") + ".sln");
+            text = text.Replace("IF.Templates", "IF.Template");
+            text = text.Replace("IF.Template", "Derin.Emarsys");
+            File.WriteAllText(@"C:\temp\templateproject\" + template.SolutionName.Replace("IF.Templates", "Derin.Emarsys") + ".sln", text);
 
         }
 
@@ -175,15 +181,22 @@ namespace IF.Tools.Templates.Editor
             {
                 //if (template.ProjectList.Any(p => dir.Name.Contains(p.Name)) || dir.Name.Contains("package"))
                 {
-                    CopyFilesRecursively(dir, target.CreateSubdirectory(dir.Name));
+                    CopyFilesRecursively(dir, target.CreateSubdirectory(dir.Name.Replace("IF.Template","Derin.Emarsys")));
                 }
             }
 
             foreach (FileInfo file in source.GetFiles())
             {
-                file.CopyTo(Path.Combine(target.FullName, file.Name));
+                var newFileName = file.Name.Replace("IF.Template", "Derin.Emarsys");
+                file.CopyTo(Path.Combine(target.FullName,newFileName ));
+
+                string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
+                text = text.Replace("IF.Template", "Derin.Emarsys");
+                File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
             }
         
         }
+
+
     }
 }
