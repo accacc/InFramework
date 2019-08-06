@@ -34,19 +34,23 @@
             this.comboBoxOrm = new System.Windows.Forms.ComboBox();
             this.labelOrm = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.labelEventBus = new System.Windows.Forms.Label();
-            this.bindingSourceDatabase = new System.Windows.Forms.BindingSource(this.components);
-            this.bindingSourceOrm = new System.Windows.Forms.BindingSource(this.components);
+            this.comboBoxLogType = new System.Windows.Forms.ComboBox();
+            this.labelLogType = new System.Windows.Forms.Label();
             this.comboBoxMessageBroker = new System.Windows.Forms.ComboBox();
             this.labelMessageBroker = new System.Windows.Forms.Label();
             this.comboBoxServiceBus = new System.Windows.Forms.ComboBox();
             this.labelServiceBus = new System.Windows.Forms.Label();
-            this.comboBoxLogType = new System.Windows.Forms.ComboBox();
-            this.labelLogType = new System.Windows.Forms.Label();
+            this.labelEventBus = new System.Windows.Forms.Label();
+            this.bindingSourceDatabase = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingSourceOrm = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSourceMessageBroker = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSourceServiceBus = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSourceLogType = new System.Windows.Forms.BindingSource(this.components);
             this.checkBoxSwagger = new System.Windows.Forms.CheckBox();
+            this.buttonGenerate = new System.Windows.Forms.Button();
+            this.clbFolders = new System.Windows.Forms.CheckedListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxSolutionName = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDatabase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceOrm)).BeginInit();
@@ -103,14 +107,22 @@
             this.panel1.Size = new System.Drawing.Size(331, 216);
             this.panel1.TabIndex = 6;
             // 
-            // labelEventBus
+            // comboBoxLogType
             // 
-            this.labelEventBus.AutoSize = true;
-            this.labelEventBus.Location = new System.Drawing.Point(17, 112);
-            this.labelEventBus.Name = "labelEventBus";
-            this.labelEventBus.Size = new System.Drawing.Size(56, 13);
-            this.labelEventBus.TabIndex = 7;
-            this.labelEventBus.Text = "Event Bus";
+            this.comboBoxLogType.FormattingEnabled = true;
+            this.comboBoxLogType.Location = new System.Drawing.Point(107, 98);
+            this.comboBoxLogType.Name = "comboBoxLogType";
+            this.comboBoxLogType.Size = new System.Drawing.Size(205, 21);
+            this.comboBoxLogType.TabIndex = 11;
+            // 
+            // labelLogType
+            // 
+            this.labelLogType.AutoSize = true;
+            this.labelLogType.Location = new System.Drawing.Point(19, 101);
+            this.labelLogType.Name = "labelLogType";
+            this.labelLogType.Size = new System.Drawing.Size(52, 13);
+            this.labelLogType.TabIndex = 10;
+            this.labelLogType.Text = "Log Type";
             // 
             // comboBoxMessageBroker
             // 
@@ -146,22 +158,14 @@
             this.labelServiceBus.TabIndex = 6;
             this.labelServiceBus.Text = "Service Bus";
             // 
-            // comboBoxLogType
+            // labelEventBus
             // 
-            this.comboBoxLogType.FormattingEnabled = true;
-            this.comboBoxLogType.Location = new System.Drawing.Point(107, 98);
-            this.comboBoxLogType.Name = "comboBoxLogType";
-            this.comboBoxLogType.Size = new System.Drawing.Size(205, 21);
-            this.comboBoxLogType.TabIndex = 11;
-            // 
-            // labelLogType
-            // 
-            this.labelLogType.AutoSize = true;
-            this.labelLogType.Location = new System.Drawing.Point(19, 101);
-            this.labelLogType.Name = "labelLogType";
-            this.labelLogType.Size = new System.Drawing.Size(52, 13);
-            this.labelLogType.TabIndex = 10;
-            this.labelLogType.Text = "Log Type";
+            this.labelEventBus.AutoSize = true;
+            this.labelEventBus.Location = new System.Drawing.Point(17, 112);
+            this.labelEventBus.Name = "labelEventBus";
+            this.labelEventBus.Size = new System.Drawing.Size(56, 13);
+            this.labelEventBus.TabIndex = 7;
+            this.labelEventBus.Text = "Event Bus";
             // 
             // checkBoxSwagger
             // 
@@ -173,11 +177,51 @@
             this.checkBoxSwagger.Text = "Use Swagger";
             this.checkBoxSwagger.UseVisualStyleBackColor = true;
             // 
+            // buttonGenerate
+            // 
+            this.buttonGenerate.Location = new System.Drawing.Point(686, 339);
+            this.buttonGenerate.Name = "buttonGenerate";
+            this.buttonGenerate.Size = new System.Drawing.Size(75, 23);
+            this.buttonGenerate.TabIndex = 10;
+            this.buttonGenerate.Text = "Generate";
+            this.buttonGenerate.UseVisualStyleBackColor = true;
+            this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
+            // 
+            // clbFolders
+            // 
+            this.clbFolders.CheckOnClick = true;
+            this.clbFolders.FormattingEnabled = true;
+            this.clbFolders.Location = new System.Drawing.Point(418, 63);
+            this.clbFolders.Name = "clbFolders";
+            this.clbFolders.Size = new System.Drawing.Size(343, 259);
+            this.clbFolders.TabIndex = 11;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(427, 393);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 13);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Solution Name";
+            // 
+            // textBoxSolutionName
+            // 
+            this.textBoxSolutionName.Location = new System.Drawing.Point(543, 386);
+            this.textBoxSolutionName.Name = "textBoxSolutionName";
+            this.textBoxSolutionName.Size = new System.Drawing.Size(218, 20);
+            this.textBoxSolutionName.TabIndex = 13;
+            this.textBoxSolutionName.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
             // WebApiTemplateDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBoxSolutionName);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.clbFolders);
+            this.Controls.Add(this.buttonGenerate);
             this.Controls.Add(this.checkBoxSwagger);
             this.Controls.Add(this.labelEventBus);
             this.Controls.Add(this.panel1);
@@ -218,5 +262,9 @@
         private System.Windows.Forms.BindingSource bindingSourceServiceBus;
         private System.Windows.Forms.BindingSource bindingSourceLogType;
         private System.Windows.Forms.CheckBox checkBoxSwagger;
+        private System.Windows.Forms.Button buttonGenerate;
+        private System.Windows.Forms.CheckedListBox clbFolders;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxSolutionName;
     }
 }

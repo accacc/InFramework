@@ -8,15 +8,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Build.Construction;
+using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace IF.Tools.Templates.Editor
 {
     public partial class WebApiTemplateDialog : Form
     {
+        string templateCode;
+        IFProjectTemplate template;
         public WebApiTemplateDialog()
         {
             InitializeComponent();
+            this.templateCode = "WA";
             BindComboBox();
+
+            var _solutionFile = SolutionFile.Parse(@"C:\Projects\InFramework\IF.Templates.sln");
+
+
+          
+
+
+
+
         }
 
 
@@ -27,9 +42,34 @@ namespace IF.Tools.Templates.Editor
             BindServiceBuses();
             BindMessageBrokers();
             BindLogTypes();
+            BindProjects();
 
         }
 
+        private void BindProjects()
+        {
+
+            List<NameValueDto> projectTemplates = new List<NameValueDto>();
+
+
+
+            using (var ctx = new MyDbContext())
+            {
+                template = ctx.ProjectTemplates.Include(p=>p.ProjectList).SingleOrDefault(p => p.Code == templateCode);
+         
+
+
+                clbFolders.Items.Clear();
+
+                foreach (var project in template.ProjectList)
+                {
+                    clbFolders.Items.Add(project.Name,true);
+                }
+            }
+
+
+          
+        }
 
         private void BindServiceBuses()
         {
@@ -96,6 +136,31 @@ namespace IF.Tools.Templates.Editor
 
         private void labelTemplateName_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonGenerate_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(@"C:\temp\templateproject"))
+            {
+                Directory.Delete(@"C:\temp\templateproject", true);
+            }          
+
+            foreach (string dirPath in Directory.GetDirectories(@"C:\Projects\InFramework\IF.Templates", "*", SearchOption.AllDirectories))
+            {
+                if (template.ProjectList.Any(p => dirPath.Contains(p.Name)) || dirPath.Contains("package"))
+                {
+                    Directory.CreateDirectory(dirPath.Replace(@"C:\Projects\InFramework\IF.Templates", @"C:\temp\templateproject\IF.Templates"));
+                }
+            }
+
+            File.Copy(@"C:\Projects\InFramework\" + template.SolutionName + ".sln", @"C:\temp\templateproject\" + template.SolutionName + ".sln", true);
+
 
         }
     }
