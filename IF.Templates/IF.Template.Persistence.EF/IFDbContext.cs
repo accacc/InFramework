@@ -2,7 +2,7 @@
 
 namespace IF.Template.Persistence.EF
 {
-    public class Class1
+    public class IFDbContext
     {
     }
 }
