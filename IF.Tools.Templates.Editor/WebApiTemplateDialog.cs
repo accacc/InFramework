@@ -149,19 +149,41 @@ namespace IF.Tools.Templates.Editor
             if (Directory.Exists(@"C:\temp\templateproject"))
             {
                 Directory.Delete(@"C:\temp\templateproject", true);
-            }          
-
-            foreach (string dirPath in Directory.GetDirectories(@"C:\Projects\InFramework\IF.Templates", "*", SearchOption.AllDirectories))
-            {
-                if (template.ProjectList.Any(p => dirPath.Contains(p.Name)) || dirPath.Contains("package"))
-                {
-                    Directory.CreateDirectory(dirPath.Replace(@"C:\Projects\InFramework\IF.Templates", @"C:\temp\templateproject\IF.Templates"));
-                }
             }
+
+            //foreach (string dirPath in Directory.GetDirectories(@"C:\Projects\InFramework\IF.Templates", "*", SearchOption.AllDirectories))
+            //{
+            //    if (template.ProjectList.Any(p => dirPath.Contains(p.Name)) || dirPath.Contains("package"))
+            //    {
+            //        Directory.CreateDirectory(dirPath.Replace(@"C:\Projects\InFramework\IF.Templates", @"C:\temp\templateproject\IF.Templates"));
+            //    }
+            //}
+
+            var source = new DirectoryInfo(@"C:\Projects\InFramework\IF.Templates");
+            var target = new DirectoryInfo(@"C:\temp\templateproject\IF.Templates");
+
+            CopyFilesRecursively(source, target);
 
             File.Copy(@"C:\Projects\InFramework\" + template.SolutionName + ".sln", @"C:\temp\templateproject\" + template.SolutionName + ".sln", true);
 
 
+        }
+
+        public  void CopyFilesRecursively(DirectoryInfo source, DirectoryInfo target)
+        {
+            foreach (DirectoryInfo dir in source.GetDirectories())
+            {
+                //if (template.ProjectList.Any(p => dir.Name.Contains(p.Name)) || dir.Name.Contains("package"))
+                {
+                    CopyFilesRecursively(dir, target.CreateSubdirectory(dir.Name));
+                }
+            }
+
+            foreach (FileInfo file in source.GetFiles())
+            {
+                file.CopyTo(Path.Combine(target.FullName, file.Name));
+            }
+        
         }
     }
 }
