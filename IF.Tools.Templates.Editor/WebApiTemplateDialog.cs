@@ -18,20 +18,13 @@ namespace IF.Tools.Templates.Editor
     {
         string templateCode;
         IFProjectTemplate template;
+        string templateSolutionName = "IF.Template";
         public WebApiTemplateDialog()
         {
             InitializeComponent();
             this.templateCode = "WA";
             BindComboBox();
-
-            var _solutionFile = SolutionFile.Parse(@"C:\Projects\InFramework\IF.Templates.sln");
-
-
-          
-
-
-
-
+            //var _solutionFile = SolutionFile.Parse(@"C:\Projects\InFramework\IF.Templates.sln");          
         }
 
 
@@ -146,6 +139,14 @@ namespace IF.Tools.Templates.Editor
 
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
+            if(String.IsNullOrWhiteSpace(textBoxSolutionName.Text))
+            {
+                MessageBox.Show(@"Lütfen yeni solution adını giriniz.", @"Zorunlu Alan", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                return;
+            }
+
+            string newSolutionName = textBoxSolutionName.Text.Trim();
+
             if (Directory.Exists(@"C:\temp\templateproject"))
             {
                 Directory.Delete(@"C:\temp\templateproject", true);
@@ -159,44 +160,95 @@ namespace IF.Tools.Templates.Editor
             //    }
             //}
 
-            var source = new DirectoryInfo(@"C:\Projects\InFramework\IF.Templates");
-            var target = new DirectoryInfo(@"C:\temp\templateproject\Derin.Emarsys");
+            var source = new DirectoryInfo(@"C:\Projects\InFramework\"+ templateSolutionName + "s");
+            var target = new DirectoryInfo(@"C:\temp\templateproject\" + newSolutionName);
 
-            CopyFilesRecursively(source, target);
+            CopyFilesRecursively(source, target,newSolutionName);
 
-            File.Copy(@"C:\Projects\InFramework\" + template.SolutionName + ".sln", @"C:\temp\templateproject\" + template.SolutionName.Replace("IF.Templates", "Derin.Emarsys") + ".sln", true);
+            File.Copy(@"C:\Projects\InFramework\" + template.SolutionName + ".sln", @"C:\temp\templateproject\" + template.SolutionName.Replace(templateSolutionName + "s", newSolutionName) + ".sln", true);
 
 
 
-            string text = File.ReadAllText(@"C:\temp\templateproject\" + template.SolutionName.Replace("IF.Templates", "Derin.Emarsys") + ".sln");
-            text = text.Replace("IF.Templates", "IF.Template");
-            text = text.Replace("IF.Template", "Derin.Emarsys");
-            File.WriteAllText(@"C:\temp\templateproject\" + template.SolutionName.Replace("IF.Templates", "Derin.Emarsys") + ".sln", text);
+            string text = File.ReadAllText(@"C:\temp\templateproject\" + template.SolutionName.Replace(templateSolutionName+ "s", newSolutionName) + ".sln");
+            text = text.Replace(templateSolutionName + "s", templateSolutionName);
+            text = text.Replace(templateSolutionName, newSolutionName);
+            File.WriteAllText(@"C:\temp\templateproject\" + template.SolutionName.Replace(templateSolutionName + "s", newSolutionName) + ".sln", text);
+
+
+            ExploreFile(@"C:\temp\templateproject\" + template.SolutionName.Replace(templateSolutionName + "s", newSolutionName) + ".sln");
 
         }
 
-        public  void CopyFilesRecursively(DirectoryInfo source, DirectoryInfo target)
+
+        public bool ExploreFile(string filePath)
+        {
+            if (!System.IO.File.Exists(filePath))
+            {
+                return false;
+            }
+            //Clean up file path so it can be navigated OK
+            filePath = System.IO.Path.GetFullPath(filePath);
+            System.Diagnostics.Process.Start("explorer.exe", string.Format("/select,\"{0}\"", filePath));
+            return true;
+        }
+
+        public  void CopyFilesRecursively(DirectoryInfo source, DirectoryInfo target,string newSolutionName)
         {
             foreach (DirectoryInfo dir in source.GetDirectories())
             {
                 //if (template.ProjectList.Any(p => dir.Name.Contains(p.Name)) || dir.Name.Contains("package"))
                 {
-                    CopyFilesRecursively(dir, target.CreateSubdirectory(dir.Name.Replace("IF.Template","Derin.Emarsys")));
+                    CopyFilesRecursively(dir, target.CreateSubdirectory(dir.Name.Replace(templateSolutionName , newSolutionName)), newSolutionName);
                 }
             }
 
             foreach (FileInfo file in source.GetFiles())
-            {
-                var newFileName = file.Name.Replace("IF.Template", "Derin.Emarsys");
-                file.CopyTo(Path.Combine(target.FullName,newFileName ));
+            {              
+              
 
-                string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
-                text = text.Replace("IF.Template", "Derin.Emarsys");
-                File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
+                if (file.Extension == ".dll")
+                {
+                    var newFileName = file.Name.Replace(templateSolutionName , newSolutionName);
+                    file.CopyTo(Path.Combine(target.FullName, newFileName));                    
+                }
+                else if (file.Name == "IFTemplateSettings.cs" && file.Directory.Name == "IF.Template.Domain")
+                {
+                    HandleSettings(target,file, newSolutionName);
+                }
+                else if (file.Name == "Startup.cs" && file.Directory.Name == "IF.Template.Api")
+                {
+                    HandleStartup(target, file, newSolutionName);
+                }
+                else
+                {
+                    var newFileName = file.Name.Replace(templateSolutionName , newSolutionName);
+                    file.CopyTo(Path.Combine(target.FullName, newFileName));
+                    string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
+                    text = text.Replace(templateSolutionName, newSolutionName);
+                    File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
+                }
             }
         
         }
 
+        private void HandleSettings(DirectoryInfo target,FileInfo file, string newSolutionName)
+        {
+            var newFileName = file.Name.Replace("IFTemplate", newSolutionName.Replace(".",""));
+            file.CopyTo(Path.Combine(target.FullName, newFileName));
+            string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
+            text = text.Replace("IFTemplate", newSolutionName.Replace(".", ""));
+            text = text.Replace(templateSolutionName, newSolutionName);
+            File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
+        }
 
+        private void HandleStartup(DirectoryInfo target, FileInfo file, string newSolutionName)
+        {
+            var newFileName = file.Name.Replace("IFTemplate", newSolutionName.Replace(".", ""));
+            file.CopyTo(Path.Combine(target.FullName, newFileName));
+            string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
+            text = text.Replace("IFTemplate", newSolutionName.Replace(".", ""));
+            text = text.Replace(templateSolutionName, newSolutionName);
+            File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
+        }
     }
 }
