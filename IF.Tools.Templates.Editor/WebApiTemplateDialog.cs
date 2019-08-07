@@ -1,16 +1,12 @@
-﻿using IF.Core.Data;
+﻿using CWDev.SLNTools.Core;
+using IF.Core.Data;
+//using Microsoft.Build.Construction;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.Build.Construction;
-using Microsoft.EntityFrameworkCore;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace IF.Tools.Templates.Editor
 {
@@ -19,12 +15,12 @@ namespace IF.Tools.Templates.Editor
         string templateCode;
         IFProjectTemplate template;
         string templateSolutionName = "IF.Template";
+      
         public WebApiTemplateDialog()
         {
             InitializeComponent();
             this.templateCode = "WA";
             BindComboBox();
-            //var _solutionFile = SolutionFile.Parse(@"C:\Projects\InFramework\IF.Templates.sln");          
         }
 
 
@@ -45,18 +41,15 @@ namespace IF.Tools.Templates.Editor
             List<NameValueDto> projectTemplates = new List<NameValueDto>();
 
 
-
-            using (var ctx = new MyDbContext())
+            using (var dbContext = new MyDbContext())
             {
-                template = ctx.ProjectTemplates.Include(p=>p.ProjectList).SingleOrDefault(p => p.Code == templateCode);
-         
+                template = dbContext.ProjectTemplates.Include(p=>p.ProjectList).SingleOrDefault(p => p.Code == templateCode);
 
-
-                clbFolders.Items.Clear();
+                checkBoxListProjects.Items.Clear();
 
                 foreach (var project in template.ProjectList)
                 {
-                    clbFolders.Items.Add(project.Name,true);
+                    checkBoxListProjects.Items.Add(project.Name,true);
                 }
             }
 
@@ -127,21 +120,26 @@ namespace IF.Tools.Templates.Editor
             comboBoxOrm.DataSource = bindingSourceOrm;
         }
 
-        private void labelTemplateName_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
-            if(String.IsNullOrWhiteSpace(textBoxSolutionName.Text))
+            if (String.IsNullOrWhiteSpace(textBoxSolutionName.Text))
             {
-                MessageBox.Show(@"Lütfen yeni solution adını giriniz.", @"Zorunlu Alan", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                MessageBox.Show(@"Please enter the new solution name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            if (String.IsNullOrWhiteSpace(textBoxApiName.Text))
+            {
+                MessageBox.Show(@"Please enter the new api name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+
+            if (String.IsNullOrWhiteSpace(textBoxEventBusName.Text))
+            {
+                MessageBox.Show(@"Please enter the event bus name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
             }
 
@@ -152,33 +150,61 @@ namespace IF.Tools.Templates.Editor
                 Directory.Delete(@"C:\temp\templateproject", true);
             }
 
-            //foreach (string dirPath in Directory.GetDirectories(@"C:\Projects\InFramework\IF.Templates", "*", SearchOption.AllDirectories))
-            //{
-            //    if (template.ProjectList.Any(p => dirPath.Contains(p.Name)) || dirPath.Contains("package"))
-            //    {
-            //        Directory.CreateDirectory(dirPath.Replace(@"C:\Projects\InFramework\IF.Templates", @"C:\temp\templateproject\IF.Templates"));
-            //    }
-            //}
-
-            var source = new DirectoryInfo(@"C:\Projects\InFramework\"+ templateSolutionName + "s");
+            var source = new DirectoryInfo(@"C:\Projects\InFramework\" + templateSolutionName + "s");
             var target = new DirectoryInfo(@"C:\temp\templateproject\" + newSolutionName);
 
-            CopyFilesRecursively(source, target,newSolutionName);
+            CopyFilesRecursively(source, target, newSolutionName);
 
-            File.Copy(@"C:\Projects\InFramework\" + template.SolutionName + ".sln", @"C:\temp\templateproject\" + template.SolutionName.Replace(templateSolutionName + "s", newSolutionName) + ".sln", true);
+            var newSolutionNamePath = @"C:\temp\templateproject\" + template.SolutionName.Replace(templateSolutionName + "s", newSolutionName) + ".sln";
 
+            CreateSolutionFile(newSolutionName,newSolutionNamePath);
 
-
-            string text = File.ReadAllText(@"C:\temp\templateproject\" + template.SolutionName.Replace(templateSolutionName+ "s", newSolutionName) + ".sln");
-            text = text.Replace(templateSolutionName + "s", templateSolutionName);
-            text = text.Replace(templateSolutionName, newSolutionName);
-            File.WriteAllText(@"C:\temp\templateproject\" + template.SolutionName.Replace(templateSolutionName + "s", newSolutionName) + ".sln", text);
-
-
-            ExploreFile(@"C:\temp\templateproject\" + template.SolutionName.Replace(templateSolutionName + "s", newSolutionName) + ".sln");
+            ExploreFile(newSolutionNamePath);
 
         }
 
+        private void CreateSolutionFile(string newSolutionName,string newSolutionNamePath)
+        {
+
+            var oldSolutionPath = @"C:\Projects\InFramework\" + template.SolutionName + ".sln";
+
+            File.Copy(oldSolutionPath, newSolutionNamePath, true);
+
+        
+
+
+            var newSln = SolutionFile.FromFile(newSolutionNamePath);
+
+            var projectCount = newSln.Projects.Count;
+
+            List<string> deleteProjects = new List<string>();
+
+            for (int i = 0; i < projectCount; i++)
+            {
+                var project = newSln.Projects[i];                
+
+                if (!checkBoxListProjects.CheckedItems.Contains(project.ProjectName))
+                {
+                    //var IsSuccess = newSln.Projects.Remove(project);
+                    deleteProjects.Add(project.ProjectName);
+                }
+            }
+
+
+            foreach (var deleteProject in deleteProjects)
+            {
+                var proj = newSln.Projects.FindByFullName(deleteProject);
+                newSln.Projects.Remove(proj);
+            }
+
+            newSln.Save();
+
+
+            string text = File.ReadAllText(@"C:\temp\templateproject\" + template.SolutionName.Replace(templateSolutionName + "s", newSolutionName) + ".sln");
+            text = text.Replace(templateSolutionName + "s", templateSolutionName);
+            text = text.Replace(templateSolutionName, newSolutionName);
+            File.WriteAllText(newSolutionNamePath, text);
+        }
 
         public bool ExploreFile(string filePath)
         {
@@ -186,7 +212,7 @@ namespace IF.Tools.Templates.Editor
             {
                 return false;
             }
-            //Clean up file path so it can be navigated OK
+
             filePath = System.IO.Path.GetFullPath(filePath);
             System.Diagnostics.Process.Start("explorer.exe", string.Format("/select,\"{0}\"", filePath));
             return true;
@@ -196,16 +222,15 @@ namespace IF.Tools.Templates.Editor
         {
             foreach (DirectoryInfo dir in source.GetDirectories())
             {
-                //if (template.ProjectList.Any(p => dir.Name.Contains(p.Name)) || dir.Name.Contains("package"))
+                //if (checkBoxListProjects.CheckedItems.Contains(source.Name))
                 {
-                    CopyFilesRecursively(dir, target.CreateSubdirectory(dir.Name.Replace(templateSolutionName , newSolutionName)), newSolutionName);
+
+                    CopyFilesRecursively(dir, target.CreateSubdirectory(dir.Name.Replace(templateSolutionName, newSolutionName)), newSolutionName);
                 }
             }
 
             foreach (FileInfo file in source.GetFiles())
             {              
-              
-
                 if (file.Extension == ".dll")
                 {
                     var newFileName = file.Name.Replace(templateSolutionName , newSolutionName);
@@ -248,6 +273,8 @@ namespace IF.Tools.Templates.Editor
             string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
             text = text.Replace("IFTemplate", newSolutionName.Replace(".", ""));
             text = text.Replace(templateSolutionName, newSolutionName);
+            text = text.Replace("InFramework Template Api",textBoxApiName.Text.Trim());
+            text = text.Replace("if_template", textBoxEventBusName.Text.Trim());
             File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
         }
     }
