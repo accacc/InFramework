@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IF.Core.Interfaces;
+﻿using IF.Core.Data;
 using IF.Template.Contract.Queries;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace IF.Template.Api.Controllers
 {

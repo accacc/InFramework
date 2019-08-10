@@ -11,7 +11,7 @@ namespace IF.Template.Contract.Commands
         public string Description { get; set; }
     }
 
-    public interface ITestAddDbCommandAsync : IDbInsertCommandAsync<TestAddCommand>
+    public interface ITestAddDbCommandAsync : IDataInsertCommandAsync<TestAddCommand>
     {
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using IF.Configuration;
-using IF.Core.DependencyInjection;
 using IF.Core.DependencyInjection.Interface;
 using IF.Cqrs.Builders;
 using IF.Dependency.AutoFac;

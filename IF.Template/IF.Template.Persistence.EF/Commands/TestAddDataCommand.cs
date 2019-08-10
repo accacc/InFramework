@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace IF.Template.Persistence.EF.Commands
 {
-    public class TestAddDbCommand : ITestAddDbCommandAsync
+    public class TestAddDataCommand : ITestAddDbCommandAsync
     {
 
         private readonly IRepository repository;
-        public TestAddDbCommand(IRepository repository)
+        public TestAddDataCommand(IRepository repository)
         {
             this.repository = repository;
         }

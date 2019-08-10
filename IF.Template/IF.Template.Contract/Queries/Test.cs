@@ -16,7 +16,7 @@ namespace IF.Template.Contract.Queries
     }
 
 
-    public interface ITestListQueryAsync : IDbGetQueryAsync<TestListRequest,TestListResponse>
+    public interface ITestListQueryAsync : IDataGetQueryAsync<TestListRequest,TestListResponse>
     {
     }
 

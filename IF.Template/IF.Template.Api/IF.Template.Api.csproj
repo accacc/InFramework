@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IF.Template.Domain\IF.Template.Domain.csproj" />
+    <ProjectReference Include="..\IF.Template.Persistence.EF\IF.Template.Persistence.EF.csproj" />
   </ItemGroup>
 
   <ItemGroup>

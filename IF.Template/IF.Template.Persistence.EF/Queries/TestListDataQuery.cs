@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace IF.Template.Persistence.EF.Queries
 {
-    public class TestListDbQuery : ITestListQueryAsync
+    public class TestListDataQuery : ITestListQueryAsync
     {
 
 
         private readonly IRepository repository;
-        public TestListDbQuery(IRepository repository)
+        public TestListDataQuery(IRepository repository)
         {
             this.repository = repository;
         }
