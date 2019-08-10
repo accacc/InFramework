@@ -34,6 +34,8 @@
             this.comboBoxOrm = new System.Windows.Forms.ComboBox();
             this.labelOrm = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.textBoxEventBusName = new System.Windows.Forms.TextBox();
+            this.labelEventBusName = new System.Windows.Forms.Label();
             this.comboBoxLogType = new System.Windows.Forms.ComboBox();
             this.labelLogType = new System.Windows.Forms.Label();
             this.comboBoxMessageBroker = new System.Windows.Forms.ComboBox();
@@ -56,8 +58,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxApiName = new System.Windows.Forms.TextBox();
             this.labelApiName = new System.Windows.Forms.Label();
-            this.textBoxEventBusName = new System.Windows.Forms.TextBox();
-            this.labelEventBusName = new System.Windows.Forms.Label();
+            this.textBoxControllerName = new System.Windows.Forms.TextBox();
+            this.labelControllerName = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDatabase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceOrm)).BeginInit();
@@ -116,6 +118,23 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(331, 227);
             this.panel1.TabIndex = 6;
+            // 
+            // textBoxEventBusName
+            // 
+            this.textBoxEventBusName.Location = new System.Drawing.Point(103, 176);
+            this.textBoxEventBusName.Name = "textBoxEventBusName";
+            this.textBoxEventBusName.Size = new System.Drawing.Size(216, 20);
+            this.textBoxEventBusName.TabIndex = 19;
+            this.textBoxEventBusName.Text = "test_eventbus";
+            // 
+            // labelEventBusName
+            // 
+            this.labelEventBusName.AutoSize = true;
+            this.labelEventBusName.Location = new System.Drawing.Point(17, 179);
+            this.labelEventBusName.Name = "labelEventBusName";
+            this.labelEventBusName.Size = new System.Drawing.Size(87, 13);
+            this.labelEventBusName.TabIndex = 18;
+            this.labelEventBusName.Text = "Event Bus Name";
             // 
             // comboBoxLogType
             // 
@@ -270,28 +289,30 @@
             this.labelApiName.TabIndex = 16;
             this.labelApiName.Text = "Api Name";
             // 
-            // textBoxEventBusName
+            // textBoxControllerName
             // 
-            this.textBoxEventBusName.Location = new System.Drawing.Point(103, 176);
-            this.textBoxEventBusName.Name = "textBoxEventBusName";
-            this.textBoxEventBusName.Size = new System.Drawing.Size(216, 20);
-            this.textBoxEventBusName.TabIndex = 19;
-            this.textBoxEventBusName.Text = "test_eventbus";
+            this.textBoxControllerName.Location = new System.Drawing.Point(1017, 173);
+            this.textBoxControllerName.Name = "textBoxControllerName";
+            this.textBoxControllerName.Size = new System.Drawing.Size(218, 20);
+            this.textBoxControllerName.TabIndex = 19;
+            this.textBoxControllerName.Text = "Controller Name";
             // 
-            // labelEventBusName
+            // labelControllerName
             // 
-            this.labelEventBusName.AutoSize = true;
-            this.labelEventBusName.Location = new System.Drawing.Point(17, 179);
-            this.labelEventBusName.Name = "labelEventBusName";
-            this.labelEventBusName.Size = new System.Drawing.Size(87, 13);
-            this.labelEventBusName.TabIndex = 18;
-            this.labelEventBusName.Text = "Event Bus Name";
+            this.labelControllerName.AutoSize = true;
+            this.labelControllerName.Location = new System.Drawing.Point(878, 173);
+            this.labelControllerName.Name = "labelControllerName";
+            this.labelControllerName.Size = new System.Drawing.Size(82, 13);
+            this.labelControllerName.TabIndex = 18;
+            this.labelControllerName.Text = "Controller Name";
             // 
             // WebApiTemplateDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1761, 715);
+            this.Controls.Add(this.textBoxControllerName);
+            this.Controls.Add(this.labelControllerName);
             this.Controls.Add(this.textBoxApiName);
             this.Controls.Add(this.labelApiName);
             this.Controls.Add(this.label3);
@@ -348,5 +369,7 @@
         private System.Windows.Forms.Label labelApiName;
         private System.Windows.Forms.TextBox textBoxEventBusName;
         private System.Windows.Forms.Label labelEventBusName;
+        private System.Windows.Forms.TextBox textBoxControllerName;
+        private System.Windows.Forms.Label labelControllerName;
     }
 }

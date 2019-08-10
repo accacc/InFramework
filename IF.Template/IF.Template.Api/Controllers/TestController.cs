@@ -19,7 +19,15 @@ namespace IF.Template.Api.Controllers
 
         [HttpGet]
         [Route("api/Test/Get")]
-        public async Task<TestListResponse> GetUsers([FromQuery] TestListRequest request)
+        public async Task<TestListResponse> Get([FromQuery] TestListRequest request)
+        {
+            var result = await dispatcher.QueryAsync<TestListRequest, TestListResponse>(request);
+            return result;
+        }
+
+        [HttpPost]
+        [Route("api/Test/Add")]
+        public async Task<TestListResponse> Add([FromQuery] TestListRequest request)
         {
             var result = await dispatcher.QueryAsync<TestListRequest, TestListResponse>(request);
             return result;

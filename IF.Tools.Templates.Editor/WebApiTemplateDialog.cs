@@ -143,6 +143,12 @@ namespace IF.Tools.Templates.Editor
                 return;
             }
 
+            if (String.IsNullOrWhiteSpace(textBoxControllerName.Text))
+            {
+                MessageBox.Show(@"Please enter the controller name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
             string newSolutionName = textBoxSolutionName.Text.Trim();
 
             if (Directory.Exists(@"C:\temp\templateproject"))
@@ -244,6 +250,10 @@ namespace IF.Tools.Templates.Editor
                 {
                     HandleStartup(target, file, newSolutionName);
                 }
+                else if (file.Name == "TestController.cs" && file.Directory.Name == "IF.Template.Api")
+                {
+                    HandleController(target, file, newSolutionName);
+                }
                 else
                 {
                     var newFileName = file.Name.Replace(templateSolutionName , newSolutionName);
@@ -275,6 +285,17 @@ namespace IF.Tools.Templates.Editor
             text = text.Replace(templateSolutionName, newSolutionName);
             text = text.Replace("InFramework Template Api",textBoxApiName.Text.Trim());
             text = text.Replace("if_template", textBoxEventBusName.Text.Trim());
+            File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
+        }
+
+        private void HandleController(DirectoryInfo target, FileInfo file, string newSolutionName)
+        {
+            var newFileName = file.Name.Replace("TestController", textBoxControllerName.Text.Trim());
+            file.CopyTo(Path.Combine(target.FullName, newFileName));
+            string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
+            text = text.Replace("IFTemplate", newSolutionName.Replace(".", ""));
+            text = text.Replace(templateSolutionName, newSolutionName);
+            text = text.Replace("TestController", textBoxControllerName.Text.Trim()+"Controller");
             File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
         }
     }
