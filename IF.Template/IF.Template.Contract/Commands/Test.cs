@@ -5,9 +5,9 @@ using System.Text;
 
 namespace IF.Template.Contract.Commands
 {
-    public class UserAddCommand : BaseCommand
+    public class TestAddCommand : BaseCommand
     {
-        public string UserName { get; set; }
-        public string Email { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

@@ -10,23 +10,23 @@ using System.Threading.Tasks;
 
 namespace IF.Template.Domain.Commands
 {
-    public class UserAddHandler : ICommandHandlerAsync<UserAddCommand>
+    public class TestCommandHandler : ICommandHandlerAsync<TestAddCommand>
     {
         private readonly IRepository repository;
-        public UserAddHandler(IRepository repository)
+        public TestCommandHandler(IRepository repository)
         {
             this.repository = repository;
         }
-        public async Task HandleAsync(UserAddCommand command)
+        public async Task HandleAsync(TestAddCommand command)
         {
-            var user = new IFUser
+            var data = new TestEntity
             {
-                Email = command.Email,
-                UserName = command.UserName
+                Desc = command.Description,
+                Name = command.Name
 
             };
 
-            await this.repository.AddAsync(user);
+            await this.repository.AddAsync(data);
             await this.repository.UnitOfWork.SaveChangesAsync();
 
         }

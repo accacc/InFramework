@@ -4,10 +4,10 @@ using System;
 
 namespace IF.Template.Persistence.EF
 {
-    public class IFDbContext : DbContext
+    public class TestDbContext : DbContext
     {
 
-        public IFDbContext(DbContextOptions<IFDbContext> options)
+        public TestDbContext(DbContextOptions<TestDbContext> options)
           : base(options)
         {
 
@@ -15,7 +15,7 @@ namespace IF.Template.Persistence.EF
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new UserMapping());
+            builder.ApplyConfiguration(new TestEntityMapping());
 
 
         }

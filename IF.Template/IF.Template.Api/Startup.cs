@@ -42,12 +42,12 @@ namespace IF.Template.Api
 
             var settings =this.Configuration.GetSettings<IFTemplateSettings>();
 
-            services.AddDbContext<IFDbContext>(options =>
+            services.AddDbContext<TestDbContext>(options =>
             {
                 options.UseSqlServer(settings.Database.ConnectionString);
             }, ServiceLifetime.Transient);
 
-            services.AddTransient<IRepository>(provider => new GenericRepository(provider.GetService<IFDbContext>()));
+            services.AddTransient<IRepository>(provider => new GenericRepository(provider.GetService<TestDbContext>()));
 
             var domain = Assembly.Load("IF.Template.Domain");
 

@@ -11,27 +11,27 @@ using System.Threading.Tasks;
 
 namespace IF.Template.Domain.Queries
 {
-    public class UserListHandler : IQueryHandlerAsync<UserListRequest, UserListResponse>
+    public class TestListHandler : IQueryHandlerAsync<TestListRequest, TestListResponse>
     {
         private readonly IRepository repository;
 
 
-        public UserListHandler(IRepository repository)
+        public TestListHandler(IRepository repository)
         {
             this.repository = repository;
         }
 
-        public async Task<UserListResponse> HandleAsync(UserListRequest request)
+        public async Task<TestListResponse> HandleAsync(TestListRequest request)
         {
-            var user = await this.repository.GetQuery<IFUser>()
-              .Select(x => new UserDto
+            var data = await this.repository.GetQuery<TestEntity>()
+              .Select(x => new TestDto
               {
                   Id = x.Id,
-                  UserName = x.UserName,                 
-                  Email = x.Email
+                  Name = x.Name,                 
+                  Description = x.Desc
               }).ToListAsync();
 
-            return new UserListResponse { Data = user };
+            return new TestListResponse { Data = data };
         }
     }
 }
