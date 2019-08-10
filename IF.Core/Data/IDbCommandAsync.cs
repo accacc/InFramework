@@ -4,16 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IF.Core.Interfaces
+namespace IF.Core.Data
 {
-    public interface IDbQueryAsync
+    public interface IDataCommandAsync
     {
-        
+
     }
-
-   
-
-   
-
-    
 }

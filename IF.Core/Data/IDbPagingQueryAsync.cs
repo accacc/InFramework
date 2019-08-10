@@ -1,9 +1,9 @@
 ﻿using IF.Core.Data;
 using System.Threading.Tasks;
 
-namespace IF.Core.Interfaces
+namespace IF.Core.Data
 {
-    public interface IDbPagingQueryAsync<T>
+    public interface IDataPagingQueryAsync<T>
     {
         Task<PagedListResponse<T>> GetPageListAsync(BasePagingRequest param);
     }

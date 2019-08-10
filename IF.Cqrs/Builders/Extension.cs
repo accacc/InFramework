@@ -3,7 +3,7 @@ using IF.Core.DependencyInjection.Interface;
 using IF.Core.Data;
 using IF.Dependency.Builders;
 using System;
-using IF.Core.Interfaces;
+using IF.Core.Data;
 
 namespace IF.Cqrs.Builders
 {

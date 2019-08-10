@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace IF.Core.Interfaces
+namespace IF.Core.Data
 {
-    public interface IDbInsertCommand<in TCommand> : IDbCommand where TCommand : BaseCommand
+    public interface IDataInsertCommand<in TCommand> : IDataCommand where TCommand : BaseCommand
     {
         void Execute(TCommand command);
     }

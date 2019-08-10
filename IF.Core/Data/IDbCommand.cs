@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IF.Core.Interfaces
+namespace IF.Core.Data
 {
-    public interface IDbQuery
+    public interface IDataCommand
     {
-        
+
     }
 
-   
+  
 
    
 
-    
+   
+
+
 }

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IF.Core.Interfaces
+namespace IF.Core.Data
 {
-    public interface IDbGetQuery<TRequest, TResponse> : IDbQuery
+    public interface IDataGetQuery<TRequest, TResponse> : IDataQuery
         where TRequest : BaseRequest
         where TResponse : BaseResponse
     {

@@ -1,5 +1,5 @@
 ﻿using IF.Core.Data;
-using IF.Core.Interfaces;
+using IF.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

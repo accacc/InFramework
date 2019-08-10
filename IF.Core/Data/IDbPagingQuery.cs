@@ -1,8 +1,8 @@
 ﻿using IF.Core.Data;
 
-namespace IF.Core.Interfaces
+namespace IF.Core.Data
 {
-    public interface IDbPagingQuery<T>
+    public interface IDataPagingQuery<T>
     {
         PagedListResponse<T> GetPageList(BasePagingRequest param);
     }

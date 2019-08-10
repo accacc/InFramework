@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IF.Core.Interfaces
+namespace IF.Core.Data
 {
    
 
-    public interface IDbGetQueryAsync<TRequest, TResponse> : IDbQueryAsync
+    public interface IDataGetQueryAsync<TRequest, TResponse> : IDataQueryAsync
          where TRequest : BaseRequest
         where TResponse : BaseResponse
     {

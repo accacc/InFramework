@@ -10,6 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IF.Template.Contract\IF.Template.Contract.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="IF.Core">
       <HintPath>..\packages\InFramework\IF.Core.dll</HintPath>
     </Reference>

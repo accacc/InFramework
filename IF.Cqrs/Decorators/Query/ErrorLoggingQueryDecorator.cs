@@ -4,7 +4,7 @@ using IF.Core.Data;
 using IF.Core.Log;
 using System.Threading;
 using System.Threading.Tasks;
-using IF.Core.Interfaces;
+using IF.Core.Data;
 
 namespace IF.Cqrs.Decorators.Query
 {

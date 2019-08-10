@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IF.Core.Interfaces
+namespace IF.Core.Data
 {
-    public interface IDbDeleteCommandAsync<in TCommand> : IDbCommandAsync where TCommand : BaseCommand
+    public interface IDataUpdateCommandAsync<in TCommand> : IDataCommandAsync where TCommand : BaseCommand
     {
         Task ExecuteAsync(TCommand command);
     }

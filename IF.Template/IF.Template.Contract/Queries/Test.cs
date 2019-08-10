@@ -15,6 +15,11 @@ namespace IF.Template.Contract.Queries
         public List<TestDto> Data { get; set; }
     }
 
+
+    public interface ITestListQueryAsync : IDbGetQueryAsync<TestListRequest,TestListResponse>
+    {
+    }
+
     public class TestDto
 
     {
