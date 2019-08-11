@@ -164,11 +164,7 @@ namespace IF.Persistence.EF.Core
         public async Task AddAsync<TEntity>(TEntity entity) where TEntity : class, IEntity
        => await context.Set<TEntity>().AddAsync(entity);
 
-        public async Task UpdateAsync<TEntity>(TEntity entity) where TEntity : class, IEntity
-            => await Task.FromResult(context.Set<TEntity>().Update(entity));
-
-        public async Task DeleteAsync<TEntity>(TEntity entity) where TEntity : class, IEntity
-            => await Task.FromResult(context.Set<TEntity>().Remove(entity));
+       
 
         public async Task<PagedListResponse<TEntity>> ToPagedListResponseAsync<TEntity>(IQueryable<TEntity> source,BasePagingRequest request)
         {
@@ -292,16 +288,11 @@ namespace IF.Persistence.EF.Core
 
         public int CountNoLock<T>( IQueryable<T> query) 
         {
-            using (var scope = new TransactionScope(
-                TransactionScopeOption.Required,
-                new TransactionOptions()
-                {
-                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
-                }))
+            using (var scope = new TransactionScope(TransactionScopeOption.Required,new TransactionOptions()  { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted }))
             {
-                int toReturn = query.Count();
+                int count = query.Count();
                 scope.Complete();
-                return toReturn;
+                return count;
             }
         }
 

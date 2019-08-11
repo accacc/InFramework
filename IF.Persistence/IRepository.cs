@@ -44,8 +44,8 @@ namespace IF.Persistence
     {
         //Task<IQueryable<TEntity>> GetQueryAsync<TEntity>() where TEntity : class;
         Task AddAsync<TEntity>(TEntity entity) where TEntity : class, IEntity;
-        Task UpdateAsync<TEntity>(TEntity entity) where TEntity : class, IEntity;
-        Task DeleteAsync<TEntity>(TEntity entity) where TEntity : class, IEntity;
+        //Task UpdateAsync<TEntity>(TEntity entity) where TEntity : class, IEntity;
+        //Task DeleteAsync<TEntity>(TEntity entity) where TEntity : class, IEntity;
         //Task<int> SaveChangesAsync();
 
         //Task<IQueryable<TEntity>> GetQueryAsync<TEntity>(Expression<Func<TEntity, bool>> criteria) where TEntity : class;

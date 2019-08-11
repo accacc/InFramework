@@ -49,6 +49,19 @@ namespace IF.Persistence.EF.Core
             return new TransactionScope(TransactionScopeOption.Required, options);
         }
 
+        public static TransactionScope CreateNoLockTransactionAsync()
+        {
+            var options = new TransactionOptions
+            {
+                IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted,
+
+            };
+
+
+
+            return new TransactionScope(TransactionScopeOption.Required, options, TransactionScopeAsyncFlowOption.Enabled);
+        }
+
 
         public static List<T> ToListNoLock<T>(this IQueryable<T> query)
         {
@@ -95,7 +108,7 @@ namespace IF.Persistence.EF.Core
 
         public static async Task<List<T>> ToListNoLockAsync<T>(this IQueryable<T> query)
         {
-            using (TransactionScope ts = CreateNoLockTransaction())
+            using (TransactionScope ts = CreateNoLockTransactionAsync())
             {
                 return await query.ToListAsync();
             }
@@ -103,7 +116,7 @@ namespace IF.Persistence.EF.Core
 
         public static async Task<T> SingleOrDefaultNoLockAsync<T>(this IQueryable<T> query)
         {
-            using (TransactionScope ts = CreateNoLockTransaction())
+            using (TransactionScope ts = CreateNoLockTransactionAsync())
             {
                 return await query.SingleOrDefaultAsync();
             }
@@ -111,7 +124,7 @@ namespace IF.Persistence.EF.Core
 
         public static async Task<T> FirstOrDefaultNoLockAsync<T>(this IQueryable<T> query)
         {
-            using (TransactionScope ts = CreateNoLockTransaction())
+            using (TransactionScope ts = CreateNoLockTransactionAsync())
             {
                 return await query.FirstOrDefaultAsync();
             }
@@ -124,7 +137,7 @@ namespace IF.Persistence.EF.Core
                 new TransactionOptions()
                 {
                     IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
-                }))
+                }, TransactionScopeAsyncFlowOption.Enabled))
             {
                 int toReturn = await query.CountAsync();
                 scope.Complete();

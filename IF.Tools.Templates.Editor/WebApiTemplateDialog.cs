@@ -21,6 +21,8 @@ namespace IF.Tools.Templates.Editor
             InitializeComponent();
             this.templateCode = "WA";
             BindComboBox();
+
+            
         }
 
 
@@ -210,6 +212,9 @@ namespace IF.Tools.Templates.Editor
             text = text.Replace(templateSolutionName, templateSolutionName);
             text = text.Replace(templateSolutionName, newSolutionName);
             File.WriteAllText(newSolutionNamePath, text);
+
+            newSln = SolutionFile.FromFile(newSolutionNamePath);
+
         }
 
         public bool ExploreFile(string filePath)
@@ -228,11 +233,10 @@ namespace IF.Tools.Templates.Editor
         {
             foreach (DirectoryInfo dir in source.GetDirectories())
             {
-                //if (checkBoxListProjects.CheckedItems.Contains(source.Name))
-                {
+                if (source.Name == "IF.Template" && dir.Name != "packages" && !checkBoxListProjects.CheckedItems.Contains(dir.Name)) continue;                                   
+                
 
-                    CopyFilesRecursively(dir, target.CreateSubdirectory(dir.Name.Replace(templateSolutionName, newSolutionName)), newSolutionName);
-                }
+                CopyFilesRecursively(dir, target.CreateSubdirectory(dir.Name.Replace(templateSolutionName, newSolutionName)), newSolutionName);
             }
 
             foreach (FileInfo file in source.GetFiles())
