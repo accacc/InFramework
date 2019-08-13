@@ -26,6 +26,8 @@ namespace IF.Tools.Templates.Editor
 
         public int IFProjectTemplateId { get; set; }
 
+        public string Sdk { get; set; }
+
         public IFProjectTemplate ProjectTemplate { get; set; }
 
     }

@@ -258,6 +258,10 @@ namespace IF.Tools.Templates.Editor
                 {
                     HandleController(target, file, newSolutionName);
                 }
+                else if(file.Extension == ".csproj")
+                {
+                    HandleProjects(target, file, newSolutionName);
+                }
                 else
                 {
                     var newFileName = file.Name.Replace(templateSolutionName , newSolutionName);
@@ -268,6 +272,27 @@ namespace IF.Tools.Templates.Editor
                 }
             }
         
+        }
+
+        private void HandleProjects(DirectoryInfo target, FileInfo file, string newSolutionName)
+        {
+            
+            var newFileName = file.Name.Replace(templateSolutionName, newSolutionName);
+            file.CopyTo(Path.Combine(target.FullName, newFileName));
+            string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
+            text = text.Replace(templateSolutionName, newSolutionName);
+            var project = template.ProjectList.SingleOrDefault(p => p.Name == file.Name.Replace(file.Extension,""));
+            text = text.Replace(@"<Project Sdk=""" + project.Sdk + @""">", "");
+            File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
+
+            Microsoft.Build.Evaluation.Project msProject = new Microsoft.Build.Evaluation.Project(file.FullName);
+            //  p.RemoveItem(p.Items.First());
+
+
+
+
+            msProject.Save();
+
         }
 
         private void HandleSettings(DirectoryInfo target,FileInfo file, string newSolutionName)
