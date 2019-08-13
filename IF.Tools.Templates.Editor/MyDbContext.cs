@@ -11,7 +11,7 @@ namespace IF.Tools.Templates.Editor
     {
         public DbSet<IFProjectTemplate> ProjectTemplates { get; set; }
         public DbSet<IFProject> Projects { get; set; }
-        public DbSet<IFDll> Dlls { get; set; }
+        public DbSet<IFNugetPackage> Dlls { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -23,7 +23,7 @@ namespace IF.Tools.Templates.Editor
         {
             modelBuilder.Entity<IFProjectTemplate>().ToTable("ProjectTemplates");
             modelBuilder.Entity<IFProject>().ToTable("Projects");
-            modelBuilder.Entity<IFDll>().ToTable("Dlls");
+            modelBuilder.Entity<IFNugetPackage>().ToTable("NugetPackages");
         }
     }
 }

@@ -7,28 +7,31 @@ using System.Threading.Tasks;
 
 namespace IF.Tools.Templates.Editor
 {
-    public class IFDll
+    public class IFNugetPackage
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; }        
 
-        public List<IFDll> Dependencies { get; set; }
-    }
+    }    
 
     public class IFProject
     {
 
         [Key]
         public int Id { get; set; }
-        //public List<IFDll> Dlls { get; set; }
+
+        
         public string Name { get; set; }
 
         public int IFProjectTemplateId { get; set; }
 
-        public string Sdk { get; set; }
+        public string Sdk { get; set; }        
 
         public IFProjectTemplate ProjectTemplate { get; set; }
+
+        public List<IFNugetPackage> NugetPackages { get; set; }
+
 
     }
 
