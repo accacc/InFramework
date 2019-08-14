@@ -15,14 +15,14 @@ namespace IF.Tools.Templates.Editor
         string templateCode;
         IFProjectTemplate template;
         string templateSolutionName = "IF.Template";
-      
+
         public WebApiTemplateDialog()
         {
             InitializeComponent();
             this.templateCode = "WA";
             BindComboBox();
 
-            
+
         }
 
 
@@ -45,18 +45,18 @@ namespace IF.Tools.Templates.Editor
 
             using (var dbContext = new MyDbContext())
             {
-                template = dbContext.ProjectTemplates.Include(p=>p.ProjectList).ThenInclude(p=>p.IFProjectNugetPackages).SingleOrDefault(p => p.Code == templateCode);
+                template = dbContext.ProjectTemplates.Include(p => p.ProjectList).ThenInclude(p => p.IFProjectNugetPackages).SingleOrDefault(p => p.Code == templateCode);
 
                 checkBoxListProjects.Items.Clear();
 
                 foreach (var project in template.ProjectList)
                 {
-                    checkBoxListProjects.Items.Add(project.Name,true);
+                    checkBoxListProjects.Items.Add(project.Name, true);
                 }
             }
 
 
-          
+
         }
 
         private void BindServiceBuses()
@@ -122,7 +122,7 @@ namespace IF.Tools.Templates.Editor
             comboBoxOrm.DataSource = bindingSourceOrm;
         }
 
-       
+
 
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
@@ -163,22 +163,58 @@ namespace IF.Tools.Templates.Editor
 
             CopyFilesRecursively(source, target, newSolutionName);
 
+            RemoveUnnecessaryDependencies();
+
             var newSolutionNamePath = @"C:\temp\templateproject\" + template.SolutionName.Replace(templateSolutionName, newSolutionName) + ".sln";
 
-            CreateSolutionFile(newSolutionName,newSolutionNamePath);
+            CreateSolutionFile(newSolutionName, newSolutionNamePath);
 
             ExploreFile(newSolutionNamePath);
 
         }
 
-        private void CreateSolutionFile(string newSolutionName,string newSolutionNamePath)
+        private void RemoveUnnecessaryDependencies()
+        {
+            string newSolutionName = textBoxSolutionName.Text.Trim();
+            //var project = template.ProjectList.SingleOrDefault(p => p.Name == file.Name.Replace(file.Extension, ""));
+            //text = text.Replace(@"<Project Sdk=""" + project.Sdk + @""">", "");
+            foreach (var unnecessaryProject in template.ProjectList)
+            {
+                if (!checkBoxListProjects.CheckedItems.Contains(unnecessaryProject.Name))
+                {
+
+                    foreach (string necessaryProject in checkBoxListProjects.CheckedItems)
+                    {
+                        if (checkBoxListProjects.CheckedItems.Contains(unnecessaryProject.Name)) continue;
+
+                        string projectName = necessaryProject.Replace(templateSolutionName, newSolutionName);
+
+                        Microsoft.Build.Evaluation.Project msProject = new Microsoft.Build.Evaluation.Project(@"C:\temp\templateproject\" + newSolutionName + @"\" + projectName + @"\" + projectName + ".csproj");
+
+                        var removeItem = msProject.GetItems("ProjectReference").SingleOrDefault(r => r.EvaluatedInclude.EndsWith(unnecessaryProject.Name.Replace(templateSolutionName, newSolutionName) + ".csproj"));
+
+                        if (removeItem != null)
+                        {
+                            msProject.RemoveItem(removeItem);
+                            msProject.Save();
+                        }
+                    }
+
+                    //    Microsoft.Build.Evaluation.Project msProject = new Microsoft.Build.Evaluation.Project(@"C:\temp\templateproject\" + template.SolutionName);
+                    //  p.RemoveItem(p.Items.First());
+                    //msProject.Save();
+                }
+            }
+        }
+
+        private void CreateSolutionFile(string newSolutionName, string newSolutionNamePath)
         {
 
             var oldSolutionPath = @"C:\Projects\InFramework\" + template.SolutionName + ".sln";
 
             File.Copy(oldSolutionPath, newSolutionNamePath, true);
 
-        
+
 
 
             var newSln = SolutionFile.FromFile(newSolutionNamePath);
@@ -189,7 +225,7 @@ namespace IF.Tools.Templates.Editor
 
             for (int i = 0; i < projectCount; i++)
             {
-                var project = newSln.Projects[i];                
+                var project = newSln.Projects[i];
 
                 if (!checkBoxListProjects.CheckedItems.Contains(project.ProjectName))
                 {
@@ -229,26 +265,26 @@ namespace IF.Tools.Templates.Editor
             return true;
         }
 
-        public  void CopyFilesRecursively(DirectoryInfo source, DirectoryInfo target,string newSolutionName)
+        public void CopyFilesRecursively(DirectoryInfo source, DirectoryInfo target, string newSolutionName)
         {
             foreach (DirectoryInfo dir in source.GetDirectories())
             {
-                if (source.Name == "IF.Template" && dir.Name != "packages" && !checkBoxListProjects.CheckedItems.Contains(dir.Name)) continue;                                   
-                
+                if (source.Name == "IF.Template" && dir.Name != "packages" && !checkBoxListProjects.CheckedItems.Contains(dir.Name)) continue;
+
 
                 CopyFilesRecursively(dir, target.CreateSubdirectory(dir.Name.Replace(templateSolutionName, newSolutionName)), newSolutionName);
             }
 
             foreach (FileInfo file in source.GetFiles())
-            {              
+            {
                 if (file.Extension == ".dll")
                 {
-                    var newFileName = file.Name.Replace(templateSolutionName , newSolutionName);
-                    file.CopyTo(Path.Combine(target.FullName, newFileName));                    
+                    var newFileName = file.Name.Replace(templateSolutionName, newSolutionName);
+                    file.CopyTo(Path.Combine(target.FullName, newFileName));
                 }
                 else if (file.Name == "IFTemplateSettings.cs" && file.Directory.Name == "IF.Template.Domain")
                 {
-                    HandleSettings(target,file, newSolutionName);
+                    HandleSettings(target, file, newSolutionName);
                 }
                 else if (file.Name == "Startup.cs" && file.Directory.Name == "IF.Template.Api")
                 {
@@ -258,43 +294,37 @@ namespace IF.Tools.Templates.Editor
                 {
                     HandleController(target, file, newSolutionName);
                 }
-                else if(file.Extension == ".csproj")
+                else if (file.Extension == ".csproj")
                 {
                     HandleProjects(target, file, newSolutionName);
                 }
                 else
                 {
-                    var newFileName = file.Name.Replace(templateSolutionName , newSolutionName);
+                    var newFileName = file.Name.Replace(templateSolutionName, newSolutionName);
                     file.CopyTo(Path.Combine(target.FullName, newFileName));
                     string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
                     text = text.Replace(templateSolutionName, newSolutionName);
                     File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
                 }
             }
-        
+
         }
 
         private void HandleProjects(DirectoryInfo target, FileInfo file, string newSolutionName)
         {
-            
+
             var newFileName = file.Name.Replace(templateSolutionName, newSolutionName);
             file.CopyTo(Path.Combine(target.FullName, newFileName));
             string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
             text = text.Replace(templateSolutionName, newSolutionName);
-            var project = template.ProjectList.SingleOrDefault(p => p.Name == file.Name.Replace(file.Extension,""));
-            text = text.Replace(@"<Project Sdk=""" + project.Sdk + @""">", "");
             File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
 
 
-            Microsoft.Build.Evaluation.Project msProject = new Microsoft.Build.Evaluation.Project(file.FullName);
-            //  p.RemoveItem(p.Items.First());
-            msProject.Save();
-
         }
 
-        private void HandleSettings(DirectoryInfo target,FileInfo file, string newSolutionName)
+        private void HandleSettings(DirectoryInfo target, FileInfo file, string newSolutionName)
         {
-            var newFileName = file.Name.Replace("IFTemplate", newSolutionName.Replace(".",""));
+            var newFileName = file.Name.Replace("IFTemplate", newSolutionName.Replace(".", ""));
             file.CopyTo(Path.Combine(target.FullName, newFileName));
             string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
             text = text.Replace("IFTemplate", newSolutionName.Replace(".", ""));
@@ -309,7 +339,7 @@ namespace IF.Tools.Templates.Editor
             string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
             text = text.Replace("IFTemplate", newSolutionName.Replace(".", ""));
             text = text.Replace(templateSolutionName, newSolutionName);
-            text = text.Replace("InFramework Template Api",textBoxApiName.Text.Trim());
+            text = text.Replace("InFramework Template Api", textBoxApiName.Text.Trim());
             text = text.Replace("if_template", textBoxEventBusName.Text.Trim());
             File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
         }
@@ -321,7 +351,7 @@ namespace IF.Tools.Templates.Editor
             string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
             text = text.Replace("IFTemplate", newSolutionName.Replace(".", ""));
             text = text.Replace(templateSolutionName, newSolutionName);
-            text = text.Replace("TestController", textBoxControllerName.Text.Trim()+"Controller");
+            text = text.Replace("TestController", textBoxControllerName.Text.Trim() + "Controller");
             File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
         }
     }

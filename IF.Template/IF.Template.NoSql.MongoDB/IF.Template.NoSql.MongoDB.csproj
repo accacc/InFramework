@@ -4,4 +4,24 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IF.Template.Contract\IF.Template.Contract.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="IF.Core">
+      <HintPath>..\packages\InFramework\IF.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="IF.MongoDB">
+      <HintPath>..\packages\InFramework\IF.MongoDB.dll</HintPath>
+    </Reference>
+    <Reference Include="IF.MongoDB.Integration">
+      <HintPath>..\packages\InFramework\IF.MongoDB.Integration.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
