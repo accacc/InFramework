@@ -184,12 +184,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="IFDll.cs" />
-    <Compile Include="Migrations\20190806114001_Initial.cs" />
-    <Compile Include="Migrations\20190806114001_Initial.designer.cs">
-      <DependentUpon>20190806114001_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\MyDbContextModelSnapshot.cs" />
+    <Compile Include="Entity.cs" />
     <Compile Include="MyDbContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

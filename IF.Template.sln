@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Template.Api", "IF.Template\IF.Template.Api\IF.Template.Api.csproj", "{6A664B6D-5198-4945-8DD0-71CAA5BFB339}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Template.Api", "IF.Template\IF.Template.Api\IF.Template.Api.csproj", "{6A664B6D-5198-4945-8DD0-71CAA5BFB339}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Template.Contract", "IF.Template\IF.Template.Contract\IF.Template.Contract.csproj", "{8D8EC54F-47C2-4CB5-AF95-D4D92E14D1B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Template.Contract", "IF.Template\IF.Template.Contract\IF.Template.Contract.csproj", "{8D8EC54F-47C2-4CB5-AF95-D4D92E14D1B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Template.Domain", "IF.Template\IF.Template.Domain\IF.Template.Domain.csproj", "{D1DBA379-CDF2-4218-9980-EFE676D05B56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Template.Domain", "IF.Template\IF.Template.Domain\IF.Template.Domain.csproj", "{D1DBA379-CDF2-4218-9980-EFE676D05B56}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Template.Persistence.EF", "IF.Template\IF.Template.Persistence.EF\IF.Template.Persistence.EF.csproj", "{56125BB2-CA80-4A30-81CD-ADB442BEF2D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Template.NoSql.MongoDB", "IF.Template\IF.Template.NoSql.MongoDB\IF.Template.NoSql.MongoDB.csproj", "{37AD6F53-5863-4826-B5EA-82B913C188FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{56125BB2-CA80-4A30-81CD-ADB442BEF2D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56125BB2-CA80-4A30-81CD-ADB442BEF2D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56125BB2-CA80-4A30-81CD-ADB442BEF2D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37AD6F53-5863-4826-B5EA-82B913C188FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37AD6F53-5863-4826-B5EA-82B913C188FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37AD6F53-5863-4826-B5EA-82B913C188FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37AD6F53-5863-4826-B5EA-82B913C188FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

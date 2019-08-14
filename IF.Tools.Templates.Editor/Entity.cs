@@ -7,11 +7,26 @@ using System.Threading.Tasks;
 
 namespace IF.Tools.Templates.Editor
 {
+
+    public class IFProjectNugetPackage
+    {
+        [Key]
+        public int Id { get; set; }
+        public int IFNugetPackageId { get; set; }
+        public int IFProjectId { get; set; }
+
+        public IFNugetPackage NugetPackage { get; set; }
+
+        public IFProject Project { get; set; }
+    }
+
     public class IFNugetPackage
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }        
+        public string Name { get; set; }
+
+        public List<IFProjectNugetPackage> IFProjectNugetPackages { get; set; }
 
     }    
 
@@ -26,11 +41,12 @@ namespace IF.Tools.Templates.Editor
 
         public int IFProjectTemplateId { get; set; }
 
-        public string Sdk { get; set; }        
+        public string Sdk { get; set; }
+
 
         public IFProjectTemplate ProjectTemplate { get; set; }
 
-        public List<IFNugetPackage> NugetPackages { get; set; }
+        public List<IFProjectNugetPackage> IFProjectNugetPackages { get; set; }
 
 
     }

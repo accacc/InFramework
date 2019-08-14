@@ -45,7 +45,7 @@ namespace IF.Tools.Templates.Editor
 
             using (var dbContext = new MyDbContext())
             {
-                template = dbContext.ProjectTemplates.Include(p=>p.ProjectList).SingleOrDefault(p => p.Code == templateCode);
+                template = dbContext.ProjectTemplates.Include(p=>p.ProjectList).ThenInclude(p=>p.IFProjectNugetPackages).SingleOrDefault(p => p.Code == templateCode);
 
                 checkBoxListProjects.Items.Clear();
 
@@ -285,12 +285,9 @@ namespace IF.Tools.Templates.Editor
             text = text.Replace(@"<Project Sdk=""" + project.Sdk + @""">", "");
             File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
 
+
             Microsoft.Build.Evaluation.Project msProject = new Microsoft.Build.Evaluation.Project(file.FullName);
             //  p.RemoveItem(p.Items.First());
-
-
-
-
             msProject.Save();
 
         }
