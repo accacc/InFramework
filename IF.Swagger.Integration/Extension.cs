@@ -14,7 +14,7 @@ namespace IF.Swagger.Integration
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Tekzen Sms Api v1", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = apiName + " Sms Api v1", Version = "v1" });
 
 
                 if (addTokenIntegration)

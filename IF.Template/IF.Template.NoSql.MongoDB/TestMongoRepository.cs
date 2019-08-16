@@ -6,9 +6,9 @@ using System.Text;
 
 namespace IF.Template.NoSql.MongoDB
 {
-    public class IFTemplateMongoRepository: MongoDbGenericRepository, IIFTemplateMongoRepository
+    public class TestMongoRepository: MongoDbGenericRepository, IIFTemplateMongoRepository
     {
-        public IFTemplateMongoRepository(IMongoDbConnectionStrategy connectionStrategy):base(connectionStrategy)
+        public TestMongoRepository(IMongoDbConnectionStrategy connectionStrategy):base(connectionStrategy)
         {
 
         }

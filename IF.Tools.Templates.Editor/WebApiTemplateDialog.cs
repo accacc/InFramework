@@ -37,90 +37,7 @@ namespace IF.Tools.Templates.Editor
 
         }
 
-        private void BindProjects()
-        {
-
-            List<NameValueDto> projectTemplates = new List<NameValueDto>();
-
-
-            using (var dbContext = new MyDbContext())
-            {
-                template = dbContext.ProjectTemplates.Include(p => p.ProjectList).ThenInclude(p => p.IFProjectNugetPackages).SingleOrDefault(p => p.Code == templateCode);
-
-                checkBoxListProjects.Items.Clear();
-
-                foreach (var project in template.ProjectList)
-                {
-                    checkBoxListProjects.Items.Add(project.Name, true);
-                }
-            }
-
-
-
-        }
-
-        private void BindServiceBuses()
-        {
-            List<NameValueDto> items = new List<NameValueDto>();
-
-            items.Add(new NameValueDto { Name = "Native", Value = "Native" });
-
-            bindingSourceServiceBus.DataSource = items;
-            comboBoxServiceBus.DisplayMember = "Name";
-            comboBoxServiceBus.ValueMember = "Value";
-            comboBoxServiceBus.DataSource = bindingSourceServiceBus;
-        }
-
-
-        private void BindMessageBrokers()
-        {
-            List<NameValueDto> items = new List<NameValueDto>();
-
-            items.Add(new NameValueDto { Name = "Rabbit MQ", Value = "RabbitMq" });
-
-            bindingSourceMessageBroker.DataSource = items;
-            comboBoxMessageBroker.DisplayMember = "Name";
-            comboBoxMessageBroker.ValueMember = "Value";
-            comboBoxMessageBroker.DataSource = bindingSourceMessageBroker;
-        }
-
-
-        private void BindLogTypes()
-        {
-            List<NameValueDto> items = new List<NameValueDto>();
-
-            //items.Add(new NameValueDto { Name = "EF", Value = "EF" });
-            items.Add(new NameValueDto { Name = "Mongo", Value = "Mongo" });
-
-            bindingSourceLogType.DataSource = items;
-            comboBoxLogType.DisplayMember = "Name";
-            comboBoxLogType.ValueMember = "Value";
-            comboBoxLogType.DataSource = bindingSourceLogType;
-        }
-
-        private void BindDatabases()
-        {
-            List<NameValueDto> items = new List<NameValueDto>();
-
-            items.Add(new NameValueDto { Name = "Sql Server", Value = "SqlServer" });
-
-            bindingSourceDatabase.DataSource = items;
-            comboBoxDatabase.DisplayMember = "Name";
-            comboBoxDatabase.ValueMember = "Value";
-            comboBoxDatabase.DataSource = bindingSourceDatabase;
-        }
-
-        private void BindOrms()
-        {
-            List<NameValueDto> items = new List<NameValueDto>();
-
-            items.Add(new NameValueDto { Name = "EF Core", Value = "EFCore" });
-
-            bindingSourceOrm.DataSource = items;
-            comboBoxOrm.DisplayMember = "Name";
-            comboBoxOrm.ValueMember = "Value";
-            comboBoxOrm.DataSource = bindingSourceOrm;
-        }
+       
 
 
 
@@ -353,6 +270,91 @@ namespace IF.Tools.Templates.Editor
             text = text.Replace(templateSolutionName, newSolutionName);
             text = text.Replace("TestController", textBoxControllerName.Text.Trim() + "Controller");
             File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
+        }
+
+        private void BindProjects()
+        {
+
+            List<NameValueDto> projectTemplates = new List<NameValueDto>();
+
+
+            using (var dbContext = new MyDbContext())
+            {
+                template = dbContext.ProjectTemplates.Include(p => p.ProjectList).ThenInclude(p => p.IFProjectNugetPackages).SingleOrDefault(p => p.Code == templateCode);
+
+                checkBoxListProjects.Items.Clear();
+
+                foreach (var project in template.ProjectList)
+                {
+                    checkBoxListProjects.Items.Add(project.Name, true);
+                }
+            }
+
+
+
+        }
+
+        private void BindServiceBuses()
+        {
+            List<NameValueDto> items = new List<NameValueDto>();
+
+            items.Add(new NameValueDto { Name = "Native", Value = "Native" });
+
+            bindingSourceServiceBus.DataSource = items;
+            comboBoxServiceBus.DisplayMember = "Name";
+            comboBoxServiceBus.ValueMember = "Value";
+            comboBoxServiceBus.DataSource = bindingSourceServiceBus;
+        }
+
+
+        private void BindMessageBrokers()
+        {
+            List<NameValueDto> items = new List<NameValueDto>();
+
+            items.Add(new NameValueDto { Name = "Rabbit MQ", Value = "RabbitMq" });
+
+            bindingSourceMessageBroker.DataSource = items;
+            comboBoxMessageBroker.DisplayMember = "Name";
+            comboBoxMessageBroker.ValueMember = "Value";
+            comboBoxMessageBroker.DataSource = bindingSourceMessageBroker;
+        }
+
+
+        private void BindLogTypes()
+        {
+            List<NameValueDto> items = new List<NameValueDto>();
+
+            //items.Add(new NameValueDto { Name = "EF", Value = "EF" });
+            items.Add(new NameValueDto { Name = "Mongo", Value = "Mongo" });
+
+            bindingSourceLogType.DataSource = items;
+            comboBoxLogType.DisplayMember = "Name";
+            comboBoxLogType.ValueMember = "Value";
+            comboBoxLogType.DataSource = bindingSourceLogType;
+        }
+
+        private void BindDatabases()
+        {
+            List<NameValueDto> items = new List<NameValueDto>();
+
+            items.Add(new NameValueDto { Name = "Sql Server", Value = "SqlServer" });
+
+            bindingSourceDatabase.DataSource = items;
+            comboBoxDatabase.DisplayMember = "Name";
+            comboBoxDatabase.ValueMember = "Value";
+            comboBoxDatabase.DataSource = bindingSourceDatabase;
+        }
+
+        private void BindOrms()
+        {
+            List<NameValueDto> items = new List<NameValueDto>();
+
+            items.Add(new NameValueDto { Name = "EF Core", Value = "EFCore" });
+
+            bindingSourceOrm.DataSource = items;
+            comboBoxOrm.DisplayMember = "Name";
+            comboBoxOrm.ValueMember = "Value";
+            comboBoxOrm.DataSource = bindingSourceOrm;
         }
     }
 }
