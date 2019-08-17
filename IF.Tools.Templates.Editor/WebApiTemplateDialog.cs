@@ -82,7 +82,7 @@ namespace IF.Tools.Templates.Editor
 
             RemoveUnnecessaryDependencies();
 
-            var newSolutionNamePath = @"C:\temp\templateproject\" + template.SolutionName.Replace(templateSolutionName, newSolutionName) + ".sln";
+            var newSolutionNamePath = @"C:\temp\templateproject\" + template.SolutionName.Replace(templateSolutionName, newSolutionName) +@"\" + template.SolutionName.Replace(templateSolutionName, newSolutionName) + ".sln";
 
             CreateSolutionFile(newSolutionName, newSolutionNamePath);
 
@@ -127,7 +127,7 @@ namespace IF.Tools.Templates.Editor
         private void CreateSolutionFile(string newSolutionName, string newSolutionNamePath)
         {
 
-            var oldSolutionPath = @"C:\Projects\InFramework\" + template.SolutionName + ".sln";
+            var oldSolutionPath = @"C:\Projects\InFramework\IF.Template\" + template.SolutionName + ".sln";
 
             File.Copy(oldSolutionPath, newSolutionNamePath, true);
 
@@ -161,7 +161,7 @@ namespace IF.Tools.Templates.Editor
             newSln.Save();
 
 
-            string text = File.ReadAllText(@"C:\temp\templateproject\" + template.SolutionName.Replace(templateSolutionName, newSolutionName) + ".sln");
+            string text = File.ReadAllText(newSolutionNamePath);
             text = text.Replace(templateSolutionName, templateSolutionName);
             text = text.Replace(templateSolutionName, newSolutionName);
             File.WriteAllText(newSolutionNamePath, text);
