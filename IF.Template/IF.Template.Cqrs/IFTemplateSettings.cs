@@ -6,7 +6,7 @@ using IF.Core.RabbitMQ;
 using IF.Core.Sms;
 using System;
 
-namespace IF.Template.Domain
+namespace IF.Template.Cqrs
 {
 
     public interface IIFTemplateSettings : IAppSettingsCore

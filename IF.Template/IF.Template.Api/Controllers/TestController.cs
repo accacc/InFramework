@@ -27,7 +27,7 @@ namespace IF.Template.Api.Controllers
 
         [HttpPost]
         [Route("api/Test/Add")]
-        public async Task<TestListResponse> Add([FromQuery] TestListRequest request)
+        public async Task<TestListResponse> Add([FromBody] TestListRequest request)
         {
             var result = await dispatcher.QueryAsync<TestListRequest, TestListResponse>(request);
             return result;

@@ -7,7 +7,7 @@ using IF.EventBus.RabbitMQ.Integration;
 using IF.Persistence;
 using IF.Persistence.EF.Core;
 using IF.Swagger.Integration;
-using IF.Template.Domain;
+using IF.Template.Cqrs;
 using IF.Template.Persistence.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -48,7 +48,7 @@ namespace IF.Template.Api
 
             services.AddTransient<IRepository>(provider => new GenericRepository(provider.GetService<TestDbContext>()));
 
-            var domain = Assembly.Load("IF.Template.Domain");
+            var handlers = Assembly.Load("IF.Template.Cqrs");
 
             @if.AddSwagger(services, "v1", "InFramework Template Api", true)
                .AddApplicationSettings<IIFTemplateSettings>(settings)
@@ -67,7 +67,7 @@ namespace IF.Template.Api
                                      .AddAuditing()
                                      //.AddIdentity()
                                      )
-                               .Build(new Assembly[] { domain });
+                               .Build(new Assembly[] { handlers });
 
 
                                handler.AddQueryAsyncHandlers()
@@ -80,7 +80,7 @@ namespace IF.Template.Api
                                        .AddAuditing()
                                    //.AddIdentity()
                                    )
-                                   .Build(new Assembly[] { domain });
+                                   .Build(new Assembly[] { handlers });
 
 
 
@@ -92,7 +92,7 @@ namespace IF.Template.Api
                                      //.AddAuditing()
                                      //.AddIdentity()
                                      )
-                                    .Build(new Assembly[] { domain });
+                                    .Build(new Assembly[] { handlers });
 
 
                                handler.AddCommandAsyncHandlers()
@@ -103,12 +103,12 @@ namespace IF.Template.Api
                                    //.AddAuditing()
                                    //.AddIdentity()
                                    )
-                                   .Build(new Assembly[] { domain });
+                                   .Build(new Assembly[] { handlers });
                            });
                    })
                     .AddEventBus(bus =>
                     {
-                        bus.AddRabbitMQEventBus(services, settings.RabbitMQConnection, "if_template").Build(new Assembly[] { domain });
+                        bus.AddRabbitMQEventBus(services, settings.RabbitMQConnection, "if_template").Build(new Assembly[] { handlers });
 
                     })
 

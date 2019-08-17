@@ -3,7 +3,7 @@ using IF.Template.Contract.Queries;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IF.Template.Domain.Queries
+namespace IF.Template.Cqrs.Queries
 {
     public class TestListHandler : IQueryHandlerAsync<TestListRequest, TestListResponse>
     {

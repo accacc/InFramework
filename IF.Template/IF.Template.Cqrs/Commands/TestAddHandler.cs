@@ -2,7 +2,7 @@
 using IF.Template.Contract.Commands;
 using System.Threading.Tasks;
 
-namespace IF.Template.Domain.Commands
+namespace IF.Template.Cqrs.Commands
 {
     public class TestCommandHandler : ICommandHandlerAsync<TestAddCommand>
     {

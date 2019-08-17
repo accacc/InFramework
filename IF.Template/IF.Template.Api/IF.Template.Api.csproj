@@ -13,13 +13,13 @@
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
-    <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
     <PackageReference Include="Autofac.Extras.AggregateService" Version="4.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IF.Template.Domain\IF.Template.Domain.csproj" />
+    <ProjectReference Include="..\IF.Template.Cqrs\IF.Template.Cqrs.csproj" />
     <ProjectReference Include="..\IF.Template.Persistence.EF\IF.Template.Persistence.EF.csproj" />
   </ItemGroup>
 

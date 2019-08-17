@@ -43,51 +43,59 @@ namespace IF.Tools.Templates.Editor
 
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(textBoxSolutionName.Text))
+            try
             {
-                MessageBox.Show(@"Please enter the new solution name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
+                if (String.IsNullOrWhiteSpace(textBoxSolutionName.Text))
+                {
+                    MessageBox.Show(@"Please enter the new solution name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
 
-            if (String.IsNullOrWhiteSpace(textBoxApiName.Text))
+                if (String.IsNullOrWhiteSpace(textBoxApiName.Text))
+                {
+                    MessageBox.Show(@"Please enter the new api name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+
+
+                if (String.IsNullOrWhiteSpace(textBoxEventBusName.Text))
+                {
+                    MessageBox.Show(@"Please enter the event bus name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+
+                if (String.IsNullOrWhiteSpace(textBoxControllerName.Text))
+                {
+                    MessageBox.Show(@"Please enter the controller name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+
+                string newSolutionName = textBoxSolutionName.Text.Trim();
+
+                if (Directory.Exists(@"C:\temp\templateproject"))
+                {
+                    Directory.Delete(@"C:\temp\templateproject", true);
+                }
+
+                var source = new DirectoryInfo(@"C:\Projects\InFramework\" + templateSolutionName);
+                var target = new DirectoryInfo(@"C:\temp\templateproject\" + newSolutionName);
+
+                CopyFilesRecursively(source, target, newSolutionName);
+
+                RemoveUnnecessaryDependencies();
+
+                var newSolutionNamePath = @"C:\temp\templateproject\" + template.SolutionName.Replace(templateSolutionName, newSolutionName) + @"\" + template.SolutionName.Replace(templateSolutionName, newSolutionName) + ".sln";
+
+                CreateSolutionFile(newSolutionName, newSolutionNamePath);
+
+                ExploreFile(newSolutionNamePath);
+
+            }
+            catch (Exception ex)
             {
-                MessageBox.Show(@"Please enter the new api name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
+
+                MessageBox.Show(ex.GetBaseException().Message, @"Exception", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
-
-
-            if (String.IsNullOrWhiteSpace(textBoxEventBusName.Text))
-            {
-                MessageBox.Show(@"Please enter the event bus name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
-
-            if (String.IsNullOrWhiteSpace(textBoxControllerName.Text))
-            {
-                MessageBox.Show(@"Please enter the controller name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
-
-            string newSolutionName = textBoxSolutionName.Text.Trim();
-
-            if (Directory.Exists(@"C:\temp\templateproject"))
-            {
-                Directory.Delete(@"C:\temp\templateproject", true);
-            }
-
-            var source = new DirectoryInfo(@"C:\Projects\InFramework\" + templateSolutionName);
-            var target = new DirectoryInfo(@"C:\temp\templateproject\" + newSolutionName);
-
-            CopyFilesRecursively(source, target, newSolutionName);
-
-            RemoveUnnecessaryDependencies();
-
-            var newSolutionNamePath = @"C:\temp\templateproject\" + template.SolutionName.Replace(templateSolutionName, newSolutionName) +@"\" + template.SolutionName.Replace(templateSolutionName, newSolutionName) + ".sln";
-
-            CreateSolutionFile(newSolutionName, newSolutionNamePath);
-
-            ExploreFile(newSolutionNamePath);
-
         }
 
         private void RemoveUnnecessaryDependencies()
@@ -199,7 +207,7 @@ namespace IF.Tools.Templates.Editor
                     var newFileName = file.Name.Replace(templateSolutionName, newSolutionName);
                     file.CopyTo(Path.Combine(target.FullName, newFileName));
                 }
-                else if (file.Name == "IFTemplateSettings.cs" && file.Directory.Name == "IF.Template.Domain")
+                else if (file.Name == "IFTemplateSettings.cs" && file.Directory.Name == "IF.Template.Cqrs")
                 {
                     HandleSettings(target, file, newSolutionName);
                 }
@@ -207,7 +215,7 @@ namespace IF.Tools.Templates.Editor
                 {
                     HandleStartup(target, file, newSolutionName);
                 }
-                else if (file.Name == "TestController.cs" && file.Directory.Name == "IF.Template.Api")
+                else if (file.Name == "TestController.cs" && file.DirectoryName.Contains("IF.Template.Api"))
                 {
                     HandleController(target, file, newSolutionName);
                 }
