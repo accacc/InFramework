@@ -2,22 +2,34 @@
 using IF.Web.Mvc.FluentHtml.Extension;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.UI.Fluent;
+using Microsoft.AspNetCore.Mvc.Razor.Internal;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace Derin.Web.Mvc.Kendo
 {
-    public class KendoForFactory<TModel> : HtmlElementForFactory<TModel> where TModel : class
+    public class KendoForFactory<TModel> where TModel : class
     {
-        public KendoForFactory(HtmlHelper<TModel> htmlHelper)
-            : base(htmlHelper)
-        {
 
+        [RazorInject]
+        public IModelExpressionProvider ModelExpressionProvider { get; private set; }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public IHtmlHelper<TModel> HtmlHelper
+        {
+            get;
+            set;
+        }
+        public KendoForFactory(HtmlHelper<TModel> htmlHelper)
+            
+        {
+            this.HtmlHelper = htmlHelper;
         }
 
 
