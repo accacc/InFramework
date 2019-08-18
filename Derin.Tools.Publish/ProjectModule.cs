@@ -45,6 +45,7 @@ namespace IF.Tools.Publish
 
             //.Net Core
 
+            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Web.Mvc.Kendo", Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Web.Mvc.FluentHtml", Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Web.Mvc", Type = ProjectType.Standart });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Persistence.EF.Core", Type = ProjectType.Core });

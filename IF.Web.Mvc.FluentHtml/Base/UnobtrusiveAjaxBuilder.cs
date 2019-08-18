@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web.Mvc.Ajax;
 
 namespace IF.Web.Mvc.FluentHtml.Base
 {
@@ -41,7 +40,7 @@ namespace IF.Web.Mvc.FluentHtml.Base
             return this;
 
         }
-        
+
         public UnobtrusiveAjaxBuilder<Element> ExtraDataFunc(string extraDataFunc)
         {
             this.HtmlElement.HtmlAttributes.Add("if-ajax-extradatafunc", extraDataFunc);
@@ -165,4 +164,3 @@ namespace IF.Web.Mvc.FluentHtml.Base
         ReplaceWith = 3
     }
 }
- 
