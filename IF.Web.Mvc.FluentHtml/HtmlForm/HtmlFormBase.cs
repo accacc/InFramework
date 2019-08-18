@@ -1,9 +1,11 @@
-﻿using IF.Core.Mvc.PageLayout.SubmitButton;
-using IF.Web.Mvc.FluentHtml.Base;
+﻿using IF.Web.Mvc.FluentHtml.Base;
+using IF.Web.Mvc.FluentHtml.Button;
+using IF.Web.Mvc.FluentHtml.Extension;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace IF.Web.Mvc.FluentHtml.HtmlForm
 {
@@ -19,10 +21,10 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
     {
 
         public string Name { get; set; }
-        public IList<Button> Buttons { get; set; }
-        public Button DefaultSubmitButton { get; set; }
-        public Button DefaultCancelButton { get; set; }
-        public string Content { get; set; }
+        public IList<IFButton> Buttons { get; set; }
+        public IFButton DefaultSubmitButton { get; set; }
+        public IFButton DefaultCancelButton { get; set; }
+        public IHtmlContent Content { get; set; }
         public bool NavigationButtons { get; set; }
         public object ModelId { get; set; }
         public string Title { get; set; }
@@ -33,7 +35,7 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
         public DefaultButtonPosition DefaultButtonPosition { get; set; }
 
 
-        public HtmlFormBase(HtmlHelper htmlHelper, object ModelId)
+        public HtmlFormBase(IHtmlHelper htmlHelper, object ModelId)
             : base(htmlHelper)
         {
             this.htmlHelper.ViewContext.FormContext = new FormContext();
@@ -51,9 +53,7 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
 
         protected abstract void InitalizeButtons();
         protected abstract void RenderBody();
-
-        //TODO:Caglar override???
-        protected abstract string RenderButtons();
+        protected abstract HtmlString RenderButtons();
 
         public string RenderHiddenModelId()
         {
@@ -62,10 +62,10 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
             modelHiddenIdHtml.Attributes.Add("type", "hidden");
             modelHiddenIdHtml.Attributes.Add("name", "Id");
             modelHiddenIdHtml.Attributes.Add("value", ModelId.ToString());
-            return modelHiddenIdHtml.ToString(TagRenderMode.Normal);
+            return modelHiddenIdHtml.Render().ToString();
         }
 
-        protected virtual MvcHtmlString RenderForm()
+        protected virtual HtmlString RenderForm()
         {
 
             this.Builder.MergeAttributes(this.HtmlAttributes);
@@ -85,21 +85,22 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
 
             this.Builder.Attributes.Add("method", Method);
 
-            string href = UrlHelper.GenerateUrl("Default", this.ActionName, this.ControllerName, this.RouteValues, RouteTable.Routes, this.htmlHelper.ViewContext.RequestContext, false);
+            string href = "aa"; //UrlHelper.GenerateUrl("Default", this.ActionName, this.ControllerName, this.RouteValues, RouteTable.Routes, this.htmlHelper.ViewContext.RequestContext, false);
 
             this.Builder.Attributes.Add("action", href);
 
             RenderBody();
 
-            foreach (Button button in this.Buttons)
+            foreach (IFButton button in this.Buttons)
             {
                 if (!String.IsNullOrWhiteSpace(button.TemplateName))
                 {
-                    this.Builder.InnerHtml = this.Builder.InnerHtml.Replace("${" + button.TemplateName + "}", button.Render().ToHtmlString());
+                    this.Builder.InnerHtml.Append(this.Builder.InnerHtml.ToString().Replace("${" + button.TemplateName + "}", button.Render().Value));
                 }
             }
 
-            return MvcHtmlString.Create(this.Builder.ToString(TagRenderMode.Normal));
+
+            return this.Builder.Render();
         }
     }
 }

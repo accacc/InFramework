@@ -1,4 +1,5 @@
-﻿using IF.Web.Mvc.FluentHtml.DropDownList;
+﻿using IF.Core.Mvc.PageLayout;
+using IF.Web.Mvc.FluentHtml.DropDownList;
 using IF.Web.Mvc.FluentHtml.Link;
 using IF.Web.Mvc.FluentHtml.Modal.Bootstrap;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -54,6 +55,14 @@ namespace IF.Web.Mvc.FluentHtml.Extension
             var builder = new AjaxLinkBuilder(new ActionLink(this.HtmlHelper, Text, ActionName, ControllerName));
             //builder.HtmlAttributes(new  { @class = "btn btn-primary btn-sm margin-bottom-20" });
             return builder;
+        }
+
+
+        public BootstrapAjaxFilterFormBuilder BootstrapAjaxFilterForm(int ModelId = 0)
+        {
+            return new BootstrapAjaxFilterFormBuilder(this.HtmlHelper, ModelId)
+                .Id("GridFilterForm")
+                ;
         }
     }
 }

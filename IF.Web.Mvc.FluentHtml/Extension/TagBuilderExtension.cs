@@ -9,8 +9,10 @@ namespace IF.Web.Mvc.FluentHtml.Extension
 {
     public static class TagBuilderExtension
     {
-        public static HtmlString Render(this TagBuilder tag)
+        public static HtmlString Render(this TagBuilder tag, TagRenderMode mode = TagRenderMode.Normal)
         {
+            //tag.TagRenderMode = mode;
+
             var writer = new System.IO.StringWriter();
             tag.WriteTo(writer, HtmlEncoder.Default);
             return new HtmlString(writer.ToString());
