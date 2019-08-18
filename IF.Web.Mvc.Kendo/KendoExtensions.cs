@@ -9,17 +9,17 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Linq;
 
-namespace Derin.Web.Mvc.Kendo
+namespace IF.Web.Mvc.Kendo
 {
     public static class KendoExtensions
     {
 
 
-        //public static KendoForFactory<TModel> Kendo<TModel>(this IHtmlHelper<TModel> htmlHelper)
-        //{
+        public static KendoForFactory<TModel> IFKendo<TModel>(this IHtmlHelper<TModel> htmlHelper) where TModel:class
+        {
 
-        //    return new KendoForFactory<TModel>(htmlHelper);
-        //}
+            return new KendoForFactory<TModel>(htmlHelper);
+        }
 
 
         //public static MvcHtmlString RenderWithFormGroup<TViewComponent, TBuilder>(this WidgetBuilderBase<TViewComponent, TBuilder> builder)

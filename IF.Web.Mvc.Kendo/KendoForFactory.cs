@@ -12,7 +12,7 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Derin.Web.Mvc.Kendo
+namespace IF.Web.Mvc.Kendo
 {
     public class KendoForFactory<TModel> where TModel : class
     {
@@ -26,7 +26,7 @@ namespace Derin.Web.Mvc.Kendo
             get;
             set;
         }
-        public KendoForFactory(HtmlHelper<TModel> htmlHelper)
+        public KendoForFactory(IHtmlHelper<TModel> htmlHelper)
             
         {
             this.HtmlHelper = htmlHelper;
@@ -253,7 +253,7 @@ namespace Derin.Web.Mvc.Kendo
         //{
         //    var builder = this.HtmlHelper.Kendo<TModel>().DropDownListFor(expression);
         //    builder.HtmlAttributes(new { style = "width: 100%" });
-            
+
         //    List<SelectListItem> selectList = DropDownListExtensions.GetSelectListFromEnum<TEnum>(null, selectedValue).ToList();
         //    var selectedItem = selectList.Where(s => s.Selected == true).SingleOrDefault();
         //    if (selectedItem != null)
@@ -261,7 +261,7 @@ namespace Derin.Web.Mvc.Kendo
         //        var selectedIndex = selectList.IndexOf(selectedItem);
         //        builder.SelectedIndex(selectedIndex);
         //    }
-            
+
         //    builder.BindTo(selectList);
         //    return builder;
 
@@ -269,10 +269,52 @@ namespace Derin.Web.Mvc.Kendo
 
 
 
-        public GridBuilder<TModel> GridAjax(string actionName, string controllerName,string gridViewId, object routeValues = null)
+        public GridBuilder<T> GridAjax<T>(string actionName, string controllerName, string gridViewId, object routeValues = null) where T : BaseGridModel
         {
 
-            return KendoHelper.GetBaseGrid(this.HtmlHelper, actionName, controllerName,gridViewId,routeValues);
+            var builder = this.HtmlHelper.Kendo().Grid<T>();
+
+            //var securityContext = DependencyResolver.Current.GetService<ISecurityContext>();
+
+            //var currentAction = securityContext.CurrentAction();           
+
+
+            builder.Name(gridViewId);
+
+            builder
+              .Columns(
+              c =>
+              c.Bound(x=>x.Id)
+              .Visible(false)
+              .ClientTemplate(String.Empty)
+              .Title(String.Empty)
+              .Filterable(false)
+              );
+
+
+            builder.DataSource(dataBinding =>
+            {
+                dataBinding.Ajax().PageSize(25).Read(read => read.Action(actionName, controllerName, routeValues)
+                .Data("FilterGrid")
+                );
+            });
+
+
+            builder.Pageable(settings => settings.
+                                           PageSizes(new[] { 25, 50, 100, 200, 500, 1000 })
+                                          .Refresh(true)
+                                          .ButtonCount(20)
+                                      );
+
+
+            builder.Sortable();
+            builder.EnableCustomBinding(true);
+            builder.Selectable(select => select.Enabled(false));
+            builder.Reorderable(reorder => reorder.Columns(true));
+            builder.Scrollable(scrollable => scrollable.Height(540));
+            builder.Filterable(f => f.Mode(GridFilterMode.Row).Extra(false));
+            builder.NoRecords(x => x.Template("<div class='empty-grid'></div>"));
+            return builder;
         }
 
 

@@ -1,4 +1,5 @@
 ﻿using IF.Web.Mvc.FluentHtml.DropDownList;
+using IF.Web.Mvc.FluentHtml.Link;
 using IF.Web.Mvc.FluentHtml.Modal.Bootstrap;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -46,6 +47,13 @@ namespace IF.Web.Mvc.FluentHtml.Extension
         public IFDropDownListYearBuilder DropDownListYear(string name)
         {
             return new IFDropDownListYearBuilder(HtmlHelper, name);
+        }
+
+        public AjaxLinkBuilder AjaxLink(string Text, string ActionName, string ControllerName)
+        {
+            var builder = new AjaxLinkBuilder(new ActionLink(this.HtmlHelper, Text, ActionName, ControllerName));
+            //builder.HtmlAttributes(new  { @class = "btn btn-primary btn-sm margin-bottom-20" });
+            return builder;
         }
     }
 }

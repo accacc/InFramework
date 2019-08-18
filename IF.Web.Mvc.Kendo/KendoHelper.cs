@@ -6,13 +6,15 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 
 
-namespace Derin.Web.Mvc.Kendo
+namespace IF.Web.Mvc.Kendo
 {
     public static class KendoHelper
     {
-        public static GridBuilder<T> GetBaseGrid<T>(IHtmlHelper<T> htmlHelper, string actionName, string controllerName, string gridViewId, object routeValues) where T : class
+        public static GridBuilder<TModel> GetBaseGrid<TModel>(IHtmlHelper<TModel> htmlHelper, string actionName, string controllerName, string gridViewId, object routeValues) where TModel : class
         {
-            var builder = htmlHelper.Kendo().Grid<T>();
+            
+
+            var builder = htmlHelper.Kendo().Grid<TModel>();
 
             //var securityContext = DependencyResolver.Current.GetService<ISecurityContext>();
 
@@ -21,15 +23,15 @@ namespace Derin.Web.Mvc.Kendo
 
             builder.Name(gridViewId);
 
-            //builder
-            //  .Columns(
-            //  c =>
-            //  c.Bound(x => x.Id)
-            //  .Visible(false)
-            //  .ClientTemplate(String.Empty)
-            //  .Title(String.Empty)
-            //  .Filterable(false)
-            //  );
+            builder
+              .Columns(
+              c =>
+              c.Bound("Id")
+              .Visible(false)
+              .ClientTemplate(String.Empty)
+              .Title(String.Empty)
+              .Filterable(false)
+              );
 
 
             builder.DataSource(dataBinding =>
