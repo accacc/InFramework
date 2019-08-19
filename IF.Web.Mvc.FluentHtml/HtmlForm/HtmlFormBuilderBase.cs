@@ -32,6 +32,12 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
             return this as Builder;
         }
 
+        public Builder Content(Func<object, object> value)
+        {
+            this.HtmlElement.ContentAction = value;
+            return this as Builder;
+        }
+
 
         public Builder DefaultSubmitButton(Action<ButtonBuilder> button)
         {

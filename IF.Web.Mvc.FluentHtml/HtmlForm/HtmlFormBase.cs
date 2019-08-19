@@ -25,6 +25,8 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
         public IFButton DefaultSubmitButton { get; set; }
         public IFButton DefaultCancelButton { get; set; }
         public IHtmlContent Content { get; set; }
+
+        public Func<object, object>  ContentAction { get; set; }
         public bool NavigationButtons { get; set; }
         public object ModelId { get; set; }
         public string Title { get; set; }

@@ -4,8 +4,6 @@ using IF.Configuration;
 using IF.Core.Configuration;
 using IF.Core.DependencyInjection;
 using IF.Core.DependencyInjection.Interface;
-using IF.Core.DependencyInjection.Interface;
-using IF.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -31,6 +29,7 @@ namespace IF.Dependency.AutoFac
             //this.RegisterType<DispatcherWithDI, IDispatcher>(DependencyScope.PerInstance);            
             //builder.RegisterAggregateService<IHandlerFactory>();
             //builder.RegisterAggregateService<IElasticSearchHandlerFactory>();
+
             action(new CqrsBuilder(this));
 
             return this;
@@ -284,6 +283,30 @@ namespace IF.Dependency.AutoFac
             return this;
         }
 
-     
+        public void RegisterImplementedInterface<T>(Assembly[] assembly, DependencyScope scope)
+        {
+
+            var reg = builder.RegisterAssemblyTypes(assembly).AssignableTo<T>().AsImplementedInterfaces();
+
+            switch (scope)
+            {
+                case DependencyScope.Single:
+                    reg.SingleInstance();
+                    break;
+
+                case DependencyScope.PerScope:
+                    reg.InstancePerLifetimeScope();
+                    break;
+                case DependencyScope.PerRequest:
+                    reg.InstancePerRequest();
+                    break;
+                case DependencyScope.PerInstance:
+                    reg.InstancePerDependency();
+                    break;
+                default:
+                    reg.InstancePerRequest();
+                    break;
+            }
+        }
     }
 }

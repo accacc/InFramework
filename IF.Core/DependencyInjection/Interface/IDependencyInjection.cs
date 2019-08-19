@@ -44,6 +44,8 @@ namespace IF.Core.DependencyInjection.Interface
 
         void RegisterClosedType(Assembly[] assembly, Type type, DependencyScope scope);
 
+        void RegisterImplementedInterface<T>(Assembly[] assembly,  DependencyScope scope);
+
         void Build();
 
         IInFrameworkBuilder AddCqrs(Action<ICqrsBuilder> action);
@@ -57,5 +59,9 @@ namespace IF.Core.DependencyInjection.Interface
         //     where Setting : ISettings;
 
         IInFrameworkBuilder AddApplicationSettings<ISettings>(ISettings settings) where ISettings : IAppSettingsCore;
+
+        
+
+
     }
 }

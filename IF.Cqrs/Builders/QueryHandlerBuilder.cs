@@ -1,4 +1,5 @@
-﻿using IF.Core.DependencyInjection;
+﻿using IF.Core.Data;
+using IF.Core.DependencyInjection;
 using IF.Core.DependencyInjection.Interface;
 using System;
 using System.Collections.Generic;
@@ -37,8 +38,8 @@ namespace IF.Dependency.Builders
 
         public IInFrameworkBuilder Build(Assembly[] assemblies)
         {
-
             dependencyInjection.RegisterDecorators(assemblies, this.handlers);
+            dependencyInjection.RegisterImplementedInterface<IDataQuery>(assemblies, DependencyScope.PerInstance);
 
             return this.dependencyInjection;
         }
