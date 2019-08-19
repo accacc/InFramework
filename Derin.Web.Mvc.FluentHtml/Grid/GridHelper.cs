@@ -109,7 +109,7 @@ namespace IF.Web.Mvc.FluentHtml.Grid
                         iconName = childAction.IconName;
                     }
 
-                    link.IconClassName("glyphicon glyphicon-" + iconName);
+                    link.IconClassName("fas fa-" + iconName);
                 }
 
 
@@ -119,7 +119,7 @@ namespace IF.Web.Mvc.FluentHtml.Grid
                     ajax.UpdatedTargetId(Guid.NewGuid().ToString());
                 }).Id(childAction.ControllerName + childAction.ActionName)
                     .HtmlAttributes(new { title = childAction.Name })
-                    .IconClassName("glyphicon glyphicon-" + iconName);
+                    .IconClassName("fas fa-" + iconName);
 
                 links.Add(link);
             }
@@ -167,18 +167,10 @@ namespace IF.Web.Mvc.FluentHtml.Grid
                             iconClassName = link.HtmlElement.IconClassName;
                         }
 
-                        link.IconClassName("glyphicon glyphicon-" + iconClassName);
+                        link.IconClassName("fas fa-" + iconClassName);
 
                         link.Text(String.Empty);
-                    }
-
-                   // link.AjaxOptions(ajax =>
-                   // {
-                   //     ajax.UpdatedTargetId(Guid.NewGuid().ToString());
-                   //     ajax.GridViewId(gridViewId);
-                   // }).Id(link.HtmlElement.ControllerName + link.HtmlElement.ActionName)
-                   //.HtmlAttributes(new { title = link.HtmlElement.Text })
-                   //.IconClassName("glyphicon glyphicon-" + iconClassName);
+                    }                   
                 }
 
             }
@@ -232,7 +224,7 @@ namespace IF.Web.Mvc.FluentHtml.Grid
                     .Id(childAction.ControllerName + childAction.ActionName)
                     
                     .HtmlAttributes(new { title = childAction.Name })
-                    .IconClassName("glyphicon glyphicon-" + iconName);
+                    .IconClassName("fas fa-" + iconName);
                 links.Add(link);
             }
 

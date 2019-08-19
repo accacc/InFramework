@@ -11,7 +11,7 @@ namespace IF.Core.Mvc.PageLayout
 
     public class AjaxFormBuilder : HtmlFormBuilderBase<AjaxForm, AjaxFormBuilder>
     {
-        public AjaxFormBuilder(HtmlHelper htmlHelper, object ModelId)
+        public AjaxFormBuilder(IHtmlHelper htmlHelper, object ModelId)
         //: base(htmlHelper, ModelId)
         {
             this.HtmlElement = new AjaxForm(htmlHelper, ModelId);

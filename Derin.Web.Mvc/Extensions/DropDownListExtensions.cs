@@ -47,7 +47,7 @@ namespace Derin.Core.Mvc.Extensions
 
             {
                 var item = new SelectListItem();
-                item.Text = MvcHtmlString.Create(@"<span class=""glyphicon glyphicon-home"">" + icon + "</span>").ToHtmlString();
+                item.Text = MvcHtmlString.Create(@"<i class=""fa fas-"">" + icon + "</i>").ToHtmlString();
                 item.Value = icon;
                 item.Selected = (selectedValue.ToString() == item.Value);
                 items.Add(item);

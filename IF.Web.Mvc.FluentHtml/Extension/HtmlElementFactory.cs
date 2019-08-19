@@ -64,5 +64,15 @@ namespace IF.Web.Mvc.FluentHtml.Extension
                 .Id("GridFilterForm")
                 ;
         }
+
+        public AjaxFormBuilder AjaxForm(object ModelId = null)
+        {
+            var builder = new AjaxFormBuilder(this.HtmlHelper, ModelId);
+
+            builder.Id("CreateUpdateForm").CloseAfterSuccessSubmit(true);
+
+            return builder;
+
+        }
     }
 }
