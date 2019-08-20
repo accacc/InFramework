@@ -1,5 +1,5 @@
 ﻿using Derin.Core.Mvc.Model;
-using IF.Web.Mvc.FluentHtml.Extension;
+using IF.Core.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.UI.Fluent;
 using Microsoft.AspNetCore.Mvc.Razor.Internal;
@@ -249,23 +249,23 @@ namespace IF.Web.Mvc.Kendo
 
         }
 
-        //public DropDownListBuilder EnumDropDownList<TEnum>(Expression<System.Func<TModel, TEnum>> expression, TEnum selectedValue)
-        //{
-        //    var builder = this.HtmlHelper.Kendo<TModel>().DropDownListFor(expression);
-        //    builder.HtmlAttributes(new { style = "width: 100%" });
+        public DropDownListBuilder EnumDropDownList<TEnum>(Expression<System.Func<TModel, TEnum>> expression, TEnum selectedValue)
+        {
+            var builder = this.HtmlHelper.Kendo<TModel>().DropDownListFor(expression);
+            builder.HtmlAttributes(new { style = "width: 100%" });
 
-        //    List<SelectListItem> selectList = DropDownListExtensions.GetSelectListFromEnum<TEnum>(null, selectedValue).ToList();
-        //    var selectedItem = selectList.Where(s => s.Selected == true).SingleOrDefault();
-        //    if (selectedItem != null)
-        //    {
-        //        var selectedIndex = selectList.IndexOf(selectedItem);
-        //        builder.SelectedIndex(selectedIndex);
-        //    }
+            List<SelectListItem> selectList = DropDownListExtensions.GetSelectListFromEnum<TEnum>(null, selectedValue).ToList();
+            var selectedItem = selectList.Where(s => s.Selected == true).SingleOrDefault();
+            if (selectedItem != null)
+            {
+                var selectedIndex = selectList.IndexOf(selectedItem);
+                builder.SelectedIndex(selectedIndex);
+            }
 
-        //    builder.BindTo(selectList);
-        //    return builder;
+            builder.BindTo(selectList);
+            return builder;
 
-        //}
+        }
 
 
 

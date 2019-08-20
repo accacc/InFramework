@@ -1,5 +1,7 @@
 ﻿using IF.Web.Mvc.FluentHtml.Link;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System;
 
 namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
 {
@@ -9,11 +11,11 @@ namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
         public string DataTarget { get; set; }
         public bool IsAjax { get; set; }
 
-        public string Content { get; set; }
+        public Func<object, object>  Content { get; set; }
 
 
 
-        public BootstrapTabLink(HtmlHelper htmlHelper, string Text, string ActionName, string ControllerName)
+        public BootstrapTabLink(IHtmlHelper htmlHelper, string Text, string ActionName, string ControllerName)
             : base(htmlHelper, Text, ActionName, ControllerName)
         {
 

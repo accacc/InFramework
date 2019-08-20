@@ -1,4 +1,5 @@
 ﻿using IF.Core.Mvc.PageLayout;
+using IF.Web.Mvc.FluentHtml.Bootstrap.Tab;
 using IF.Web.Mvc.FluentHtml.DropDownList;
 using IF.Web.Mvc.FluentHtml.Link;
 using IF.Web.Mvc.FluentHtml.Modal.Bootstrap;
@@ -73,6 +74,11 @@ namespace IF.Web.Mvc.FluentHtml.Extension
 
             return builder;
 
+        }
+
+        public BootstrapTabBuilder Tab()
+        {
+            return new BootstrapTabBuilder(new BootstrapTab(this.HtmlHelper));
         }
     }
 }

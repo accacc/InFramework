@@ -1,6 +1,8 @@
 ﻿using IF.Web.Mvc.FluentHtml.Link;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
+using System;
 
 namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
 {
@@ -12,7 +14,7 @@ namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
 
         //}
 
-        public BootstrapTabLinkBuilder(HtmlHelper helper, BootstrapTabLink link)
+        public BootstrapTabLinkBuilder(IHtmlHelper helper, BootstrapTabLink link)
             : base(link)
         {
             //this.HtmlElement = link;
@@ -64,7 +66,7 @@ namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
             return this;
         }
 
-        public BootstrapTabLinkBuilder Content(string content)
+        public BootstrapTabLinkBuilder Content(Func<object, object> content)
         {
             this.HtmlElement.Content = content;
             this.HtmlElement.HtmlAttributes.Add("data-toggle", "tab");

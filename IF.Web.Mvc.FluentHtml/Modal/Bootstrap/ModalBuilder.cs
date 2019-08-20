@@ -1,4 +1,5 @@
 ﻿using IF.Web.Mvc.FluentHtml.Base;
+using IF.Web.Mvc.FluentHtml.HtmlForm;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Encodings.Web;
 
 namespace IF.Web.Mvc.FluentHtml.Modal.Bootstrap
 {
@@ -21,11 +23,17 @@ namespace IF.Web.Mvc.FluentHtml.Modal.Bootstrap
 
 
 
-        public ModalBuilder Content(IHtmlContent Content)
+        public ModalBuilder Content(Func<object, object> content)
         {
             var element = new HtmlDivElement(this.htmlHelper);
             element.Build();
-            element.Builder.InnerHtml.AppendHtml(Content);
+
+            var writer = new System.IO.StringWriter();
+
+            writer.WriteContent<object>(content, HtmlEncoder.Default, null, false);
+            var c = new HtmlString(writer.ToString());
+
+            element.Builder.InnerHtml.AppendHtml(c);
 
             this.HtmlElement.Childs.Add(element);
             return this;

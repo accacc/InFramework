@@ -1,7 +1,10 @@
 ﻿using IF.Web.Mvc.FluentHtml.Base;
+using IF.Web.Mvc.FluentHtml.HtmlForm;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Text.Encodings.Web;
 
 namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
 {
@@ -69,9 +72,21 @@ namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
                     tabPane.Builder.AddCssClass("active in");
                 }
 
-                if(!String.IsNullOrWhiteSpace(Items[i].Content))
+                if(Items[i].Content!=null)
                 {
-                    tabPane.Builder.InnerHtml.AppendHtml(Items[i].Content);                    
+                    try
+                    {
+                        var writer = new System.IO.StringWriter();
+
+                        writer.WriteContent<object>(Items[i].Content, HtmlEncoder.Default, null, false);
+                        var c = new HtmlString(writer.ToString());
+                        tabPane.Builder.InnerHtml.AppendHtml(c);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        throw;
+                    }
                 }
                 
                 content.Builder.InnerHtml.AppendHtml(tabPane.Render());

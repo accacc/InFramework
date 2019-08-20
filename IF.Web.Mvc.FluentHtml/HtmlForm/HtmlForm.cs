@@ -47,7 +47,6 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
         {
 
 
-            this.Builder.InnerHtml.AppendHtml(this.Builder.InnerHtml);
             this.Builder.InnerHtml.Append("<div class=\"form-body\">" + this.Content + "</div>");
 
             this.Builder.InnerHtml.AppendHtml(this.RenderButtons());
