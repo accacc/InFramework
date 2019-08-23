@@ -102,7 +102,19 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
         protected override void RenderBody()
         {
             this.Builder.InnerHtml.AppendHtml(this.Builder.InnerHtml);
-            this.Builder.InnerHtml.AppendHtml(this.Content);
+            try
+            {
+                var writer = new System.IO.StringWriter();
+
+                writer.WriteContent<object>(this.ContentAction, HtmlEncoder.Default, null, false);
+                var c = new HtmlString(writer.ToString());
+                this.Builder.InnerHtml.AppendHtml(c);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
             this.Builder.InnerHtml.AppendHtml(this.RenderButtons());
             if (this.GenerateHiddenId)
             {

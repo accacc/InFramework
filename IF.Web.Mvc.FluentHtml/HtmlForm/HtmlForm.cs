@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Text.Encodings.Web;
 
 namespace IF.Web.Mvc.FluentHtml.HtmlForm
 {
@@ -33,7 +34,7 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
             this.DefaultCancelButton.Type = "button";
             this.DefaultCancelButton.Id = "DefaultCancelButton";
             //this.DefaultCancelButton.IconClassName = "fa fa-times";
-            this.DefaultCancelButton.HtmlAttributes.Add("data-dismiss", "modal");
+            //this.DefaultCancelButton.HtmlAttributes.Add("data-dismiss", "modal");
             this.DefaultCancelButton.ActionName = "Index";
             this.Buttons.Add(this.DefaultCancelButton);
         }
@@ -47,11 +48,29 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
         {
 
 
-            this.Builder.InnerHtml.Append("<div class=\"form-body\">" + this.Content + "</div>");
+           
+
+            this.Builder.InnerHtml.AppendHtml("<div class=\"form-body\">");
+
+            try
+            {
+                var writer = new System.IO.StringWriter();
+
+                writer.WriteContent<object>(this.ContentAction, HtmlEncoder.Default, null, false);
+                var c = new HtmlString(writer.ToString());
+                this.Builder.InnerHtml.AppendHtml(c);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            this.Builder.InnerHtml.AppendHtml("</div>");
 
             this.Builder.InnerHtml.AppendHtml(this.RenderButtons());
 
-            this.Builder.InnerHtml.Append("<br /><br />");
+            this.Builder.InnerHtml.AppendHtml("<br /><br />");
 
             if (this.ModelId != null)
             {

@@ -26,11 +26,11 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
 
 
 
-        public Builder Content(IHtmlContent Content)
-        {
-            this.HtmlElement.Content = Content;
-            return this as Builder;
-        }
+        //public Builder Content(IHtmlContent Content)
+        //{
+        //    this.HtmlElement.Content = Content;
+        //    return this as Builder;
+        //}
 
         public Builder Content(Func<object, object> value)
         {

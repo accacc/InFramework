@@ -24,7 +24,7 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
         public IList<IFButton> Buttons { get; set; }
         public IFButton DefaultSubmitButton { get; set; }
         public IFButton DefaultCancelButton { get; set; }
-        public IHtmlContent Content { get; set; }
+        //public IHtmlContent Content { get; set; }
 
         public Func<object, object>  ContentAction { get; set; }
         public bool NavigationButtons { get; set; }

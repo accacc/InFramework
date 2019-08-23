@@ -130,7 +130,7 @@ namespace IF.Web.Mvc.FluentHtml.Base
         {
             this.HtmlElement.HtmlAttributes.Remove("if-ajax-update-id");
             this.HtmlElement.HtmlAttributes.Remove("if-ajax-show-dialog");
-            this.HtmlElement.HtmlAttributes.Add("if-ajax-update-id", Guid.NewGuid().ToString());
+            this.HtmlElement.HtmlAttributes.Add("if-ajax-modal-id", Guid.NewGuid().ToString());
             this.HtmlElement.HtmlAttributes.Add("if-ajax-show-dialog", "true");
             return this;
         }
