@@ -2,7 +2,9 @@
 using IF.Web.Mvc.FluentHtml.Button;
 using IF.Web.Mvc.FluentHtml.Extension;
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Collections.Generic;
@@ -87,7 +89,12 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
 
             this.Builder.Attributes.Add("method", Method);
 
-            string href = "aa"; //UrlHelper.GenerateUrl("Default", this.ActionName, this.ControllerName, this.RouteValues, RouteTable.Routes, this.htmlHelper.ViewContext.RequestContext, false);
+            var urlHelperFactory = (IUrlHelperFactory)htmlHelper.ViewContext.HttpContext.RequestServices.GetService(typeof(IUrlHelperFactory));
+
+            var url = urlHelperFactory.GetUrlHelper(htmlHelper.ViewContext);
+
+
+            string href = url.Action(this.ActionName, this.ControllerName, this.RouteValues);
 
             this.Builder.Attributes.Add("action", href);
 
