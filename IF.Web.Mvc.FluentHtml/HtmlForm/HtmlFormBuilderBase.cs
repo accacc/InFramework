@@ -1,11 +1,10 @@
-﻿using IF.Core.Mvc.PageLayout.SubmitButton;
-using IF.Web.Mvc.FluentHtml.Base;
-using Microsoft.AspNetCore.Html;
+﻿using IF.Web.Mvc.FluentHtml.Base;
+using IF.Web.Mvc.FluentHtml.Button;
 using System;
 
 namespace IF.Web.Mvc.FluentHtml.HtmlForm
 {
-    public abstract class HtmlFormBuilderBase<Element, Builder> : HtmlRouteableElementBuilder<Element, Builder>
+    public abstract class HtmlFormBuilderBase<Element, Builder> : HtmlElementBuilder<Element, Builder>
         where Element : HtmlFormBase
         where Builder : HtmlFormBuilderBase<Element, Builder>
     {
@@ -18,20 +17,15 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
         }
 
 
-        public Builder Method(string Method)
-        {
-            this.HtmlElement.Method = Method;
-            return this as Builder;
-        }
-
-
-
-        //public Builder Content(IHtmlContent Content)
+        //public Builder Method(string Method)
         //{
-        //    this.HtmlElement.Content = Content;
+        //    this.HtmlElement.Method = Method;
         //    return this as Builder;
         //}
 
+
+
+        
         public Builder Content(Func<object, object> value)
         {
             this.HtmlElement.ContentAction = value;
@@ -41,14 +35,14 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
 
         public Builder DefaultSubmitButton(Action<ButtonBuilder> button)
         {
-            ButtonBuilder builder = new ButtonBuilder(this.HtmlElement.DefaultSubmitButton);
+            IFAjaxFormButtonBuilder builder = new IFAjaxFormButtonBuilder(this.HtmlElement.DefaultSubmitButton);
             button(builder);
             return this as Builder;
         }
 
         public Builder DefaultCancelButton(Action<ButtonBuilder> button)
         {
-            ButtonBuilder builder = new ButtonBuilder(this.HtmlElement.DefaultCancelButton);
+            IFAjaxFormButtonBuilder builder = new IFAjaxFormButtonBuilder(this.HtmlElement.DefaultCancelButton);
             button(builder);
             return this as Builder;
         }

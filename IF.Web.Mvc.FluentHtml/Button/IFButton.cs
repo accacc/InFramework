@@ -2,15 +2,17 @@
 using IF.Web.Mvc.FluentHtml.Extension;
 using IF.Web.Mvc.FluentHtml.HtmlForm;
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Routing;
 using System;
 
 namespace IF.Web.Mvc.FluentHtml.Button
 {
-    public class IFButton : HtmlElement
+    public class IFButton : HtmlRouteableElement
     {
         public string Value { get; set; }
-        public string ActionName { get; set; }
+        
         public string RedirectTo { get; set; }
         public string UpdatedTargetId { get; set; }
         public HtmlFormBase Form { get; set; }
@@ -44,10 +46,10 @@ namespace IF.Web.Mvc.FluentHtml.Button
         {
             base.Build();
 
-            foreach (var att in this.HtmlAttributes)
-            {
-                this.Builder.Attributes.Add(att.Key, att.Value.ToString());
-            }
+            //foreach (var att in this.HtmlAttributes)
+            //{
+            //    this.Builder.Attributes.Add(att.Key, att.Value.ToString());
+            //}
 
             this.Builder.Attributes.Add("value", this.Value);
 
@@ -63,7 +65,13 @@ namespace IF.Web.Mvc.FluentHtml.Button
 
             if (!String.IsNullOrWhiteSpace(this.ActionName))
             {
-                this.Builder.Attributes.Add("data-action", this.ActionName);
+                var urlHelperFactory = (IUrlHelperFactory)htmlHelper.ViewContext.HttpContext.RequestServices.GetService(typeof(IUrlHelperFactory));
+
+                var url = urlHelperFactory.GetUrlHelper(htmlHelper.ViewContext);
+
+
+                string href = url.Action(this.ActionName, this.ControllerName, this.RouteValues);
+                this.Builder.Attributes.Add("if-ajax-action", href);
             }
 
             if (String.IsNullOrWhiteSpace(this.CssClass))

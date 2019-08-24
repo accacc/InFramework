@@ -1,7 +1,7 @@
 ﻿using IF.Web.Mvc.FluentHtml.Button;
 using IF.Web.Mvc.FluentHtml.HtmlForm;
 
-namespace IF.Core.Mvc.PageLayout.SubmitButton
+namespace IF.Web.Mvc.FluentHtml.Button
 {
     public class ButtonFactory
     {

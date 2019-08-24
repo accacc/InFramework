@@ -2,9 +2,7 @@
 using IF.Web.Mvc.FluentHtml.Button;
 using IF.Web.Mvc.FluentHtml.Extension;
 using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Collections.Generic;
@@ -19,7 +17,7 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
         BottomRight = 3
 
     }
-    public abstract class HtmlFormBase : HtmlRouteableElement
+    public abstract class HtmlFormBase : HtmlElement
     {
 
         public string Name { get; set; }
@@ -32,7 +30,7 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
         public bool NavigationButtons { get; set; }
         public object ModelId { get; set; }
         public string Title { get; set; }
-        public string Method { get; set; }
+        //public string Method { get; set; }
 
         public bool GenerateHiddenId { get; set; }
 
@@ -72,31 +70,14 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
         protected virtual HtmlString RenderForm()
         {
 
-            this.Builder.MergeAttributes(this.HtmlAttributes);
+            this.Builder.MergeAttributes(this.HtmlAttributes);           
 
-            //if (this.NavigationButtons && this.ModelId > 0)
+            //if (String.IsNullOrWhiteSpace(this.Method))
             //{
-            //    form.InnerHtml += RenderNavigationButtons() + "<br />";
+            //    this.Method = "POST";
             //}
 
-
-            //this.Builder.Attributes.Add("id", this.Id);
-
-            if (String.IsNullOrWhiteSpace(this.Method))
-            {
-                this.Method = "POST";
-            }
-
-            this.Builder.Attributes.Add("method", Method);
-
-            var urlHelperFactory = (IUrlHelperFactory)htmlHelper.ViewContext.HttpContext.RequestServices.GetService(typeof(IUrlHelperFactory));
-
-            var url = urlHelperFactory.GetUrlHelper(htmlHelper.ViewContext);
-
-
-            string href = url.Action(this.ActionName, this.ControllerName, this.RouteValues);
-
-            this.Builder.Attributes.Add("action", href);
+            //this.Builder.Attributes.Add("method", Method);            
 
             RenderBody();
 

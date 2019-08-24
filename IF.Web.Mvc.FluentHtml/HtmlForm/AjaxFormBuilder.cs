@@ -18,7 +18,7 @@ namespace IF.Core.Mvc.PageLayout
             this.HtmlElement.HtmlAttributes.Add("if-ajax", "true");
             this.HtmlElement.HtmlAttributes.Add("if-ajax-mode", "replace");
             this.HtmlElement.HtmlAttributes.Add("if-ajax-method", "post");
-            this.HtmlElement.RouteValues = new RouteValueDictionary();
+            //this.HtmlElement.RouteValues = new RouteValueDictionary();
 
         }
 
@@ -64,7 +64,7 @@ namespace IF.Core.Mvc.PageLayout
             this.HtmlElement.HtmlAttributes.Add("if-ajax", "true");
             this.HtmlElement.HtmlAttributes.Add("if-ajax-mode", "replace");
             this.HtmlElement.HtmlAttributes.Add("if-ajax-method", "post");
-            this.HtmlElement.RouteValues = new RouteValueDictionary();
+            //this.HtmlElement.RouteValues = new RouteValueDictionary();
 
         }
 
@@ -99,7 +99,7 @@ namespace IF.Core.Mvc.PageLayout
             this.HtmlElement.HtmlAttributes.Add("if-ajax", "true");
             this.HtmlElement.HtmlAttributes.Add("if-ajax-mode", "replace");
             this.HtmlElement.HtmlAttributes.Add("if-ajax-method", "post");
-            this.HtmlElement.RouteValues = new RouteValueDictionary();
+            //this.HtmlElement.RouteValues = new RouteValueDictionary();
 
         }
 
