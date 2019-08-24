@@ -38,7 +38,7 @@ namespace IF.Web.Mvc.FluentHtml.Link
         
             if(!String.IsNullOrWhiteSpace(IconClassName))
             {
-                this.Builder.InnerHtml.Append(String.Format(@"<span class=""{0}""></span>", this.IconClassName));
+                this.Builder.InnerHtml.AppendHtml(String.Format(@"<span class=""{0}""></span>", this.IconClassName));
             }
 
             this.Builder.InnerHtml.Append(this.Text);

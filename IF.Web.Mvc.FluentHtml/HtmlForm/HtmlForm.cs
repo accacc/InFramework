@@ -107,7 +107,7 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
                     }
 
                     actionsDiv.InnerHtml.AppendHtml(button.Render());
-                    this.Builder.InnerHtml.Append("&nbsp;");
+                    this.Builder.InnerHtml.AppendHtml("&nbsp;");
                 }
             }
 
