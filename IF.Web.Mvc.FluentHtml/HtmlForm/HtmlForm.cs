@@ -1,52 +1,54 @@
-﻿using IF.Web.Mvc.FluentHtml.Button;
+﻿using IF.Web.Mvc.FluentHtml.Base;
+using IF.Web.Mvc.FluentHtml.Button;
 using IF.Web.Mvc.FluentHtml.Extension;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Collections.Generic;
 using System.Text.Encodings.Web;
 
 namespace IF.Web.Mvc.FluentHtml.HtmlForm
 {
-    public class HtmlForm : HtmlFormBase
+    public class IFHtmlForm : HtmlFormBase
     {
+        public IFButton CancelButton { get; set; }
+        //public IHtmlContent Content { get; set; }
 
-
-
-        public HtmlForm(IHtmlHelper htmlHelper, object ModelId)
-            : base(htmlHelper, ModelId)
+        public IFHtmlForm(IHtmlHelper htmlHelper):base(htmlHelper)
         {
+            this.htmlHelper.ViewContext.FormContext = new FormContext();
+            //this.ModelId = ModelId;
+            this.Name = this.Id;
+            this.DefaultButtonPosition = ButtonPosition.BottomRight;
+            //this.GenerateHiddenId = true;
+            this.InitalizeButtons();
         }
 
-        protected override void InitalizeButtons()
+        protected void InitalizeButtons()
         {
             this.Buttons = new List<IFButton>();
-            this.DefaultSubmitButton = new IFButton(this.htmlHelper, this);
-            this.DefaultSubmitButton.CssClass = "btn btn-primary";
-            this.DefaultSubmitButton.InnerText = "Kaydet";
+            this.SubmitButton = new IFButton(this.htmlHelper, this);
+            this.SubmitButton.CssClass = "btn btn-primary";
+            this.SubmitButton.InnerText = "Kaydet";
             //this.DefaultSubmitButton.IconClassName = "fa fa-plus";
-            this.Buttons.Add(this.DefaultSubmitButton);
+            this.Buttons.Add(this.SubmitButton);
 
 
-            this.DefaultCancelButton = new IFButton(this.htmlHelper, this);
-            this.DefaultCancelButton.InnerText = "İptal";
-            this.DefaultCancelButton.CssClass = "btn btn-default";
-            this.DefaultCancelButton.Type = "button";
-            this.DefaultCancelButton.Id = "DefaultCancelButton";
+            this.CancelButton = new IFButton(this.htmlHelper, this);
+            this.CancelButton.InnerText = "İptal";
+            this.CancelButton.CssClass = "btn btn-default";
+            this.CancelButton.Type = "button";
+            this.CancelButton.Id = "DefaultCancelButton";
             //this.DefaultCancelButton.IconClassName = "fa fa-times";
-            this.DefaultCancelButton.HtmlAttributes.Add("data-dismiss", "modal");
-            this.DefaultCancelButton.ActionName = "Index";
-            this.Buttons.Add(this.DefaultCancelButton);
+            this.CancelButton.HtmlAttributes.Add("data-dismiss", "modal");
+            this.CancelButton.ActionName = "Index";
+            this.Buttons.Add(this.CancelButton);
         }
 
         public override HtmlString CreateHtml()
         {
-            return RenderForm();
-        }
-
-        protected override void RenderBody()
-        {
-
+        
 
            
 
@@ -72,18 +74,18 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
 
             this.Builder.InnerHtml.AppendHtml("<br /><br />");
 
-            if (this.ModelId != null)
-            {
-                if (this.GenerateHiddenId)
-                {
-                    this.Builder.InnerHtml.AppendHtml(this.RenderHiddenModelId());
-                }
-            }
+            //if (this.ModelId != null)
+            //{
+            //    if (this.GenerateHiddenId)
+            //    {
+            //        this.Builder.InnerHtml.AppendHtml(this.RenderHiddenModelId());
+            //    }
+            //}
 
-
+            return this.Builder.Render();
         }
 
-        protected override HtmlString RenderButtons()
+        protected HtmlString RenderButtons()
         {
 
             TagBuilder actionsDiv = new TagBuilder("div");
@@ -97,7 +99,7 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
             {
                 if (String.IsNullOrWhiteSpace(button.TemplateName) && !button.Hide)
                 {
-                    if (this.DefaultButtonPosition == DefaultButtonPosition.BottomRight)
+                    if (this.DefaultButtonPosition == ButtonPosition.BottomRight)
                     {
                         actionsDiv.AddCssClass("pull-right");
                     }
@@ -116,6 +118,9 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
             return actionsDiv.Render(TagRenderMode.Normal);
         }
 
-
+        public override string GetTag()
+        {
+            return "form"; ;
+        }
     }
 }

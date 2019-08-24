@@ -1,13 +1,10 @@
-﻿using IF.Core.Mvc.PageLayout;
-using IF.Web.Mvc.FluentHtml.Bootstrap.Tab;
+﻿using IF.Web.Mvc.FluentHtml.Bootstrap.Tab;
 using IF.Web.Mvc.FluentHtml.DropDownList;
+using IF.Web.Mvc.FluentHtml.HtmlForm;
 using IF.Web.Mvc.FluentHtml.Link;
 using IF.Web.Mvc.FluentHtml.Modal.Bootstrap;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 
 namespace IF.Web.Mvc.FluentHtml.Extension
 {
@@ -61,16 +58,16 @@ namespace IF.Web.Mvc.FluentHtml.Extension
 
         public BootstrapAjaxFilterFormBuilder BootstrapAjaxFilterForm(int ModelId = 0)
         {
-            return new BootstrapAjaxFilterFormBuilder(this.HtmlHelper, ModelId)
+            return new BootstrapAjaxFilterFormBuilder(this.HtmlHelper)
                 .Id("GridFilterForm")
                 ;
         }
 
-        public AjaxFormBuilder AjaxForm(object ModelId = null)
+        public HtmlFormBuilder AjaxForm()
         {
-            var builder = new AjaxFormBuilder(this.HtmlHelper, ModelId);
+            var builder = new HtmlFormBuilder(this.HtmlHelper);
 
-            builder.Id("CreateUpdateForm").CloseAfterSuccessSubmit(true);
+            builder.Id("CreateUpdateForm");
 
             return builder;
 

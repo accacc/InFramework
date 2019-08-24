@@ -11,7 +11,6 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
             this.HtmlElement.HtmlAttributes.Add("if-ajax-form-submit", "true");
             this.HtmlElement.HtmlAttributes.Add("if-ajax-mode", "replace");
             this.HtmlElement.HtmlAttributes.Add("if-ajax-method", "post");
-            this.HtmlElement.HtmlAttributes.Add("if-ajax-update-id", "false");
         }
 
         public IFAjaxFormButtonBuilder AjaxOptions(Action<UnobtrusiveAjaxBuilder<IFButton>> configurator)

@@ -29,7 +29,7 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
             this.DefaultCancelButton.InnerText = "İptal";
             this.DefaultCancelButton.CssClass = "btn btn-default";
             this.DefaultCancelButton.Type = "button";
-            this.DefaultCancelButton.Id = "DefaultCancelButton";
+            //this.DefaultCancelButton.Id = "DefaultCancelButton";
             //this.DefaultCancelButton.IconClassName = "fa fa-times";
             this.DefaultCancelButton.HtmlAttributes.Add("data-dismiss", "modal");
             this.DefaultCancelButton.ActionName = "Index";

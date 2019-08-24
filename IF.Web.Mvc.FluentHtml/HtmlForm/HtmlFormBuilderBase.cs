@@ -33,22 +33,16 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
         }
 
 
-        public Builder DefaultSubmitButton(Action<ButtonBuilder> button)
+        public Builder SubmitButton(Action<IFAjaxFormButtonBuilder> button)
         {
-            IFAjaxFormButtonBuilder builder = new IFAjaxFormButtonBuilder(this.HtmlElement.DefaultSubmitButton);
+            IFAjaxFormButtonBuilder builder = new IFAjaxFormButtonBuilder(this.HtmlElement.SubmitButton);
             button(builder);
             return this as Builder;
         }
 
-        public Builder DefaultCancelButton(Action<ButtonBuilder> button)
-        {
-            IFAjaxFormButtonBuilder builder = new IFAjaxFormButtonBuilder(this.HtmlElement.DefaultCancelButton);
-            button(builder);
-            return this as Builder;
-        }
+       
 
-
-        public Builder DefaultButtonPosition(DefaultButtonPosition position)
+        public Builder DefaultButtonPosition(ButtonPosition position)
         {
             this.HtmlElement.DefaultButtonPosition = position;
             return this as Builder;

@@ -9,43 +9,29 @@ using System.Collections.Generic;
 
 namespace IF.Web.Mvc.FluentHtml.HtmlForm
 {
-    public enum DefaultButtonPosition
-    {
-        TopLeft = 0,
-        TopRight = 1,
-        BottomLeft = 2,
-        BottomRight = 3
 
-    }
     public abstract class HtmlFormBase : HtmlElement
     {
 
         public string Name { get; set; }
         public IList<IFButton> Buttons { get; set; }
-        public IFButton DefaultSubmitButton { get; set; }
-        public IFButton DefaultCancelButton { get; set; }
-        //public IHtmlContent Content { get; set; }
+        public IFButton SubmitButton { get; set; }
 
-        public Func<object, object>  ContentAction { get; set; }
+        public Func<object, object> ContentAction { get; set; }
         public bool NavigationButtons { get; set; }
-        public object ModelId { get; set; }
         public string Title { get; set; }
-        //public string Method { get; set; }
-
-        public bool GenerateHiddenId { get; set; }
-
-        public DefaultButtonPosition DefaultButtonPosition { get; set; }
+        public ButtonPosition DefaultButtonPosition { get; set; }
 
 
-        public HtmlFormBase(IHtmlHelper htmlHelper, object ModelId)
+        public HtmlFormBase(IHtmlHelper htmlHelper)
             : base(htmlHelper)
         {
             this.htmlHelper.ViewContext.FormContext = new FormContext();
-            this.ModelId = ModelId;
+            //this.ModelId = ModelId;
             this.Name = this.Id;
-            this.DefaultButtonPosition = DefaultButtonPosition.BottomRight;
-            this.GenerateHiddenId = true;
-            this.InitalizeButtons();
+            this.DefaultButtonPosition = ButtonPosition.BottomRight;
+            //this.GenerateHiddenId = true;
+            //this.InitalizeButtons();
         }
 
         public override string GetTag()
@@ -53,44 +39,44 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
             return "form"; ;
         }
 
-        protected abstract void InitalizeButtons();
-        protected abstract void RenderBody();
-        protected abstract HtmlString RenderButtons();
+        //protected abstract void InitalizeButtons();
+        //protected abstract void RenderBody();
+        //protected abstract HtmlString RenderButtons();
 
-        public string RenderHiddenModelId()
-        {
+        //public string RenderHiddenModelId()
+        //{
 
-            TagBuilder modelHiddenIdHtml = new TagBuilder("input");
-            modelHiddenIdHtml.Attributes.Add("type", "hidden");
-            modelHiddenIdHtml.Attributes.Add("name", "Id");
-            modelHiddenIdHtml.Attributes.Add("value", ModelId.ToString());
-            return modelHiddenIdHtml.Render().ToString();
-        }
+        //    TagBuilder modelHiddenIdHtml = new TagBuilder("input");
+        //    modelHiddenIdHtml.Attributes.Add("type", "hidden");
+        //    modelHiddenIdHtml.Attributes.Add("name", "Id");
+        //    modelHiddenIdHtml.Attributes.Add("value", ModelId.ToString());
+        //    return modelHiddenIdHtml.Render().ToString();
+        //}
 
-        protected virtual HtmlString RenderForm()
-        {
+        //protected virtual HtmlString RenderForm()
+        //{
 
-            this.Builder.MergeAttributes(this.HtmlAttributes);           
+        //    //this.Builder.MergeAttributes(this.HtmlAttributes);           
 
-            //if (String.IsNullOrWhiteSpace(this.Method))
-            //{
-            //    this.Method = "POST";
-            //}
+        //    //if (String.IsNullOrWhiteSpace(this.Method))
+        //    //{
+        //    //    this.Method = "POST";
+        //    //}
 
-            //this.Builder.Attributes.Add("method", Method);            
+        //    //this.Builder.Attributes.Add("method", Method);            
 
-            RenderBody();
+        //    RenderBody();
 
-            foreach (IFButton button in this.Buttons)
-            {
-                if (!String.IsNullOrWhiteSpace(button.TemplateName))
-                {
-                    this.Builder.InnerHtml.Append(this.Builder.InnerHtml.ToString().Replace("${" + button.TemplateName + "}", button.Render().Value));
-                }
-            }
+        //    foreach (IFButton button in this.Buttons)
+        //    {
+        //        if (!String.IsNullOrWhiteSpace(button.TemplateName))
+        //        {
+        //            this.Builder.InnerHtml.Append(this.Builder.InnerHtml.ToString().Replace("${" + button.TemplateName + "}", button.Render().Value));
+        //        }
+        //    }
 
 
-            return this.Builder.Render();
-        }
+        //    return this.Builder.Render();
+        //}
     }
 }
