@@ -4,7 +4,7 @@ using System;
 
 namespace IF.Web.Mvc.FluentHtml.HtmlForm
 {
-    public class IFAjaxFormButtonBuilder: ButtonBuilder
+    public class IFAjaxFormButtonBuilder: ButtonBuilderBase<IFButton, IFAjaxFormButtonBuilder>
     {
         public IFAjaxFormButtonBuilder(IFButton button):base(button)
         {

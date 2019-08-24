@@ -28,10 +28,10 @@ namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
         {
             base.Build();
 
-            this.Builder.AddCssClass("tabbable");
+            //this.Builder.AddCssClass("tabbable");
 
             TagBuilder ul = new TagBuilder("ul");
-            ul.AddCssClass("nav nav-tabs");
+            ul.AddCssClass("nav nav-pills");
 
             HtmlDivElement content = new HtmlDivElement(htmlHelper);
             content.Build();
@@ -43,20 +43,20 @@ namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
 
                 TagBuilder li = new TagBuilder("li");
 
-                Items[i].HtmlAttributes.Add("data-target", String.Format("#tab_{0}_{1}", TabIndex, i));
+                li.AddCssClass("nav-item");
 
-                if (Items[i].HtmlAttributes["aria-expanded"].ToString() == "true")
+                if (Items[i].Active)
                 {
-                    li.AddCssClass("active");
+                    Items[i].CssClass = "nav-link active";
+                }
+                else
+                {
+                    Items[i].CssClass = "nav-link";
                 }
 
-                //if (!String.IsNullOrWhiteSpace(Items[i].Content))
-                //{
-                //    Items[i].HtmlAttributes.Remove("tabajax");
-                //    Items[i].HtmlAttributes.Add("data-toggle","tabcontent");
-                //}
-
                 
+
+                Items[i].HtmlAttributes.Add("data-target", String.Format("#tab_{0}_{1}", TabIndex, i));
 
                 li.InnerHtml.AppendHtml(Items[i].Render());
                 ul.InnerHtml.AppendHtml(li);
@@ -65,15 +65,15 @@ namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
                 HtmlDivElement tabPane = new HtmlDivElement(htmlHelper);
                 tabPane.Id = String.Format("tab_{0}_{1}", TabIndex, i);
                 tabPane.Build();                
-                tabPane.Builder.AddCssClass("tab-pane");
-                tabPane.Builder.AddCssClass("fade");
+                tabPane.Builder.AddCssClass("tab-pane fade");
 
-                if (Items[i].HtmlAttributes["aria-expanded"].ToString() == "true")
+                if (Items[i].Active)
                 {
-                    tabPane.Builder.AddCssClass("active in");
+                    tabPane.Builder.AddCssClass("show active");
                 }
+               
 
-                if(Items[i].Content!=null)
+                if (Items[i].Content!=null)
                 {
                     try
                     {
@@ -86,7 +86,7 @@ namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
                     catch (Exception ex)
                     {
 
-                        throw;
+                        tabPane.Builder.InnerHtml.Append("Content Render Fail! " + ex.GetBaseException().Message);
                     }
                 }
                 
@@ -97,21 +97,6 @@ namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
             this.Builder.InnerHtml.AppendHtml(ul);
             this.Builder.InnerHtml.AppendHtml(content.Render());
 
-            //         <ul class="nav nav-pills">
-            //    <li class="active">
-            //        <a href="@Url.Action("MainInfo","Organization")" data-target="#tab_1_1" data-toggle="tabajax" aria-expanded="true">Main Info</a>
-            //    </li>
-            //    <li class="">
-            //        <a href="@Url.Action("ContactInfo","Organization")" data-target="#tab_1_2" data-toggle="tabajax" aria-expanded="false">Contact Info</a>
-            //    </li>
-            //</ul>
-
-            //<div class="tab-content">
-            //    <div class="tab-pane fade active in" id="tab_1_1">
-            //    </div>
-            //    <div class="tab-pane fade" id="tab_1_2">
-            //    </div>
-            //</div>
         }
     }
 }

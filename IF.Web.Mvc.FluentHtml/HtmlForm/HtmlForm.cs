@@ -37,7 +37,7 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
 
             this.CancelButton = new IFButton(this.htmlHelper, this);
             this.CancelButton.InnerText = "İptal";
-            this.CancelButton.CssClass = "btn btn-default";
+            this.CancelButton.CssClass = "btn btn-danger";
             this.CancelButton.Type = "button";
             this.CancelButton.Id = "DefaultCancelButton";
             //this.DefaultCancelButton.IconClassName = "fa fa-times";
@@ -65,7 +65,7 @@ namespace IF.Web.Mvc.FluentHtml.HtmlForm
             catch (Exception ex)
             {
 
-                throw;
+                this.Builder.InnerHtml.Append("Content Render Fail! " + ex.GetBaseException().Message);
             }
 
             this.Builder.InnerHtml.AppendHtml("</div>");

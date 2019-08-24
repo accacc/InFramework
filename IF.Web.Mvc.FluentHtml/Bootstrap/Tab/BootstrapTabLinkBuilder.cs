@@ -8,17 +8,10 @@ namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
 {
     public class BootstrapTabLinkBuilder : ActionLinkBuilderBase<BootstrapTabLink, BootstrapTabLinkBuilder>
     {
-        //public BootstrapTabLinkBuilder(HtmlHelper htmlHelper)
-        //    : base(htmlHelper)
-        //{
-
-        //}
 
         public BootstrapTabLinkBuilder(IHtmlHelper helper, BootstrapTabLink link)
             : base(link)
         {
-            //this.HtmlElement = link;
-            this.HtmlElement.HtmlAttributes.Add("aria-expanded", "false");
         }
 
 
@@ -74,7 +67,7 @@ namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
         }
         public BootstrapTabLinkBuilder Active(bool Active)
         {
-            this.HtmlElement.HtmlAttributes["aria-expanded"] = "true";
+            this.HtmlElement.Active = true;
             return this;
         }
 
