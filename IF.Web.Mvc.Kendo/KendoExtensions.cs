@@ -93,7 +93,7 @@ namespace IF.Web.Mvc.Kendo
 
             var gridComponent = builder.ToComponent();
 
-            ActionLinkSetBuilder actionSetBuilder = GridHelper.GetGridRowButtons(currentAction, configurator, htmlHelper, builder.ToComponent().Name);
+            ActionLinkSetBuilder actionSetBuilder = GridHelper.GetGridButtons(currentAction, configurator, htmlHelper, builder.ToComponent().Name);
 
             if (position == ColumnPosition.End)
             {
@@ -125,7 +125,7 @@ where T : BaseGridModel
 
 
 
-            ActionLinkSetBuilder actionSetBuilder = GridHelper.GetGridToolBarButtons(currentAction, configurator, htmlHelper, builder.ToComponent().Name);
+            ActionLinkSetBuilder actionSetBuilder = GridHelper.GetGridButtons(currentAction, configurator, htmlHelper, builder.ToComponent().Name);
 
             builder.ToolBar(t => t.ClientTemplate(actionSetBuilder.Render().ToString()));
 
