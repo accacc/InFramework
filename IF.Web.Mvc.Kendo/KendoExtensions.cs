@@ -111,28 +111,28 @@ namespace IF.Web.Mvc.Kendo
             return builder;
         }
 
-//        public static GridBuilder<T> GridToolBarButtons<T>(this GridBuilder<T> builder, Action<ActionLinkSpecialFactory> configurator = null)
-//where T : BaseGridModel
-//        {
+        public static GridBuilder<T> GridToolBarButtons<T>(this GridBuilder<T> builder, Action<ActionLinkSpecialFactory> configurator = null)
+where T : BaseGridModel
+        {
 
 
-//            //var securityContext = DependencyResolver.Current.GetService<ISecurityContext>();
+            //var securityContext = DependencyResolver.Current.GetService<ISecurityContext>();
 
-//            PermissionMapDto currentAction = new PermissionMapDto();//securityContext.CurrentAction();
-
-
-//            HtmlHelper htmlHelper = new HtmlHelper(builder.ToComponent().ViewContext, new ViewPage());
+            PermissionMapDto currentAction = new PermissionMapDto();//securityContext.CurrentAction();
 
 
-
-//            ActionLinkSetBuilder actionSetBuilder = GridHelper.GetGridToolBarButtons(currentAction, configurator, htmlHelper, builder.ToComponent().Name);
-
-//            builder.ToolBar(t => t.Template(actionSetBuilder.Render().ToString()));
+            IHtmlHelper htmlHelper = builder.ToComponent().HtmlHelper;
 
 
-//            return builder;
+
+            ActionLinkSetBuilder actionSetBuilder = GridHelper.GetGridToolBarButtons(currentAction, configurator, htmlHelper, builder.ToComponent().Name);
+
+            builder.ToolBar(t => t.ClientTemplate(actionSetBuilder.Render().ToString()));
 
 
-//        }
+            return builder;
+
+
+        }
     }
 }

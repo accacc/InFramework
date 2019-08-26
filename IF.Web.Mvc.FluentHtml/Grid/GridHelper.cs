@@ -179,7 +179,7 @@ namespace IF.Web.Mvc.FluentHtml.Grid
             return actionSetBuilder;
         }
 
-        public static ActionLinkSetBuilder GetGridToolBarButtons(PermissionMapDto currentAction, Action<ActionLinkSpecialFactory> configurator, HtmlHelper htmlHelper, string gridViewId)
+        public static ActionLinkSetBuilder GetGridToolBarButtons(PermissionMapDto currentAction, Action<ActionLinkSpecialFactory> configurator, IHtmlHelper htmlHelper, string gridViewId)
         {
 
 
