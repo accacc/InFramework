@@ -271,7 +271,7 @@ namespace IF.Tools.Templates.Editor
 
         private void HandleController(DirectoryInfo target, FileInfo file, string newSolutionName)
         {
-            var newFileName = file.Name.Replace("TestController", textBoxControllerName.Text.Trim());
+            var newFileName = file.Name.Replace("TestController", textBoxControllerName.Text.Trim() + "Controller");
             file.CopyTo(Path.Combine(target.FullName, newFileName));
             string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
             text = text.Replace("IFTemplate", newSolutionName.Replace(".", ""));
