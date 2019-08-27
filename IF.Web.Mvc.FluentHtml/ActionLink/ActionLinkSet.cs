@@ -34,7 +34,7 @@ namespace IF.Web.Mvc.FluentHtml.SubmitButton
 
             foreach (var action in ActionLinks)
             {
-                action.AjaxOptions(ajax => ajax.GridViewId(gridViewId));
+                action.AjaxOptions(ajax => ajax.RefreshGridOnSuccess(gridViewId));
                 links = links + action.Render().ToString() + "&nbsp";
 
             }
