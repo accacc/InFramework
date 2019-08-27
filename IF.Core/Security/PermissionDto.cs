@@ -1,4 +1,6 @@
 ﻿using IF.Core.Data;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IF.Core.Security
 {
@@ -35,6 +37,45 @@ namespace IF.Core.Security
 
 
         public string AuthorizationCode { get; set; }
+
+        public static void AddParentPermissionsIds(List<int> checkedPermissionMapIds, IEnumerable<PermissionMapDto> allPermissions)
+        {
+            for (int i = 0; i < checkedPermissionMapIds.Count; i++)
+            {
+                var permissionMapId = checkedPermissionMapIds[i];
+
+
+
+                var permissionMap = allPermissions.Where(p => p.Id == permissionMapId).SingleOrDefault();
+
+                if (permissionMap != null)
+                {
+                    int? parentId = permissionMap.ParentId;
+
+                    if (parentId.HasValue)
+                    {
+                        while (parentId.Value != 0)
+                        {
+                            var parentPermission = allPermissions.SingleOrDefault(a => a.Id == parentId);
+
+                            if (parentPermission != null)
+                            {
+                                if (checkedPermissionMapIds.IndexOf(parentPermission.Id) == -1)
+                                {
+                                    checkedPermissionMapIds.Add(parentPermission.Id);
+                                }
+
+                                parentId = parentPermission.ParentId;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
+
+        }
 
     }
 

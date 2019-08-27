@@ -11,11 +11,7 @@ namespace IF.Web.Mvc.FluentHtml.Base
             this.HtmlElement = htmlElement;
         }
 
-        public UnobtrusiveAjaxBuilder<Element> GridViewId(string gridViewId)
-        {
-            this.HtmlElement.HtmlAttributes.Add("if-ajax-gridview-id", gridViewId);
-            return this;
-        }
+        
 
         public UnobtrusiveAjaxBuilder<Element> Title(string title)
         {
@@ -135,10 +131,20 @@ namespace IF.Web.Mvc.FluentHtml.Base
             return this;
         }
 
-        public UnobtrusiveAjaxBuilder<Element> RefreshGridOnSuccess()
+        public UnobtrusiveAjaxBuilder<Element> CloseModalOnSuccess()
+        {
+            this.HtmlElement.HtmlAttributes.Add("if-ajax-close-modal-on-success","true");
+            return this;
+        }
+
+      
+
+        public UnobtrusiveAjaxBuilder<Element> RefreshGridOnSuccess(string gridViewId)
         {
             this.HtmlElement.HtmlAttributes.Remove("if-ajax-refresh-grid");
+            this.HtmlElement.HtmlAttributes.Remove("if-ajax-gridview-id");
             this.HtmlElement.HtmlAttributes.Add("if-ajax-refresh-grid", "true");
+            this.HtmlElement.HtmlAttributes.Add("if-ajax-gridview-id", gridViewId);
             return this;
         }
 
