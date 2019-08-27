@@ -12,7 +12,7 @@ namespace IF.Core.Sms
 
         public int SplitBy { get; set; }
 
-        public int Total { get; set; }
+        public long Total { get; set; }
 
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }

@@ -88,13 +88,13 @@ namespace IF.System.UI.SmsOneToMany.Pages
         {
 
 
-            List<SmsBatchResultOneToMany> list = await this.logService.GetSmsBulkResultOneToManyList(BulkName);
+            List<SmsBatchResult> list = await this.logService.GetSmsBulkResultOneToManyList(BulkName);
 
 
             return new PartialViewResult
             {
                 ViewName = "_BatchTable",
-                ViewData = new ViewDataDictionary<List<SmsBatchResultOneToMany>>(ViewData, list)
+                ViewData = new ViewDataDictionary<List<SmsBatchResult>>(ViewData, list)
             };
         }
     }

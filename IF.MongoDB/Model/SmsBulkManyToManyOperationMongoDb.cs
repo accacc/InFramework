@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using IF.Core.Sms;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using IF.Core.Sms.Interface;
 
 namespace IF.MongoDB.Model
 {
-    public class SmsBulkManyToManyOperationMongoDb : ISmsBulkOneToManyOperation
+    public class SmsBulkManyToManyOperationMongoDb : ISmsBulkManyToManyOperation
     {
         [BsonId]
         public ObjectId InternalId { get; set; }

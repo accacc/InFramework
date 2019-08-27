@@ -15,7 +15,7 @@ namespace IF.Core.Sms
 
         Task<PagedListResponse<SmsBulkOneToManyOperation>> GetPaginatedSmsBulkOneToManyOperationAsync(DateTime BeginDate, DateTime EndDate, string bulkName, int PageNumber = 0, int PageSize = 50);
 
-        Task<List<SmsBatchResultOneToMany>> GetSmsBulkResultOneToManyList(string bulkName);
+        Task<List<SmsBatchResult>> GetSmsBulkResultOneToManyList(string bulkName);
     }
 }
 

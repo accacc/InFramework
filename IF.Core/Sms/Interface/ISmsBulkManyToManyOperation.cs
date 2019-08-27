@@ -10,7 +10,7 @@ namespace IF.Core.Sms.Interface
 
         int SplitBy { get; set; }
 
-        int Total { get; set; }
+        long Total { get; set; }
 
         DateTime CreatedDate { get; set; }
         SmsOperationStatus Status { get; set; }

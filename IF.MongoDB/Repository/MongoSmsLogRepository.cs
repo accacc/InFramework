@@ -89,12 +89,12 @@ namespace IF.MongoDB.Repository
         }
 
 
-        public async Task<List<SmsBatchResultOneToMany>> GetSmsBulkResultOneToManyList(string bulkName)
+        public async Task<List<SmsBatchResult>> GetSmsBulkResultOneToManyList(string bulkName)
         {            
 
             var fields = Builders<SmsBatchResultOneToManyMongoDb>.Projection.Exclude("_id");
 
-            var list = await this.GetQuery<SmsBatchResultOneToManyMongoDb>(nameof(SmsBatchResultOneToMany),bulkName).Find(_=>true).Project<SmsBatchResultOneToMany>(fields).SortByDescending(s => s.CreatedDate).ToListAsync();
+            var list = await this.GetQuery<SmsBatchResultOneToManyMongoDb>(nameof(SmsBatchResult),bulkName).Find(_=>true).Project<SmsBatchResult>(fields).SortByDescending(s => s.CreatedDate).ToListAsync();
 
             return list;
 

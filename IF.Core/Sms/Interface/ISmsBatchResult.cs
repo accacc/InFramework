@@ -4,7 +4,7 @@ using System.Text;
 
 namespace IF.Core.Sms
 {
-    public interface ISmsBatchResultOneToMany
+    public interface ISmsBatchResult
     {
 
         int BatchNumber { get; set; }
