@@ -8,7 +8,7 @@
         <meta http-equiv="refresh" content="@ViewData["RefreshSeconds"]">
     }
         <title>
-            @ViewData["Title"] -F @if (User.Identity.IsAuthenticated) { @User.Identity.Name; }
+            @ViewData["Title"] @if (User.Identity.IsAuthenticated) { @User.Identity.Name; }
         </title>
 
     <environment include="Development">
@@ -36,7 +36,8 @@
                     @*<a asp-page="/SqlServer" class="btn btn-info navbar-btn">Sql Server</a>*@
                     @*<a asp-page="/Events" class="btn btn-info navbar-btn">Event Manager</a>*@
                     <a asp-page="/ApplicationLog" class="btn btn-info navbar-btn">Application Logs</a>
-                    <a asp-page="/SmsOneToManyOperation" class="btn btn-info navbar-btn">Sms OneTo Many</a>
+                    <a asp-page="/SmsOneToManyOperation" class="btn btn-info navbar-btn">Sms OneToMany</a>
+                    <a href="/SmsManyToManyOperation" class="btn btn-info navbar-btn">Sms ManyToMany</a>
                     @*<a asp-page="/PerformanceLog" class="btn btn-info navbar-btn">Performance Logs</a>
         <a asp-page="/AuditLog" class="btn btn-info navbar-btn">Audit Logs</a>
         <a asp-page="/EmailLog" class="btn btn-info navbar-btn">Email Logs</a>

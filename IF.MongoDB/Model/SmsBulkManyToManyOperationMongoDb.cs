@@ -17,7 +17,7 @@ namespace IF.MongoDB.Model
         public int SplitBy { get; set; }
 
         public long Total { get; set; }
-        public string Message { get; set; }
+        //public string Message { get; set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime CreatedDate { get; set; } = DateTime.Now;

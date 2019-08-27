@@ -26,9 +26,19 @@ namespace IF.MongoDB.Service
             return await this.smsLogRepository.GetPaginatedAsync(BeginDate, EndDate,  number, PageNumber,PageSize);
         }
 
+        public async Task<PagedListResponse<SmsBulkManyToManyOperation>> GetPaginatedSmsBulkManyToManyOperationAsync(DateTime beginDate, DateTime endDate, string bulkName, int pageNumber, int pageSize)
+        {
+            return await this.smsLogRepository.GetPaginatedSmsBulkManyToManyOperationAsync(beginDate, endDate, bulkName, pageNumber, pageSize);
+        }
+
         public async Task<PagedListResponse<SmsBulkOneToManyOperation>> GetPaginatedSmsBulkOneToManyOperationAsync(DateTime BeginDate, DateTime EndDate, string bulkName, int PageNumber = 0, int PageSize = 50)
         {
             return await this.smsLogRepository.GetPaginatedSmsBulkOneToManyOperationAsync(BeginDate, EndDate, bulkName, PageNumber,PageSize);
+        }
+
+        public async Task<List<SmsBatchResult>> GetSmsBulkResultManyToManyList(string bulkName)
+        {
+            return await this.smsLogRepository.GetSmsBulkResultManyToManyList(bulkName);
         }
 
         public async Task<List<SmsBatchResult>> GetSmsBulkResultOneToManyList(string bulkName)
