@@ -20,5 +20,6 @@ namespace IF.MongoDB.Repository.Interface
         Task<List<SmsBatchResult>> GetSmsBulkResultOneToManyList(string bulkName);
         Task<List<SmsBatchResult>> GetSmsBulkResultManyToManyList(string bulkName);
         Task<PagedListResponse<SmsBulkManyToManyOperation>> GetPaginatedSmsBulkManyToManyOperationAsync(DateTime beginDate, DateTime endDate, string bulkName, int pageNumber, int pageSize);
+        Task<PagedListResponse<SmsModel>> GetPaginatedSmsList(DateTime BeginDate, DateTime EndDate, string bulkName, string number, SmsState? smsState, int pageNumber, int pageSize);
     }
 }

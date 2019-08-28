@@ -358,8 +358,10 @@ namespace IF.Sms.Turatel
 
        
 
-        private DateTime GetDateTime(string date)
+        private DateTime? GetDateTime(string date)
         {
+            if (String.IsNullOrWhiteSpace(date)) return null;
+
             return DateTime.ParseExact(date, "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
         }
 

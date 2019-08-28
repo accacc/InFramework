@@ -36,6 +36,11 @@ namespace IF.MongoDB.Service
             return await this.smsLogRepository.GetPaginatedSmsBulkOneToManyOperationAsync(BeginDate, EndDate, bulkName, PageNumber,PageSize);
         }
 
+        public async Task<PagedListResponse<SmsModel>> GetPaginatedSmsListAsync(DateTime BeginDate, DateTime EndDate,string bulkName, string Number, SmsState? smsState, int PageNumber = 0, int PageSize = 50)
+        {
+            return await this.smsLogRepository.GetPaginatedSmsList(BeginDate,EndDate,bulkName,Number,smsState, PageNumber, PageSize);
+        }
+
         public async Task<List<SmsBatchResult>> GetSmsBulkResultManyToManyList(string bulkName)
         {
             return await this.smsLogRepository.GetSmsBulkResultManyToManyList(bulkName);

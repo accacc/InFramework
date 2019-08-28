@@ -13,14 +13,13 @@ namespace IF.System.UI.SmsOneToMany.Pages
 
     //[Authorize]
 
-    public class SmsOneToManyOperationModel : PageModel
+    public class SmsListModel : PageModel
     {
 
         private readonly ISmsLogService logService;
 
-        //public IEnumerable<ApplicationErrorLog> Logs { get; set; }
 
-        public PagedListResponse<SmsBulkOneToManyOperation> Logs { get; set; }
+        public PagedListResponse<SmsModel> SmsList { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public int PageSize { get; set; }
@@ -35,12 +34,20 @@ namespace IF.System.UI.SmsOneToMany.Pages
         [BindProperty(SupportsGet = true)]
         public DateTime EndDate { get; set; }
 
+
+
         [BindProperty(SupportsGet = true)]
         public string BulkName { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string Number { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public SmsState State { get; set; }
 
 
-        public SmsOneToManyOperationModel(ISmsLogService logservice)
+
+        public SmsListModel(ISmsLogService logservice)
         {
             this.logService = logservice;
             
@@ -65,40 +72,28 @@ namespace IF.System.UI.SmsOneToMany.Pages
 
 
 
-        public async Task<PartialViewResult> OnGetSmsOneToManyOperationPartial()
+       
+
+        private async Task SetModel()
         {
+            this.SmsList = await logService.GetPaginatedSmsListAsync(this.BeginDate,this.EndDate, this.BulkName,this.Number,this.State, PageNumber, PageSize);
+        }
+
+      
+
+        public async Task<PartialViewResult> OnGetSmsListPartial(string BulkName)
+        {
+
 
             await SetModel();
 
 
             return new PartialViewResult
             {
-                ViewName = "_SmsOneToManyOperationTable",
-                ViewData = new ViewDataDictionary<SmsOneToManyOperationModel>(ViewData, this)
+                ViewName = "_SmsTable",
+                ViewData = new ViewDataDictionary<List<SmsModel>>(ViewData, this.SmsList)
             };
         }
-
-
-        private async Task SetModel()
-        {
-            this.Logs = await logService.GetPaginatedSmsBulkOneToManyOperationAsync(this.BeginDate, this.EndDate, this.BulkName, PageNumber, PageSize);
-        }
-
-        public async Task<PartialViewResult> OnGetBatchs(string BulkName)
-        {
-
-
-            List<SmsBatchResult> list = await this.logService.GetSmsBulkResultOneToManyList(BulkName);
-
-
-            return new PartialViewResult
-            {
-                ViewName = "_BatchTable",
-                ViewData = new ViewDataDictionary<List<SmsBatchResult>>(ViewData, list)
-            };
-        }
-
-      
     }
 
 }

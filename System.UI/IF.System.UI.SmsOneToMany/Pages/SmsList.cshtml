@@ -1,5 +1,6 @@
 ﻿@page
-@model IF.System.UI.SmsOneToMany.Pages.SmsOneToManyOperationModel
+@model IF.System.UI.SmsOneToMany.Pages.SmsListModel
+@using IF.Web.Mvc.FluentHtml.Extension
 
 
 @{
@@ -7,10 +8,9 @@
 }
 
 @{
-    ViewData["Title"] = "SmsOneToManyModel";
+    ViewData["Title"] = "Sms List";
 }
 
-<h2>Sms OneToMany List</h2>
 
 
 
@@ -25,17 +25,21 @@
         <div class="col-xs-6">
             Bitiş Tarihi: <input type="text" class="form-control" id="EndDate" name="EndDate" value="@Model.EndDate.ToShortDateString()">
         </div>
+       
     </div>
 
     <div class="row">
         <div class="col-xs-6">
-            Kaynak: <input type="text" class="form-control" id="Source" name="Source" value="@Model.BulkName">
+            State: @Html.DropDownList("State", Html.GetEnumSelectList<IF.Core.Sms.SmsState>(), "State", new { @class = "form-control" })
+            @*@Html.GetEnumSelectList(typeof(IF.Core.Sms.SmsState))">*@
         </div>
         <div class="col-xs-6">
-            
+            Number: <input type="text" class="form-control" id="Number" name="Number" value="@Model.Number">
         </div>
     </div>
-   
+
+
+
     <br />
     <div class="row">
         <div class="col-xs-6">
@@ -49,8 +53,8 @@
 
     <br />
 
-    
-    @{await Html.RenderPartialAsync("_SmsOneToManyOperationTable", Model);}
+    @*<partial name="_ApplicationLogTable" model="Model" />*@
+    @{await Html.RenderPartialAsync("_SmsTable", Model);}
 </form>
 
 

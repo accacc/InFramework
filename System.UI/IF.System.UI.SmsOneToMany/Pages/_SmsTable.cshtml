@@ -1,0 +1,59 @@
+﻿@using IF.Web.Mvc.FluentHtml.Pagination
+
+@model IF.System.UI.SmsOneToMany.Pages.SmsListModel
+
+@{Layout = null;}
+
+<div id="SmsListDiv">
+    @(Html.Paging(Model.SmsList)
+                            .Url(Url.Page("/SmsList", "SmsListPartial"))
+                            .MergeFormData(true)
+                            .UpdateId("SmsListDiv")
+                            .Render()
+    )
+    <table class="table table-striped table-sm">
+        <tr>
+            <th>
+                Number
+            </th>
+            <th>
+                SendDate
+            </th>
+            <th>
+                State
+            </th>
+
+        </tr>
+
+
+        @if (Model.SmsList != null && Model.SmsList.Data.Any())
+        {
+
+            @foreach (var item in Model.SmsList.Data)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Number)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SentDate)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.State)
+                    </td>
+
+                </tr>
+            }
+        }
+        else
+        {
+            @:Veri bulunamadı,Lütfen Kriter seçiniz
+        }
+    </table>
+    @(Html.Paging(Model.SmsList)
+                            .Url(Url.Page("/SmsList", "SmsListPartial"))
+                            .MergeFormData(true)
+                            .UpdateId("SmsListDiv")
+                            .Render())
+</div>

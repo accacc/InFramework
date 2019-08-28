@@ -32,6 +32,7 @@
                 Created Date
             </th>
             <th>Batchs</th>
+            <th>Sms List</th>
         </tr>
 
 
@@ -40,50 +41,61 @@
 
         @foreach (var item in Model.Logs.Data)
          {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.BulkName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SplitBy)
-                        </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BulkName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SplitBy)
+            </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Total)
-                        </td>
-                        <td>
-                            <div style="word-wrap: break-word; width: 300px">@item.Message</div>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Status)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreatedDate)
-                        </td>
-                        <td>
-                            <a class="btn btn-primary"
-                               href="@Url.Page("SmsOneToManyOperation","Batchs", new { BulkName = item.BulkName })"
-                               if-ajax="true"
-                               if-ajax-method="get"
-                               if-ajax-mode="replace"
-                               if-ajax-show-dialog="true"
-                               if-ajax-modal-id="@Guid.NewGuid()">
-                                Batchs
-                            </a>
-                    </td>
-                        @*
-                    <td>
-                        <a class="btn btn-primary"
-                           href="@Url.Page("AuditLog","Detail", new {uniqueId = item.UniqueId })"
-                           if-ajax="true"
-                           if-ajax-method="get"
-                           if-ajax-mode="replace"
-                           if-ajax-show-dialog="true"
-                           if-ajax-modal-id="@Guid.NewGuid()">
-                            Detay
-                        </a>
-                    </td>*@
-                    </tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                <div style="word-wrap: break-word; width: 300px">@item.Message</div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                <a class="btn btn-primary"
+                   href="@Url.Page("SmsOneToManyOperation","Batchs", new { BulkName = item.BulkName })"
+                   if-ajax="true"
+                   if-ajax-method="get"
+                   if-ajax-mode="replace"
+                   if-ajax-show-dialog="true"
+                   if-ajax-modal-id="@Guid.NewGuid()">
+                    Batchs
+                </a>
+            </td>
+            <td>
+                <a class="btn btn-primary"
+                   href="@Url.Page("SmsList", new { BulkName = item.BulkName })"
+                   if-ajax="true"
+                   if-ajax-method="get"
+                   if-ajax-mode="replace"
+                   if-ajax-show-dialog="true"
+                   if-ajax-modal-id="@Guid.NewGuid()">
+                    Sms List
+                </a>
+            </td>
+            @*
+        <td>
+            <a class="btn btn-primary"
+               href="@Url.Page("AuditLog","Detail", new {uniqueId = item.UniqueId })"
+               if-ajax="true"
+               if-ajax-method="get"
+               if-ajax-mode="replace"
+               if-ajax-show-dialog="true"
+               if-ajax-modal-id="@Guid.NewGuid()">
+                Detay
+            </a>
+        </td>*@
+        </tr>
             }
         }
         else
