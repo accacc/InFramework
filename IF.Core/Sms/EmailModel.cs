@@ -14,6 +14,7 @@ namespace IF.Core.Sms
 
         //public string CallbackMessage { get; set; }
 
+        public Dictionary<string,string> Parameters { get; set; }
         public DateTime SentDate { get; set; }
 
 

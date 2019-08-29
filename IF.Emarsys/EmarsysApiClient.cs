@@ -101,23 +101,23 @@ namespace IF.Emarsys
             return this._manager.Send<ApiResponseModel>(RequestType.GET, "event");
         }
 
-        public ApiResponse SendEmail(string email, List<string> contacs, string eventName, Dictionary<string, string> dynamicParameterList = null, Encoding encoding = null, List<AttachmentParameter> attachment = null)
+        public ApiResponse SendEmail(string email, string eventName, Dictionary<string, string> dynamicParameterList = null, Encoding encoding = null, List<AttachmentParameter> attachment = null)
         {
             int eventIdFromName = this.GetEventIdFromName(eventName);
             if (eventIdFromName == -1)
             {
                 throw new Exception("Event doesn't exists");
             }
-            return this.SendEmail(email,contacs, eventIdFromName, dynamicParameterList, encoding, attachment);
+            return this.SendEmail(email, eventIdFromName, dynamicParameterList, encoding, attachment);
         }
 
-        public ApiResponse SendEmail(string email, List<string> contacs, int eventId, Dictionary<string, string> dynamicParameterList = null, Encoding encoding = null, List<AttachmentParameter> attachment = null)
+        public ApiResponse SendEmail(string email, int eventId, Dictionary<string, string> dynamicParameterList = null, Encoding encoding = null, List<AttachmentParameter> attachment = null)
         {
             return this.SendEmail(new ContactParameter()
             {
                 
                 Email = email
-            },contacs ,eventId, dynamicParameterList, encoding, attachment);
+            },eventId, dynamicParameterList, encoding, attachment);
         }
 
         public ApiResponse SendEmail(ContactParameter contact, List<string> contacs, string eventName, Dictionary<string, string> dynamicParameterList = null, Encoding encoding = null, List<AttachmentParameter> attachment = null)
@@ -127,7 +127,7 @@ namespace IF.Emarsys
             {
                 throw new Exception("Event doesn't exists");
             }
-            return this.SendEmail(contact,contacs, eventIdFromName, dynamicParameterList, encoding, attachment);
+            return this.SendEmail(contact,eventIdFromName, dynamicParameterList, encoding, attachment);
         }
 
 
@@ -141,7 +141,7 @@ namespace IF.Emarsys
 
         }
 
-        public ApiResponse SendEmail(ContactParameter contact,List<string> contacs ,int eventId, Dictionary<string, string> dynamicParameterList = null, Encoding encoding = null, List<AttachmentParameter> attachment = null)
+        public ApiResponse SendEmail(ContactParameter contact,int eventId, Dictionary<string, string> dynamicParameterList = null, Encoding encoding = null, List<AttachmentParameter> attachment = null)
         {
             ApiResponse apiResponse;
             string email;
@@ -185,7 +185,6 @@ namespace IF.Emarsys
                 {
                     email = null;
                 }
-                emailParameter.Contacts = contacs;
                 emailParameter.ExternalId = email;
                 emailParameter.Data = emailDynamicParameter;
                 emailParameter.Contacts = null;
@@ -198,6 +197,18 @@ namespace IF.Emarsys
             {
                 apiResponse = null;
             }
+            return apiResponse;
+        }
+
+        public ApiResponse SendEmail(List<Contact> contacts, int eventId, Encoding encoding = null)
+        {
+            RootObject @object = new RootObject();
+            @object.key_id = 3;
+            @object.contacts = contacts;
+   
+                ApiResponse apiResponse = this._manager.Send<ApiResponse>(RequestType.POST, String.Format("event/{0}/trigger", eventId), @object, encoding);
+                
+            
             return apiResponse;
         }
     }

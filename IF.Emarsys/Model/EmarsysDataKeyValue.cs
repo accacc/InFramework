@@ -1,4 +1,6 @@
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace IF.Emarsys.Model
@@ -22,4 +24,35 @@ namespace IF.Emarsys.Model
 		{
 		}
 	}
+
+
+    
+
+   
+
+    public class Data
+    {
+
+        [JsonProperty("global")]
+        public Dictionary<string, string> Global
+        {
+            get;
+            set;
+        }
+    }
+
+   
+
+    public class Contact
+    {
+        public string external_id { get; set; }
+        public Data data { get; set; }
+        //public Attachment attachment { get; set; }
+    }
+
+    public class RootObject
+    {
+        public int key_id { get; set; }
+        public List<Contact> contacts { get; set; }
+    }
 }
