@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using IF.Core.Sms;
+﻿using IF.Core.Sms;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IF.MongoDB.Model
 {
-    public class SmsBulkOneToManyOperationMongoDb : ISmsBulkOneToManyOperation
+    public class IFBulkOperationMongoDb : IIFBulkOperation
     {
         [BsonId]
         public ObjectId InternalId { get; set; }
+
+        public int EventId { get; set; }
 
         //public IFormFile File { get; set; }
         public string BulkName { get; set; }

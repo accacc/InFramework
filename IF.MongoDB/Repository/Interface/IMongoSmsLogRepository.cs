@@ -15,11 +15,11 @@ namespace IF.MongoDB.Repository.Interface
 
         Task<PagedListResponse<ISmsLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string number, int PageSize = 0, int PageNumber = 50);
 
-        Task<PagedListResponse<SmsBulkOneToManyOperation>> GetPaginatedSmsBulkOneToManyOperationAsync(DateTime BeginDate, DateTime EndDate, string bulkName, int PageNumber = 0, int PageSize = 50);
+        Task<PagedListResponse<IFBulkOperation>> GetPaginatedSmsBulkOneToManyOperationAsync(DateTime BeginDate, DateTime EndDate, string bulkName, int PageNumber = 0, int PageSize = 50);
 
         Task<List<SmsBatchResult>> GetSmsBulkResultOneToManyList(string bulkName);
         Task<List<SmsBatchResult>> GetSmsBulkResultManyToManyList(string bulkName);
-        Task<PagedListResponse<SmsBulkManyToManyOperation>> GetPaginatedSmsBulkManyToManyOperationAsync(DateTime beginDate, DateTime endDate, string bulkName, int pageNumber, int pageSize);
+        Task<PagedListResponse<IFBulkOperation>> GetPaginatedSmsBulkManyToManyOperationAsync(DateTime beginDate, DateTime endDate, string bulkName, int pageNumber, int pageSize);
         Task<PagedListResponse<SmsModel>> GetPaginatedSmsList(DateTime BeginDate, DateTime EndDate, string bulkName, string number, SmsState? smsState, int pageNumber, int pageSize);
     }
 }

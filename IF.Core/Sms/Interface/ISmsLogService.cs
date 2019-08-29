@@ -13,12 +13,12 @@ namespace IF.Core.Sms
 
         Task<PagedListResponse<ISmsLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string number, int PageSize = 0, int PageNumber = 50);
 
-        Task<PagedListResponse<SmsBulkOneToManyOperation>> GetPaginatedSmsBulkOneToManyOperationAsync(DateTime BeginDate, DateTime EndDate, string bulkName, int PageNumber = 0, int PageSize = 50);
+        Task<PagedListResponse<IFBulkOperation>> GetPaginatedSmsBulkOneToManyOperationAsync(DateTime BeginDate, DateTime EndDate, string bulkName, int PageNumber = 0, int PageSize = 50);
 
         Task<PagedListResponse<SmsModel>> GetPaginatedSmsListAsync(DateTime BeginDate, DateTime EndDate, string bulkName, string Number, SmsState? smsState, int PageNumber = 0, int PageSize = 50);
 
         Task<List<SmsBatchResult>> GetSmsBulkResultOneToManyList(string bulkName);
-        Task<PagedListResponse<SmsBulkManyToManyOperation>> GetPaginatedSmsBulkManyToManyOperationAsync(DateTime beginDate, DateTime endDate, string bulkName, int pageNumber, int pageSize);
+        Task<PagedListResponse<IFBulkOperation>> GetPaginatedSmsBulkManyToManyOperationAsync(DateTime beginDate, DateTime endDate, string bulkName, int pageNumber, int pageSize);
         Task<List<SmsBatchResult>> GetSmsBulkResultManyToManyList(string bulkName);
     }
 }

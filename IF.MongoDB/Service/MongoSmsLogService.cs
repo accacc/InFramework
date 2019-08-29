@@ -21,17 +21,20 @@ namespace IF.MongoDB.Service
             this.smsLogRepository = smsLogRepository;
         }
 
+
+
         public async Task<PagedListResponse<ISmsLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string number, int PageSize = 0, int PageNumber = 50)
         {
-            return await this.smsLogRepository.GetPaginatedAsync(BeginDate, EndDate,  number, PageNumber,PageSize);
+            return await this.smsLogRepository.GetPaginatedAsync(BeginDate, EndDate, number, PageNumber, PageSize);
         }
 
-        public async Task<PagedListResponse<SmsBulkManyToManyOperation>> GetPaginatedSmsBulkManyToManyOperationAsync(DateTime beginDate, DateTime endDate, string bulkName, int pageNumber, int pageSize)
+
+        public async Task<PagedListResponse<IFBulkOperation>> GetPaginatedSmsBulkManyToManyOperationAsync(DateTime beginDate, DateTime endDate, string bulkName, int pageNumber, int pageSize)
         {
             return await this.smsLogRepository.GetPaginatedSmsBulkManyToManyOperationAsync(beginDate, endDate, bulkName, pageNumber, pageSize);
         }
 
-        public async Task<PagedListResponse<SmsBulkOneToManyOperation>> GetPaginatedSmsBulkOneToManyOperationAsync(DateTime BeginDate, DateTime EndDate, string bulkName, int PageNumber = 0, int PageSize = 50)
+        public async Task<PagedListResponse<IFBulkOperation>> GetPaginatedSmsBulkOneToManyOperationAsync(DateTime BeginDate, DateTime EndDate, string bulkName, int PageNumber = 0, int PageSize = 50)
         {
             return await this.smsLogRepository.GetPaginatedSmsBulkOneToManyOperationAsync(BeginDate, EndDate, bulkName, PageNumber,PageSize);
         }
@@ -66,5 +69,7 @@ namespace IF.MongoDB.Service
 
             await this.smsLogRepository.AddAsync(smsLog);
         }
+
+        
     }
 }

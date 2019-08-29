@@ -20,7 +20,7 @@ namespace IF.System.UI.SmsOneToMany.Pages
 
         //public IEnumerable<ApplicationErrorLog> Logs { get; set; }
 
-        public PagedListResponse<SmsBulkOneToManyOperation> Logs { get; set; }
+        public PagedListResponse<IFBulkOperation> Logs { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public int PageSize { get; set; }

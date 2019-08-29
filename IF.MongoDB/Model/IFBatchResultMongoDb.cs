@@ -5,7 +5,7 @@ using System;
 
 namespace IF.MongoDB.Model
 {
-    public class SmsBatchResultOneToManyMongoDb : ISmsBatchResult
+    public class IFBatchResultMongoDb : ISmsBatchResult
     {
 
         [BsonId]

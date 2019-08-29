@@ -4,8 +4,10 @@ using System.Text;
 
 namespace IF.Core.Sms
 {
-    public class SmsBulkOneToManyOperation : ISmsBulkOneToManyOperation
+    public class IFBulkOperation : IIFBulkOperation
     {
+
+        public int EventId { get; set; }
 
         //public IFormFile File { get; set; }
         public string BulkName { get; set; }

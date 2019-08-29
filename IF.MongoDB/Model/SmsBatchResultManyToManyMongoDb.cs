@@ -1,32 +1,32 @@
-﻿using IF.Core.Sms;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using System;
+﻿//using IF.Core.Sms;
+//using MongoDB.Bson;
+//using MongoDB.Bson.Serialization.Attributes;
+//using System;
 
-namespace IF.MongoDB.Model
-{
-    public class SmsBatchResultManyToManyMongoDb : ISmsBatchResult
-    {
+//namespace IF.MongoDB.Model
+//{
+//    public class SmsBatchResultManyToManyMongoDb : ISmsBatchResult
+//    {
 
-        [BsonId]
-        public ObjectId InternalId { get; set; }
+//        [BsonId]
+//        public ObjectId InternalId { get; set; }
 
-        public int BatchNumber { get; set; }
-        public string BatchName { get; set; }
-        public int BatchCount { get; set; }
+//        public int BatchNumber { get; set; }
+//        public string BatchName { get; set; }
+//        public int BatchCount { get; set; }
 
-        public SmsOperationStatus Status { get; set; }
+//        public SmsOperationStatus Status { get; set; }
 
-        public string ErrorCode { get; set; }
+//        public string ErrorCode { get; set; }
 
-        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+//        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+//        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        public Guid SourceId { get; set; }
+//        public Guid SourceId { get; set; }
 
-        public string IntegrationId { get; set; }
+//        public string IntegrationId { get; set; }
 
-        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
-        public DateTime UpdateDate { get; set; } = DateTime.Now;
-    }
-}
+//        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+//        public DateTime UpdateDate { get; set; } = DateTime.Now;
+//    }
+//}

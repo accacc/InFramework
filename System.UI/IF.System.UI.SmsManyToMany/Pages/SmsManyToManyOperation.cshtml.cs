@@ -20,7 +20,7 @@ namespace IF.System.UI.SmsManyToMany.Pages
 
         //public IEnumerable<ApplicationErrorLog> Logs { get; set; }
 
-        public PagedListResponse<SmsBulkManyToManyOperation> Logs { get; set; }
+        public PagedListResponse<IFBulkOperation> Logs { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public int PageSize { get; set; }

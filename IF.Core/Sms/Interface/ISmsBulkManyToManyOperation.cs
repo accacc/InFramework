@@ -1,34 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Text;
 
-namespace IF.Core.Sms.Interface
-{
-    public interface ISmsBulkManyToManyOperation
-    {
-        string BulkName { get; set; }
+//namespace IF.Core.Sms.Interface
+//{
+//    public interface ISmsBulkManyToManyOperation
+//    {
+//        string BulkName { get; set; }
 
-        int SplitBy { get; set; }
+//        int SplitBy { get; set; }
 
-        long Total { get; set; }
+//        long Total { get; set; }
 
-        DateTime CreatedDate { get; set; }
-        SmsOperationStatus Status { get; set; }
+//        DateTime CreatedDate { get; set; }
+//        SmsOperationStatus Status { get; set; }
 
-        DateTime UpdatedDate { get; set; }
+//        DateTime UpdatedDate { get; set; }
 
-        int BatchCount { get; set; }
+//        int BatchCount { get; set; }
 
-        string SenderPrefixName { get; set; }
+//        string SenderPrefixName { get; set; }
 
-        string CallBackPrefixName { get; set; }
+//        string CallBackPrefixName { get; set; }
 
-        string CallBackMessageTemplate { get; set; }
+//        string CallBackMessageTemplate { get; set; }
 
-        string CallBackNumberId { get; set; }
+//        string CallBackNumberId { get; set; }
 
-        DateTime? StartDate { get; set; }
+//        DateTime? StartDate { get; set; }
 
-        DateTime? EndDate { get; set; }
-    }
-}
+//        DateTime? EndDate { get; set; }
+//    }
+//}

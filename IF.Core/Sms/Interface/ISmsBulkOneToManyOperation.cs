@@ -4,8 +4,10 @@ using System.Text;
 
 namespace IF.Core.Sms
 {
-    public interface ISmsBulkOneToManyOperation
+    public interface IIFBulkOperation
     {
+
+        int EventId { get; set; }
         string BulkName { get; set; }
 
         int SplitBy { get; set; }

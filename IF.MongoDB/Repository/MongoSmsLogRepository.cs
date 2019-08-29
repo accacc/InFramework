@@ -58,9 +58,9 @@ namespace IF.MongoDB.Repository
             return new PagedListResponse<ISmsLog>(list, PageNumber, PageSize, count);
         }
 
-        public async Task<PagedListResponse<SmsBulkManyToManyOperation>> GetPaginatedSmsBulkManyToManyOperationAsync(DateTime BeginDate, DateTime EndDate, string bulkName, int PageNumber, int PageSize)
+        public async Task<PagedListResponse<IFBulkOperation>> GetPaginatedSmsBulkManyToManyOperationAsync(DateTime BeginDate, DateTime EndDate, string bulkName, int PageNumber, int PageSize)
         {
-            var filterBuilder = Builders<SmsBulkManyToManyOperationMongoDb>.Filter;
+            var filterBuilder = Builders<IFBulkOperationMongoDb>.Filter;
             var start = new DateTime(BeginDate.Year, BeginDate.Month, BeginDate.Day);
             var end = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day);
 
@@ -75,21 +75,21 @@ namespace IF.MongoDB.Repository
             }
 
 
-            var fields = Builders<SmsBulkManyToManyOperationMongoDb>.Projection.Exclude("_id");
+            var fields = Builders<IFBulkOperationMongoDb>.Projection.Exclude("_id");
 
 
-            var list = await this.GetQuery<SmsBulkManyToManyOperationMongoDb>(nameof(SmsBulkManyToManyOperation)).Find(filter).Project<SmsBulkManyToManyOperation>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.CreatedDate).ToListAsync();
-            var count = await this.GetQuery<SmsBulkManyToManyOperationMongoDb>(nameof(SmsBulkManyToManyOperation)).CountDocumentsAsync(filter);
+            var list = await this.GetQuery<IFBulkOperationMongoDb>(nameof(IFBulkOperation)).Find(filter).Project<IFBulkOperation>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.CreatedDate).ToListAsync();
+            var count = await this.GetQuery<IFBulkOperationMongoDb>(nameof(IFBulkOperation)).CountDocumentsAsync(filter);
 
 
-            return new PagedListResponse<SmsBulkManyToManyOperation>(list, PageNumber, PageSize, count);
+            return new PagedListResponse<IFBulkOperation>(list, PageNumber, PageSize, count);
         }
 
-        public async Task<PagedListResponse<SmsBulkOneToManyOperation>> GetPaginatedSmsBulkOneToManyOperationAsync(DateTime BeginDate, DateTime EndDate, string bulkName, int PageNumber = 0, int PageSize = 50)
+        public async Task<PagedListResponse<IFBulkOperation>> GetPaginatedSmsBulkOneToManyOperationAsync(DateTime BeginDate, DateTime EndDate, string bulkName, int PageNumber = 0, int PageSize = 50)
 
         {
 
-            var filterBuilder = Builders<SmsBulkOneToManyOperationMongoDb>.Filter;
+            var filterBuilder = Builders<IFBulkOperationMongoDb>.Filter;
             var start = new DateTime(BeginDate.Year, BeginDate.Month, BeginDate.Day);
             var end = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day);
 
@@ -104,14 +104,14 @@ namespace IF.MongoDB.Repository
             }
 
 
-            var fields = Builders<SmsBulkOneToManyOperationMongoDb>.Projection.Exclude("_id");
+            var fields = Builders<IFBulkOperationMongoDb>.Projection.Exclude("_id");
 
 
-            var list = await this.GetQuery<SmsBulkOneToManyOperationMongoDb>(nameof(SmsBulkOneToManyOperation)).Find(filter).Project<SmsBulkOneToManyOperation>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.CreatedDate).ToListAsync();
-            var count = await this.GetQuery<SmsBulkOneToManyOperationMongoDb>(nameof(SmsBulkOneToManyOperation)).CountDocumentsAsync(filter);
+            var list = await this.GetQuery<IFBulkOperationMongoDb>(nameof(IFBulkOperation)).Find(filter).Project<IFBulkOperation>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.CreatedDate).ToListAsync();
+            var count = await this.GetQuery<IFBulkOperationMongoDb>(nameof(IFBulkOperation)).CountDocumentsAsync(filter);
 
 
-            return new PagedListResponse<SmsBulkOneToManyOperation>(list, PageNumber, PageSize, count);
+            return new PagedListResponse<IFBulkOperation>(list, PageNumber, PageSize, count);
         }
 
         public async Task<PagedListResponse<SmsModel>> GetPaginatedSmsList(DateTime BeginDate, DateTime EndDate, string bulkName, string number, SmsState? smsState, int pageNumber, int pageSize)
@@ -149,9 +149,9 @@ namespace IF.MongoDB.Repository
 
         public async Task<List<SmsBatchResult>> GetSmsBulkResultManyToManyList(string bulkName)
         {
-            var fields = Builders<SmsBatchResultManyToManyMongoDb>.Projection.Exclude("_id");
+            var fields = Builders<IFBatchResultMongoDb>.Projection.Exclude("_id");
 
-            var list = await this.GetQuery<SmsBatchResultManyToManyMongoDb>(nameof(SmsBatchResult), bulkName).Find(_ => true).Project<SmsBatchResult>(fields).SortByDescending(s => s.CreatedDate).ToListAsync();
+            var list = await this.GetQuery<IFBatchResultMongoDb>(nameof(SmsBatchResult), bulkName).Find(_ => true).Project<SmsBatchResult>(fields).SortByDescending(s => s.CreatedDate).ToListAsync();
 
             return list;
         }
@@ -159,9 +159,9 @@ namespace IF.MongoDB.Repository
         public async Task<List<SmsBatchResult>> GetSmsBulkResultOneToManyList(string bulkName)
         {            
 
-            var fields = Builders<SmsBatchResultOneToManyMongoDb>.Projection.Exclude("_id");
+            var fields = Builders<IFBatchResultMongoDb>.Projection.Exclude("_id");
 
-            var list = await this.GetQuery<SmsBatchResultOneToManyMongoDb>(nameof(SmsBatchResult),bulkName).Find(_=>true).Project<SmsBatchResult>(fields).SortByDescending(s => s.CreatedDate).ToListAsync();
+            var list = await this.GetQuery<IFBatchResultMongoDb>(nameof(SmsBatchResult),bulkName).Find(_=>true).Project<SmsBatchResult>(fields).SortByDescending(s => s.CreatedDate).ToListAsync();
 
             return list;
 
