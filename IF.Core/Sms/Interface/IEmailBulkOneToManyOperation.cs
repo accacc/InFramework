@@ -11,7 +11,7 @@ namespace IF.Core.Sms
         int SplitBy { get; set; }
 
         long Total { get; set; }
-        string Message { get; set; }
+        //string Message { get; set; }
 
         DateTime CreatedDate { get; set; }
         SmsOperationStatus Status { get; set; }
@@ -20,16 +20,18 @@ namespace IF.Core.Sms
 
         int BatchCount { get; set; }
 
-        string SenderPrefixName { get; set; }
+        int EventId { get; set; }
 
-        string CallBackPrefixName { get; set; }
+        //string SenderPrefixName { get; set; }
 
-        string CallBackMessageTemplate { get; set; }
+        //string CallBackPrefixName { get; set; }
 
-        string CallBackNumberId { get; set; }
+        //string CallBackMessageTemplate { get; set; }
 
-        DateTime? StartDate { get; set; }
+        //string CallBackNumberId { get; set; }
 
-        DateTime? EndDate { get; set; }
+        //DateTime? StartDate { get; set; }
+
+        //DateTime? EndDate { get; set; }
     }
 }

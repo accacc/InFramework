@@ -21,7 +21,7 @@ namespace IF.MongoDB.Model
         public int SplitBy { get; set; }
 
         public long Total { get; set; }
-        public string Message { get; set; }
+        //public string Message { get; set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime CreatedDate { get; set; } = DateTime.Now;
@@ -33,16 +33,18 @@ namespace IF.MongoDB.Model
 
         public int BatchCount { get; set; }
 
-        public string SenderPrefixName { get; set; }
+        public int EventId { get; set; }
 
-        public string CallBackPrefixName { get; set; }
+        //public string SenderPrefixName { get; set; }
 
-        public string CallBackMessageTemplate { get; set; }
+        //public string CallBackPrefixName { get; set; }
 
-        public string CallBackNumberId { get; set; }
+        //public string CallBackMessageTemplate { get; set; }
 
-        public DateTime? StartDate { get; set; }
+        //public string CallBackNumberId { get; set; }
 
-        public DateTime? EndDate { get; set; }
+        //public DateTime? StartDate { get; set; }
+
+        //public DateTime? EndDate { get; set; }
     }
 }

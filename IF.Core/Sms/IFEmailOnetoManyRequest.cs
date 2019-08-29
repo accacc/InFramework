@@ -17,7 +17,9 @@ namespace IF.Core.Sms
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
-        public List<string> Numbers { get; set; }
+        public List<string> Emails { get; set; }
+
+        public int EventId { get; set; }
 
     }
 }
