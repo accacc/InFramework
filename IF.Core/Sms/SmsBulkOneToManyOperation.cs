@@ -19,7 +19,7 @@ namespace IF.Core.Sms
 
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
-        public SmsOperationStatus Status { get; set; }
+        public IFBulkOperationStatus Status { get; set; }
 
         public int BatchCount { get; set; }
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace IF.Core.Sms
 {
-    public enum SmsOperationStatus
+    public enum IFBulkOperationStatus
     {
         Ready = 0,
         InProgress = 1,

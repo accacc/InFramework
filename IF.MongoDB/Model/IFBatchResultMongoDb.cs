@@ -15,7 +15,7 @@ namespace IF.MongoDB.Model
         public string BatchName { get; set; }
         public int BatchCount { get; set; }
 
-        public SmsOperationStatus Status { get; set; }
+        public IFBulkOperationStatus Status { get; set; }
 
         public string ErrorCode { get; set; }
 

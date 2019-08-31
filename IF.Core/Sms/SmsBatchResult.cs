@@ -10,7 +10,7 @@ namespace IF.Core.Sms
         public int BatchNumber { get; set; }
         public string BatchName { get; set; }
 
-        public SmsOperationStatus Status { get; set; }
+        public IFBulkOperationStatus Status { get; set; }
 
         public string ErrorCode { get; set; }
 
