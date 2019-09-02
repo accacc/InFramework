@@ -38,6 +38,37 @@ namespace IF.Core.Security
 
         public string AuthorizationCode { get; set; }
 
+        
+
+    }
+
+    public class PermissionMapDto : TreeDto<PermissionMapDto>
+    {
+        public string Name { get; set; }
+
+        public string Text { get; set; }
+        public string Title { get; set; }
+        public string ImageName { get; set; }
+        public int PermissionId { get; set; }
+        public string ActionName { get; set; }
+        public string ControllerName { get; set; }
+        public string RouteParameter { get; set; }
+
+        public string PermissionCode { get; set; }
+
+        public string ResourcesKey { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public int WidgetType { get; set; }
+
+        public string IconName { get; set; }
+
+        public bool IsWorkflowPermission { get; set; }
+        public int Type { get; set; }
+
+        public byte WidgetRenderType { get; set; }
+
         public static void AddParentPermissionsIds(List<int> checkedPermissionMapIds, IEnumerable<PermissionMapDto> allPermissions)
         {
             for (int i = 0; i < checkedPermissionMapIds.Count; i++)
@@ -76,35 +107,6 @@ namespace IF.Core.Security
 
 
         }
-
-    }
-
-    public class PermissionMapDto : TreeDto<PermissionMapDto>
-    {
-        public string Name { get; set; }
-
-        public string Text { get; set; }
-        public string Title { get; set; }
-        public string ImageName { get; set; }
-        public int PermissionId { get; set; }
-        public string ActionName { get; set; }
-        public string ControllerName { get; set; }
-        public string RouteParameter { get; set; }
-
-        public string PermissionCode { get; set; }
-
-        public string ResourcesKey { get; set; }
-
-        public bool IsActive { get; set; }
-
-        public int WidgetType { get; set; }
-
-        public string IconName { get; set; }
-
-        public bool IsWorkflowPermission { get; set; }
-        public int Type { get; set; }
-
-        public byte WidgetRenderType { get; set; }
 
     }
 
