@@ -43,7 +43,7 @@ namespace IF.System.UI.SmsOneToMany.Pages
         public string Number { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public BatchItemState State { get; set; }
+        public BatchItemState? State { get; set; }
 
 
 

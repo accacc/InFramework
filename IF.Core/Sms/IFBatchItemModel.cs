@@ -11,6 +11,7 @@ namespace IF.Core.Sms
         {
             this.State = BatchItemState.Unknown;
             this.CreatedDate = DateTime.Now;
+            this.UpdatedDate = DateTime.Now;
         }
         public BatchItemState State { get; set; }
         public Dictionary<string,string> Parameters { get; set; }

@@ -4,7 +4,7 @@
 
 
 @{
-    Layout = "_Layout";
+    Layout = "_ModalLayout";
 }
 
 @{
@@ -30,7 +30,7 @@
 
     <div class="row">
         <div class="col-xs-6">
-            State: @Html.DropDownList("State", Html.GetEnumSelectList<IF.Core.Sms.SmsState>(), "State", new { @class = "form-control" })
+            State: @Html.DropDownList("State", Html.GetEnumSelectList<IF.Core.Sms.IFBulkOperationStatus>(), "State", new { @class = "form-control" })
             @*@Html.GetEnumSelectList(typeof(IF.Core.Sms.SmsState))">*@
         </div>
         <div class="col-xs-6">

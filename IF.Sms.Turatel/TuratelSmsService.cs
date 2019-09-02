@@ -303,7 +303,7 @@ namespace IF.Sms.Turatel
                     //new XElement("Option", "1"),
                     new XElement("Originator", request.Subject),
                     new XElement("Mesgbody", request.Message),
-                    new XElement("Numbers", string.Join(",", request.Numbers)),
+                    new XElement("Numbers", string.Join(",", request.Numbers.Select(s=>s.Number))),
                     new XElement("SDate", DatetimeToString(request.StartDate)),
                     new XElement("EDate", DatetimeToString(request.EndDate))
                 )

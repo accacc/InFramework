@@ -128,6 +128,12 @@ namespace IF.MongoDB.Repository
             if (smsState.HasValue)
             {
                 var stateFilter = filterBuilder.Eq(x => x.State, smsState);
+                filter = filter & stateFilter;
+            }
+            else
+            {
+                var stateFilter = filterBuilder.Eq(x => x.State,BatchItemState.Unknown);
+                filter = filter & stateFilter;
             }
 
             if (!String.IsNullOrWhiteSpace(number))

@@ -6,7 +6,10 @@ namespace IF.Core.Sms
 {
     public class SmsBatchItemModel: IFBatchItemModel
     {
-
+        public SmsBatchItemModel()
+        {
+            this.SentDate = DateTime.Now;
+        }
 
         public string Message { get; set; }
         public string Number { get; set; }
