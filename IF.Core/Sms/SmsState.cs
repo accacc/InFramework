@@ -4,7 +4,7 @@ using System.Text;
 
 namespace IF.Core.Sms
 {
-    public enum SmsState
+    public enum BatchItemState
     {
         Success = 3,
         Failed = 5,

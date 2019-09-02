@@ -9,7 +9,7 @@ namespace IF.Core.Sms
     public class IFSmsNumberResult
     {
         public string Number { get; set; }
-        public SmsState State { get; set; }
+        public BatchItemState State { get; set; }
 
         public DateTime? SentDate { get; set; }
     }

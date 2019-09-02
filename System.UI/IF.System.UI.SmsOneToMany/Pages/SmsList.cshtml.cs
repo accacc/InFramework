@@ -19,7 +19,7 @@ namespace IF.System.UI.SmsOneToMany.Pages
         private readonly ISmsLogService logService;
 
 
-        public PagedListResponse<SmsModel> SmsList { get; set; }
+        public PagedListResponse<SmsBatchItemModel> SmsList { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public int PageSize { get; set; }
@@ -43,7 +43,7 @@ namespace IF.System.UI.SmsOneToMany.Pages
         public string Number { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public SmsState State { get; set; }
+        public BatchItemState State { get; set; }
 
 
 
@@ -91,7 +91,7 @@ namespace IF.System.UI.SmsOneToMany.Pages
             return new PartialViewResult
             {
                 ViewName = "_SmsTable",
-                ViewData = new ViewDataDictionary<List<SmsModel>>(ViewData, this.SmsList)
+                ViewData = new ViewDataDictionary<List<SmsBatchItemModel>>(ViewData, this.SmsList)
             };
         }
     }

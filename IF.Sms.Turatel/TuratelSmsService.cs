@@ -365,15 +365,15 @@ namespace IF.Sms.Turatel
             return DateTime.ParseExact(date, "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
         }
 
-        private SmsState GetSmsState(string state)
+        private BatchItemState GetSmsState(string state)
         {
             int intState = Convert.ToInt32(state);
 
-            if (intState == 3) return SmsState.Success;
-            if (intState == 5) return SmsState.Failed;
-            if (intState == 6) return SmsState.Waiting;
-            if (intState == 9) return SmsState.Expired;
-            return SmsState.Unknown;
+            if (intState == 3) return BatchItemState.Success;
+            if (intState == 5) return BatchItemState.Failed;
+            if (intState == 6) return BatchItemState.Waiting;
+            if (intState == 9) return BatchItemState.Expired;
+            return BatchItemState.Unknown;
 
         }
 

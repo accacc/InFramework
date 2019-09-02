@@ -37,7 +37,7 @@ namespace IF.Sms.InfoBip
 
             //ruleEngine.Execute(request);
 
-            return InfoBipSendSms(request.Subject, request.Message, request.Numbers.First());
+            return InfoBipSendSms(request.Subject, request.Message, request.Numbers.First().Message);
         }
 
         private IFSmsResponse InfoBipSendSms(string başlık, string mesaj, string numara)

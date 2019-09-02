@@ -3,6 +3,7 @@ using IF.Core.Sms.Interface;
 using IF.Sms.Barabut;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IF.SocialAndCommunication.Sms.Integration.InfoBip
 {
@@ -32,7 +33,7 @@ namespace IF.SocialAndCommunication.Sms.Integration.InfoBip
             try
             {
 
-                SmsResult smsResult = MesajGonder(request.Subject, request.Message, request.Numbers, null);
+                SmsResult smsResult = MesajGonder(request.Subject, request.Message, request.Numbers.Select(s=>s.Number).ToList(), null);
 
                 if (!smsResult.IsSuccess)
                 {

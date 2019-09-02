@@ -4,7 +4,7 @@ using System.Text;
 
 namespace IF.Core.Sms
 {
-    public class SmsModel: IFBatchItemModel
+    public class SmsBatchItemModel: IFBatchItemModel
     {
 
 
