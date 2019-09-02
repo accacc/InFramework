@@ -4,13 +4,12 @@ using System.Text;
 
 namespace IF.Core.Sms
 {
-    public class SmsModel
+    public class SmsModel: IFBatchItemModel
     {
 
 
         public string Message { get; set; }
         public string Number { get; set; }
-        public SmsState State { get; set; }
 
         public string CallbackMessage { get; set; }
 
