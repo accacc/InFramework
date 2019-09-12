@@ -291,6 +291,14 @@ namespace IF.Sms.Turatel
 
         private async Task<HttpRequestResult> SendSmsO2M(IFSmsOneToManyRequest request)
         {
+
+            string templateMessage = request.Message;
+
+            if (!String.IsNullOrWhiteSpace(request.CallBackMessageTemplate))
+            {
+                templateMessage = request.Message + " " + String.Format(request.CallBackMessageTemplate, request.CallBackNumberId, request.CallBackPrefixName);
+            }
+
             var doc = new XDocument(
                 new XElement("MainmsgBody",
                     new XElement("Command", "0"),
@@ -302,7 +310,7 @@ namespace IF.Sms.Turatel
                     new XElement("Concat", "0"),
                     //new XElement("Option", "1"),
                     new XElement("Originator", request.Subject),
-                    new XElement("Mesgbody", request.Message),
+                    new XElement("Mesgbody", templateMessage),
                     new XElement("Numbers", string.Join(",", request.Numbers.Select(s=>s.Number))),
                     new XElement("SDate", DatetimeToString(request.StartDate)),
                     new XElement("EDate", DatetimeToString(request.EndDate))
@@ -325,9 +333,16 @@ namespace IF.Sms.Turatel
 
             foreach (var message in request.Messages)
             {
+                string templateMessage = message.Message;
+
+                if(!String.IsNullOrWhiteSpace(request.CallBackMessageTemplate))
+                {
+                    templateMessage = message.Message + " " + String.Format(request.CallBackMessageTemplate, request.CallBackNumberId, request.CallBackPrefixName);
+                }
+
                 messageDoc.Add(
                     new XElement("Message",
-                        new XElement("Mesgbody", message.Message),
+                        new XElement("Mesgbody", templateMessage),
                         new XElement("Number", message.Number)));
             }
 
