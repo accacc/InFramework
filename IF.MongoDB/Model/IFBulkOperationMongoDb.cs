@@ -23,6 +23,8 @@ namespace IF.MongoDB.Model
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
+        public string Type { get; set; }
+
         public IFBulkOperationStatus Status { get; set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]

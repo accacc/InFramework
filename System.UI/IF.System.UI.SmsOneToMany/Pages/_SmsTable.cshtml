@@ -17,6 +17,9 @@
                 Number
             </th>
             <th>
+                Callback Message
+            </th>
+            <th>
                 SendDate
             </th>
             <th>
@@ -31,19 +34,22 @@
 
             @foreach (var item in Model.SmsList.Data)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Number)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SentDate)
-                    </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CallbackMessage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SentDate)
+            </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.State)
-                    </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
 
-                </tr>
+        </tr>
             }
         }
         else

@@ -17,6 +17,9 @@
                 Bulk Name
             </th>
             <th>
+                Type
+            </th>
+            <th>
                 SplitBy
             </th>
             <th>
@@ -46,8 +49,12 @@
                 @Html.DisplayFor(modelItem => item.BulkName)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.SplitBy)
             </td>
+
 
             <td>
                 @Html.DisplayFor(modelItem => item.Total)
@@ -73,7 +80,7 @@
                 </a>
             </td>
             <td>
-                <a class="btn btn-primary"   href="@Url.Page("SmsList", new { BulkName = item.BulkName })">
+                <a class="btn btn-primary" href="@Url.Page("SmsList", new { BulkName = item.BulkName })">
                     Batch Items
                 </a>
             </td>

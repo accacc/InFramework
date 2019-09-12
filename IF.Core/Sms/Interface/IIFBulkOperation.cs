@@ -23,6 +23,9 @@ namespace IF.Core.Sms
 
         int BatchCount { get; set; }
 
+
+        string Type { get; set; }
+
         //string SenderPrefixName { get; set; }
 
         //string CallBackPrefixName { get; set; }
