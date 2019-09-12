@@ -73,14 +73,8 @@
                 </a>
             </td>
             <td>
-                <a class="btn btn-primary"
-                   href="@Url.Page("SmsList", new { BulkName = item.BulkName })"
-                   if-ajax="true"
-                   if-ajax-method="get"
-                   if-ajax-mode="replace"
-                   if-ajax-show-dialog="true"
-                   if-ajax-modal-id="@Guid.NewGuid()">
-                    Sms List
+                <a class="btn btn-primary"   href="@Url.Page("SmsList", new { BulkName = item.BulkName })">
+                    Batch Items
                 </a>
             </td>
             @*

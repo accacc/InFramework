@@ -5,7 +5,9 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 
 namespace IF.EventBus.RabbitMQ
@@ -13,6 +15,8 @@ namespace IF.EventBus.RabbitMQ
     public class DefaultRabbitMQPersistentConnection
         : IRabbitMQPersistentConnection
     {
+
+        private readonly List<AmqpTcpEndpoint> tcpEndpoints;
         private readonly IConnectionFactory _connectionFactory;
         private readonly ILogService _logger;
         private readonly int _retryCount;
@@ -28,6 +32,16 @@ namespace IF.EventBus.RabbitMQ
             _retryCount = retryCount;
 
             this._logger = logger;
+        }
+
+        public DefaultRabbitMQPersistentConnection(IConnectionFactory connectionFactory, ILogService logger, List<AmqpTcpEndpoint> tcpEndpoints, int retryCount = 5)
+        {
+            _connectionFactory = connectionFactory ?? throw new ArgumentNullException(nameof(connectionFactory));
+
+            _retryCount = retryCount;
+
+            this._logger = logger;
+            this.tcpEndpoints = tcpEndpoints;
         }
 
         public bool IsConnected
@@ -80,8 +94,14 @@ namespace IF.EventBus.RabbitMQ
 
                 policy.Execute(() =>
                 {
-                    _connection = _connectionFactory
-                          .CreateConnection();
+                    if (tcpEndpoints != null && tcpEndpoints.Any())
+                    {
+                        _connection = _connectionFactory.CreateConnection(tcpEndpoints);
+                    }
+                    else
+                    {
+                        _connection = _connectionFactory.CreateConnection();
+                    }
                 });
 
                 if (IsConnected)

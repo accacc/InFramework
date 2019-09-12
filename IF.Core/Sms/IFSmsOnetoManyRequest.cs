@@ -1,27 +1,17 @@
 ﻿using IF.Core.Data;
+using IF.Core.Sms.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace IF.Core.Sms
 {
-
-    public interface ISmsBulkModel
+    public interface ISmsOneToManyBulkModel : ISmsBulkModel
     {
         string Message { get; set; }
-        IFBulkOperationStatus OperationStatus { get; set; }
-        string CallBackMessageTemplate { get; set; }
-        string CallBackNumberId { get; set; }
-        string CallBackPrefixName { get; set; }
-        string SenderPrefixName { get; set; }
-        DateTime? StartDate { get; set; }
-        DateTime? EndDate { get; set; }
-        string BulkName { get; set; }
-
-
-
     }
-    public class IFSmsOneToManyRequest : BaseRequest, ISmsBulkModel
+
+    public class IFSmsOneToManyRequest : BaseRequest, ISmsOneToManyBulkModel
     {
         public string Subject { get; set; }
 

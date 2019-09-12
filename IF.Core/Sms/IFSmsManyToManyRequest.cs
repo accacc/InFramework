@@ -1,17 +1,25 @@
 ﻿using IF.Core.Data;
+using IF.Core.Sms.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace IF.Core.Sms
 {
-    public class IFSmsManyToManyRequest : BaseRequest
+
+
+    public interface ISmsManyToManyBulkModel : ISmsBulkModel
+    {
+        string Message { get; set; }
+    }
+
+    public class IFSmsManyToManyRequest : BaseRequest, ISmsManyToManyBulkModel
     {
         public string Subject { get; set; }
 
         public Guid SourceId { get; set; }
 
-        public List<IFSmsManyToManyModel> Messages { get; set; }
+        public List<SmsBatchItemModel> Messages { get; set; }
 
         public DateTime? StartDate { get; set; }
 
@@ -26,15 +34,17 @@ namespace IF.Core.Sms
 
         public string CallBackNumberId { get; set; }
 
-
-    }
-
-    public class IFSmsManyToManyModel
-    {
         public string Message { get; set; }
-
-        public string Number { get; set; }
+        public IFBulkOperationStatus OperationStatus { get; set; }
+        public string BulkName { get; set; }
     }
+
+    //public class IFSmsManyToManyModel
+    //{
+    //    public string Message { get; set; }
+
+    //    public string Number { get; set; }
+    //}
 
 
 
