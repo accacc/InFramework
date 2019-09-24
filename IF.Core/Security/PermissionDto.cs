@@ -85,7 +85,7 @@ namespace IF.Core.Security
 
                     if (parentId.HasValue)
                     {
-                        while (parentId.Value != 0)
+                        while (parentId.HasValue)
                         {
                             var parentPermission = allPermissions.SingleOrDefault(a => a.Id == parentId);
 
