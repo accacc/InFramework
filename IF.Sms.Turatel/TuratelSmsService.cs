@@ -396,7 +396,7 @@ namespace IF.Sms.Turatel
         {
             if (!date.HasValue) return "";
 
-            return date.Value.ToString("yyyy-MM-dd-HH-mm-ss");
+            return date.Value.ToString("ddMMyyyyHHmm");
         }
 
 
