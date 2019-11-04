@@ -403,7 +403,7 @@ namespace IF.Sms.Turatel
         {
             if (!date.HasValue) return "";
 
-            return date.Value.ToString("ddMMyyyyHHmm");
+            return date.Value.AddHours(3).ToString("ddMMyyyyHHmm");
         }
 
 
