@@ -1,19 +1,16 @@
 ﻿using Autofac;
-using IF.Core.DependencyInjection;
+using IF.Core.Common;
+using IF.Core.DependencyInjection.Interface;
 using IF.Core.EventBus;
+using IF.Core.EventBus.Log;
+using IF.Core.Exception;
 using IF.Core.Log;
 using IF.Core.RabbitMQ;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using System;
-using IF.Core.Exception;
-using IF.Core.Common;
-using System.Data.Common;
-using IF.EventBus.Logging.EF;
-using IF.Core.EventBus.Log;
-using IF.Core.DependencyInjection.Interface;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IF.EventBus.RabbitMQ.Integration
 {

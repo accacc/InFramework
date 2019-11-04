@@ -1,4 +1,5 @@
-﻿using IF.Core.Sms;
+﻿using IF.Core.Log;
+using IF.Core.Sms;
 using IF.Core.Sms.Interface;
 using IF.Core.Xml;
 using System;
@@ -21,11 +22,13 @@ namespace IF.Sms.Turatel
 
         private readonly TuratelSmsClient httpClient;
         private readonly IFSmsSettings settings;
+        private readonly IAuditLogService auditLogService;
 
-        public TuratelSmsService(TuratelSmsClient httpClient, IFSmsSettings settings)
+        public TuratelSmsService(TuratelSmsClient httpClient, IFSmsSettings settings, IAuditLogService auditLogService)
         {
             this.httpClient = httpClient;
             this.settings = settings;
+            this.auditLogService = auditLogService;
         }
 
         //        01 Kullanıcı adı ya da şifre hatalı
@@ -317,6 +320,10 @@ namespace IF.Sms.Turatel
                 )
             );
 
+
+            string xml = doc.ToString();
+
+            await this.auditLogService.LogAsync(xml, request.UniqueId, DateTime.Now, "IFSmsOneToManyRequest", request.ClientIp, request.Channel, request.UserId.ToString());
 
             var response = await httpClient.PostXmlAsync(doc);
 
