@@ -23,7 +23,7 @@ namespace IF.MongoDB.Repository.Abstract
        
         public IMongoCollection<T> GetQuery<T>()
         {
-            return database.GetCollection<T>(nameof(T));
+            return database.GetCollection<T>(typeof(T).Name);
         }
 
         //public async Task BulkUpdateAsync<T>(string name, List<UpdateOneModel<T>> list,bool Is)
