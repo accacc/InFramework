@@ -131,6 +131,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.System.UI.SmsManyToMany"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Tools.Publish", "IF.Tools.Publish\IF.Tools.Publish.csproj", "{19A482D1-C4D7-4592-9E6F-6D7602592E2B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Batch", "IF.Batch\IF.Batch.csproj", "{87175305-4162-4E65-A5CA-B71C3D633747}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Batch.MongoDb", "IF.Batch.MongoDb\IF.Batch.MongoDb.csproj", "{B066D2FB-E312-453C-A883-DA4B56C20380}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -377,6 +381,14 @@ Global
 		{19A482D1-C4D7-4592-9E6F-6D7602592E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19A482D1-C4D7-4592-9E6F-6D7602592E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19A482D1-C4D7-4592-9E6F-6D7602592E2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87175305-4162-4E65-A5CA-B71C3D633747}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87175305-4162-4E65-A5CA-B71C3D633747}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87175305-4162-4E65-A5CA-B71C3D633747}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87175305-4162-4E65-A5CA-B71C3D633747}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B066D2FB-E312-453C-A883-DA4B56C20380}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B066D2FB-E312-453C-A883-DA4B56C20380}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B066D2FB-E312-453C-A883-DA4B56C20380}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B066D2FB-E312-453C-A883-DA4B56C20380}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
