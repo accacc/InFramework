@@ -21,7 +21,7 @@ namespace IF.Admin.UI.Pages.Account
         {
 
 
-            if (userName == "derin" && password == "111111")
+            if (userName == "if" && password == "111111")
             {
                 var claims = new List<Claim>{
                       new Claim(ClaimTypes.Name, userName)

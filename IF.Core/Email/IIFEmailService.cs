@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace IF.Core.Email
 {
-    public interface IDerinEmailService
+    public interface IIFEmailService
     {
-        Task<DerinEmailResponse> SendEmail(DerinEmailRequest request);
+        Task<IFEmailResponse> SendEmail(IFEmailRequest request);
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Derin.Core.Mvc.Model
+namespace IF.Web.Mvc.Model
 {
     public abstract class BaseDataModel
     {

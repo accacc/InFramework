@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace IF.Email.SendGrid
 {
-    public class SendGridApiEmailService : IDerinEmailService
+    public class SendGridApiEmailService : IIFEmailService
     {
 
         private readonly HttpClient httpClient;
@@ -22,9 +22,9 @@ namespace IF.Email.SendGrid
             this.settings = settings;
 
         }
-        public async Task<DerinEmailResponse> SendEmail(DerinEmailRequest request)
+        public async Task<IFEmailResponse> SendEmail(IFEmailRequest request)
         {
-            DerinEmailResponse derinEmailResponse = new DerinEmailResponse();
+            IFEmailResponse emailResponse = new IFEmailResponse();
 
             try
             {
@@ -60,20 +60,20 @@ namespace IF.Email.SendGrid
 
                 if (response.StatusCode != HttpStatusCode.Accepted)
                 {
-                    derinEmailResponse.IsSuccess = false;
-                    derinEmailResponse.ErrorMessage = "Email service has error :" + response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    emailResponse.IsSuccess = false;
+                    emailResponse.ErrorMessage = "Email service has error :" + response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 }
 
             }
             catch (Exception ex)
             {
-                derinEmailResponse.FromException(ex);
-                derinEmailResponse.IsSent = false;
+                emailResponse.FromException(ex);
+                emailResponse.IsSent = false;
             }
 
 
 
-            return derinEmailResponse;
+            return emailResponse;
         }
 
 

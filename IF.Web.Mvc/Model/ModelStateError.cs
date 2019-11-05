@@ -1,7 +1,7 @@
 ﻿//using System.Linq;
 //using System.Web.Mvc;
 
-//namespace Derin.Core.Mvc.Model
+//namespace IF.Web.Mvc.Model
 //{
 //    public static class ModelStateError
 //    {

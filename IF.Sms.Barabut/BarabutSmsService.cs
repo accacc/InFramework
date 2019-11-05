@@ -28,7 +28,7 @@ namespace IF.SocialAndCommunication.Sms.Integration.InfoBip
         public IFSmsResponse SendSms(IFSmsOneToManyRequest request)
         {
 
-            IFSmsResponse derinSmsResponse = new IFSmsResponse();
+            IFSmsResponse smsResponse = new IFSmsResponse();
 
             try
             {
@@ -37,26 +37,26 @@ namespace IF.SocialAndCommunication.Sms.Integration.InfoBip
 
                 if (!smsResult.IsSuccess)
                 {
-                    derinSmsResponse.IsSuccess = false;
-                    derinSmsResponse.Code = smsResult.Code.ToString();
-                    derinSmsResponse.ErrorMessage = smsResult.Desc;
+                    smsResponse.IsSuccess = false;
+                    smsResponse.Code = smsResult.Code.ToString();
+                    smsResponse.ErrorMessage = smsResult.Desc;
                 }
                 else
                 {
-                    derinSmsResponse.IsSuccess = true;
-                    derinSmsResponse.IntegrationId = smsResult.IntegrationId;
+                    smsResponse.IsSuccess = true;
+                    smsResponse.IntegrationId = smsResult.IntegrationId;
                 }
             }
             catch (Exception ex)
             {
 
-                derinSmsResponse.IsSuccess = false;
-                derinSmsResponse.ErrorMessage = "Sms Api Error : " + ex.GetBaseException().Message;
+                smsResponse.IsSuccess = false;
+                smsResponse.ErrorMessage = "Sms Api Error : " + ex.GetBaseException().Message;
 
-                return derinSmsResponse;
+                return smsResponse;
             }
 
-            return derinSmsResponse;
+            return smsResponse;
         }
 
 

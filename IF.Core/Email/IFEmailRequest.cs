@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IF.Core.Email
 {
-    public class DerinEmailRequest : BaseRequest
+    public class IFEmailRequest : BaseRequest
     {
         public string Subject { get; set; }
 

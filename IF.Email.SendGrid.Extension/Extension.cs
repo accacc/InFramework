@@ -11,7 +11,7 @@ namespace IF.Email.SendGrid.Extension
         public static IEmailSenderBuilder AddSendGrid(this IEmailSenderBuilder mailBuilder, IServiceCollection services, SendGridEmailSettings sendGridEmailSettings)
         {
 
-            services.AddHttpClient<IDerinEmailService, SendGridApiEmailService>();            
+            services.AddHttpClient<IIFEmailService, SendGridApiEmailService>();            
             services.AddSingleton(sendGridEmailSettings);            
             return mailBuilder;
         }

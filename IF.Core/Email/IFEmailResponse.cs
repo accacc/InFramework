@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IF.Core.Email
 {
-    public class DerinEmailResponse : BaseResponse
+    public class IFEmailResponse : BaseResponse
     {
 
         public bool IsSent { get; set; }

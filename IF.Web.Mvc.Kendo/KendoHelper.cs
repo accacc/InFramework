@@ -1,4 +1,4 @@
-﻿using Derin.Core.Mvc.Model;
+﻿using IF.Web.Mvc.Model;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.UI.Fluent;
 using Microsoft.AspNetCore.Mvc.Rendering;
