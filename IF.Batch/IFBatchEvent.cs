@@ -1,7 +1,5 @@
 ﻿using IF.Core.EventBus;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IF.Batch
 {
@@ -18,11 +16,7 @@ namespace IF.Batch
 
         public IFBatchEvent(string BulkName, Guid sourceId) : base(sourceId)
         {
-            //this.BatchName = BatchName;
-            //this.BatchNumber = BatchNumber;
-            //this.BatchCount = BatchCount;
             this.BulkName = BulkName;
-
         }
     }
 }

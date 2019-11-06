@@ -1,5 +1,4 @@
 ﻿using IF.Core.Sms;
-using IF.Core.Sms.Interface;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -42,9 +41,7 @@ namespace IF.Batch
 
         Task UpdateBulkCompleted(string bulkName);
 
-        Task<List<IFBulkOperation>> GetAllOperations(IFBulkOperationStatus status);
-
-        
+        Task<List<IFBulkOperation>> GetAllOperations(IFBulkOperationStatus status);       
 
         Task<List<SmsBatchResult>> GetBatchTables(string bulkName);
     }

@@ -194,7 +194,10 @@ namespace IF.Tools.Templates.Editor
         {
             foreach (DirectoryInfo dir in source.GetDirectories())
             {
-                if (source.Name == "IF.Template" && dir.Name != "packages" && !checkBoxListProjects.CheckedItems.Contains(dir.Name)) continue;
+                if (source.Name == "IF.Template" && dir.Name != "packages" && !checkBoxListProjects.CheckedItems.Contains(dir.Name))
+                {
+                    continue;
+                }
 
 
                 CopyFilesRecursively(dir, target.CreateSubdirectory(dir.Name.Replace(templateSolutionName, newSolutionName)), newSolutionName);
@@ -202,12 +205,18 @@ namespace IF.Tools.Templates.Editor
 
             foreach (FileInfo file in source.GetFiles())
             {
+
+
                 if (file.Extension == ".dll")
                 {
                     var newFileName = file.Name.Replace(templateSolutionName, newSolutionName);
                     file.CopyTo(Path.Combine(target.FullName, newFileName));
                 }
-                else if (file.Name == "IFTemplateSettings.cs" && file.Directory.Name == "IF.Template.Cqrs")
+                else if(file.Name.Contains("appsettings.Development"))
+                {
+                    HandleConfigFiles(target, newSolutionName, file);
+                }
+                else if (file.Name == "IFTemplateAppSettings.cs" && file.Directory.Name == "IF.Template.Cqrs")
                 {
                     HandleSettings(target, file, newSolutionName);
                 }
@@ -225,14 +234,28 @@ namespace IF.Tools.Templates.Editor
                 }
                 else
                 {
-                    var newFileName = file.Name.Replace(templateSolutionName, newSolutionName);
-                    file.CopyTo(Path.Combine(target.FullName, newFileName));
-                    string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
-                    text = text.Replace(templateSolutionName, newSolutionName);
-                    File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
+                    HandleOthers(target, newSolutionName, file);
                 }
             }
 
+        }
+
+        private void HandleConfigFiles(DirectoryInfo target, string newSolutionName, FileInfo file)
+        {
+            var newFileName = file.Name.Replace(templateSolutionName, newSolutionName);
+            file.CopyTo(Path.Combine(target.FullName, newFileName));
+            string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
+            text = text.Replace("IFTemplateApp", newSolutionName.Replace(".","") + "App");
+            File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
+        }
+
+        private void HandleOthers(DirectoryInfo target, string newSolutionName, FileInfo file)
+        {
+            var newFileName = file.Name.Replace(templateSolutionName, newSolutionName);
+            file.CopyTo(Path.Combine(target.FullName, newFileName));
+            string text = File.ReadAllText(Path.Combine(target.FullName, newFileName));
+            text = text.Replace(templateSolutionName, newSolutionName);
+            File.WriteAllText(Path.Combine(target.FullName, newFileName), text);
         }
 
         private void HandleProjects(DirectoryInfo target, FileInfo file, string newSolutionName)

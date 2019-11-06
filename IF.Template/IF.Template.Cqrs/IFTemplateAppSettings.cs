@@ -9,7 +9,7 @@ using System;
 namespace IF.Template.Cqrs
 {
 
-    public interface IIFTemplateSettings : IAppSettingsCore
+    public interface IIFTemplateAppSettings : IAppSettingsCore
     {
         RabbitMQConnectionSettings RabbitMQConnection { get; set; }
         DatabaseSettings Database { get; set; }
@@ -19,7 +19,7 @@ namespace IF.Template.Cqrs
         MongoConnectionSettings MongoConnection { get; set; }
     }
 
-    public class IFTemplateSettings : AppSettingsCore, IIFTemplateSettings
+    public class IFTemplateAppSettings : AppSettingsCore, IIFTemplateAppSettings
     {
 
         public RabbitMQConnectionSettings RabbitMQConnection { get; set; }

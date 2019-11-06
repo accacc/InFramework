@@ -39,7 +39,7 @@ namespace IF.Template.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            var settings =this.Configuration.GetSettings<IFTemplateSettings>();
+            var settings =this.Configuration.GetSettings<IFTemplateAppSettings>();
 
             services.AddDbContext<TestDbContext>(options =>
             {
@@ -51,7 +51,7 @@ namespace IF.Template.Api
             var handlers = Assembly.Load("IF.Template.Cqrs");
 
             @if.AddSwagger(services, "v1", "InFramework Template Api", true)
-               .AddApplicationSettings<IIFTemplateSettings>(settings)
+               .AddApplicationSettings<IIFTemplateAppSettings>(settings)
                    .AddCqrs(cqrs =>
                    {
 

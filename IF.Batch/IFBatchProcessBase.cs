@@ -20,7 +20,7 @@ namespace IF.Batch
         }
 
 
-        public abstract Task<BatchResponse> SendBatchItemAsync(IIFBulkOperation operation, ISmsBatchResult batchResult,int BatchNumber);
+        public abstract Task<BatchResponse> SendBatchItemAsync(IIFBulkOperation operation, ISmsBatchResult batchResult, int BatchNumber);
 
 
         public async Task UpdateBatchResult(string BulkName, string BatchName, int TotalBatch, bool IsSuccess, string ErrorCode = null, string IntegrationId = null)
@@ -52,10 +52,6 @@ namespace IF.Batch
             BaseResponse response = new BaseResponse();
             response.IsSuccess = true;
 
-            //var mongo = new MongoClient("mongodb://logger:response1024@10.1.7.25:27017");
-
-            //IMongoDatabase applicationDb = mongo.GetDatabase("ApplicationDb");
-
             IIFBulkOperation operation = await this.repository.GetOperation(@event.BulkName);
 
             if (operation == null)
@@ -68,8 +64,6 @@ namespace IF.Batch
             {
                 throw new Exception(operation.BulkName + " : Bu işlem daha önce çalıştırılmış");
             }
-
-            //IMongoDatabase batchDb = mongo.GetDatabase();
 
             List<SmsBatchResult> resultTable = await this.repository.GetResults(operation.BulkName);
 
@@ -94,7 +88,7 @@ namespace IF.Batch
                 @event.BulkName = operation.BulkName;
                 @event.BatchName = smsBatchResult.BatchName;
                 @event.BatchNumber = smsBatchResult.BatchNumber;
-                @event.BatchCount = smsBatchResult.BatchCount;                
+                @event.BatchCount = smsBatchResult.BatchCount;
 
                 this.eventBus.Publish(@event);
             }
@@ -131,28 +125,23 @@ namespace IF.Batch
 
             await this.repository.UpdateBatchStatus(BatchName, IFBulkOperationStatus.InProgress, BulkName);
 
-            var response = await this.SendBatchItemAsync(operation,batch,BatchNumber);
+            var response = await this.SendBatchItemAsync(operation, batch, BatchNumber);
 
-            await this.UpdateBatchResult(BulkName, BatchName,operation.BatchCount, response.IsSuccess, response.ErrorCode,response.IntegrationId);
+            await this.UpdateBatchResult(BulkName, BatchName, operation.BatchCount, response.IsSuccess, response.ErrorCode, response.IntegrationId);
 
-            
+
 
 
         }
-            protected async Task<BaseResponse> InitBulkAsync(string BulkName, int SplitBy, int batchCount, bool Force, string operationTableName,string type,Guid SourceId)
+        protected async Task<BaseResponse> InitBulkAsync(string BulkName, int SplitBy, int batchCount, bool Force, string operationTableName, string type, Guid SourceId)
         {
             BaseResponse response = new BaseResponse();
 
             response.IsSuccess = true;
 
-            //if (File == null) throw new Exception("File is null");
-            //if (File.Length == 0) throw new Exception("File is empty");
             if (SplitBy <= 0) { throw new Exception("SplitBy sifirdan küçük olamaz"); }
 
             if (String.IsNullOrWhiteSpace(BulkName)) { throw new Exception("BulkName boş olamaz"); }
-
-
-
 
             if (!Force)
             {
@@ -165,25 +154,14 @@ namespace IF.Batch
                 }
             }
 
-            //var content = string.Empty;
-
-            //using (var reader = new StreamReader(File.OpenReadStream()))
-            //{
-            //    content = reader.ReadToEnd();
-            //}
-
-            //IFEmailOneToManyRequest request = null;
-
-            //T request = JsonConvert.DeserializeObject<T>(content);
-
             if (SplitBy > batchCount)
             {
                 throw new Exception(BulkName + " : SplitBy toplam kayıt sayısından büyük olamaz, lütfen kontrol ediniz...");
             }
-            
 
-            await this.repository.InsertOperation(BulkName,SplitBy,batchCount,BulkName,type);
-            
+
+            await this.repository.InsertOperation(BulkName, SplitBy, batchCount, BulkName, type);
+
 
             await this.repository.InsertBatchs(BulkName, SplitBy, batchCount, SourceId);
 

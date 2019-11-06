@@ -23,27 +23,12 @@ namespace Derin.Notification.MongoDB
 
         public async Task InsertOperation(string BulkName, int SplitBy, int Total, string operationName,string type)
         {
-
-
-            //var operationTable = this.GetQuery<IFBulkOperationMongoDb>(nameof(IFBulkOperation));
-            //var filterBuilder = Builders<IFBulkOperationMongoDb>.Filter;
-            //var batchNameFilter = filterBuilder.Eq(i => i.BulkName, bulk.BulkName);
-            //await operationTable.DeleteManyAsync(batchNameFilter);
-
             IFBulkOperationMongoDb smsBulkOperation = new IFBulkOperationMongoDb();
             smsBulkOperation.BulkName = BulkName;
             smsBulkOperation.SplitBy = SplitBy;
             smsBulkOperation.Total = Total;
             smsBulkOperation.Type = type;
-            //smsBulkOperation.EventId = request.EventId;
             smsBulkOperation.Status = IFBulkOperationStatus.Ready;
-            //smsBulkOperation.CallBackMessageTemplate = bulk.CallBackMessageTemplate;
-            //smsBulkOperation.CallBackNumberId = bulk.CallBackNumberId;
-            //smsBulkOperation.CallBackPrefixName = bulk.CallBackPrefixName;
-            //smsBulkOperation.StartDate = bulk.StartDate;            
-            //smsBulkOperation.EndDate = bulk.EndDate;
-            //smsBulkOperation.SenderPrefixName = bulk.SenderPrefixName;
-
             await this.InsertOperation(smsBulkOperation, operationName);
         }
 
