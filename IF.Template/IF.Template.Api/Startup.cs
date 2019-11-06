@@ -40,21 +40,14 @@ namespace IF.Template.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            var settings =this.Configuration.GetSettings<IFTemplateAppSettings>();
+            var settings = this.Configuration.GetSettings<IFTemplateAppSettings>();
 
-            //services.AddDbContext<TestDbContext>(options =>
-            //{
-            //    options.UseSqlServer(settings.Database.ConnectionString);
-            //}, ServiceLifetime.Transient);
-
-            //services.AddTransient<IRepository>(provider => new GenericRepository(provider.GetService<TestDbContext>()));
-
-            
+            @if.AddDbContext<TestDbContext>(services, settings.Database.ConnectionString);
 
             var handlers = Assembly.Load("IF.Template.Cqrs");
 
             @if.AddSwagger(services, "v1", "InFramework Template Api", true)
-               .AddApplicationSettings<IIFTemplateAppSettings>(settings)
+                   .AddApplicationSettings<IIFTemplateAppSettings>(settings)
                    .AddCqrs(cqrs =>
                    {
 
@@ -112,13 +105,9 @@ namespace IF.Template.Api
                     .AddEventBus(bus =>
                     {
                         bus.AddRabbitMQEventBus(services, settings.RabbitMQConnection, "if_template").Build(new Assembly[] { handlers });
-
                     })
 
                 ;
-
-
-            @if.AddDbContext<TestDbContext>(services, settings.Database.ConnectionString);
 
             return services.Build(@if);
         }
