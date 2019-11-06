@@ -6,6 +6,7 @@ using IF.Dependency.AutoFac;
 using IF.EventBus.RabbitMQ.Integration;
 using IF.Persistence;
 using IF.Persistence.EF.Core;
+using IF.Persistence.EF.SqlServer.Integration;
 using IF.Swagger.Integration;
 using IF.Template.Cqrs;
 using IF.Template.Persistence.EF;
@@ -41,12 +42,14 @@ namespace IF.Template.Api
 
             var settings =this.Configuration.GetSettings<IFTemplateAppSettings>();
 
-            services.AddDbContext<TestDbContext>(options =>
-            {
-                options.UseSqlServer(settings.Database.ConnectionString);
-            }, ServiceLifetime.Transient);
+            //services.AddDbContext<TestDbContext>(options =>
+            //{
+            //    options.UseSqlServer(settings.Database.ConnectionString);
+            //}, ServiceLifetime.Transient);
 
-            services.AddTransient<IRepository>(provider => new GenericRepository(provider.GetService<TestDbContext>()));
+            //services.AddTransient<IRepository>(provider => new GenericRepository(provider.GetService<TestDbContext>()));
+
+            
 
             var handlers = Assembly.Load("IF.Template.Cqrs");
 
@@ -113,6 +116,9 @@ namespace IF.Template.Api
                     })
 
                 ;
+
+
+            @if.AddDbContext<TestDbContext>(services, settings.Database.ConnectionString);
 
             return services.Build(@if);
         }

@@ -48,6 +48,9 @@
     <Reference Include="IF.Persistence.EF.Core">
       <HintPath>..\packages\InFramework\IF.Persistence.EF.Core.dll</HintPath>
     </Reference>
+    <Reference Include="IF.Persistence.EF.SqlServer.Integration">
+      <HintPath>..\packages\InFramework\IF.Persistence.EF.SqlServer.Integration.dll</HintPath>
+    </Reference>
     <Reference Include="IF.Swagger.Integration">
       <HintPath>..\packages\InFramework\IF.Swagger.Integration.dll</HintPath>
     </Reference>
