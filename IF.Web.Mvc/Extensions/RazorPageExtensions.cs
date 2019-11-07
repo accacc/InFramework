@@ -1,10 +1,9 @@
 ﻿using IF.Web.Mvc.Notification;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
-using System.Collections.Generic;
-using System.Net;
 using System.Text;
 
 namespace IF.Web.Mvc.Extensions
@@ -15,6 +14,18 @@ namespace IF.Web.Mvc.Extensions
         //{
         //    return new AjaxAwareRedirectResult(url);
         //}
+
+        public static string ActionName(this IHtmlHelper page)
+        {
+            
+            return page.ViewContext.ActionDescriptor.RouteValues["action"];
+        }
+
+
+        public static string ControllerName(this IHtmlHelper page)
+        {
+            return page.ViewContext.ActionDescriptor.RouteValues["controller"];
+        }
 
         public static EmptyResult OperationResult(this PageModel page,OperationType operationType = OperationType.Success)
         {
