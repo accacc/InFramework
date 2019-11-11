@@ -29,9 +29,9 @@ namespace IF.Core.Security
 
         public string ApplicationCode { get; set; }
 
-        public string DescriptionTR { get; set; }
+        public string Description { get; set; }
 
-        public string DescriptionEN { get; set; }
+        public string Text { get; set; }
 
         public string WindowType { get; set; }
 
@@ -67,7 +67,7 @@ namespace IF.Core.Security
         public bool IsWorkflowPermission { get; set; }
         public int Type { get; set; }
 
-        public byte WidgetRenderType { get; set; }
+        public int WidgetRenderType { get; set; }
 
         public static void AddParentPermissionsIds(List<int> checkedPermissionMapIds, IEnumerable<PermissionMapDto> allPermissions)
         {
