@@ -1,11 +1,11 @@
-﻿using DatabaseSchemaReader.DataSchema;
-using FOFramework.CodeGeneration.Core;
-using FOFramework.CodeGeneration.CSharp;
+﻿using FOFramework.CodeGeneration.Core;
+
+using IF.CodeGeneration.CSharp;
 using IF.Core.Data;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -178,7 +178,7 @@ namespace Derin.Tools.CodeGenerator
 
             CSClass requestClass = new CSClass();
             requestClass.BaseClass = "BaseRequest";
-            requestClass.Name = className + "ListRequest";
+            requestClass.Name = className + "Request";
 
 
             requestClass.Properties = new List<CSProperty>();
@@ -189,19 +189,26 @@ namespace Derin.Tools.CodeGenerator
             }
             CSClass responseClass = new CSClass();
             responseClass.BaseClass = "BaseResponse";
-            responseClass.Name = className + "ListResponse";
+            responseClass.Name = className + "Response";
 
 
 
             CSProperty dtoProperty = new CSProperty(null, "public", "Data", false);
-            dtoProperty.PropertyTypeString = String.Format("List<{0}ListDto>", className);
+            dtoProperty.PropertyTypeString = String.Format("List<{0}Dto>", className);
 
             responseClass.Properties.Add(dtoProperty);
 
+            
 
-            var classes = @class.GenerateCode().Template + Environment.NewLine + requestClass.GenerateCode().Template + Environment.NewLine + responseClass.GenerateCode().Template;
+            CSInterface @interface = new CSInterface();
+            @interface.Name = $"I{className}Query";
+            @interface.InheritedInterfaces.Add($"IDataGetQueryAsync<{className}Request,{className}Response>");
 
-            fileSystem.FormatCode(classes, "cs", className + "Dto");
+
+
+            var classes = @class.GenerateCode().Template + Environment.NewLine + requestClass.GenerateCode().Template + Environment.NewLine + responseClass.GenerateCode().Template + Environment.NewLine + @interface.GenerateCode().Template;
+
+            fileSystem.FormatCode(classes, "cs", className);
 
 
 

@@ -392,7 +392,7 @@ namespace DTOGenerator
 
         private void GenerateInsertHandleMethod(OracleInsertSP sp,string tablePascalCaseName)
         {
-            CsMethod method = new CsMethod(tablePascalCaseName+"Handle",tablePascalCaseName + "AddRequest","public");
+            CSMethod method = new CSMethod(tablePascalCaseName+"Handle",tablePascalCaseName + "AddRequest","public");
             
             StringBuilder methodBody = new StringBuilder();
 
@@ -429,7 +429,7 @@ namespace DTOGenerator
 
         private void GenerateGetHandleMethod(OracleGetSP sp, string tablePascalCaseName)
         {
-            CsMethod method = new CsMethod(tablePascalCaseName + "Handle", tablePascalCaseName + "GetResponse", "public");
+            CSMethod method = new CSMethod(tablePascalCaseName + "Handle", tablePascalCaseName + "GetResponse", "public");
 
             StringBuilder methodBody = new StringBuilder();
 

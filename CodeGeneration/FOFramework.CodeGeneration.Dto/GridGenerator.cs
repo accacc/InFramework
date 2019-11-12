@@ -1,7 +1,8 @@
 ﻿using DatabaseSchemaReader.DataSchema;
+
 using FOFramework.CodeGeneration.Core;
-using FOFramework.CodeGeneration.CSharp;
 using FOFramework.CodeGeneration.Oracle;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -225,7 +226,7 @@ namespace DTOGenerator
 
             
 
-            CsMethod index = new CsMethod(tablePascalCaseName + "Index", "ActionResult", "public");
+            CSMethod index = new CSMethod(tablePascalCaseName + "Index", "ActionResult", "public");
 
             //DepartmentExtensionGridFilterModel model = new DepartmentExtensionGridFilterModel();
 
@@ -242,7 +243,7 @@ namespace DTOGenerator
 
 
 
-            CsMethod grid = new CsMethod(tablePascalCaseName+"Grid", "ActionResult","public");
+            CSMethod grid = new CSMethod(tablePascalCaseName+"Grid", "ActionResult","public");
 
             methodBody = new StringBuilder();
 
@@ -298,7 +299,7 @@ namespace DTOGenerator
 
         private void GenerateHandleMethod(OracleListSP sp,string tablePascalCaseName)
         {
-            CsMethod method = new CsMethod(tablePascalCaseName+"Handle",tablePascalCaseName + "ListResponse","public");
+            CSMethod method = new CSMethod(tablePascalCaseName+"Handle",tablePascalCaseName + "ListResponse","public");
             
             StringBuilder methodBody = new StringBuilder();
 

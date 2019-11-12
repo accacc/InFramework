@@ -36,8 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DatabaseSchemaReader, Version=2.4.0.20, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DatabaseSchemaReader.2.4.0\lib\net45\DatabaseSchemaReader.dll</HintPath>
+    <Reference Include="DatabaseSchemaReader, Version=2.7.2.16, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DatabaseSchemaReader.2.7.2\lib\net45\DatabaseSchemaReader.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FOFramework.CodeGeneration.CSharp
+namespace IF.CodeGeneration.CSharp
 {
     public class CSProperty : IGenerateCode
     {

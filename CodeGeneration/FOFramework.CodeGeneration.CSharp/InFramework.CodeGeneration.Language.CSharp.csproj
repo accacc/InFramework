@@ -7,8 +7,8 @@
     <ProjectGuid>{56EA9A0D-5771-4EC7-8E5D-D6CAD0FEFB33}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FOFramework.CodeGeneration.CSharp</RootNamespace>
-    <AssemblyName>FOFramework.CodeGeneration.CSharp</AssemblyName>
+    <RootNamespace>InFramework.CodeGeneration.CSharp</RootNamespace>
+    <AssemblyName>InFramework.CodeGeneration.CSharp</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -45,8 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CSClass.cs" />
-    <Compile Include="CsMethod.cs" />
+    <Compile Include="CSMethod.cs" />
     <Compile Include="CSProperty.cs" />
+    <Compile Include="CSInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
