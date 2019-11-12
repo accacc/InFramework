@@ -2,7 +2,7 @@
 
 using IF.CodeGeneration.CSharp;
 using IF.Core.Data;
-
+using IF.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -170,8 +170,12 @@ namespace Derin.Tools.CodeGenerator
             @class.Name = className + "DataQuery";
             @class.InheritedInterfaces.Add($"I{className}Query");
 
+            var repositoryProperty = new CSProperty(typeof(IRepository), "private readonly", "repository", false);
+            @class.Properties.Add(repositoryProperty);
+
 
             CSMethod constructorMethod = new CSMethod(@class.Name + "Handle", "","public");
+            constructorMethod.Parameters.Add(new CsMethodParameter() {Name = "repository",Type = "IRepository" });
             StringBuilder methodBody = new StringBuilder();
             methodBody.AppendFormat("this.repository = repository;");
             methodBody.AppendLine();           
@@ -179,7 +183,11 @@ namespace Derin.Tools.CodeGenerator
             @class.Methods.Add(constructorMethod);
 
 
-            var classes = @class.GenerateCode().Template + Environment.NewLine;
+            CSMethod handleMethod = new CSMethod("Get", className + "Response", "public");
+            handleMethod.IsAsync = true;
+            handleMethod.Parameters.Add(new CsMethodParameter() { Name = "request", Type = className + "Request" });
+
+            @class.Methods.Add(handleMethod);
 
             fileSystem.FormatCode(@class.GenerateCode(),"cs");
         }

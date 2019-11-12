@@ -23,26 +23,38 @@ namespace IF.CodeGeneration.CSharp
         public string AccessType { get; set; }
         public string ReturnType { get; set; }
 
+        public bool IsAsync { get; set; }
+
         public string Name { get; set; }
 
         public string Body { get; set; }
         public CodeTemplate GenerateCode()
         {
 
-            string paramS = String.Empty;
+            string @params = String.Empty;
 
             foreach (var parameter in this.Parameters)
             {
-                paramS += String.Format("{0} {1}",parameter.Type,parameter.Name);
+                @params += String.Format("{0} {1}",parameter.Type,parameter.Name);
 
                 if (this.Parameters.Last().Name != parameter.Name)
                 {
-                    paramS += ",";
+                    @params += ",";
                 }
             }
 
+            string accessType = this.AccessType;
+            string returnType = this.ReturnType;
+            string name = this.Name;
 
-            StringBuilder builder = new StringBuilder(String.Format("{0} {1} {2}({3})",this.AccessType,this.ReturnType,this.Name,paramS));            
+            if(this.IsAsync)
+            {
+                accessType = this.AccessType + " async";
+                returnType = $"Task<{this.ReturnType}>";
+                name = name + "Async";
+            }
+
+            StringBuilder builder = new StringBuilder($"{accessType} {returnType} {name} ({@params})");            
 
             builder.AppendLine("{");
 
