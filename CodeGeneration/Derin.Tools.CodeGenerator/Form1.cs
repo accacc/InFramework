@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Derin.Tools.CodeGenerator
@@ -29,7 +30,7 @@ namespace Derin.Tools.CodeGenerator
 
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ReflectionOnlyAssemblyResolve;
 
-            this.textBoxName.Text = "Test";
+            this.textBoxName.Text = "Application";
         }
 
         public static Assembly ReflectionOnlyAssemblyResolve(object sender,ResolveEventArgs args)
@@ -153,6 +154,7 @@ namespace Derin.Tools.CodeGenerator
 
             GenerateMvcModels(textBoxName.Text, classTreeList.First().Childs.First(),classType);
             GenerateContractClasses(textBoxName.Text, classTreeList.First().Childs.First(), classType);
+            GenerateDataHandlerClasses(textBoxName.Text, classTreeList.First().Childs.First(), classType);
         }
 
 
@@ -160,6 +162,26 @@ namespace Derin.Tools.CodeGenerator
         {
             CSClass gridClass = GenerateClass(className + "GridModel", classTree, classType);
             fileSystem.FormatCode(gridClass.GenerateCode(), "cs");
+        }
+
+        private void GenerateDataHandlerClasses(string className,ClassTree classTree, Type classType)
+        {
+            CSClass @class = new CSClass();
+            @class.Name = className + "DataQuery";
+            @class.InheritedInterfaces.Add($"I{className}Query");
+
+
+            CSMethod constructorMethod = new CSMethod(@class.Name + "Handle", "","public");
+            StringBuilder methodBody = new StringBuilder();
+            methodBody.AppendFormat("this.repository = repository;");
+            methodBody.AppendLine();           
+            constructorMethod.Body = methodBody.ToString();
+            @class.Methods.Add(constructorMethod);
+
+
+            var classes = @class.GenerateCode().Template + Environment.NewLine;
+
+            fileSystem.FormatCode(@class.GenerateCode(),"cs");
         }
 
         private void GenerateContractClasses(string className, ClassTree classTree, Type classType)
@@ -202,7 +224,7 @@ namespace Derin.Tools.CodeGenerator
 
             CSInterface @interface = new CSInterface();
             @interface.Name = $"I{className}Query";
-            @interface.InheritedInterfaces.Add($"IDataGetQueryAsync<{className}Request,{className}Response>");
+            @interface.InheritedInterfaces.Add($"IDataGetQuery<{className}Request,{className}Response>");
 
 
 

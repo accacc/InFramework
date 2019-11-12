@@ -14,9 +14,13 @@ namespace IF.CodeGeneration.CSharp
         public CSClass()
         {
             this.Properties = new List<CSProperty>();
+            this.Methods = new List<CSMethod>();
+            this.InheritedInterfaces = new List<string>();
         }
 
         public List<CSProperty> Properties { get; set; }
+
+        public List<CSMethod> Methods { get; set; }
         public string Name { get; set; }
 
         public List<string> InheritedInterfaces { get; set; }
@@ -36,6 +40,11 @@ namespace IF.CodeGeneration.CSharp
 
             if (this.InheritedInterfaces != null && InheritedInterfaces.Any())
             {
+                if (String.IsNullOrEmpty(this.BaseClass))
+                {
+                    builder.Append(" : ");
+                }
+
                 builder.Append(String.Join(",", InheritedInterfaces));
             }
 
@@ -48,6 +57,11 @@ namespace IF.CodeGeneration.CSharp
             foreach (var property in Properties)
             {
                 builder.AppendLine(property.GenerateCode().Template);
+            }
+
+            foreach (var method in Methods)
+            {
+                builder.AppendLine(method.GenerateCode().Template);
             }
 
             builder.AppendLine();
