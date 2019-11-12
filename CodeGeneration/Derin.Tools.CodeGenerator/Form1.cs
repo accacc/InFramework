@@ -15,7 +15,6 @@ namespace Derin.Tools.CodeGenerator
     public partial class Form1 : Form
     {
 
-        DatabaseSchema schema;
         Assembiler assembiler;
 
         FileSystemCodeFormatProvider fileSystem = new FileSystemCodeFormatProvider(@"C:\Temp");
@@ -30,7 +29,7 @@ namespace Derin.Tools.CodeGenerator
 
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ReflectionOnlyAssemblyResolve;
 
-            
+            this.textBoxName.Text = "Test";
         }
 
         public static Assembly ReflectionOnlyAssemblyResolve(object sender,ResolveEventArgs args)
@@ -127,25 +126,6 @@ namespace Derin.Tools.CodeGenerator
 
             }
         }
-
-        //public void GetCheckedNodes(TreeNodeCollection nodes)
-        //{
-        //    foreach (System.Windows.Forms.TreeNode aNode in nodes)
-        //    {
-        //        //edit
-        //        if (aNode.Checked)
-        //            Console.WriteLine(aNode.Text);
-
-        //        if (aNode.Nodes.Count != 0)
-        //            GetCheckedNodes(aNode.Nodes);
-        //    }
-        //}
-
-
-
-      
-      
-
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
             if (String.IsNullOrWhiteSpace(textBoxName.Text))
@@ -159,85 +139,95 @@ namespace Derin.Tools.CodeGenerator
             MakeClassTree(modelTreeView.Nodes,classTreeList);
 
             GenerateCSharp(classTreeList);
-
-            //foreach (TreeNode assNode in modelTreeView.Nodes)
-            //{
-            //    if(assNode.IsExpanded)
-            //    {
-            //        foreach (TreeNode node in assNode.Nodes)
-            //        {
-            //            if(node.IsExpanded)
-            //            {
-
-            //                var type = ass.GetType(node.Name, node.Text);
-
-            //                foreach (PropertyInfo prop in type.GetProperties())
-            //                {
-
-            //                }
-            //            }
-
-            //        }
-            //    }
-            //}
+           
         }
 
         private void GenerateCSharp(List<ClassTree> classTreeList)
         {
 
             Assembly assembly = assembiler.AllAssembilies().Where(s => s.Key.GetName().Name == classTreeList.First().Name).SingleOrDefault().Key;
-            GenerateMvcModels(textBoxName.Text, classTreeList.First().Childs.First(),assembly);
+
+            string name = classTreeList.First().Childs.First().Name.Split('\\')[1];
+
+            Type classType = assembiler.AllAssembilies()[assembly].Where(t => t.Name == name).SingleOrDefault();
+
+            GenerateMvcModels(textBoxName.Text, classTreeList.First().Childs.First(),classType);
+            GenerateContractClasses(textBoxName.Text, classTreeList.First().Childs.First(), classType);
         }
 
 
-        private void GenerateMvcModels(string className, ClassTree sp, Assembly assembly)
+        private void GenerateMvcModels(string className, ClassTree classTree, Type classType)
         {
-            //CSClass gridFilterClass = new CSClass();
-
-            //gridFilterClass.Name = tablePascalCaseName + "GridFilterModel";
-
-            //foreach (var parameter in sp.Parameters)
-            //{
-            //    gridFilterClass.Properties.Add
-            //        (
-            //        new CSProperty(parameter.Type, "public", parameter.Alias, parameter.IsNullable)
-            //        );
-            //}
-
-
-
-            //fileSystem.FormatCode(gridFilterClass.GenerateCode(), "cs");
-
-
-            CSClass gridClass = GenerateClass(className+ "GridModel", sp, assembly);
-
+            CSClass gridClass = GenerateClass(className + "GridModel", classTree, classType);
             fileSystem.FormatCode(gridClass.GenerateCode(), "cs");
+        }
+
+        private void GenerateContractClasses(string className, ClassTree classTree, Type classType)
+        {
+
+            CSClass @class = new CSClass();
+            @class.Name = className + "Dto";
+            @class.Properties = new List<CSProperty>();
+
+            foreach (var property in classTree.Childs)
+            {
+                @class.Properties.Add(GetClassProperty(classType, property.Name.Split('\\')[2]));
+            }
+
+
+
+            CSClass requestClass = new CSClass();
+            requestClass.BaseClass = "BaseRequest";
+            requestClass.Name = className + "ListRequest";
+
+
+            requestClass.Properties = new List<CSProperty>();
+
+            foreach (var property in classTree.Childs)
+            {
+                requestClass.Properties.Add(GetClassProperty(classType, property.Name.Split('\\')[2]));
+            }
+            CSClass responseClass = new CSClass();
+            responseClass.BaseClass = "BaseResponse";
+            responseClass.Name = className + "ListResponse";
+
+
+
+            CSProperty dtoProperty = new CSProperty(null, "public", "Data", false);
+            dtoProperty.PropertyTypeString = String.Format("List<{0}ListDto>", className);
+
+            responseClass.Properties.Add(dtoProperty);
+
+
+            var classes = @class.GenerateCode().Template + Environment.NewLine + requestClass.GenerateCode().Template + Environment.NewLine + responseClass.GenerateCode().Template;
+
+            fileSystem.FormatCode(classes, "cs", className + "Dto");
 
 
 
         }
 
-        private CSClass GenerateClass(string className, ClassTree sp, Assembly assembly)
+        private CSClass GenerateClass(string className, ClassTree classTree,Type classType)
         {
             CSClass @class = new CSClass();
 
             @class.Name = className;
 
-            foreach (var column in sp.Childs)
+            foreach (var property in classTree.Childs)
             {
-                var classNames = column.Name.Split('\\');
-
-                Type classType = assembiler.AllAssembilies()[assembly].Where(t => t.Name == classNames[1]).SingleOrDefault();
-
-                var property = classType.GetProperty(classNames[2]);
-
-                @class.Properties.Add(new CSProperty(property.PropertyType, "public", property.Name, property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>)));
+                CSProperty classProperty = GetClassProperty(classType, property.Name.Split('\\')[2]);
+                @class.Properties.Add(classProperty);
             }
 
             return @class;
         }
 
-
+        private CSProperty GetClassProperty(Type classType, string propertyName)
+        {
+            var property = classType.GetProperty(propertyName);
+            var classProperty = new CSProperty(property.PropertyType, "public", property.Name, property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>));
+            return classProperty;
+        }
 
         private void modelTreeView_AfterCheck(object sender, TreeViewEventArgs e)
         {          
