@@ -1,6 +1,4 @@
-﻿//using System.ComponentModel.DataAnnotations;
-
-
+﻿
 namespace IF.Core.Data
 {
     public interface IEntity
