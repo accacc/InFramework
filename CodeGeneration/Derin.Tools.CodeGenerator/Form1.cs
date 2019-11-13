@@ -18,6 +18,8 @@ namespace Derin.Tools.CodeGenerator
 
         Assembiler assembiler;
 
+        string path = @"C:\Temp";
+
         FileSystemCodeFormatProvider fileSystem = new FileSystemCodeFormatProvider(@"C:\Temp");
 
         public Form1()
@@ -32,6 +34,7 @@ namespace Derin.Tools.CodeGenerator
 
             this.textBoxName.Text = "Application";
             this.textBoxNameSpace.Text = "Gedik.SSO";
+            this.textBoxTitle.Text = "Uygulama Yönetimi";
         }
 
         public static Assembly ReflectionOnlyAssemblyResolve(object sender,ResolveEventArgs args)
@@ -159,10 +162,158 @@ namespace Derin.Tools.CodeGenerator
 
             Type classType = assembiler.AllAssembilies()[assembly].Where(t => t.Name == name).SingleOrDefault();
 
-            GenerateMvcModels(textBoxName.Text, textBoxNameSpace.Text,classTreeList.First().Childs.First(),classType);
+            
             GenerateContractClasses(textBoxName.Text, textBoxNameSpace.Text, classTreeList.First().Childs.First(), classType);
             GenerateDataQueryHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTreeList.First().Childs.First(), classType);
             GenerateHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTreeList.First().Childs.First(), classType);
+            GenerateControllerMethods(textBoxName.Text, textBoxNameSpace.Text, classTreeList.First().Childs.First(), classType);
+            GenerateMvcModels(textBoxName.Text, textBoxNameSpace.Text, classTreeList.First().Childs.First(), classType);
+            GenerateMvcIndexView(textBoxName.Text, textBoxNameSpace.Text, classTreeList.First().Childs.First(), classType);
+            GenerateMvcGridView(textBoxName.Text, textBoxNameSpace.Text, classTreeList.First().Childs.First(), classType);
+
+            fileSystem.ExploreFile(@"C:\Temp");
+        }
+
+        private void GenerateMvcGridView(string className, string namespaceName, ClassTree classTree, Type classType)
+        {
+
+
+            StringBuilder builder = new StringBuilder();
+
+            builder.AppendLine($"@model List<{namespaceName}.Models.{className}GridModel>");
+            builder.AppendLine();
+
+
+            builder.AppendLine("<table>");
+            builder.AppendLine("<tr>");
+            builder.AppendLine("<td>");
+
+            builder.AppendLine("<a class=\"btn btn-primary\"");
+            builder.AppendLine($"href=\"@Url.Action(\"{className}Create\")\"");
+            builder.AppendLine("if-ajax=\"true\"");
+            builder.AppendLine("if-ajax-method=\"get\"");
+            builder.AppendLine("if-ajax-mode=\"replace\"");
+            builder.AppendLine("if-ajax-show-dialog=\"true\"");
+            builder.AppendLine("if-ajax-modal-id=\"@Guid.NewGuid()\">");
+            builder.AppendLine("Ekle");
+            builder.AppendLine("</a>");
+
+            builder.AppendLine("</td>");
+            builder.AppendLine("</tr>");
+            builder.AppendLine("</table>");
+
+
+            builder.AppendLine("<table class=\"table table-striped table-sm\">");
+            builder.AppendLine("<tr>");
+
+            CSClass gridClass = GenerateClass(className, classTree, classType);
+
+            foreach (var item in gridClass.Properties)
+            {
+                builder.AppendLine("<th>");
+                builder.AppendLine(item.Name);
+                builder.AppendLine("</th>");
+            }
+
+
+            builder.AppendLine("</tr>");
+
+            builder.AppendLine("@if(Model != null && Model.Any())");
+            builder.AppendLine("{");
+            builder.AppendLine("@foreach (var item in Model)");
+            builder.AppendLine("{");
+            builder.AppendLine("<tr>");
+
+            foreach (var item in gridClass.Properties)
+            {
+                builder.AppendLine("<td>");
+                builder.AppendLine($"@Html.DisplayFor(modelItem => item.{item.Name})");
+                builder.AppendLine("</td>");
+            }
+
+
+            builder.AppendLine("<td>");
+
+            builder.AppendLine("<a class=\"btn btn-primary\"");
+            builder.AppendLine($"href=\"@Url.Action(\"{className}Edit\")\"");
+            builder.AppendLine("if-ajax=\"true\"");
+            builder.AppendLine("if-ajax-method=\"get\"");
+            builder.AppendLine("if-ajax-mode=\"replace\"");
+            builder.AppendLine("if-ajax-show-dialog=\"true\"");
+            builder.AppendLine("if-ajax-modal-id=\"@Guid.NewGuid()\">");
+            builder.AppendLine("Düzenle");
+            builder.AppendLine("</a>");
+
+            builder.AppendLine("</td>");
+
+            builder.AppendLine("</tr>");
+
+            builder.AppendLine("}");
+            builder.AppendLine("}");
+            builder.AppendLine("else");
+            builder.AppendLine("{");
+            builder.AppendLine("@:Veri bulunamadı, Lütfen Kriter seçiniz");
+            builder.AppendLine("}");
+            builder.AppendLine("</table>");
+
+            fileSystem.FormatCode(builder.ToString(), "cshtml", "_GridView");
+        }
+
+        private void GenerateMvcIndexView(string className, string namespaceName, ClassTree classTree, Type classType)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine($"@model List<{namespaceName}.Models.{className}GridModel>");
+            builder.AppendLine();
+            builder.AppendLine($"@{{ViewBag.Title = \"{textBoxTitle.Text}\"; }}");
+            builder.AppendLine();
+            builder.AppendLine("@{");
+            builder.AppendLine("Layout = \"~/Views/Shared/_GridLayout.cshtml\";");
+            builder.AppendLine();
+            builder.AppendLine("@section GridView");
+            builder.AppendLine("{");
+            builder.AppendLine();
+            builder.AppendLine($"@{{await Html.RenderPartialAsync(\"~/Views/Security/{className}/_GridView.cshtml\", Model);}}");
+            builder.AppendLine();
+            builder.AppendLine("}");
+
+            //@model List<Gedik.SSO.Models.ApplicationGridModel>
+
+            //@{ViewBag.Title = "Uygulama Yönetimi"; }
+
+            //@{
+            //    Layout = "~/Views/Shared/_GridLayout.cshtml";
+            //}
+
+            //@section GridView
+            //{
+            //    @{await Html.RenderPartialAsync("~/Views/Security/Application/_GridView.cshtml", Model);}
+            //}
+
+            fileSystem.FormatCode(builder.ToString(), "cshtml", "Index");
+
+        }
+
+        private void GenerateControllerMethods(string className, string namespaceName, ClassTree classTree, Type classType)
+        {
+
+
+
+            CSMethod method = new CSMethod(className + "Index", "ActionResult", "public");
+            method.IsAsync = true;
+
+            StringBuilder methodBody = new StringBuilder();
+
+
+            //var list = await this.dispatcher.QueryAsync<ApplicationRequest, ApplicationResponse>(new ApplicationRequest());
+            //var model = list.MapTo<ApplicationGridModel>();
+            //return View("~/Views/Security/Application/Index.cshtml", model);
+
+            methodBody.AppendLine($"var list = await this.dispatcher.QueryAsync<{className}Request, {className}Response>(new {className}Request());");
+            methodBody.AppendLine($"var model = list.Data.MapTo<{className}GridModel>();");
+            methodBody.AppendFormat($"return View(\"~/Views/Security/{className}/Index.cshtml\", model);");
+            method.Body = methodBody.ToString();
+
+            fileSystem.FormatCode(method.GenerateCode(), "cs");
         }
 
 
@@ -281,16 +432,7 @@ namespace Derin.Tools.CodeGenerator
             CSClass requestClass = new CSClass();
             //requestClass.NameSpace = namespaceName + ".Contract.Queries";
             requestClass.BaseClass = "BaseRequest";
-            requestClass.Name = className + "Request";
-
-
-            requestClass.Properties = new List<CSProperty>();
-
-            foreach (var property in classTree.Childs)
-            {
-                requestClass.Properties.Add(GetClassProperty(classType, property.Name.Split('\\')[2]));
-            }
-
+            requestClass.Name = className + "Request";          
 
             CSClass responseClass = new CSClass();
             //responseClass.NameSpace = namespaceName + ".Contract.Queries";

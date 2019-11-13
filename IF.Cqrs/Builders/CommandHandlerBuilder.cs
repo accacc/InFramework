@@ -38,6 +38,12 @@ namespace IF.Dependency.Builders
         {
             dependencyInjection.RegisterDecorators(assemblies, this.handlers);
             dependencyInjection.RegisterImplementedInterface<IDataCommand>(assemblies, DependencyScope.PerInstance);
+
+            if (this.IsAsync)
+            {
+                dependencyInjection.RegisterImplementedInterface<IDataCommandAsync>(assemblies, DependencyScope.PerInstance);
+            }
+
             return this.dependencyInjection;
         }
     }

@@ -31,9 +31,7 @@ namespace FOFramework.CodeGeneration.Core
 
                 indentWriter.Indent = 0;
                 indentWriter.WriteLine(template.Template);
-            }
-
-            ExploreFile(path);
+            }            
 
         }
 

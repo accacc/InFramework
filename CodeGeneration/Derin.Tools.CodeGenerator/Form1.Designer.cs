@@ -38,6 +38,8 @@
             this.labelName = new System.Windows.Forms.Label();
             this.labelNameSpace = new System.Windows.Forms.Label();
             this.textBoxNameSpace = new System.Windows.Forms.TextBox();
+            this.labelTitle = new System.Windows.Forms.Label();
+            this.textBoxTitle = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // modelTreeView
@@ -66,7 +68,7 @@
             this.buttonGenerate.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.buttonGenerate.Size = new System.Drawing.Size(120, 23);
             this.buttonGenerate.TabIndex = 2;
-            this.buttonGenerate.Text = "Generate";
+            this.buttonGenerate.Text = "Generate Mvc Grid";
             this.buttonGenerate.UseVisualStyleBackColor = true;
             this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
             // 
@@ -132,11 +134,29 @@
             this.textBoxNameSpace.Size = new System.Drawing.Size(195, 20);
             this.textBoxNameSpace.TabIndex = 11;
             // 
+            // labelTitle
+            // 
+            this.labelTitle.AutoSize = true;
+            this.labelTitle.Location = new System.Drawing.Point(828, 178);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(27, 13);
+            this.labelTitle.TabIndex = 14;
+            this.labelTitle.Text = "Title";
+            // 
+            // textBoxTitle
+            // 
+            this.textBoxTitle.Location = new System.Drawing.Point(919, 175);
+            this.textBoxTitle.Name = "textBoxTitle";
+            this.textBoxTitle.Size = new System.Drawing.Size(195, 20);
+            this.textBoxTitle.TabIndex = 13;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1136, 508);
+            this.Controls.Add(this.labelTitle);
+            this.Controls.Add(this.textBoxTitle);
             this.Controls.Add(this.labelNameSpace);
             this.Controls.Add(this.textBoxNameSpace);
             this.Controls.Add(this.labelName);
@@ -166,6 +186,8 @@
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Label labelNameSpace;
         private System.Windows.Forms.TextBox textBoxNameSpace;
+        private System.Windows.Forms.Label labelTitle;
+        private System.Windows.Forms.TextBox textBoxTitle;
     }
 }
 
