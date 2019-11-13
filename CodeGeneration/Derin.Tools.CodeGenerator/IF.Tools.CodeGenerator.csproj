@@ -92,5 +92,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\IF.Persistence\IF.Persistence.csproj">
+      <Project>{E3383244-F33B-45A3-9A1A-6620BFC33672}</Project>
+      <Name>IF.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FOFramework.CodeGeneration.Core\InFramework.CodeGeneration.Core.csproj">
+      <Project>{55d2a84e-23a2-4194-b00b-6df0c03b5eb2}</Project>
+      <Name>InFramework.CodeGeneration.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FOFramework.CodeGeneration.CSharp\InFramework.CodeGeneration.Language.CSharp.csproj">
+      <Project>{56ea9a0d-5771-4ec7-8e5d-d6cad0fefb33}</Project>
+      <Name>InFramework.CodeGeneration.Language.CSharp</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

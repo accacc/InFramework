@@ -17,6 +17,8 @@ namespace IF.CodeGeneration.CSharp
 
         public bool IsNullable { get; set; }
 
+        public bool IsReadOnly { get; set; }
+
         public string PropertyTypeString { get; set; }
 
         public CSProperty(Type type, string accessType, string Name, bool IsNullable)
@@ -29,7 +31,7 @@ namespace IF.CodeGeneration.CSharp
 
         public CodeTemplate GenerateCode()
         {
-            string codeTemplate = @"{0} {1} {2} {{ get; set; }}";
+            //string codeTemplate = @"{0} {1} {2} {{ get; set; }}";
 
             CodeTemplate template = new CodeTemplate();
 
@@ -45,7 +47,16 @@ namespace IF.CodeGeneration.CSharp
                 type = type + "?";
             }
 
-            template.Template = String.Format(codeTemplate, AccessType, type,Name);
+            string @readonly = "";
+            string getset = "{{ get; set; }}";
+
+            if (this.IsReadOnly)
+            {
+                @readonly = "readonly";
+                getset = ";";
+            }
+
+            template.Template = $"{AccessType} {@readonly} {type} {Name} {getset}";
 
             return template;
         }

@@ -170,7 +170,8 @@ namespace Derin.Tools.CodeGenerator
             @class.Name = className + "DataQuery";
             @class.InheritedInterfaces.Add($"I{className}Query");
 
-            var repositoryProperty = new CSProperty(typeof(IRepository), "private readonly", "repository", false);
+            var repositoryProperty = new CSProperty(typeof(IRepository), "private", "repository", false);
+            repositoryProperty.IsReadOnly = true;
             @class.Properties.Add(repositoryProperty);
 
 
@@ -186,6 +187,15 @@ namespace Derin.Tools.CodeGenerator
             CSMethod handleMethod = new CSMethod("Get", className + "Response", "public");
             handleMethod.IsAsync = true;
             handleMethod.Parameters.Add(new CsMethodParameter() { Name = "request", Type = className + "Request" });
+            handleMethod.Body += $"var data = await this.repository.GetQuery<{classType.Name}>()"+ Environment.NewLine;
+            handleMethod.Body += $".Select(x => new TestDto" + Environment.NewLine;
+            handleMethod.Body += $"{{" + Environment.NewLine;
+            foreach (var property in classTree.Childs)
+            {
+                CSProperty classProperty = GetClassProperty(classType, property.Name.Split('\\')[2]);
+                handleMethod.Body += $"{classProperty.Name} = x.{classProperty.Name}," + Environment.NewLine;
+            }
+            handleMethod.Body += $"}})).ToListAsync();" + Environment.NewLine;
 
             @class.Methods.Add(handleMethod);
 
