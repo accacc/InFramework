@@ -21,9 +21,9 @@ namespace IF.Core.Sms
 
         public List<SmsBatchItemModel> Messages { get; set; }
 
-        public DateTime? StartDate { get; set; }
+        public string StartDate { get; set; }
 
-        public DateTime? EndDate { get; set; }
+        public string EndDate { get; set; }
         public bool Force { get; set; }
 
         public string SenderPrefixName { get; set; }

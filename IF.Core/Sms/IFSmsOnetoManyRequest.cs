@@ -24,8 +24,8 @@ namespace IF.Core.Sms
         public string CallBackNumberId { get; set; }
         public string CallBackPrefixName { get; set; }
         public string SenderPrefixName { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
 
         public string BulkName { get; set; }
 

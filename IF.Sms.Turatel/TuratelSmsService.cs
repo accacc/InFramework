@@ -315,8 +315,8 @@ namespace IF.Sms.Turatel
                     new XElement("Originator", request.Subject),
                     new XElement("Mesgbody", templateMessage),
                     new XElement("Numbers", string.Join(",", request.Numbers.Select(s=>s.Number))),
-                    new XElement("SDate", DatetimeToString(request.StartDate)),
-                    new XElement("EDate", DatetimeToString(request.EndDate))
+                    new XElement("SDate", request.StartDate),
+                    new XElement("EDate", request.EndDate)
                 )
             );
 
@@ -367,8 +367,8 @@ namespace IF.Sms.Turatel
                    new XElement("Originator", request.Subject),
                    messageDoc,
 
-                    new XElement("SDate", DatetimeToString(request.StartDate)),
-                    new XElement("EDate", DatetimeToString(request.EndDate))
+                    new XElement("SDate", request.StartDate),
+                    new XElement("EDate", request.EndDate)
                )
            );
 

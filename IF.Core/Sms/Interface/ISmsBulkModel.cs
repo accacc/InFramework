@@ -12,8 +12,8 @@ namespace IF.Core.Sms.Interface
         string CallBackNumberId { get; set; }
         string CallBackPrefixName { get; set; }
         string SenderPrefixName { get; set; }
-        DateTime? StartDate { get; set; }
-        DateTime? EndDate { get; set; }
+        string StartDate { get; set; }
+        string EndDate { get; set; }
         string BulkName { get; set; }
 
 
