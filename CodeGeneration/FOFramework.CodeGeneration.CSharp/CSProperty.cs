@@ -29,6 +29,13 @@ namespace IF.CodeGeneration.CSharp
             this.IsNullable = IsNullable;
         }
 
+        public CSProperty(string accessType, string Name, bool IsNullable)
+        {            
+            this.AccessType = accessType;
+            this.Name = Name;
+            this.IsNullable = IsNullable;
+        }
+
         public CodeTemplate GenerateCode()
         {
             //string codeTemplate = @"{0} {1} {2} {{ get; set; }}";
@@ -48,7 +55,7 @@ namespace IF.CodeGeneration.CSharp
             }
 
             string @readonly = "";
-            string getset = "{{ get; set; }}";
+            string getset = "{ get; set; }";
 
             if (this.IsReadOnly)
             {

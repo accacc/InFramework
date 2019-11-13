@@ -31,6 +31,7 @@ namespace Derin.Tools.CodeGenerator
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ReflectionOnlyAssemblyResolve;
 
             this.textBoxName.Text = "Application";
+            this.textBoxNameSpace.Text = "Gedik.SSO";
         }
 
         public static Assembly ReflectionOnlyAssemblyResolve(object sender,ResolveEventArgs args)
@@ -135,6 +136,12 @@ namespace Derin.Tools.CodeGenerator
                 return;
             }
 
+            if (String.IsNullOrWhiteSpace(textBoxNameSpace.Text))
+            {
+                MessageBox.Show(@"Please enter the NameSpace.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
             var classTreeList = new List<ClassTree>();
 
             MakeClassTree(modelTreeView.Nodes,classTreeList);
@@ -152,30 +159,80 @@ namespace Derin.Tools.CodeGenerator
 
             Type classType = assembiler.AllAssembilies()[assembly].Where(t => t.Name == name).SingleOrDefault();
 
-            GenerateMvcModels(textBoxName.Text, classTreeList.First().Childs.First(),classType);
-            GenerateContractClasses(textBoxName.Text, classTreeList.First().Childs.First(), classType);
-            GenerateDataHandlerClasses(textBoxName.Text, classTreeList.First().Childs.First(), classType);
+            GenerateMvcModels(textBoxName.Text, textBoxNameSpace.Text,classTreeList.First().Childs.First(),classType);
+            GenerateContractClasses(textBoxName.Text, textBoxNameSpace.Text, classTreeList.First().Childs.First(), classType);
+            GenerateDataQueryHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTreeList.First().Childs.First(), classType);
+            GenerateHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTreeList.First().Childs.First(), classType);
         }
 
 
-        private void GenerateMvcModels(string className, ClassTree classTree, Type classType)
+        private void GenerateMvcModels(string className,string namespaceName ,ClassTree classTree, Type classType)
         {
             CSClass gridClass = GenerateClass(className + "GridModel", classTree, classType);
+            gridClass.NameSpace = namespaceName;
             fileSystem.FormatCode(gridClass.GenerateCode(), "cs");
         }
 
-        private void GenerateDataHandlerClasses(string className,ClassTree classTree, Type classType)
+        private void GenerateHandlerClass(string className, string namespaceName, ClassTree classTree, Type classType)
         {
             CSClass @class = new CSClass();
-            @class.Name = className + "DataQuery";
-            @class.InheritedInterfaces.Add($"I{className}Query");
+            @class.Name = className + "Handler";
+            @class.NameSpace = namespaceName + ".Queries.Cqrs";
+            @class.Usings.Add("IF.Core.Data");
+            @class.Usings.Add($"{namespaceName}.Contract.Queries");
+            @class.Usings.Add("System.Threading.Tasks");
+            @class.Usings.Add($"{namespaceName}.Persistence.EF.Queries");
+
+            @class.InheritedInterfaces.Add($"IQueryHandlerAsync<{className}Request, {className}Response>");
+
+            var repositoryProperty = new CSProperty("private", "query", false);
+            repositoryProperty.PropertyTypeString = GetDataQueryIntarfaceName(className);
+            repositoryProperty.IsReadOnly = true;
+            @class.Properties.Add(repositoryProperty);
+
+
+            CSMethod constructorMethod = new CSMethod(@class.Name, "", "public");
+            constructorMethod.Parameters.Add(new CsMethodParameter() { Name = "query", Type = GetDataQueryIntarfaceName(className) });
+            StringBuilder methodBody = new StringBuilder();
+            methodBody.AppendFormat("this.query = query;");
+            methodBody.AppendLine();
+            constructorMethod.Body = methodBody.ToString();
+            @class.Methods.Add(constructorMethod);
+
+            CSMethod handleMethod = new CSMethod("Handle", className + "Response", "public");
+            handleMethod.IsAsync = true;
+            handleMethod.Parameters.Add(new CsMethodParameter() { Name = "request", Type = className + "Request" });
+            handleMethod.Body += $"return await this.query.GetAsync(request);" + Environment.NewLine;           
+
+            @class.Methods.Add(handleMethod);
+
+            fileSystem.FormatCode(@class.GenerateCode(), "cs");
+
+        }
+
+        private void GenerateDataQueryHandlerClass(string className, string namespaceName, ClassTree classTree, Type classType)
+        {
+            CSClass @class = new CSClass();
+
+            @class.Name = GetDataQueryClassName(className);
+            @class.NameSpace = namespaceName + ".Persistence.EF.Queries";
+
+            @class.Usings.Add($"{namespaceName}.Contract.Queries");
+            @class.Usings.Add($"{namespaceName}.Persistence.EF.Models");
+            @class.Usings.Add("System.Threading.Tasks");
+            @class.Usings.Add($"IF.Persistence");
+            @class.Usings.Add($"System.Linq");
+            @class.Usings.Add($"Microsoft.EntityFrameworkCore");
+
+
+            @class.InheritedInterfaces.Add(GetDataQueryIntarfaceName(className));
 
             var repositoryProperty = new CSProperty(typeof(IRepository), "private", "repository", false);
             repositoryProperty.IsReadOnly = true;
             @class.Properties.Add(repositoryProperty);
 
 
-            CSMethod constructorMethod = new CSMethod(@class.Name + "Handle", "","public");
+            CSMethod constructorMethod = new CSMethod(@class.Name, "","public");
             constructorMethod.Parameters.Add(new CsMethodParameter() {Name = "repository",Type = "IRepository" });
             StringBuilder methodBody = new StringBuilder();
             methodBody.AppendFormat("this.repository = repository;");
@@ -188,25 +245,30 @@ namespace Derin.Tools.CodeGenerator
             handleMethod.IsAsync = true;
             handleMethod.Parameters.Add(new CsMethodParameter() { Name = "request", Type = className + "Request" });
             handleMethod.Body += $"var data = await this.repository.GetQuery<{classType.Name}>()"+ Environment.NewLine;
-            handleMethod.Body += $".Select(x => new TestDto" + Environment.NewLine;
+            handleMethod.Body += $".Select(x => new {className}Dto" + Environment.NewLine;
             handleMethod.Body += $"{{" + Environment.NewLine;
+
             foreach (var property in classTree.Childs)
             {
                 CSProperty classProperty = GetClassProperty(classType, property.Name.Split('\\')[2]);
                 handleMethod.Body += $"{classProperty.Name} = x.{classProperty.Name}," + Environment.NewLine;
             }
-            handleMethod.Body += $"}})).ToListAsync();" + Environment.NewLine;
+
+            handleMethod.Body += $"}}).ToListAsync();" + Environment.NewLine;
+
+            handleMethod.Body += $"return new {className}Response {{ Data = data }};" + Environment.NewLine;
 
             @class.Methods.Add(handleMethod);
 
-            fileSystem.FormatCode(@class.GenerateCode(),"cs");
+            fileSystem.FormatCode(@class.GenerateCode(), "cs");
         }
 
-        private void GenerateContractClasses(string className, ClassTree classTree, Type classType)
+        private void GenerateContractClasses(string className, string namespaceName, ClassTree classTree, Type classType)
         {
 
             CSClass @class = new CSClass();
             @class.Name = className + "Dto";
+            //@class.NameSpace = namespaceName + ".Contract.Queries";
             @class.Properties = new List<CSProperty>();
 
             foreach (var property in classTree.Childs)
@@ -217,6 +279,7 @@ namespace Derin.Tools.CodeGenerator
 
 
             CSClass requestClass = new CSClass();
+            //requestClass.NameSpace = namespaceName + ".Contract.Queries";
             requestClass.BaseClass = "BaseRequest";
             requestClass.Name = className + "Request";
 
@@ -227,31 +290,48 @@ namespace Derin.Tools.CodeGenerator
             {
                 requestClass.Properties.Add(GetClassProperty(classType, property.Name.Split('\\')[2]));
             }
+
+
             CSClass responseClass = new CSClass();
+            //responseClass.NameSpace = namespaceName + ".Contract.Queries";
             responseClass.BaseClass = "BaseResponse";
             responseClass.Name = className + "Response";
-
-
-
             CSProperty dtoProperty = new CSProperty(null, "public", "Data", false);
             dtoProperty.PropertyTypeString = String.Format("List<{0}Dto>", className);
-
             responseClass.Properties.Add(dtoProperty);
 
-            
+
 
             CSInterface @interface = new CSInterface();
-            @interface.Name = $"I{className}Query";
-            @interface.InheritedInterfaces.Add($"IDataGetQuery<{className}Request,{className}Response>");
+            @interface.Name = GetDataQueryIntarfaceName(className);
+            @interface.InheritedInterfaces.Add($"IDataGetQueryAsync<{className}Request,{className}Response>");
 
-
-
-            var classes = @class.GenerateCode().Template + Environment.NewLine + requestClass.GenerateCode().Template + Environment.NewLine + responseClass.GenerateCode().Template + Environment.NewLine + @interface.GenerateCode().Template;
+            string classes = "";
+            classes += "using IF.Core.Data;";
+            classes += Environment.NewLine;
+            classes += "using System.Collections.Generic;";
+            classes += Environment.NewLine;
+            classes += Environment.NewLine;
+            classes += "namespace " + namespaceName + ".Contract.Queries";
+            classes += Environment.NewLine;
+            classes += "{";
+            classes += Environment.NewLine;
+            classes += @class.GenerateCode().Template + Environment.NewLine + requestClass.GenerateCode().Template + Environment.NewLine + responseClass.GenerateCode().Template + Environment.NewLine + @interface.GenerateCode().Template;
+            classes += Environment.NewLine;
+            classes += "}";
 
             fileSystem.FormatCode(classes, "cs", className);
 
+        }
 
+        private static string GetDataQueryIntarfaceName(string className)
+        {
+            return $"I{className}DataQueryAsync";
+        }
 
+        private static string GetDataQueryClassName(string className)
+        {
+            return $"{className}DataQueryAsync";
         }
 
         private CSClass GenerateClass(string className, ClassTree classTree,Type classType)

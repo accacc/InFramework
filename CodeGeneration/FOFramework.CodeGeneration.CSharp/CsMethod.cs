@@ -54,7 +54,7 @@ namespace IF.CodeGeneration.CSharp
                 name = name + "Async";
             }
 
-            StringBuilder builder = new StringBuilder($"{accessType} {returnType} {name} ({@params})");            
+            StringBuilder builder = new StringBuilder($"{accessType} {returnType} {name} ({@params})");         
 
             builder.AppendLine("{");
 

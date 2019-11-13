@@ -36,6 +36,8 @@
             this.checkBoxSwift = new System.Windows.Forms.CheckBox();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.labelName = new System.Windows.Forms.Label();
+            this.labelNameSpace = new System.Windows.Forms.Label();
+            this.textBoxNameSpace = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // modelTreeView
@@ -100,7 +102,7 @@
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(929, 52);
+            this.textBoxName.Location = new System.Drawing.Point(919, 55);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(195, 20);
             this.textBoxName.TabIndex = 9;
@@ -114,11 +116,29 @@
             this.labelName.TabIndex = 10;
             this.labelName.Text = "Name";
             // 
+            // labelNameSpace
+            // 
+            this.labelNameSpace.AutoSize = true;
+            this.labelNameSpace.Location = new System.Drawing.Point(828, 122);
+            this.labelNameSpace.Name = "labelNameSpace";
+            this.labelNameSpace.Size = new System.Drawing.Size(66, 13);
+            this.labelNameSpace.TabIndex = 12;
+            this.labelNameSpace.Text = "NameSpace";
+            // 
+            // textBoxNameSpace
+            // 
+            this.textBoxNameSpace.Location = new System.Drawing.Point(919, 119);
+            this.textBoxNameSpace.Name = "textBoxNameSpace";
+            this.textBoxNameSpace.Size = new System.Drawing.Size(195, 20);
+            this.textBoxNameSpace.TabIndex = 11;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1136, 508);
+            this.Controls.Add(this.labelNameSpace);
+            this.Controls.Add(this.textBoxNameSpace);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.checkBoxSwift);
@@ -144,6 +164,8 @@
         private System.Windows.Forms.CheckBox checkBoxSwift;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Label labelName;
+        private System.Windows.Forms.Label labelNameSpace;
+        private System.Windows.Forms.TextBox textBoxNameSpace;
     }
 }
 
