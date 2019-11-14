@@ -71,7 +71,7 @@
             this.buttonGenerate.TabIndex = 2;
             this.buttonGenerate.Text = "Generate Mvc Grid";
             this.buttonGenerate.UseVisualStyleBackColor = true;
-            this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
+            this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerateList_Click);
             // 
             // checkBoxCSharp
             // 
@@ -161,7 +161,7 @@
             this.buttonGenerateMvcForm.Text = "Generate Mvc Form";
             this.buttonGenerateMvcForm.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonGenerateMvcForm.UseVisualStyleBackColor = true;
-            this.buttonGenerateMvcForm.Click += new System.EventHandler(this.buttonGenerateMvcForm_Click);
+            this.buttonGenerateMvcForm.Click += new System.EventHandler(this.buttonGenerateCreate_Click);
             // 
             // Form1
             // 

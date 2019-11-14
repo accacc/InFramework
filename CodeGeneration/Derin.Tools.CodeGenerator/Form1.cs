@@ -1,8 +1,8 @@
-﻿
-using Derin.Tools.CodeGenerator.Generator;
-
-using IF.CodeGeneration.Core;
+﻿using IF.CodeGeneration.Core;
 using IF.Core.Data;
+using IF.Tools.CodeGenerator;
+using IF.Tools.CodeGenerator.Generator;
+using IF.Tools.CodeGenerator.VsAutomation;
 
 using System;
 using System.Collections.Generic;
@@ -17,29 +17,36 @@ namespace Derin.Tools.CodeGenerator
     {
 
         private readonly Assembiler assembiler;
+        private readonly FileSystemCodeFormatProvider fileSystem;
+        private readonly VsManager vsManager;
 
-        private readonly string path = @"C:\temp";
+        private readonly string basePath = @"C:\temp";
+        private readonly string solutionPath = @"C:\Projects";
+        private readonly string solutionName = @"Gedik.SSO";
+        
 
-        FileSystemCodeFormatProvider fileSystem;
+        
 
         public Form1()
-        {
-            fileSystem = new FileSystemCodeFormatProvider(path);
-
-            this.assembiler = new Assembiler();
+        {            
 
             InitializeComponent();
+
+            this.fileSystem = new FileSystemCodeFormatProvider(basePath);
+            this.assembiler = new Assembiler();
+            this.vsManager = new VsManager(solutionName, solutionPath, basePath);
+
 
             this.modelTreeView.CheckBoxes = true;
 
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ReflectionOnlyAssemblyResolve;
 
-            this.textBoxName.Text = "ApplicationCreate";
+            this.textBoxName.Text = "ApplicationCreate6";
             this.textBoxNameSpace.Text = "Gedik.SSO";
             this.textBoxTitle.Text = "Uygulama Yönetimi";
         }
 
-        public static Assembly ReflectionOnlyAssemblyResolve(object sender,ResolveEventArgs args)
+        public  Assembly ReflectionOnlyAssemblyResolve(object sender,ResolveEventArgs args)
         {
             if(args.Name.Contains("Microsoft.EntityFrameworkCore"))
             {
@@ -48,7 +55,7 @@ namespace Derin.Tools.CodeGenerator
 
             if (args.Name.Contains("Gedik.SSO.Contract"))
             {
-                return Assembly.ReflectionOnlyLoadFrom(@"C:\Projects\Gedik.SSO\Gedik.SSO.Contract\bin\Debug\netstandard2.0\Gedik.SSO.Contract.dll");
+                return Assembly.ReflectionOnlyLoadFrom($@"{solutionPath}\{solutionName}\{solutionName}.Contract\bin\Debug\netstandard2.0\Gedik.SSO.Contract.dll");
             }
 
             return Assembly.ReflectionOnlyLoad(args.Name);
@@ -58,6 +65,9 @@ namespace Derin.Tools.CodeGenerator
 
         private void buttonLoadModel_Click(object sender, EventArgs e)
         {
+
+           
+
             assembiler.AddAssemly<Entity>(@"C:\Projects\Gedik.SSO\Gedik.SSO.Persistence.EF\bin\Debug\netstandard2.0\Gedik.SSO.Persistence.EF.dll");
 
             modelTreeView.Nodes.Clear();
@@ -138,52 +148,9 @@ namespace Derin.Tools.CodeGenerator
 
             }
         }
-        private void buttonGenerate_Click(object sender, EventArgs e)
-        {
-            if (String.IsNullOrWhiteSpace(textBoxName.Text))
-            {
-                MessageBox.Show(@"Please enter the Name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
-
-            if (String.IsNullOrWhiteSpace(textBoxNameSpace.Text))
-            {
-                MessageBox.Show(@"Please enter the NameSpace.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
-
-            var classTreeList = new List<ClassTree>();
-
-            MakeClassTree(modelTreeView.Nodes, classTreeList);
-
-            Assembly assembly = assembiler.AllAssembilies().Where(s => s.Key.GetName().Name == classTreeList.First().Name).SingleOrDefault().Key;
-
-            string name = classTreeList.First().Childs.First().Name.Split('\\')[1];
-
-            Type classType = assembiler.AllAssembilies()[assembly].Where(t => t.Name == name).SingleOrDefault();
-
-            CSListGenerator codeGenerator = new CSListGenerator(fileSystem);
-
-            var classTree = classTreeList.First().Childs.First();
-
-            codeGenerator.GenerateContractClasses(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            codeGenerator.GenerateDataQueryHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            codeGenerator.GenerateHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            codeGenerator.GenerateControllerMethods(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            codeGenerator.GenerateMvcModels(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            codeGenerator.GenerateMvcIndexView(textBoxName.Text, textBoxNameSpace.Text, textBoxTitle.Text, classTree, classType);
-            codeGenerator.GenerateMvcGridView(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-
-            fileSystem.ExploreDirectory(path);
-
-        }
-
-        
-
-
 
         private void modelTreeView_AfterCheck(object sender, TreeViewEventArgs e)
-        {          
+        {
 
 
             var node = e.Node;
@@ -199,16 +166,16 @@ namespace Derin.Tools.CodeGenerator
                 parent.Nodes.Clear();
                 TreeNode currentNode = new TreeNode();
                 currentNode.Text = node.Text;
-                currentNode.Name = parent.Name;              
+                currentNode.Name = parent.Name;
                 currentNode.Checked = true;
                 GetChildNodes(currentNode);
-                parent.Nodes.Add(currentNode);                
+                parent.Nodes.Add(currentNode);
                 currentNode.Expand();
 
             }
 
             SelectParents(node, node.Checked);
-            
+
         }
 
         private void SelectParents(TreeNode node, Boolean isChecked)
@@ -252,7 +219,47 @@ namespace Derin.Tools.CodeGenerator
             }
         }
 
-        private void buttonGenerateMvcForm_Click(object sender, EventArgs e)
+        private void buttonGenerateList_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(textBoxName.Text))
+            {
+                MessageBox.Show(@"Please enter the Name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            if (String.IsNullOrWhiteSpace(textBoxNameSpace.Text))
+            {
+                MessageBox.Show(@"Please enter the NameSpace.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            var classTreeList = new List<ClassTree>();
+
+            MakeClassTree(modelTreeView.Nodes, classTreeList);
+
+            Assembly assembly = assembiler.AllAssembilies().Where(s => s.Key.GetName().Name == classTreeList.First().Name).SingleOrDefault().Key;
+
+            string name = classTreeList.First().Childs.First().Name.Split('\\')[1];
+
+            Type classType = assembiler.AllAssembilies()[assembly].Where(t => t.Name == name).SingleOrDefault();
+
+            CSListGenerator codeGenerator = new CSListGenerator(fileSystem);
+
+            var classTree = classTreeList.First().Childs.First();
+
+            codeGenerator.GenerateContractClasses(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            codeGenerator.GenerateDataQueryHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            codeGenerator.GenerateHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            codeGenerator.GenerateControllerMethods(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            codeGenerator.GenerateMvcModels(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            codeGenerator.GenerateMvcIndexView(textBoxName.Text, textBoxNameSpace.Text, textBoxTitle.Text, classTree, classType);
+            codeGenerator.GenerateMvcGridView(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+
+            fileSystem.ExploreDirectory(basePath);
+
+        }
+
+        private void buttonGenerateCreate_Click(object sender, EventArgs e)
         {
 
             if (String.IsNullOrWhiteSpace(textBoxName.Text))
@@ -288,8 +295,15 @@ namespace Derin.Tools.CodeGenerator
             codeGenerator.GenerateMvcModels(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
             codeGenerator.GenerateMvcFormView(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
 
+            vsManager.AddVisualStudio("Contract","Commands", textBoxName.Text);
 
-            fileSystem.ExploreDirectory(path);
+            fileSystem.ExploreDirectory(basePath);
         }
+
+       
+
+        
+
+
     }
 }

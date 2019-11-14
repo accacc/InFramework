@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Derin.Tools.CodeGenerator.Generator
+namespace IF.Tools.CodeGenerator.Generator
 {
     public class CSListGenerator:CSGeneratorBase
     {
