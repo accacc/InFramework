@@ -15,10 +15,13 @@ namespace IF.CodeGeneration.CSharp
             this.ReturnType = ReturnType;
             this.AccessType = AccessType;
             this.Parameters = new List<CsMethodParameter>();
+            this.Attirubites = new List<string>();
+
         }
 
         public List<CsMethodParameter>   Parameters { get; set; }
 
+        public List<string> Attirubites { get; set; }
         public string AccessType { get; set; }
         public string ReturnType { get; set; }
 
@@ -46,14 +49,31 @@ namespace IF.CodeGeneration.CSharp
             string returnType = this.ReturnType;
             string name = this.Name;
 
-            if(this.IsAsync)
+            if (this.IsAsync)
             {
                 accessType = this.AccessType + " async";
-                returnType = $"Task<{this.ReturnType}>";
+
+                if (this.ReturnType != "void" && this.ReturnType != null)
+                {
+
+                    returnType = $"Task<{this.ReturnType}>";
+                }
+                else
+                {
+                    returnType = "Task";
+                }
+
                 name = name + "Async";
             }
 
-            StringBuilder builder = new StringBuilder($"{accessType} {returnType} {name} ({@params})");         
+            StringBuilder builder = new StringBuilder();
+
+            foreach (var att in this.Attirubites)
+            {
+                builder.Append($"[{att}]");
+            }
+
+            builder.AppendLine($"{accessType} {returnType} {name} ({@params})");
 
             builder.AppendLine("{");
 

@@ -1,16 +1,14 @@
 ﻿
 using Derin.Tools.CodeGenerator.Generator;
+
 using IF.CodeGeneration.Core;
-using IF.CodeGeneration.CSharp;
 using IF.Core.Data;
-using IF.Persistence;
 
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Derin.Tools.CodeGenerator
@@ -20,7 +18,7 @@ namespace Derin.Tools.CodeGenerator
 
         private readonly Assembiler assembiler;
 
-        private readonly string path = @"C:\Temp";
+        private readonly string path = @"C:\temp";
 
         FileSystemCodeFormatProvider fileSystem;
 
@@ -36,7 +34,7 @@ namespace Derin.Tools.CodeGenerator
 
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ReflectionOnlyAssemblyResolve;
 
-            this.textBoxName.Text = "Application";
+            this.textBoxName.Text = "ApplicationEdit";
             this.textBoxNameSpace.Text = "Gedik.SSO";
             this.textBoxTitle.Text = "Uygulama Yönetimi";
         }
@@ -156,14 +154,7 @@ namespace Derin.Tools.CodeGenerator
 
             var classTreeList = new List<ClassTree>();
 
-            MakeClassTree(modelTreeView.Nodes,classTreeList);
-
-            GenerateCSharp(classTreeList);
-           
-        }
-
-        private void GenerateCSharp(List<ClassTree> classTreeList)
-        {
+            MakeClassTree(modelTreeView.Nodes, classTreeList);
 
             Assembly assembly = assembiler.AllAssembilies().Where(s => s.Key.GetName().Name == classTreeList.First().Name).SingleOrDefault().Key;
 
@@ -171,21 +162,25 @@ namespace Derin.Tools.CodeGenerator
 
             Type classType = assembiler.AllAssembilies()[assembly].Where(t => t.Name == name).SingleOrDefault();
 
-            CSGenerator codeGenerator = new CSGenerator(fileSystem);
+            CSListGenerator codeGenerator = new CSListGenerator(fileSystem);
 
+            var classTree = classTreeList.First().Childs.First();
 
-            codeGenerator.GenerateContractClasses(textBoxName.Text, textBoxNameSpace.Text, classTreeList.First().Childs.First(), classType);
-            codeGenerator.GenerateDataQueryHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTreeList.First().Childs.First(), classType);
-            codeGenerator.GenerateHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTreeList.First().Childs.First(), classType);
-            codeGenerator.GenerateControllerMethods(textBoxName.Text, textBoxNameSpace.Text, classTreeList.First().Childs.First(), classType);
-            codeGenerator.GenerateMvcModels(textBoxName.Text, textBoxNameSpace.Text, classTreeList.First().Childs.First(), classType);
-            codeGenerator.GenerateMvcIndexView(textBoxName.Text, textBoxNameSpace.Text, textBoxTitle.Text,classTreeList.First().Childs.First(), classType);
-            codeGenerator.GenerateMvcGridView(textBoxName.Text, textBoxNameSpace.Text, classTreeList.First().Childs.First(), classType);
+            codeGenerator.GenerateContractClasses(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            codeGenerator.GenerateDataQueryHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            codeGenerator.GenerateHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            codeGenerator.GenerateControllerMethods(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            codeGenerator.GenerateMvcModels(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            codeGenerator.GenerateMvcIndexView(textBoxName.Text, textBoxNameSpace.Text, textBoxTitle.Text, classTree, classType);
+            codeGenerator.GenerateMvcGridView(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
 
-            fileSystem.ExploreFile(path);
+            fileSystem.ExploreDirectory(path);
+
         }
 
-     
+        
+
+
 
         private void modelTreeView_AfterCheck(object sender, TreeViewEventArgs e)
         {          
@@ -260,6 +255,40 @@ namespace Derin.Tools.CodeGenerator
         private void buttonGenerateMvcForm_Click(object sender, EventArgs e)
         {
 
+            if (String.IsNullOrWhiteSpace(textBoxName.Text))
+            {
+                MessageBox.Show(@"Please enter the Name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            if (String.IsNullOrWhiteSpace(textBoxNameSpace.Text))
+            {
+                MessageBox.Show(@"Please enter the NameSpace.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            var classTreeList = new List<ClassTree>();
+
+            MakeClassTree(modelTreeView.Nodes, classTreeList);
+
+            Assembly assembly = assembiler.AllAssembilies().Where(s => s.Key.GetName().Name == classTreeList.First().Name).SingleOrDefault().Key;
+
+            string name = classTreeList.First().Childs.First().Name.Split('\\')[1];
+
+            Type classType = assembiler.AllAssembilies()[assembly].Where(t => t.Name == name).SingleOrDefault();
+
+            CSInsertGenerator codeGenerator = new CSInsertGenerator(fileSystem);
+
+            var classTree = classTreeList.First().Childs.First();
+
+            codeGenerator.GenerateContractClasses(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            codeGenerator.GenerateDataQueryHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            codeGenerator.GenerateHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            codeGenerator.GenerateControllerMethods(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            codeGenerator.GenerateMvcModels(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+
+
+            fileSystem.ExploreDirectory(path);
         }
     }
 }

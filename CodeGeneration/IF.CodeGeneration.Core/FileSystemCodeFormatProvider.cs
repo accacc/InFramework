@@ -47,6 +47,18 @@ namespace IF.CodeGeneration.Core
             return true;
         }
 
+        public bool ExploreDirectory(string path)
+        {
+            if (!System.IO.Directory.Exists(path))
+            {
+                return false;
+            }
+
+            
+            System.Diagnostics.Process.Start("explorer.exe",path);
+            return true;
+        }
+
         public override void FormatCode(string template,string extension,string fileName, string path="")
         {
             path = String.Format(path + "{0}{1}/{2}.{3}",rootPath,path,fileName,extension);

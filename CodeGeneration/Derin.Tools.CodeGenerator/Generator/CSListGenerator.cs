@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Derin.Tools.CodeGenerator.Generator
 {
-    public class CSGenerator
+    public class CSListGenerator:CSGeneratorBase
     {
 
-        FileSystemCodeFormatProvider fileSystem;
+        
 
-        public CSGenerator(FileSystemCodeFormatProvider fileSystem)
+        public CSListGenerator(FileSystemCodeFormatProvider fileSystem):base(fileSystem)
         {
-            this.fileSystem = fileSystem;
+            
         }
 
         public void GenerateMvcGridView(string className, string namespaceName, ClassTree classTree, Type classType)
@@ -155,7 +155,7 @@ namespace Derin.Tools.CodeGenerator.Generator
 
             methodBody.AppendLine($"var list = await this.dispatcher.QueryAsync<{className}Request, {className}Response>(new {className}Request());");
             methodBody.AppendLine($"var model = list.Data.MapTo<{className}GridModel>();");
-            methodBody.AppendFormat($"return View(\"~/Views/Security/{className}/Index.cshtml\", model);");
+            methodBody.AppendFormat($"return View(\"~/Views/{className}/Index.cshtml\", model);");
             method.Body = methodBody.ToString();
 
             fileSystem.FormatCode(method.GenerateCode(), "cs");
@@ -165,7 +165,7 @@ namespace Derin.Tools.CodeGenerator.Generator
         public void GenerateMvcModels(string className, string namespaceName, ClassTree classTree, Type classType)
         {
             CSClass gridClass = GenerateClass(className + "GridModel", classTree, classType);
-            gridClass.NameSpace = namespaceName;
+            gridClass.NameSpace = namespaceName + "Models";
             fileSystem.FormatCode(gridClass.GenerateCode(), "cs");
         }
 
@@ -321,26 +321,6 @@ namespace Derin.Tools.CodeGenerator.Generator
             return $"{className}DataQueryAsync";
         }
 
-        private CSClass GenerateClass(string className, ClassTree classTree, Type classType)
-        {
-            CSClass @class = new CSClass();
-
-            @class.Name = className;
-
-            foreach (var property in classTree.Childs)
-            {
-                CSProperty classProperty = GetClassProperty(classType, property.Name.Split('\\')[2]);
-                @class.Properties.Add(classProperty);
-            }
-
-            return @class;
-        }
-
-        private CSProperty GetClassProperty(Type classType, string propertyName)
-        {
-            var property = classType.GetProperty(propertyName);
-            var classProperty = new CSProperty(property.PropertyType, "public", property.Name, property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>));
-            return classProperty;
-        }
+       
     }
 }
