@@ -1,14 +1,13 @@
 ﻿using DatabaseSchemaReader;
 using DatabaseSchemaReader.DataSchema;
-using DatabaseSchemaReader.Procedures;
+
 using FOFramework.CodeGeneration.Core;
 using FOFramework.CodeGeneration.Oracle.Dto;
-using Oracle.ManagedDataAccess.Client;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 

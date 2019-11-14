@@ -130,25 +130,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FOFramework.CodeGeneration.Core\InFramework.CodeGeneration.Core.csproj">
-      <Project>{55d2a84e-23a2-4194-b00b-6df0c03b5eb2}</Project>
-      <Name>InFramework.CodeGeneration.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FOFramework.CodeGeneration.CSharp\InFramework.CodeGeneration.Language.CSharp.csproj">
-      <Project>{56EA9A0D-5771-4EC7-8E5D-D6CAD0FEFB33}</Project>
-      <Name>InFramework.CodeGeneration.Language.CSharp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FOFramework.CodeGeneration.Oracle\InFramework.CodeGeneration.Source.Oracle.csproj">
       <Project>{8f99e8c9-fb5d-4d42-a561-74b3c5f90db1}</Project>
       <Name>InFramework.CodeGeneration.Source.Oracle</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FOFramework.Core.Persistence.Oracle\FOFramework.Core.Persistence.Oracle.csproj">
-      <Project>{26d48ec1-7778-4182-930a-82c4b5d4eefe}</Project>
-      <Name>FOFramework.Core.Persistence.Oracle</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FOFramework.Json\FOFramework.Json.csproj">
-      <Project>{23762a8b-66a6-4f65-b8fc-903e6d7e8fee}</Project>
-      <Name>FOFramework.Json</Name>
+    <ProjectReference Include="..\IF.CodeGeneration.Core\IF.CodeGeneration.Core.csproj">
+      <Project>{A76ACF78-8EA6-4068-979A-DA3D5CCA4B54}</Project>
+      <Name>IF.CodeGeneration.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

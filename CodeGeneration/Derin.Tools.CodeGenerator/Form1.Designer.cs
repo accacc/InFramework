@@ -40,6 +40,7 @@
             this.textBoxNameSpace = new System.Windows.Forms.TextBox();
             this.labelTitle = new System.Windows.Forms.Label();
             this.textBoxTitle = new System.Windows.Forms.TextBox();
+            this.buttonGenerateMvcForm = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // modelTreeView
@@ -150,11 +151,24 @@
             this.textBoxTitle.Size = new System.Drawing.Size(195, 20);
             this.textBoxTitle.TabIndex = 13;
             // 
+            // buttonGenerateMvcForm
+            // 
+            this.buttonGenerateMvcForm.Location = new System.Drawing.Point(542, 461);
+            this.buttonGenerateMvcForm.Name = "buttonGenerateMvcForm";
+            this.buttonGenerateMvcForm.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.buttonGenerateMvcForm.Size = new System.Drawing.Size(120, 23);
+            this.buttonGenerateMvcForm.TabIndex = 15;
+            this.buttonGenerateMvcForm.Text = "Generate Mvc Form";
+            this.buttonGenerateMvcForm.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonGenerateMvcForm.UseVisualStyleBackColor = true;
+            this.buttonGenerateMvcForm.Click += new System.EventHandler(this.buttonGenerateMvcForm_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1136, 508);
+            this.Controls.Add(this.buttonGenerateMvcForm);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.textBoxTitle);
             this.Controls.Add(this.labelNameSpace);
@@ -188,6 +202,7 @@
         private System.Windows.Forms.TextBox textBoxNameSpace;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.TextBox textBoxTitle;
+        private System.Windows.Forms.Button buttonGenerateMvcForm;
     }
 }
 

@@ -104,14 +104,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FOFramework.CodeGeneration.Core\InFramework.CodeGeneration.Core.csproj">
-      <Project>{55d2a84e-23a2-4194-b00b-6df0c03b5eb2}</Project>
-      <Name>InFramework.CodeGeneration.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FOFramework.CodeGeneration.CSharp\InFramework.CodeGeneration.Language.CSharp.csproj">
-      <Project>{56ea9a0d-5771-4ec7-8e5d-d6cad0fefb33}</Project>
-      <Name>InFramework.CodeGeneration.Language.CSharp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FOFramework.CodeGeneration.Oracle\InFramework.CodeGeneration.Source.Oracle.csproj">
       <Project>{8F99E8C9-FB5D-4D42-A561-74B3C5F90DB1}</Project>
       <Name>InFramework.CodeGeneration.Source.Oracle</Name>

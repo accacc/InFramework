@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FOFramework.CodeGeneration.Core
+namespace IF.CodeGeneration.Core
 {
     public class StoredProcedure
     {

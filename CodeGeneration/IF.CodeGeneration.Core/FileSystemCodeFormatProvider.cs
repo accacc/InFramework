@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FOFramework.CodeGeneration.Core
+namespace IF.CodeGeneration.Core
 {
     public class FileSystemCodeFormatProvider : CodeFormatProvider
     {

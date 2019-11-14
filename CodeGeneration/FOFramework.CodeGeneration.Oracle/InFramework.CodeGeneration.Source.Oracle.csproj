@@ -51,9 +51,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FOFramework.CodeGeneration.Core\InFramework.CodeGeneration.Core.csproj">
-      <Project>{55d2a84e-23a2-4194-b00b-6df0c03b5eb2}</Project>
-      <Name>InFramework.CodeGeneration.Core</Name>
+    <ProjectReference Include="..\IF.CodeGeneration.Core\IF.CodeGeneration.Core.csproj">
+      <Project>{A76ACF78-8EA6-4068-979A-DA3D5CCA4B54}</Project>
+      <Name>IF.CodeGeneration.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

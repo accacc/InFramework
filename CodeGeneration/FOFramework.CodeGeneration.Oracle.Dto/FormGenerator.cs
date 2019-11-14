@@ -1,8 +1,8 @@
 ﻿using DatabaseSchemaReader.DataSchema;
-using FOFramework.CodeGeneration.Core;
-using FOFramework.CodeGeneration.CSharp;
+
 using FOFramework.CodeGeneration.Oracle;
 using FOFramework.CodeGeneration.Oracle.Dto;
+using IF.CodeGeneration.Core;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+
 namespace DTOGenerator
 {
     public partial class FormGenerator : Form
@@ -18,7 +19,10 @@ namespace DTOGenerator
         public FormGenerator()
         {
             InitializeComponent();
+            
         }
+
+        
 
         public DatabaseSchema schema { get; set; }
         public Picker tablePicker { get; set; }

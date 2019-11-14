@@ -124,7 +124,7 @@ namespace Derin.Tools.CodeGenerator
         {
             
             ass = Assembly.ReflectionOnlyLoadFrom(assembly);
-            this.types = FindAllDerivedTypes<T>(ass);
+            this.types = FindAllDerivedTypes(ass);
         }
 
         public Assembly GetAssembly()
@@ -138,7 +138,7 @@ namespace Derin.Tools.CodeGenerator
         }
 
 
-        private static List<Type> FindAllDerivedTypes<T>(Assembly assembly)
+        private static List<Type> FindAllDerivedTypes(Assembly assembly)
         {
             var derivedType = typeof(Entity);
 

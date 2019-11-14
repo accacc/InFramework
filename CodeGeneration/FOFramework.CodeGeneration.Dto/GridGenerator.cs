@@ -2,7 +2,7 @@
 
 using FOFramework.CodeGeneration.Core;
 using FOFramework.CodeGeneration.Oracle;
-
+using IF.CodeGeneration.CSharp;
 using System;
 using System.Collections.Generic;
 using System.Data;

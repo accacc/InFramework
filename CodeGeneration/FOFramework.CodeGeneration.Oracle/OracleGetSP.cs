@@ -1,9 +1,7 @@
-﻿using FOFramework.CodeGeneration.Core;
+﻿using IF.CodeGeneration.Core;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FOFramework.CodeGeneration.Oracle
 {

@@ -44,17 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeFormatProvider.cs" />
-    <Compile Include="CodeTemplate.cs" />
-    <Compile Include="FileSystemCodeFormatProvider.cs" />
-    <Compile Include="GeneratePocoClass.cs" />
-    <Compile Include="IGenerateCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpColumn.cs" />
-    <Compile Include="SpParameter.cs" />
-    <Compile Include="StoredProcedure.cs" />
-    <Compile Include="TableRelation.cs" />
-    <Compile Include="TypeExtension.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
