@@ -34,7 +34,7 @@ namespace Derin.Tools.CodeGenerator
 
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ReflectionOnlyAssemblyResolve;
 
-            this.textBoxName.Text = "ApplicationEdit";
+            this.textBoxName.Text = "ApplicationCreate";
             this.textBoxNameSpace.Text = "Gedik.SSO";
             this.textBoxTitle.Text = "Uygulama Yönetimi";
         }
@@ -286,6 +286,7 @@ namespace Derin.Tools.CodeGenerator
             codeGenerator.GenerateHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
             codeGenerator.GenerateControllerMethods(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
             codeGenerator.GenerateMvcModels(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            codeGenerator.GenerateMvcFormView(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
 
 
             fileSystem.ExploreDirectory(path);

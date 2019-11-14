@@ -160,30 +160,14 @@ namespace Derin.Tools.CodeGenerator.Generator
         public void GenerateControllerMethods(string className, string namespaceName, ClassTree classTree, Type classType)
         {
 
-            //    public ActionResult RoleCreate()
-            //    {
-            //        return View("~/Views/Security/RolePermission/RoleCreateForm.cshtml", new RoleFormModel());
-            //    }
-
-            //var campaignDto = model.MapTo<Dto.CampaignDto>();
-
-            //CampaignInsertCommand campaignInsertCommand = new CampaignInsertCommand();
-            //campaignInsertCommand.Campaign = campaignDto;
-
-            //dispatcher.Command(campaignInsertCommand);
-
-
-            //this.ShowMessage(OperationType.Insert);
-            //return View("_Tab", model);
-
-            CSMethod getMethod = new CSMethod($"{className}Create", "ActionResult", "public");
+            CSMethod getMethod = new CSMethod($"{className}", "ActionResult", "public");
             getMethod.IsAsync = true;
             getMethod.Attirubites.Add("HttpGet");
             StringBuilder methodBody = new StringBuilder();          
             methodBody.AppendLine($"return View(\"~/Views/Application/_Form.cshtml\", new {className}Model());");            
             getMethod.Body = methodBody.ToString();
 
-            CSMethod postMethod = new CSMethod($"{className}Create", "ActionResult", "public");
+            CSMethod postMethod = new CSMethod($"{className}", "ActionResult", "public");
             postMethod.Parameters.Add(new CsMethodParameter() { Type= $"{className}Model",Name="model" });
             postMethod.IsAsync = true;
             postMethod.Attirubites.Add("HttpPost");
@@ -202,10 +186,68 @@ namespace Derin.Tools.CodeGenerator.Generator
             fileSystem.FormatCode(methods, "cs","Controller");
         }
 
+        public void GenerateMvcFormView(string className, string namespaceName, ClassTree classTree, Type classType)
+        {
+
+            StringBuilder builder = new StringBuilder();
+
+
+            builder.AppendLine("@{");
+            builder.AppendLine("Layout = \"~/Views/Shared/_DialogFormLayout.cshtml\";");
+            builder.AppendLine("}");
+
+            builder.AppendLine($"@model {namespaceName}.Models.{className}Model");
+            builder.AppendLine();
+
+            builder.AppendLine("<form>");
+
+            CSClass gridClass = GenerateClass(className, classTree, classType);
+
+            foreach (var item in gridClass.Properties)
+            {
+                if (item.Name == "Id") continue;
+
+                string required = "required";
+
+                if (item.IsNullable)
+                {
+                    required = "";
+                }
+
+                builder.AppendLine("<div class=\"row\">");
+                builder.AppendLine("<div class=\"col-md-6\">");
+                builder.AppendLine("<div class=\"form-group\">");
+                builder.AppendLine($"<label for=\"{item.Name}\">{item.Name}</label>");
+                builder.AppendLine($"<input type=\"text\" name=\"{item.Name}\" class=\"form-control\" value=\"@Model.{item.Name}\" {required} />");
+                builder.AppendLine($"</div>");
+                builder.AppendLine($"</div>");
+                builder.AppendLine($"</div>");
+            }
+
+
+            builder.AppendLine("<div class=\"row\">");
+            builder.AppendLine("<div class=\"col-md-6\">");
+            builder.AppendLine("<button type=\"submit\" class=\"btn btn-primary\"");
+            builder.AppendLine($"if-ajax-action=\"@Url.Action(Html.ActionName())\"");
+            builder.AppendLine("if-ajax-form-submit=\"true\"");
+            builder.AppendLine("if-ajax-method=\"post\"");            
+            builder.AppendLine("Kaydet");
+            builder.AppendLine("</button>");
+            builder.AppendLine($"</div>");
+            builder.AppendLine($"</div>");
+
+            builder.AppendLine($"@Html.HiddenFor(model => model.Id)");
+
+
+            builder.AppendLine("</form>");
+
+            fileSystem.FormatCode(builder.ToString(), "cshtml", "_Form");
+        }
+
         public void GenerateMvcModels(string className, string namespaceName, ClassTree classTree, Type classType)
         {
             CSClass gridClass = GenerateClass(className + "Model", classTree, classType);
-            gridClass.NameSpace = namespaceName;
+            gridClass.NameSpace = namespaceName + ".Models";
             fileSystem.FormatCode(gridClass.GenerateCode(), "cs");
         }
 

@@ -34,7 +34,7 @@ namespace Derin.Tools.CodeGenerator.Generator
             builder.AppendLine("<td>");
 
             builder.AppendLine("<a class=\"btn btn-primary\"");
-            builder.AppendLine($"href=\"@Url.Action(\"{className}Create\")\"");
+            builder.AppendLine($"href=\"@Url.Action(\"{className}Async\")\"");
             builder.AppendLine("if-ajax=\"true\"");
             builder.AppendLine("if-ajax-method=\"get\"");
             builder.AppendLine("if-ajax-mode=\"replace\"");
@@ -59,6 +59,10 @@ namespace Derin.Tools.CodeGenerator.Generator
                 builder.AppendLine(item.Name);
                 builder.AppendLine("</th>");
             }
+
+            builder.AppendLine("<th>");
+            builder.AppendLine("Düzenle");
+            builder.AppendLine("</th>");
 
 
             builder.AppendLine("</tr>");
