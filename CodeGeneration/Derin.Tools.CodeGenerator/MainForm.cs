@@ -1,5 +1,6 @@
 ﻿using IF.CodeGeneration.Application;
 using IF.CodeGeneration.Application.Generator;
+using IF.CodeGeneration.Application.Generator.List;
 using IF.CodeGeneration.Core;
 using IF.Core.Data;
 using IF.Tools.CodeGenerator;

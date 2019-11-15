@@ -8,7 +8,7 @@ namespace IF.CodeGeneration.Application.Generator
     {
         Gridview,
         Contracts,
-        DataClass,
+        DataHandler,
         MvcModel,
         Handler,
         MvcMethods,

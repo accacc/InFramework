@@ -25,7 +25,7 @@ namespace IF.CodeGeneration.Application.Generator
 
             foreach (var property in classTree.Childs)
             {
-                @class.Properties.Add(GetClassProperty(classType, property.Name.Split('\\')[2]));
+                @class.Properties.Add(GetClassProperty(property.Name.Split('\\')[2]));
             }
 
 
@@ -103,7 +103,7 @@ namespace IF.CodeGeneration.Application.Generator
 
             foreach (var property in classTree.Childs)
             {
-                CSProperty classProperty = GetClassProperty(classType, property.Name.Split('\\')[2]);
+                CSProperty classProperty = GetClassProperty(property.Name.Split('\\')[2]);
                 handleMethod.Body += $"entity.{classProperty.Name} = command.Data.{classProperty.Name};" + Environment.NewLine;
             }
 
@@ -200,7 +200,7 @@ namespace IF.CodeGeneration.Application.Generator
 
             builder.AppendLine("<form>");
 
-            CSClass gridClass = GenerateClass(className, classTree, classType);
+            CSClass gridClass = GenerateClass();
 
             foreach (var item in gridClass.Properties)
             {
@@ -245,7 +245,7 @@ namespace IF.CodeGeneration.Application.Generator
 
         public void GenerateMvcModels(string className, string namespaceName, ClassTree classTree, Type classType)
         {
-            CSClass gridClass = GenerateClass(className + "Model", classTree, classType);
+            CSClass gridClass = GenerateClass("Model");
             gridClass.NameSpace = namespaceName + ".Models";
             fileSystem.FormatCode(gridClass.GenerateCode(), "cs");
         }

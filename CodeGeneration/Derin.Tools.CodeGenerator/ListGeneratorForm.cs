@@ -1,4 +1,5 @@
 ﻿using IF.CodeGeneration.Application.Generator;
+using IF.CodeGeneration.Application.Generator.List;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -36,13 +37,13 @@ namespace IF.Tools.CodeGenerator
             }
 
 
-            this.generator.GenerateContractClasses();
-            this.generator.GenerateDataQueryHandlerClass();
-            this.generator.GenerateHandlerClass();
-            this.generator.GenerateControllerMethods();
-            this.generator.GenerateMvcModels();
-            this.generator.GenerateMvcIndexView();
-            this.generator.GenerateMvcGridView();
+            //this.generator.GenerateContractClasses();
+            //this.generator.GenerateDataQueryHandlerClass();
+            //this.generator.GenerateHandlerClass();
+            //this.generator.GenerateControllerMethods();
+            //this.generator.GenerateMvcModels();
+            //this.generator.GenerateMvcIndexView();
+            //this.generator.GenerateMvcGridView();
         }
     }
 }
