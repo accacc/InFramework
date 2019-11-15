@@ -1,45 +1,13 @@
-﻿using IF.CodeGeneration.Core;
+﻿using IF.CodeGeneration.Application.Generator;
+using IF.CodeGeneration.Core;
 using IF.CodeGeneration.CSharp;
-using IF.Persistence;
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace IF.Tools.CodeGenerator.Generator
+namespace IF.CodeGeneration.Application.Generator
 {
-
-    public enum ListFileType
-    {
-        Gridview,
-        Contracts,
-        DataClass,
-        MvcModel,
-        Handler,
-        MvcMethods,
-        IndexView
-    }
-
-    public class VsFile
-    {
-        public VsFile()
-        {
-            this.IsActive = true;
-        }
-
-        public ListFileType FileType { get; set; }
-        public string FileName { get; set; }
-        public string FileExtension { get; set; }
-
-        public string Path { get; set; }
-
-        public bool IsActive { get; set; }
-
-
-    }
-    
-
     public class CSListGenerator:CSGeneratorBase
     {
         private string className;
@@ -278,7 +246,8 @@ namespace IF.Tools.CodeGenerator.Generator
 
             @class.InheritedInterfaces.Add(GetDataQueryIntarfaceName(className));
 
-            var repositoryProperty = new CSProperty(typeof(IRepository), "private", "repository", false);
+            var repositoryProperty = new CSProperty("private", "repository", false);
+            repositoryProperty.PropertyTypeString = "IRepository";
             repositoryProperty.IsReadOnly = true;
             @class.Properties.Add(repositoryProperty);
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IF.Tools.CodeGenerator
+namespace IF.CodeGeneration.Application
 {
 
 

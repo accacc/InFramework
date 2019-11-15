@@ -1,13 +1,11 @@
 ﻿using IF.CodeGeneration.Core;
 using IF.CodeGeneration.CSharp;
-using IF.Persistence;
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace IF.Tools.CodeGenerator.Generator
+namespace IF.CodeGeneration.Application.Generator
 {
     public class CSInsertGenerator: CSGeneratorBase
     {
@@ -80,7 +78,8 @@ namespace IF.Tools.CodeGenerator.Generator
 
             @class.InheritedInterfaces.Add(GetDataInsertCommandIntarfaceName(className));
 
-            var repositoryProperty = new CSProperty(typeof(IRepository), "private", "repository", false);
+            var repositoryProperty = new CSProperty("private", "repository", false);
+            repositoryProperty.PropertyTypeString = "IRepository";
             repositoryProperty.IsReadOnly = true;
             @class.Properties.Add(repositoryProperty);
 

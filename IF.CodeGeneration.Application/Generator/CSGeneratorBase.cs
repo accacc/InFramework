@@ -1,12 +1,9 @@
 ﻿using IF.CodeGeneration.Core;
 using IF.CodeGeneration.CSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace IF.Tools.CodeGenerator.Generator
+using System;
+
+namespace IF.CodeGeneration.Application.Generator
 {
     public abstract class CSGeneratorBase
     {

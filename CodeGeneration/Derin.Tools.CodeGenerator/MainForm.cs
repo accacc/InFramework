@@ -1,7 +1,8 @@
-﻿using IF.CodeGeneration.Core;
+﻿using IF.CodeGeneration.Application;
+using IF.CodeGeneration.Application.Generator;
+using IF.CodeGeneration.Core;
 using IF.Core.Data;
 using IF.Tools.CodeGenerator;
-using IF.Tools.CodeGenerator.Generator;
 using IF.Tools.CodeGenerator.VsAutomation;
 
 using System;
@@ -246,6 +247,7 @@ namespace Derin.Tools.CodeGenerator
             var classTree = classTreeList.First().Childs.First();            
 
             CSListGenerator codeGenerator = new CSListGenerator(fileSystem, textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+
             codeGenerator.Title = textBoxTitle.Text;
 
             ListGeneratorForm listGenerator = new ListGeneratorForm(codeGenerator);
