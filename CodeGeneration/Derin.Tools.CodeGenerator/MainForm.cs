@@ -243,19 +243,13 @@ namespace Derin.Tools.CodeGenerator
 
             Type classType = assembiler.AllAssembilies()[assembly].Where(t => t.Name == name).SingleOrDefault();
 
-            CSListGenerator codeGenerator = new CSListGenerator(fileSystem);
+            var classTree = classTreeList.First().Childs.First();            
 
-            var classTree = classTreeList.First().Childs.First();
+            CSListGenerator codeGenerator = new CSListGenerator(fileSystem, textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            codeGenerator.Title = textBoxTitle.Text;
 
-            codeGenerator.GenerateContractClasses(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            codeGenerator.GenerateDataQueryHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            codeGenerator.GenerateHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            codeGenerator.GenerateControllerMethods(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            codeGenerator.GenerateMvcModels(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            codeGenerator.GenerateMvcIndexView(textBoxName.Text, textBoxNameSpace.Text, textBoxTitle.Text, classTree, classType);
-            codeGenerator.GenerateMvcGridView(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-
-            fileSystem.ExploreDirectory(basePath);
+            ListGeneratorForm listGenerator = new ListGeneratorForm(codeGenerator);
+            //fileSystem.ExploreDirectory(basePath);
 
         }
 

@@ -9,23 +9,74 @@ using System.Threading.Tasks;
 
 namespace IF.Tools.CodeGenerator.Generator
 {
+
+    public enum ListFileType
+    {
+        Gridview,
+        Contracts,
+        DataClass,
+        MvcModel,
+        Handler,
+        MvcMethods,
+        IndexView
+    }
+
+    public class VsFile
+    {
+        public VsFile()
+        {
+            this.IsActive = true;
+        }
+
+        public ListFileType FileType { get; set; }
+        public string FileName { get; set; }
+        public string FileExtension { get; set; }
+
+        public string Path { get; set; }
+
+        public bool IsActive { get; set; }
+
+
+    }
+    
+
     public class CSListGenerator:CSGeneratorBase
     {
+        private string className;
+        private string nameSpaceName;
+        private ClassTree classTree;
+        private Type classType;
 
-        
+        public List<VsFile> Files { get; set; }
+        public string Title { get; set; }
 
         public CSListGenerator(FileSystemCodeFormatProvider fileSystem):base(fileSystem)
         {
-            
+            this.Files = new List<VsFile>();
+            this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.Gridview,Path="" });
+            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.Contracts, Path = "" });
+            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.DataClass,Path="" });
+            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.MvcModel, Path = "" });
+            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.Handler, Path = "" });
+            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.MvcMethods, Path = "" });
+            this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.IndexView, Path = "" });
         }
 
-        public void GenerateMvcGridView(string className, string namespaceName, ClassTree classTree, Type classType)
+        public CSListGenerator(FileSystemCodeFormatProvider fileSystem, string className, string nameSpaceName, ClassTree classTree, Type classType) : this(fileSystem)
+        {
+            this.className = className;
+            this.nameSpaceName = nameSpaceName;
+            this.classTree = classTree;
+            this.classType = classType;
+        }
+
+        public void GenerateMvcGridView()
         {
 
 
             StringBuilder builder = new StringBuilder();
 
-            builder.AppendLine($"@model List<{namespaceName}.Models.{className}GridModel>");
+            builder.AppendLine($"@model List<{nameSpaceName}.Models.{className}GridModel>");
             builder.AppendLine();
 
 
@@ -108,12 +159,12 @@ namespace IF.Tools.CodeGenerator.Generator
             fileSystem.FormatCode(builder.ToString(), "cshtml", "_GridView");
         }
 
-        public void GenerateMvcIndexView(string className, string namespaceName, string title,ClassTree classTree, Type classType)
+        public void GenerateMvcIndexView()
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine($"@model List<{namespaceName}.Models.{className}GridModel>");
+            builder.AppendLine($"@model List<{nameSpaceName}.Models.{className}GridModel>");
             builder.AppendLine();
-            builder.AppendLine($"@{{ViewBag.Title = \"{title}\"; }}");
+            builder.AppendLine($"@{{ViewBag.Title = \"{this.Title}\"; }}");
             builder.AppendLine();
             builder.AppendLine("@{");
             builder.AppendLine("Layout = \"~/Views/Shared/_GridLayout.cshtml\";");
@@ -142,7 +193,7 @@ namespace IF.Tools.CodeGenerator.Generator
 
         }
 
-        public void GenerateControllerMethods(string className, string namespaceName, ClassTree classTree, Type classType)
+        public void GenerateControllerMethods()
         {
 
 
@@ -166,22 +217,22 @@ namespace IF.Tools.CodeGenerator.Generator
         }
 
 
-        public void GenerateMvcModels(string className, string namespaceName, ClassTree classTree, Type classType)
+        public void GenerateMvcModels()
         {
             CSClass gridClass = GenerateClass(className + "GridModel", classTree, classType);
-            gridClass.NameSpace = namespaceName + "Models";
+            gridClass.NameSpace = nameSpaceName + "Models";
             fileSystem.FormatCode(gridClass.GenerateCode(), "cs");
         }
 
-        public void GenerateHandlerClass(string className, string namespaceName, ClassTree classTree, Type classType)
+        public void GenerateHandlerClass()
         {
             CSClass @class = new CSClass();
             @class.Name = className + "Handler";
-            @class.NameSpace = namespaceName + ".Queries.Cqrs";
+            @class.NameSpace = nameSpaceName + ".Queries.Cqrs";
             @class.Usings.Add("IF.Core.Data");
-            @class.Usings.Add($"{namespaceName}.Contract.Queries");
+            @class.Usings.Add($"{nameSpaceName}.Contract.Queries");
             @class.Usings.Add("System.Threading.Tasks");
-            @class.Usings.Add($"{namespaceName}.Persistence.EF.Queries");
+            @class.Usings.Add($"{nameSpaceName}.Persistence.EF.Queries");
 
             @class.InheritedInterfaces.Add($"IQueryHandlerAsync<{className}Request, {className}Response>");
 
@@ -210,15 +261,15 @@ namespace IF.Tools.CodeGenerator.Generator
 
         }
 
-        public void GenerateDataQueryHandlerClass(string className, string namespaceName, ClassTree classTree, Type classType)
+        public void GenerateDataQueryHandlerClass()
         {
             CSClass @class = new CSClass();
 
             @class.Name = GetDataQueryClassName(className);
-            @class.NameSpace = namespaceName + ".Persistence.EF.Queries";
+            @class.NameSpace = nameSpaceName + ".Persistence.EF.Queries";
 
-            @class.Usings.Add($"{namespaceName}.Contract.Queries");
-            @class.Usings.Add($"{namespaceName}.Persistence.EF.Models");
+            @class.Usings.Add($"{nameSpaceName}.Contract.Queries");
+            @class.Usings.Add($"{nameSpaceName}.Persistence.EF.Models");
             @class.Usings.Add("System.Threading.Tasks");
             @class.Usings.Add($"IF.Persistence");
             @class.Usings.Add($"System.Linq");
@@ -263,7 +314,7 @@ namespace IF.Tools.CodeGenerator.Generator
             fileSystem.FormatCode(@class.GenerateCode(), "cs");
         }
 
-        public void GenerateContractClasses(string className, string namespaceName, ClassTree classTree, Type classType)
+        public void GenerateContractClasses()
         {
 
             CSClass @class = new CSClass();
@@ -303,7 +354,7 @@ namespace IF.Tools.CodeGenerator.Generator
             classes += "using System.Collections.Generic;";
             classes += Environment.NewLine;
             classes += Environment.NewLine;
-            classes += "namespace " + namespaceName + ".Contract.Queries";
+            classes += "namespace " + nameSpaceName + ".Contract.Queries";
             classes += Environment.NewLine;
             classes += "{";
             classes += Environment.NewLine;
