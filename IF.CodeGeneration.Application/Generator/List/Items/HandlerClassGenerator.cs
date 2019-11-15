@@ -10,7 +10,8 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
     {
         public HandlerClassGenerator(GeneratorContext context) : base(context)
         {
-            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.Handler, Path = "" });
+            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.Handler, Path = "" });
+            this.FileType = ListFileType.Handler;
         }
         public void Execute()
         {

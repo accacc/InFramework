@@ -11,7 +11,8 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
         public DataHandlerClass(GeneratorContext context) : base(context)
         {
-            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.DataHandler, Path = "" });
+            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.DataHandler, Path = "" });
+            this.FileType = ListFileType.DataHandler;
         }
 
         public void Execute()

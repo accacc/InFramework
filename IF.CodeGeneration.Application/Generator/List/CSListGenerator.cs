@@ -1,45 +1,34 @@
 ﻿using IF.CodeGeneration.Application.Generator.List.Items;
-using IF.CodeGeneration.Core;
-
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IF.CodeGeneration.Application.Generator.List
 {
     public class CSListGenerator : CSGeneratorBase
     {
-
-
-
-
         public List<VsFile> Files { get; set; }
-
-        public VsFile File { get; set; }
-
-        //public bool IsActive { get; set; }
         public List<IGenerateItem> Items { get; set; }
         public string Title { get; set; }
 
-        //public GeneratorContext Context { get; set; }
+        protected ListFileType FileType;
+
+        
 
         public CSListGenerator(GeneratorContext context) : base(context)
         {
             this.Files = new List<VsFile>();
             this.Items = new List<IGenerateItem>();
-            
-            //this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.Gridview, Path = "" });
-            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.Contracts, Path = "" });
-            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.DataHandler, Path = "" });
-            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.MvcModel, Path = "" });
-            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.Handler, Path = "" });
-            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.MvcMethods, Path = "" });
-            //this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.IndexView, Path = "" });
+
+            this.Files.Add(new VsFile() { ProjectName = "Admin.UI" , FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.Gridview, Path = $@"{this.Context.ViewBasePath}\{ this.Context.className}" });
+            this.Files.Add(new VsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = ListFileType.Contracts, Path = "Commands" });
+            this.Files.Add(new VsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = this.Context.className, FileType = ListFileType.DataHandler, Path = "Queries" });
+            this.Files.Add(new VsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.className + "GridModel", FileType = ListFileType.MvcModel, Path = $@"{this.Context.ViewBasePath}\Models" });
+            this.Files.Add(new VsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className, FileType = ListFileType.Handler, Path = "Queries" });
+            this.Files.Add(new VsFile() { ProjectName = "Admin.UI" , FileExtension = "cs", FileName = "Security", FileType = ListFileType.MvcControllerMethods, Path = this.Context.ViewBasePath });
+            this.Files.Add(new VsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "Index", FileType = ListFileType.IndexView, Path = $@"{this.Context.ViewBasePath}\{this.Context.className}" });
         }
         public void SetItemActive(ListFileType type)
         {
-
-
-
             switch (type)
             {
                 case ListFileType.Gridview:
@@ -57,7 +46,7 @@ namespace IF.CodeGeneration.Application.Generator.List
                 case ListFileType.Handler:
                     this.Items.Add(new HandlerClassGenerator(this.Context));
                     break;
-                case ListFileType.MvcMethods:
+                case ListFileType.MvcControllerMethods:
                     this.Items.Add(new ControllerMethodGenerator(this.Context));
                     break;
                 case ListFileType.IndexView:
@@ -66,27 +55,19 @@ namespace IF.CodeGeneration.Application.Generator.List
                 default:
                     break;
             }
-            //var item = this.Items.SingleOrDefault(t => t.File.FileType.ToString() == type.ToString());
-
-            //if(item!=null)
-            //{
-            //    item.IsActive = true;
-            //}
-
         }
 
         public void Generate()
         {
             foreach (var item in Items)
             {
-
                 item.Execute();
-
             }
-
         }
 
-
-
+        public VsFile GetVsFile()
+        {
+            return this.Files.SingleOrDefault(f => f.FileType == this.FileType);
+        }
     }
 }

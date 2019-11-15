@@ -11,7 +11,7 @@ namespace IF.CodeGeneration.Application.Generator
         DataHandler,
         MvcModel,
         Handler,
-        MvcMethods,
+        MvcControllerMethods,
         IndexView
     }
 }

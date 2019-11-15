@@ -8,7 +8,6 @@ namespace IF.CodeGeneration.Application.Generator
     {
         public VsFile()
         {
-            this.IsActive = true;
         }
 
         public ListFileType FileType { get; set; }
@@ -17,7 +16,7 @@ namespace IF.CodeGeneration.Application.Generator
 
         public string Path { get; set; }
 
-        public bool IsActive { get; set; }
+        public string ProjectName { get; set; }
 
 
     }

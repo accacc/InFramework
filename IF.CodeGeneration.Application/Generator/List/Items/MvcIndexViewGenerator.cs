@@ -9,7 +9,9 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
     {
         public MvcIndexViewGenerator(GeneratorContext context) : base(context)
         {
-            this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "Index", FileType = ListFileType.IndexView, Path = "" });
+            //this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "Index", FileType = ListFileType.IndexView, Path = "" });
+            this.FileType = ListFileType.IndexView;
+
         }
 
         public void Execute()

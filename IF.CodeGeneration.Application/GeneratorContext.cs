@@ -11,10 +11,13 @@ namespace IF.CodeGeneration.Application
         internal readonly FileSystemCodeFormatProvider fileSystem;
         internal ClassTree classTree;
         internal Type classType;
-        internal readonly VsManager vsManager;
+        internal readonly VsManager VsManager;
         internal string BaseCommandName = "BaseCommand";
         internal string className;
         internal string nameSpaceName;
+
+        public string ViewBasePath { get; set; }
+        public string ControllerName { get; set; }
 
         public GeneratorContext(FileSystemCodeFormatProvider fileSystem, string className, string nameSpaceName, ClassTree classTree, Type classType, VsManager vsManager)
         {
@@ -23,7 +26,7 @@ namespace IF.CodeGeneration.Application
             this.nameSpaceName = nameSpaceName;
             this.classTree = classTree;
             this.classType = classType;
-            this.vsManager = vsManager;
+            this.VsManager = vsManager;
         }
     }
 }

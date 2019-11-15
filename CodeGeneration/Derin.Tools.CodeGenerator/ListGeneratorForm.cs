@@ -27,6 +27,21 @@ namespace IF.Tools.CodeGenerator
 
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
+
+
+            if (String.IsNullOrWhiteSpace(textBoxViewBasePath.Text))
+            {
+                MessageBox.Show(@"Please enter the View Base Path.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+
+            if (String.IsNullOrWhiteSpace(textBoxControllerName.Text))
+            {
+                MessageBox.Show(@"Please enter the ControllerName.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
             foreach (var item in checkedListBoxVsFiles.CheckedItems)
             {
                 var vsFile = generator.Files.SingleOrDefault(f => f.FileType == (ListFileType)item);
@@ -35,6 +50,9 @@ namespace IF.Tools.CodeGenerator
                     this.generator.SetItemActive(vsFile.FileType);
                 }
             }
+
+            generator.Context.ViewBasePath = textBoxViewBasePath.Text;
+            generator.Context.ControllerName = textBoxControllerName.Text;
 
             generator.Generate();
 

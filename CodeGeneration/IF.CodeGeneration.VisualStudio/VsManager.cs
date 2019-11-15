@@ -19,23 +19,23 @@ namespace IF.Tools.CodeGenerator.VsAutomation
             this.basePath = path;
         }
 
-        public void AddVisualStudio(string projectName, string directory, string itemName)
+        public void AddVisualStudio(string projectName, string directory, string itemName,string fileExtension)
         {
             var p = new Microsoft.Build.Evaluation.Project(GetProjectFilePath(projectName));
             p.AddItem("Folder", $@"{GetProjectPath(projectName)}\{directory}");
-            p.AddItem("Compile", $@"{GetProjectPath(projectName)}\{directory}\{itemName}.cs");
+            p.AddItem("Compile", $@"{GetProjectPath(projectName)}\{directory}\{itemName}.{fileExtension}");
             p.Save();
 
-            File.Copy($@"{basePath}\{itemName}.cs", $@"{GetProjectPath(projectName)}\{directory}\{itemName}.cs", true);
+            File.Copy($@"{basePath}\{itemName}.cs", $@"{GetProjectPath(projectName)}\{directory}\{itemName}.{fileExtension}", true);
         }
 
-        private string GetProjectFilePath(string projectName)
+        public string GetProjectFilePath(string projectName)
         {
             return $@"{GetProjectPath(projectName)}\{solutionName}.{projectName}.csproj";
         }
 
 
-        private string GetProjectPath(string projectPath)
+        public string GetProjectPath(string projectPath)
         {
             return $@"{solutionPath}\{solutionName}\{solutionName}.{projectPath}";
         }

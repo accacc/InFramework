@@ -12,15 +12,12 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
         public MvcGridViewGenerator(GeneratorContext context):base(context)
         {
-            this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.Gridview, Path = "" });
+            //this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.Gridview, Path = "" });
+            this.FileType = ListFileType.Gridview;
         }
-
-        
 
         public void Execute()
         {
-
-
             StringBuilder builder = new StringBuilder();
 
             builder.AppendLine($"@model List<{this.Context.nameSpaceName}.Models.{this.Context.className}GridModel>");

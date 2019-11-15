@@ -11,7 +11,8 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
         public MvcModelGenerator(GeneratorContext context) : base(context)
         {
-            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.MvcModel, Path = "" });
+            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.MvcModel, Path = "" });
+            this.FileType = ListFileType.MvcModel;
         }
 
         public void Execute()

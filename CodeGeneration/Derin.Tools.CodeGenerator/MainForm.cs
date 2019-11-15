@@ -248,6 +248,7 @@ namespace Derin.Tools.CodeGenerator
             var vsManager = new VsManager(solutionName, solutionPath, basePath);
 
             var context = new GeneratorContext(fileSystem, textBoxName.Text, textBoxNameSpace.Text, classTree, classType, vsManager);
+            context.ViewBasePath = @"\Views\Security";
 
             CSListGenerator codeGenerator = new CSListGenerator(context);
 

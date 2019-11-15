@@ -7,17 +7,13 @@ namespace IF.CodeGeneration.Application.Generator
 {
     public abstract class CSGeneratorBase
     {
-
-
-
         
-        protected readonly GeneratorContext Context;
+        public readonly GeneratorContext Context;
 
         public CSGeneratorBase(GeneratorContext context)
         {
             this.Context = context;            
         }
-
 
         public CSClass GenerateClass(string plus = "")
         {

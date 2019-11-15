@@ -2,15 +2,19 @@
 using IF.CodeGeneration.CSharp;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.List.Items
 {
     public class ContractClassGenerator : CSListGenerator, IGenerateItem
     {
+
+       
         public ContractClassGenerator(GeneratorContext context) : base(context)
         {
-            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.Contracts, Path = "" });
+            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.Contracts, Path = "" });
+            this.FileType = ListFileType.Contracts;
         }
         public  void Execute()
         {
@@ -62,11 +66,13 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
             this.Context.fileSystem.FormatCode(classes, "cs", this.Context.className);
 
+            VsFile vsFile = this.GetVsFile();
+
+            this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, this.Context.className,vsFile.FileExtension);
+
         }
 
-        public bool IsActive()
-        {
-            throw new NotImplementedException();
-        }
+        
+
     }
 }
