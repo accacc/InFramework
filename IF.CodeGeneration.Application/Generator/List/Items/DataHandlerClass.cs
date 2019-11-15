@@ -9,10 +9,9 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
     public class DataHandlerClass: CSListGenerator, IGenerateItem
     {
 
-        public DataHandlerClass(FileSystemCodeFormatProvider fileSystem, string className, string nameSpaceName, ClassTree classTree, Type classType)
-            : base(fileSystem, className, nameSpaceName, classTree, classType)
+        public DataHandlerClass(GeneratorContext context) : base(context)
         {
-            this.File = new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.DataHandler, Path = "" };
+            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.DataHandler, Path = "" });
         }
 
         public void Execute()
@@ -20,10 +19,10 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             CSClass @class = new CSClass();
 
             @class.Name = GetDataQueryClassName();
-            @class.NameSpace = nameSpaceName + ".Persistence.EF.Queries";
+            @class.NameSpace = this.Context.nameSpaceName + ".Persistence.EF.Queries";
 
-            @class.Usings.Add($"{nameSpaceName}.Contract.Queries");
-            @class.Usings.Add($"{nameSpaceName}.Persistence.EF.Models");
+            @class.Usings.Add($"{this.Context.nameSpaceName}.Contract.Queries");
+            @class.Usings.Add($"{this.Context.nameSpaceName}.Persistence.EF.Models");
             @class.Usings.Add("System.Threading.Tasks");
             @class.Usings.Add($"IF.Persistence");
             @class.Usings.Add($"System.Linq");
@@ -47,14 +46,14 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             @class.Methods.Add(constructorMethod);
 
 
-            CSMethod handleMethod = new CSMethod("Get", className + "Response", "public");
+            CSMethod handleMethod = new CSMethod("Get", this.Context.className + "Response", "public");
             handleMethod.IsAsync = true;
-            handleMethod.Parameters.Add(new CsMethodParameter() { Name = "request", Type = className + "Request" });
-            handleMethod.Body += $"var data = await this.repository.GetQuery<{classType.Name}>()" + Environment.NewLine;
-            handleMethod.Body += $".Select(x => new {className}Dto" + Environment.NewLine;
+            handleMethod.Parameters.Add(new CsMethodParameter() { Name = "request", Type = this.Context.className + "Request" });
+            handleMethod.Body += $"var data = await this.repository.GetQuery<{this.Context.classType.Name}>()" + Environment.NewLine;
+            handleMethod.Body += $".Select(x => new {this.Context.className}Dto" + Environment.NewLine;
             handleMethod.Body += $"{{" + Environment.NewLine;
 
-            foreach (var property in classTree.Childs)
+            foreach (var property in this.Context.classTree.Childs)
             {
                 CSProperty classProperty = GetClassProperty(property.Name.Split('\\')[2]);
                 handleMethod.Body += $"{classProperty.Name} = x.{classProperty.Name}," + Environment.NewLine;
@@ -62,11 +61,11 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
             handleMethod.Body += $"}}).ToListAsync();" + Environment.NewLine;
 
-            handleMethod.Body += $"return new {className}Response {{ Data = data }};" + Environment.NewLine;
+            handleMethod.Body += $"return new {this.Context.className}Response {{ Data = data }};" + Environment.NewLine;
 
             @class.Methods.Add(handleMethod);
 
-            fileSystem.FormatCode(@class.GenerateCode(), "cs");
+            this.Context.fileSystem.FormatCode(@class.GenerateCode(), "cs");
         }
 
        

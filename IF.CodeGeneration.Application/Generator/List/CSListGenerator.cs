@@ -16,47 +16,52 @@ namespace IF.CodeGeneration.Application.Generator.List
 
         public VsFile File { get; set; }
 
-        public bool IsActive { get; set; }
+        //public bool IsActive { get; set; }
         public List<IGenerateItem> Items { get; set; }
         public string Title { get; set; }
 
-        public CSListGenerator(FileSystemCodeFormatProvider fileSystem, string className, string nameSpaceName, ClassTree classTree, Type classType) : base(fileSystem, className, nameSpaceName, classTree, classType)
+        //public GeneratorContext Context { get; set; }
+
+        public CSListGenerator(GeneratorContext context) : base(context)
         {
             this.Files = new List<VsFile>();
             this.Items = new List<IGenerateItem>();
-            this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.Gridview, Path = "" });
-            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.Contracts, Path = "" });
-            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.DataHandler, Path = "" });
-            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.MvcModel, Path = "" });
-            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.Handler, Path = "" });
-            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.MvcMethods, Path = "" });
-            this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.IndexView, Path = "" });
+            
+            //this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.Gridview, Path = "" });
+            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.Contracts, Path = "" });
+            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.DataHandler, Path = "" });
+            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.MvcModel, Path = "" });
+            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.Handler, Path = "" });
+            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.MvcMethods, Path = "" });
+            //this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.IndexView, Path = "" });
         }
         public void SetItemActive(ListFileType type)
         {
 
+
+
             switch (type)
             {
                 case ListFileType.Gridview:
-                    this.Items.Add(new MvcGridViewGenerator(this.fileSystem, this.className, this.nameSpaceName, this.classTree, this.classType));
+                    this.Items.Add(new MvcGridViewGenerator(this.Context));
                     break;
                 case ListFileType.Contracts:
-                    this.Items.Add(new ContractClassGenerator(this.fileSystem, this.className, this.nameSpaceName, this.classTree, this.classType));
+                    this.Items.Add(new ContractClassGenerator(this.Context));
                     break;
                 case ListFileType.DataHandler:
-                    this.Items.Add(new DataHandlerClass(this.fileSystem, this.className, this.nameSpaceName, this.classTree, this.classType));
+                    this.Items.Add(new DataHandlerClass(this.Context));
                     break;
                 case ListFileType.MvcModel:
-                    this.Items.Add(new MvcModelGenerator(this.fileSystem, this.className, this.nameSpaceName, this.classTree, this.classType));
+                    this.Items.Add(new MvcModelGenerator(this.Context));
                     break;
                 case ListFileType.Handler:
-                    this.Items.Add(new HandlerClassGenerator(this.fileSystem, this.className, this.nameSpaceName, this.classTree, this.classType));
+                    this.Items.Add(new HandlerClassGenerator(this.Context));
                     break;
                 case ListFileType.MvcMethods:
-                    this.Items.Add(new ControllerMethodGenerator(this.fileSystem, this.className, this.nameSpaceName, this.classTree, this.classType));
+                    this.Items.Add(new ControllerMethodGenerator(this.Context));
                     break;
                 case ListFileType.IndexView:
-                    this.Items.Add(new MvcIndexViewGenerator(this.fileSystem, this.className, this.nameSpaceName, this.classTree, this.classType));
+                    this.Items.Add(new MvcIndexViewGenerator(this.Context));
                     break;
                 default:
                     break;

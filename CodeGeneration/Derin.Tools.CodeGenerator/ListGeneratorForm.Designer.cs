@@ -47,17 +47,17 @@
             this.checkedListBoxVsFiles.FormattingEnabled = true;
             this.checkedListBoxVsFiles.Location = new System.Drawing.Point(26, 33);
             this.checkedListBoxVsFiles.Name = "checkedListBoxVsFiles";
-            this.checkedListBoxVsFiles.Size = new System.Drawing.Size(120, 94);
+            this.checkedListBoxVsFiles.Size = new System.Drawing.Size(225, 199);
             this.checkedListBoxVsFiles.TabIndex = 1;
             // 
-            // ListGenerator
+            // ListGeneratorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.checkedListBoxVsFiles);
             this.Controls.Add(this.buttonGenerate);
-            this.Name = "ListGenerator";
+            this.Name = "ListGeneratorForm";
             this.Text = "ListGenerator";
             this.ResumeLayout(false);
 

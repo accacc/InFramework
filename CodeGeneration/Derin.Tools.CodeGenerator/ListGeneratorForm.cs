@@ -21,7 +21,7 @@ namespace IF.Tools.CodeGenerator
 
             foreach (var item in generator.Files)
             {
-                this.checkedListBoxVsFiles.Items.Add(item.FileType.ToString());
+                this.checkedListBoxVsFiles.Items.Add(item.FileType);
             }
         }
 
@@ -29,13 +29,14 @@ namespace IF.Tools.CodeGenerator
         {
             foreach (var item in checkedListBoxVsFiles.CheckedItems)
             {
-                var vsFile = generator.Files.SingleOrDefault(f => f.FileType.ToString() == item.ToString());
+                var vsFile = generator.Files.SingleOrDefault(f => f.FileType == (ListFileType)item);
                 if (vsFile != null)
                 {
-                    vsFile.IsActive = true;
+                    this.generator.SetItemActive(vsFile.FileType);
                 }
             }
 
+            generator.Generate();
 
             //this.generator.GenerateContractClasses();
             //this.generator.GenerateDataQueryHandlerClass();

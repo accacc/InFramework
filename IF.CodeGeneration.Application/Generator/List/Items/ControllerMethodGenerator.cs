@@ -10,17 +10,16 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
     {
         
 
-        public  ControllerMethodGenerator(FileSystemCodeFormatProvider fileSystem, string className, string nameSpaceName, ClassTree classTree, Type classType)
-            :base(fileSystem,className,nameSpaceName,classTree,classType)
+        public  ControllerMethodGenerator(GeneratorContext context) : base(context)
         {
-            this.File = new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.MvcMethods, Path = "" };
+            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.MvcMethods, Path = "" });
 
 
         }
 
         public void Execute()
         {
-            CSMethod method = new CSMethod(className + "Index", "ActionResult", "public");
+            CSMethod method = new CSMethod(this.Context.className + "Index", "ActionResult", "public");
             method.IsAsync = true;
 
             StringBuilder methodBody = new StringBuilder();
@@ -30,12 +29,12 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             //var model = list.MapTo<ApplicationGridModel>();
             //return View("~/Views/Security/Application/Index.cshtml", model);
 
-            methodBody.AppendLine($"var list = await this.dispatcher.QueryAsync<{className}Request, {className}Response>(new {className}Request());");
-            methodBody.AppendLine($"var model = list.Data.MapTo<{className}GridModel>();");
-            methodBody.AppendFormat($"return View(\"~/Views/{className}/Index.cshtml\", model);");
+            methodBody.AppendLine($"var list = await this.dispatcher.QueryAsync<{this.Context.className}Request, {this.Context.className}Response>(new {this.Context.className}Request());");
+            methodBody.AppendLine($"var model = list.Data.MapTo<{this.Context.className}GridModel>();");
+            methodBody.AppendFormat($"return View(\"~/Views/{this.Context.className}/Index.cshtml\", model);");
             method.Body = methodBody.ToString();
 
-            fileSystem.FormatCode(method.GenerateCode(), "cs");
+            this.Context.fileSystem.FormatCode(method.GenerateCode(), "cs");
         }
 
     }

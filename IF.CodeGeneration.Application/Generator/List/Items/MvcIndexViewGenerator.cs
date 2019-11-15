@@ -7,15 +7,15 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 {
     public class MvcIndexViewGenerator : CSListGenerator, IGenerateItem
     {
-        public MvcIndexViewGenerator(FileSystemCodeFormatProvider fileSystem, string className, string nameSpaceName, ClassTree classTree, Type classType) : base(fileSystem, className, nameSpaceName, classTree, classType)
+        public MvcIndexViewGenerator(GeneratorContext context) : base(context)
         {
-            this.File = new VsFile() { FileExtension = "cshtml", FileName = "Index", FileType = ListFileType.IndexView, Path = "" };
+            this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "Index", FileType = ListFileType.IndexView, Path = "" });
         }
 
         public void Execute()
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine($"@model List<{nameSpaceName}.Models.{className}GridModel>");
+            builder.AppendLine($"@model List<{this.Context.nameSpaceName}.Models.{this.Context.className}GridModel>");
             builder.AppendLine();
             builder.AppendLine($"@{{ViewBag.Title = \"{Title}\"; }}");
             builder.AppendLine();
@@ -25,7 +25,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             builder.AppendLine("@section GridView");
             builder.AppendLine("{");
             builder.AppendLine();
-            builder.AppendLine($"@{{await Html.RenderPartialAsync(\"~/Views/Security/{className}/_GridView.cshtml\", Model);}}");
+            builder.AppendLine($"@{{await Html.RenderPartialAsync(\"~/Views/Security/{this.Context.className}/_GridView.cshtml\", Model);}}");
             builder.AppendLine();
             builder.AppendLine("}");
 

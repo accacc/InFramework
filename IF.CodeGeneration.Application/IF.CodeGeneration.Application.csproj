@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CodeGeneration\IF.CodeGeneration.Core\IF.CodeGeneration.Core.csproj" />
     <ProjectReference Include="..\CodeGeneration\IF.CodeGeneration.Language.CSharp\IF.CodeGeneration.Language.CSharp.csproj" />
+    <ProjectReference Include="..\CodeGeneration\IF.CodeGeneration.VisualStudio\IF.CodeGeneration.VisualStudio.csproj" />
     <ProjectReference Include="..\IF.Core\IF.Core.csproj" />
   </ItemGroup>
 

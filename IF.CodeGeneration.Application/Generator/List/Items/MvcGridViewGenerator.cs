@@ -10,10 +10,9 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
     {
 
 
-        public MvcGridViewGenerator(FileSystemCodeFormatProvider fileSystem, string className, string nameSpaceName, ClassTree classTree, Type classType)
-            :base(fileSystem,className,nameSpaceName,classTree,classType)
+        public MvcGridViewGenerator(GeneratorContext context):base(context)
         {
-            this.File = new VsFile() { FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.Gridview, Path = "" };
+            this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.Gridview, Path = "" });
         }
 
         
@@ -24,7 +23,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
             StringBuilder builder = new StringBuilder();
 
-            builder.AppendLine($"@model List<{nameSpaceName}.Models.{className}GridModel>");
+            builder.AppendLine($"@model List<{this.Context.nameSpaceName}.Models.{this.Context.className}GridModel>");
             builder.AppendLine();
 
 
@@ -33,7 +32,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             builder.AppendLine("<td>");
 
             builder.AppendLine("<a class=\"btn btn-primary\"");
-            builder.AppendLine($"href=\"@Url.Action(\"{className}Async\")\"");
+            builder.AppendLine($"href=\"@Url.Action(\"{this.Context.className}Async\")\"");
             builder.AppendLine("if-ajax=\"true\"");
             builder.AppendLine("if-ajax-method=\"get\"");
             builder.AppendLine("if-ajax-mode=\"replace\"");
@@ -83,7 +82,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             builder.AppendLine("<td>");
 
             builder.AppendLine("<a class=\"btn btn-primary\"");
-            builder.AppendLine($"href=\"@Url.Action(\"{className}Edit\")\"");
+            builder.AppendLine($"href=\"@Url.Action(\"{this.Context.className}Edit\")\"");
             builder.AppendLine("if-ajax=\"true\"");
             builder.AppendLine("if-ajax-method=\"get\"");
             builder.AppendLine("if-ajax-mode=\"replace\"");
@@ -104,7 +103,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             builder.AppendLine("}");
             builder.AppendLine("</table>");
 
-            fileSystem.FormatCode(builder.ToString(), "cshtml", "_GridView");
+            this.Context.fileSystem.FormatCode(builder.ToString(), "cshtml", "_GridView");
         }
 
        

@@ -9,17 +9,16 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
     public class MvcModelGenerator : CSListGenerator, IGenerateItem
     {
 
-        public MvcModelGenerator(FileSystemCodeFormatProvider fileSystem, string className, string nameSpaceName, ClassTree classTree, Type classType)
-            : base(fileSystem, className, nameSpaceName, classTree, classType)
+        public MvcModelGenerator(GeneratorContext context) : base(context)
         {
-            this.File = new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.MvcModel, Path = "" };
+            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.MvcModel, Path = "" });
         }
 
         public void Execute()
         {
             CSClass gridClass = GenerateClass("GridModel");
-            gridClass.NameSpace = nameSpaceName + "Models";
-            fileSystem.FormatCode(gridClass.GenerateCode(), "cs");
+            gridClass.NameSpace = this.Context.nameSpaceName + "Models";
+            this.Context.fileSystem.FormatCode(gridClass.GenerateCode(), "cs");
         }
 
         

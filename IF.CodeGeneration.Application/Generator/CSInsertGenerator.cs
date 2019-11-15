@@ -9,9 +9,9 @@ namespace IF.CodeGeneration.Application.Generator
 {
     public class CSInsertGenerator: CSGeneratorBase
     {
-        public CSInsertGenerator(FileSystemCodeFormatProvider fileSystem):base(fileSystem)
+        public CSInsertGenerator(GeneratorContext context) : base(context)
         {
-            
+
         }
 
 
@@ -31,7 +31,7 @@ namespace IF.CodeGeneration.Application.Generator
 
 
             CSClass commandClass = new CSClass();
-            commandClass.BaseClass = base.BaseCommandName;
+            commandClass.BaseClass = this.Context.BaseCommandName;
             commandClass.Name = className + "Command";
             CSProperty dtoProperty = new CSProperty(null, "public", "Data", false);
             dtoProperty.PropertyTypeString = $"{className}Dto";
@@ -57,7 +57,7 @@ namespace IF.CodeGeneration.Application.Generator
             classes += Environment.NewLine;
             classes += "}";
 
-            fileSystem.FormatCode(classes, "cs", className);
+            this.Context.fileSystem.FormatCode(classes, "cs", className);
 
         }
 
@@ -114,7 +114,7 @@ namespace IF.CodeGeneration.Application.Generator
 
             @class.Methods.Add(handleMethod);
 
-            fileSystem.FormatCode(@class.GenerateCode(), "cs");
+            this.Context.fileSystem.FormatCode(@class.GenerateCode(), "cs");
         }
 
 
@@ -151,7 +151,7 @@ namespace IF.CodeGeneration.Application.Generator
 
             @class.Methods.Add(handleMethod);
 
-            fileSystem.FormatCode(@class.GenerateCode(), "cs");
+            this.Context.fileSystem.FormatCode(@class.GenerateCode(), "cs");
 
         }
 
@@ -182,7 +182,7 @@ namespace IF.CodeGeneration.Application.Generator
 
             var methods = getMethod.GenerateCode().Template + Environment.NewLine + postMethod.GenerateCode().Template + Environment.NewLine;
 
-            fileSystem.FormatCode(methods, "cs","Controller");
+            this.Context.fileSystem.FormatCode(methods, "cs","Controller");
         }
 
         public void GenerateMvcFormView(string className, string namespaceName, ClassTree classTree, Type classType)
@@ -240,14 +240,14 @@ namespace IF.CodeGeneration.Application.Generator
 
             builder.AppendLine("</form>");
 
-            fileSystem.FormatCode(builder.ToString(), "cshtml", "_Form");
+            this.Context.fileSystem.FormatCode(builder.ToString(), "cshtml", "_Form");
         }
 
         public void GenerateMvcModels(string className, string namespaceName, ClassTree classTree, Type classType)
         {
             CSClass gridClass = GenerateClass("Model");
             gridClass.NameSpace = namespaceName + ".Models";
-            fileSystem.FormatCode(gridClass.GenerateCode(), "cs");
+            this.Context.fileSystem.FormatCode(gridClass.GenerateCode(), "cs");
         }
 
         private string GetDataInsertCommandIntarfaceName(string className)

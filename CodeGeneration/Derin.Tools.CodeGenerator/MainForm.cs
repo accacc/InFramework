@@ -1,11 +1,9 @@
 ﻿using IF.CodeGeneration.Application;
-using IF.CodeGeneration.Application.Generator;
 using IF.CodeGeneration.Application.Generator.List;
 using IF.CodeGeneration.Core;
 using IF.Core.Data;
 using IF.Tools.CodeGenerator;
 using IF.Tools.CodeGenerator.VsAutomation;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,12 +13,12 @@ using System.Windows.Forms;
 
 namespace Derin.Tools.CodeGenerator
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
 
         private readonly Assembiler assembiler;
         private readonly FileSystemCodeFormatProvider fileSystem;
-        private readonly VsManager vsManager;
+        
 
         private readonly string basePath = @"C:\temp";
         private readonly string solutionPath = @"C:\Projects";
@@ -29,14 +27,14 @@ namespace Derin.Tools.CodeGenerator
 
         
 
-        public Form1()
+        public MainForm()
         {            
 
             InitializeComponent();
 
             this.fileSystem = new FileSystemCodeFormatProvider(basePath);
             this.assembiler = new Assembiler();
-            this.vsManager = new VsManager(solutionName, solutionPath, basePath);
+            
 
 
             this.modelTreeView.CheckBoxes = true;
@@ -245,13 +243,18 @@ namespace Derin.Tools.CodeGenerator
 
             Type classType = assembiler.AllAssembilies()[assembly].Where(t => t.Name == name).SingleOrDefault();
 
-            var classTree = classTreeList.First().Childs.First();            
+            var classTree = classTreeList.First().Childs.First();
 
-            CSListGenerator codeGenerator = new CSListGenerator(fileSystem, textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            var vsManager = new VsManager(solutionName, solutionPath, basePath);
+
+            var context = new GeneratorContext(fileSystem, textBoxName.Text, textBoxNameSpace.Text, classTree, classType, vsManager);
+
+            CSListGenerator codeGenerator = new CSListGenerator(context);
 
             codeGenerator.Title = textBoxTitle.Text;
 
             ListGeneratorForm listGenerator = new ListGeneratorForm(codeGenerator);
+            listGenerator.Show();
             //fileSystem.ExploreDirectory(basePath);
 
         }
@@ -281,18 +284,18 @@ namespace Derin.Tools.CodeGenerator
 
             Type classType = assembiler.AllAssembilies()[assembly].Where(t => t.Name == name).SingleOrDefault();
 
-            CSInsertGenerator codeGenerator = new CSInsertGenerator(fileSystem);
+            //CSInsertGenerator codeGenerator = new CSInsertGenerator(fileSystem);
 
-            var classTree = classTreeList.First().Childs.First();
+            //var classTree = classTreeList.First().Childs.First();
 
-            codeGenerator.GenerateContractClasses(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            codeGenerator.GenerateDataQueryHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            codeGenerator.GenerateHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            codeGenerator.GenerateControllerMethods(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            codeGenerator.GenerateMvcModels(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            codeGenerator.GenerateMvcFormView(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            //codeGenerator.GenerateContractClasses(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            //codeGenerator.GenerateDataQueryHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            //codeGenerator.GenerateHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            //codeGenerator.GenerateControllerMethods(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            //codeGenerator.GenerateMvcModels(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            //codeGenerator.GenerateMvcFormView(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
 
-            vsManager.AddVisualStudio("Contract","Commands", textBoxName.Text);
+            //vsManager.AddVisualStudio("Contract","Commands", textBoxName.Text);
 
             fileSystem.ExploreDirectory(basePath);
         }

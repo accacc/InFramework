@@ -8,20 +8,19 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 {
     public class ContractClassGenerator : CSListGenerator, IGenerateItem
     {
-        public ContractClassGenerator(FileSystemCodeFormatProvider fileSystem, string className, string nameSpaceName, ClassTree classTree, Type classType)
-            : base(fileSystem, className, nameSpaceName, classTree, classType)
+        public ContractClassGenerator(GeneratorContext context) : base(context)
         {
-            this.File = new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.Contracts, Path = "" };
+            this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.Contracts, Path = "" });
         }
         public  void Execute()
         {
 
             CSClass @class = new CSClass();
-            @class.Name = className + "Dto";
+            @class.Name = this.Context.className + "Dto";
             //@class.NameSpace = namespaceName + ".Contract.Queries";
             @class.Properties = new List<CSProperty>();
 
-            foreach (var property in classTree.Childs)
+            foreach (var property in this.Context.classTree.Childs)
             {
                 @class.Properties.Add(GetClassProperty(property.Name.Split('\\')[2]));
             }
@@ -31,21 +30,21 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             CSClass requestClass = new CSClass();
             //requestClass.NameSpace = namespaceName + ".Contract.Queries";
             requestClass.BaseClass = "BaseRequest";
-            requestClass.Name = className + "Request";
+            requestClass.Name = this.Context.className + "Request";
 
             CSClass responseClass = new CSClass();
             //responseClass.NameSpace = namespaceName + ".Contract.Queries";
             responseClass.BaseClass = "BaseResponse";
-            responseClass.Name = className + "Response";
+            responseClass.Name = this.Context.className + "Response";
             CSProperty dtoProperty = new CSProperty(null, "public", "Data", false);
-            dtoProperty.PropertyTypeString = String.Format("List<{0}Dto>", className);
+            dtoProperty.PropertyTypeString = String.Format("List<{0}Dto>", this.Context.className);
             responseClass.Properties.Add(dtoProperty);
 
 
 
             CSInterface @interface = new CSInterface();
             @interface.Name = GetDataQueryIntarfaceName();
-            @interface.InheritedInterfaces.Add($"IDataGetQueryAsync<{className}Request,{className}Response>");
+            @interface.InheritedInterfaces.Add($"IDataGetQueryAsync<{this.Context.className}Request,{this.Context.className}Response>");
 
             string classes = "";
             classes += "using IF.Core.Data;";
@@ -53,7 +52,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             classes += "using System.Collections.Generic;";
             classes += Environment.NewLine;
             classes += Environment.NewLine;
-            classes += "namespace " + nameSpaceName + ".Contract.Queries";
+            classes += "namespace " + this.Context.nameSpaceName + ".Contract.Queries";
             classes += Environment.NewLine;
             classes += "{";
             classes += Environment.NewLine;
@@ -61,7 +60,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             classes += Environment.NewLine;
             classes += "}";
 
-            fileSystem.FormatCode(classes, "cs", className);
+            this.Context.fileSystem.FormatCode(classes, "cs", this.Context.className);
 
         }
 
