@@ -97,8 +97,8 @@
             this.Controls.Add(this.textBoxViewBasePath);
             this.Controls.Add(this.checkedListBoxVsFiles);
             this.Controls.Add(this.buttonGenerate);
-            this.Name = "ListGeneratorForm";
-            this.Text = "ListGenerator";
+            this.Name = "UpdateGeneratorForm";
+            this.Text = "Update Generator";
             this.ResumeLayout(false);
             this.PerformLayout();
 
