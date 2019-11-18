@@ -19,10 +19,11 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             StringBuilder builder = new StringBuilder();
             builder.AppendLine($"@model List<{this.Context.nameSpaceName}.Models.{this.Context.className}GridModel>");
             builder.AppendLine();
-            builder.AppendLine($"@{{ViewBag.Title = \"{Title}\"; }}");
+            builder.AppendLine($"@{{ViewBag.Title = \"{this.Context.Title}\"; }}");
             builder.AppendLine();
             builder.AppendLine("@{");
             builder.AppendLine("Layout = \"~/Views/Shared/_GridLayout.cshtml\";");
+            builder.AppendLine("}");
             builder.AppendLine();
             builder.AppendLine("@section GridView");
             builder.AppendLine("{");
@@ -43,6 +44,12 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             //{
             //    @{await Html.RenderPartialAsync("~/Views/Security/Application/_GridView.cshtml", Model);}
             //}
+
+            VsFile vsFile = this.GetVsFile();
+
+            this.Context.fileSystem.FormatCode(builder.ToString(), vsFile.FileExtension, vsFile.FileName);            
+
+            this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, vsFile.FileName, vsFile.FileExtension);
         }
     }
 }

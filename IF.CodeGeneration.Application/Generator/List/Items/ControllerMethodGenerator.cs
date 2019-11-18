@@ -38,7 +38,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
             VsFile vsFile = this.GetVsFile();
 
-            var controllerPath = $@"{this.Context.VsManager.GetProjectPath(vsFile.ProjectName)}\{this.Context.ViewBasePath}\{this.Context.ControllerName}.{vsFile.FileExtension}";
+            var controllerPath = $@"{this.Context.VsManager.GetProjectPath(vsFile.ProjectName)}\{vsFile.Path}\{this.Context.ControllerName}.{vsFile.FileExtension}";
 
             CodeGenerationHelper.AddCodeBottom(controllerPath, method.GenerateCode().Template);
 

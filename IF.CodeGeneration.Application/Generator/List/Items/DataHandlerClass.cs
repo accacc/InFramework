@@ -67,6 +67,10 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             @class.Methods.Add(handleMethod);
 
             this.Context.fileSystem.FormatCode(@class.GenerateCode(), "cs");
+
+            VsFile vsFile = this.GetVsFile();
+
+            this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, GetDataQueryClassName(), vsFile.FileExtension);
         }
 
        

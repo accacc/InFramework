@@ -41,7 +41,7 @@ namespace Derin.Tools.CodeGenerator
 
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ReflectionOnlyAssemblyResolve;
 
-            this.textBoxName.Text = "ApplicationCreate6";
+            this.textBoxName.Text = "UserList";
             this.textBoxNameSpace.Text = "Gedik.SSO";
             this.textBoxTitle.Text = "Uygulama Yönetimi";
         }
@@ -248,11 +248,10 @@ namespace Derin.Tools.CodeGenerator
             var vsManager = new VsManager(solutionName, solutionPath, basePath);
 
             var context = new GeneratorContext(fileSystem, textBoxName.Text, textBoxNameSpace.Text, classTree, classType, vsManager);
-            context.ViewBasePath = @"\Views\Security";
 
-            CSListGenerator codeGenerator = new CSListGenerator(context);
+            context.Title = textBoxTitle.Text;
 
-            codeGenerator.Title = textBoxTitle.Text;
+            CSListGenerator codeGenerator = new CSListGenerator(context);            
 
             ListGeneratorForm listGenerator = new ListGeneratorForm(codeGenerator);
             listGenerator.Show();

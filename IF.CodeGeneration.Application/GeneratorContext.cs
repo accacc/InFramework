@@ -15,9 +15,12 @@ namespace IF.CodeGeneration.Application
         internal string BaseCommandName = "BaseCommand";
         internal string className;
         internal string nameSpaceName;
+        
 
         public string ViewBasePath { get; set; }
         public string ControllerName { get; set; }
+
+        public string Title { get; set; }
 
         public GeneratorContext(FileSystemCodeFormatProvider fileSystem, string className, string nameSpaceName, ClassTree classTree, Type classType, VsManager vsManager)
         {

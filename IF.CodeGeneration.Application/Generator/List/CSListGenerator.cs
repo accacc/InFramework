@@ -4,11 +4,16 @@ using System.Linq;
 
 namespace IF.CodeGeneration.Application.Generator.List
 {
+    public class CSListManager
+    {
+
+    }
+
     public class CSListGenerator : CSGeneratorBase
     {
         public List<VsFile> Files { get; set; }
         public List<IGenerateItem> Items { get; set; }
-        public string Title { get; set; }
+        //public string Title { get; set; }
 
         protected ListFileType FileType;
 
@@ -18,17 +23,26 @@ namespace IF.CodeGeneration.Application.Generator.List
         {
             this.Files = new List<VsFile>();
             this.Items = new List<IGenerateItem>();
+            this.UpdateContext();
+            
+        }
 
-            this.Files.Add(new VsFile() { ProjectName = "Admin.UI" , FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.Gridview, Path = $@"{this.Context.ViewBasePath}\{ this.Context.className}" });
+        public void UpdateContext()
+        {
+            this.Files.Clear();
+            this.Files.Add(new VsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.Gridview, Path = $@"{this.Context.ViewBasePath}" });
             this.Files.Add(new VsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = ListFileType.Contracts, Path = "Commands" });
             this.Files.Add(new VsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = this.Context.className, FileType = ListFileType.DataHandler, Path = "Queries" });
-            this.Files.Add(new VsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.className + "GridModel", FileType = ListFileType.MvcModel, Path = $@"{this.Context.ViewBasePath}\Models" });
+            this.Files.Add(new VsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.className + "GridModel", FileType = ListFileType.MvcModel, Path = "Models" });
             this.Files.Add(new VsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className, FileType = ListFileType.Handler, Path = "Queries" });
-            this.Files.Add(new VsFile() { ProjectName = "Admin.UI" , FileExtension = "cs", FileName = "Security", FileType = ListFileType.MvcControllerMethods, Path = this.Context.ViewBasePath });
-            this.Files.Add(new VsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "Index", FileType = ListFileType.IndexView, Path = $@"{this.Context.ViewBasePath}\{this.Context.className}" });
+            this.Files.Add(new VsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = "Security", FileType = ListFileType.MvcControllerMethods, Path = "Controllers" });
+            this.Files.Add(new VsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "Index", FileType = ListFileType.IndexView, Path = $@"{this.Context.ViewBasePath}" });
         }
+
         public void SetItemActive(ListFileType type)
         {
+         
+
             switch (type)
             {
                 case ListFileType.Gridview:
@@ -55,10 +69,12 @@ namespace IF.CodeGeneration.Application.Generator.List
                 default:
                     break;
             }
+
         }
 
         public void Generate()
-        {
+        {           
+            
             foreach (var item in Items)
             {
                 item.Execute();

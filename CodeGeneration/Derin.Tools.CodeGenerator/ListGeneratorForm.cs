@@ -2,6 +2,7 @@
 using IF.CodeGeneration.Application.Generator.List;
 using System;
 using System.Linq;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
 namespace IF.Tools.CodeGenerator
@@ -14,6 +15,21 @@ namespace IF.Tools.CodeGenerator
         public ListGeneratorForm(CSListGenerator generator)
         {
             InitializeComponent();
+
+            generator.UpdateContext();
+
+            textBoxViewBasePath.Text = @"Views\Security\User";
+            textBoxControllerName.Text = "SecurityController";
+
+            for (int i = 0; i < checkedListBoxVsFiles.Items.Count; i++)
+            {
+                checkedListBoxVsFiles.SetItemChecked(i, true);
+            }
+
+            foreach (ListItem item in checkedListBoxVsFiles.Items)
+            {
+                item.Selected = true;
+            }
 
             this.generator = generator;
 
@@ -28,7 +44,6 @@ namespace IF.Tools.CodeGenerator
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
 
-
             if (String.IsNullOrWhiteSpace(textBoxViewBasePath.Text))
             {
                 MessageBox.Show(@"Please enter the View Base Path.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -42,6 +57,11 @@ namespace IF.Tools.CodeGenerator
                 return;
             }
 
+            generator.Context.ViewBasePath = textBoxViewBasePath.Text;
+            generator.Context.ControllerName = textBoxControllerName.Text;
+            
+            generator.UpdateContext();
+
             foreach (var item in checkedListBoxVsFiles.CheckedItems)
             {
                 var vsFile = generator.Files.SingleOrDefault(f => f.FileType == (ListFileType)item);
@@ -50,10 +70,7 @@ namespace IF.Tools.CodeGenerator
                     this.generator.SetItemActive(vsFile.FileType);
                 }
             }
-
-            generator.Context.ViewBasePath = textBoxViewBasePath.Text;
-            generator.Context.ControllerName = textBoxControllerName.Text;
-
+              
             generator.Generate();
 
             //this.generator.GenerateContractClasses();
