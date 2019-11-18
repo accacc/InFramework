@@ -46,5 +46,15 @@ namespace IF.CodeGeneration.Application.Generator
         {
             return $"{this.Context.className}DataQueryAsync";
         }
+
+        public  string GetDataInsertCommandIntarfaceName()
+        {
+            return $"I{this.Context.className}DataCommandAsync";
+        }
+
+        public  string GetDataInsertCommandClassName()
+        {
+            return $"{this.Context.className}DataCommandAsync";
+        }
     }
 }

@@ -102,7 +102,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
             this.Context.fileSystem.FormatCode(builder.ToString(), "cshtml", "_GridView");
 
-            VsFile vsFile = this.GetVsFile();
+            ListVsFile vsFile = this.GetVsFile();
 
             this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, vsFile.FileName, vsFile.FileExtension);
         }

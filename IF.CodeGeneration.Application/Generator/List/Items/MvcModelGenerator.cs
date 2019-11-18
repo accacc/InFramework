@@ -21,7 +21,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             gridClass.NameSpace = this.Context.nameSpaceName + ".Models";
             this.Context.fileSystem.FormatCode(gridClass.GenerateCode(), "cs");
 
-            VsFile vsFile = this.GetVsFile();
+            ListVsFile vsFile = this.GetVsFile();
 
             this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, vsFile.FileName, vsFile.FileExtension);
         }

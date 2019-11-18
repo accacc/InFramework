@@ -32,7 +32,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             builder.AppendLine();
             builder.AppendLine("}");
 
-            VsFile vsFile = this.GetVsFile();
+            ListVsFile vsFile = this.GetVsFile();
 
             this.Context.fileSystem.FormatCode(builder.ToString(), vsFile.FileExtension, vsFile.FileName);            
 

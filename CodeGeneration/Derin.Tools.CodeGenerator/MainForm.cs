@@ -1,4 +1,5 @@
 ﻿using IF.CodeGeneration.Application;
+using IF.CodeGeneration.Application.Generator;
 using IF.CodeGeneration.Application.Generator.List;
 using IF.CodeGeneration.Core;
 using IF.Core.Data;
@@ -284,25 +285,24 @@ namespace Derin.Tools.CodeGenerator
 
             Type classType = assembiler.AllAssembilies()[assembly].Where(t => t.Name == name).SingleOrDefault();
 
-            //CSInsertGenerator codeGenerator = new CSInsertGenerator(fileSystem);
+            var classTree = classTreeList.First().Childs.First();
 
-            //var classTree = classTreeList.First().Childs.First();
+            var vsManager = new VsManager(solutionName, solutionPath, basePath);
 
-            //codeGenerator.GenerateContractClasses(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            //codeGenerator.GenerateDataQueryHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            //codeGenerator.GenerateHandlerClass(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            //codeGenerator.GenerateControllerMethods(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            //codeGenerator.GenerateMvcModels(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
-            //codeGenerator.GenerateMvcFormView(textBoxName.Text, textBoxNameSpace.Text, classTree, classType);
+            var context = new GeneratorContext(fileSystem, textBoxName.Text, textBoxNameSpace.Text, classTree, classType, vsManager);
 
-            //vsManager.AddVisualStudio("Contract","Commands", textBoxName.Text);
+            context.Title = textBoxTitle.Text;
 
-            fileSystem.ExploreDirectory(basePath);
+            CSInsertGenerator codeGenerator = new CSInsertGenerator(context);
+
+            AddGeneratorForm listGenerator = new AddGeneratorForm(codeGenerator);
+            listGenerator.Show();
+            //fileSystem.ExploreDirectory(basePath);
         }
 
-       
 
-        
+
+
 
 
     }
