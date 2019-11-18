@@ -28,22 +28,9 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             builder.AppendLine("@section GridView");
             builder.AppendLine("{");
             builder.AppendLine();
-            builder.AppendLine($"@{{await Html.RenderPartialAsync(\"~/Views/Security/{this.Context.className}/_GridView.cshtml\", Model);}}");
+            builder.AppendLine($"@{{await Html.RenderPartialAsync(\"~/{this.Context.ViewBasePath}/_GridView.cshtml\", Model);}}");
             builder.AppendLine();
             builder.AppendLine("}");
-
-            //@model List<Gedik.SSO.Models.ApplicationGridModel>
-
-            //@{ViewBag.Title = "Uygulama Yönetimi"; }
-
-            //@{
-            //    Layout = "~/Views/Shared/_GridLayout.cshtml";
-            //}
-
-            //@section GridView
-            //{
-            //    @{await Html.RenderPartialAsync("~/Views/Security/Application/_GridView.cshtml", Model);}
-            //}
 
             VsFile vsFile = this.GetVsFile();
 

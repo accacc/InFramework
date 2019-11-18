@@ -31,7 +31,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
             methodBody.AppendLine($"var list = await this.dispatcher.QueryAsync<{this.Context.className}Request, {this.Context.className}Response>(new {this.Context.className}Request());");
             methodBody.AppendLine($"var model = list.Data.MapTo<{this.Context.className}GridModel>();");
-            methodBody.AppendFormat($"return View(\"~/Views/{this.Context.className}/Index.cshtml\", model);");
+            methodBody.AppendFormat($"return View(\"~/{this.Context.ViewBasePath}/Index.cshtml\", model);");
             method.Body = methodBody.ToString();
 
             this.Context.fileSystem.FormatCode(method.GenerateCode(), "cs");
@@ -40,9 +40,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
             var controllerPath = $@"{this.Context.VsManager.GetProjectPath(vsFile.ProjectName)}\{vsFile.Path}\{this.Context.ControllerName}.{vsFile.FileExtension}";
 
-            CodeGenerationHelper.AddCodeBottom(controllerPath, method.GenerateCode().Template);
-
-            
+            CodeGenerationHelper.AddCodeBottom(controllerPath, method.GenerateCode().Template);            
 
             //this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, this.Context.className);
         }

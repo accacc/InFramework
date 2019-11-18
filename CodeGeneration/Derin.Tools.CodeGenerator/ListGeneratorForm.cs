@@ -18,18 +18,8 @@ namespace IF.Tools.CodeGenerator
 
             generator.UpdateContext();
 
-            textBoxViewBasePath.Text = @"Views\Security\User";
-            textBoxControllerName.Text = "SecurityController";
-
-            for (int i = 0; i < checkedListBoxVsFiles.Items.Count; i++)
-            {
-                checkedListBoxVsFiles.SetItemChecked(i, true);
-            }
-
-            foreach (ListItem item in checkedListBoxVsFiles.Items)
-            {
-                item.Selected = true;
-            }
+            textBoxViewBasePath.Text = @"Views/Security/User";
+            textBoxControllerName.Text = "SecurityController";          
 
             this.generator = generator;
 
@@ -38,6 +28,11 @@ namespace IF.Tools.CodeGenerator
             foreach (var item in generator.Files)
             {
                 this.checkedListBoxVsFiles.Items.Add(item.FileType);
+            }
+
+            for (int i = 0; i < checkedListBoxVsFiles.Items.Count; i++)
+            {
+                checkedListBoxVsFiles.SetItemChecked(i, true);
             }
         }
 
