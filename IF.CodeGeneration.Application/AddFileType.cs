@@ -6,6 +6,11 @@ namespace IF.CodeGeneration.Application
 {
     public enum  AddFileType
     {
-        ContractClass
+        ContractClass,
+        ControllerMethod,
+        DataHandler,
+        Handler,
+        FormView,
+        MvcModels,
     }
 }

@@ -42,9 +42,9 @@ namespace Derin.Tools.CodeGenerator
 
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ReflectionOnlyAssemblyResolve;
 
-            this.textBoxName.Text = "UserList";
+            this.textBoxName.Text = "UserCreate";
             this.textBoxNameSpace.Text = "Gedik.SSO";
-            this.textBoxTitle.Text = "Uygulama Yönetimi";
+            this.textBoxTitle.Text = "Kullanıcı Yönetimi";
         }
 
         public  Assembly ReflectionOnlyAssemblyResolve(object sender,ResolveEventArgs args)

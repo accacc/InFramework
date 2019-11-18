@@ -6,12 +6,12 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.Add.Items
 {
-    public class ContractClassGenerator : CSListGenerator, IGenerateItem
+    public class ContractClassGenerator : CSInsertGenerator, IGenerateItem
     {
 
         public ContractClassGenerator(GeneratorContext context) : base(context)
         {
-            this.FileType = ListFileType.Contracts;
+            this.FileType = AddFileType.ContractClass;
         }
 
         public void Execute()
@@ -58,7 +58,7 @@ namespace IF.CodeGeneration.Application.Generator.Add.Items
 
             this.Context.fileSystem.FormatCode(classes, "cs", this.Context.className);
 
-            ListVsFile vsFile = this.GetVsFile();
+            AddVsFile vsFile = this.GetVsFile();
 
             this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, this.Context.className, vsFile.FileExtension);
 
