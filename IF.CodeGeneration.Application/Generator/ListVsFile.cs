@@ -47,4 +47,21 @@ namespace IF.CodeGeneration.Application.Generator
 
 
     }
+
+    public class UpdateVsFile : IVsFile
+    {
+        public UpdateVsFile()
+        {
+        }
+
+        public UpdateFileType FileType { get; set; }
+        public string FileName { get; set; }
+        public string FileExtension { get; set; }
+
+        public string Path { get; set; }
+
+        public string ProjectName { get; set; }
+
+
+    }
 }

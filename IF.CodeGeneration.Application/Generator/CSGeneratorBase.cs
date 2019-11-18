@@ -56,5 +56,15 @@ namespace IF.CodeGeneration.Application.Generator
         {
             return $"{this.Context.className}DataCommandAsync";
         }
+
+        public string GetDataUpdateCommandIntarfaceName()
+        {
+            return $"I{this.Context.className}DataCommandAsync";
+        }
+
+        public string GetDataUpdateCommandClassName()
+        {
+            return $"{this.Context.className}DataCommandAsync";
+        }
     }
 }

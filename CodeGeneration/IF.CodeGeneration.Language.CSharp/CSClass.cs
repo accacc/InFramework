@@ -42,6 +42,8 @@ namespace IF.CodeGeneration.CSharp
                 builder.AppendLine($"using {@using};");
             }
 
+            builder.AppendLine();
+
             if(!String.IsNullOrWhiteSpace(this.NameSpace))
             {
                 

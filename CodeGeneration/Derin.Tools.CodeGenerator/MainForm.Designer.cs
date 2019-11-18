@@ -30,7 +30,7 @@
         {
             this.modelTreeView = new System.Windows.Forms.TreeView();
             this.buttonLoadModel = new System.Windows.Forms.Button();
-            this.buttonGenerate = new System.Windows.Forms.Button();
+            this.buttonGenerateList = new System.Windows.Forms.Button();
             this.checkBoxCSharp = new System.Windows.Forms.CheckBox();
             this.checkBoxAndroid = new System.Windows.Forms.CheckBox();
             this.checkBoxSwift = new System.Windows.Forms.CheckBox();
@@ -40,7 +40,8 @@
             this.textBoxNameSpace = new System.Windows.Forms.TextBox();
             this.labelTitle = new System.Windows.Forms.Label();
             this.textBoxTitle = new System.Windows.Forms.TextBox();
-            this.buttonGenerateMvcForm = new System.Windows.Forms.Button();
+            this.buttonGenerateCreate = new System.Windows.Forms.Button();
+            this.buttonGenerateUpdate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // modelTreeView
@@ -62,16 +63,16 @@
             this.buttonLoadModel.UseVisualStyleBackColor = true;
             this.buttonLoadModel.Click += new System.EventHandler(this.buttonLoadModel_Click);
             // 
-            // buttonGenerate
+            // buttonGenerateList
             // 
-            this.buttonGenerate.Location = new System.Drawing.Point(668, 461);
-            this.buttonGenerate.Name = "buttonGenerate";
-            this.buttonGenerate.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.buttonGenerate.Size = new System.Drawing.Size(120, 23);
-            this.buttonGenerate.TabIndex = 2;
-            this.buttonGenerate.Text = "Generate Mvc Grid";
-            this.buttonGenerate.UseVisualStyleBackColor = true;
-            this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerateList_Click);
+            this.buttonGenerateList.Location = new System.Drawing.Point(295, 460);
+            this.buttonGenerateList.Name = "buttonGenerateList";
+            this.buttonGenerateList.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.buttonGenerateList.Size = new System.Drawing.Size(120, 23);
+            this.buttonGenerateList.TabIndex = 2;
+            this.buttonGenerateList.Text = "Generate List";
+            this.buttonGenerateList.UseVisualStyleBackColor = true;
+            this.buttonGenerateList.Click += new System.EventHandler(this.buttonGenerateList_Click);
             // 
             // checkBoxCSharp
             // 
@@ -151,24 +152,37 @@
             this.textBoxTitle.Size = new System.Drawing.Size(195, 20);
             this.textBoxTitle.TabIndex = 13;
             // 
-            // buttonGenerateMvcForm
+            // buttonGenerateCreate
             // 
-            this.buttonGenerateMvcForm.Location = new System.Drawing.Point(542, 461);
-            this.buttonGenerateMvcForm.Name = "buttonGenerateMvcForm";
-            this.buttonGenerateMvcForm.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.buttonGenerateMvcForm.Size = new System.Drawing.Size(120, 23);
-            this.buttonGenerateMvcForm.TabIndex = 15;
-            this.buttonGenerateMvcForm.Text = "Generate Mvc Form";
-            this.buttonGenerateMvcForm.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonGenerateMvcForm.UseVisualStyleBackColor = true;
-            this.buttonGenerateMvcForm.Click += new System.EventHandler(this.buttonGenerateCreate_Click);
+            this.buttonGenerateCreate.Location = new System.Drawing.Point(13, 460);
+            this.buttonGenerateCreate.Name = "buttonGenerateCreate";
+            this.buttonGenerateCreate.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.buttonGenerateCreate.Size = new System.Drawing.Size(120, 23);
+            this.buttonGenerateCreate.TabIndex = 15;
+            this.buttonGenerateCreate.Text = "Generate Create";
+            this.buttonGenerateCreate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonGenerateCreate.UseVisualStyleBackColor = true;
+            this.buttonGenerateCreate.Click += new System.EventHandler(this.buttonGenerateCreate_Click);
             // 
-            // Form1
+            // buttonGenerateUpdate
+            // 
+            this.buttonGenerateUpdate.Location = new System.Drawing.Point(154, 460);
+            this.buttonGenerateUpdate.Name = "buttonGenerateUpdate";
+            this.buttonGenerateUpdate.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.buttonGenerateUpdate.Size = new System.Drawing.Size(120, 23);
+            this.buttonGenerateUpdate.TabIndex = 16;
+            this.buttonGenerateUpdate.Text = "Generate Update";
+            this.buttonGenerateUpdate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonGenerateUpdate.UseVisualStyleBackColor = true;
+            this.buttonGenerateUpdate.Click += new System.EventHandler(this.buttonGenerateUpdate_Click);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1136, 508);
-            this.Controls.Add(this.buttonGenerateMvcForm);
+            this.Controls.Add(this.buttonGenerateUpdate);
+            this.Controls.Add(this.buttonGenerateCreate);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.textBoxTitle);
             this.Controls.Add(this.labelNameSpace);
@@ -178,10 +192,10 @@
             this.Controls.Add(this.checkBoxSwift);
             this.Controls.Add(this.checkBoxAndroid);
             this.Controls.Add(this.checkBoxCSharp);
-            this.Controls.Add(this.buttonGenerate);
+            this.Controls.Add(this.buttonGenerateList);
             this.Controls.Add(this.buttonLoadModel);
             this.Controls.Add(this.modelTreeView);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -192,7 +206,7 @@
 
         private System.Windows.Forms.TreeView modelTreeView;
         private System.Windows.Forms.Button buttonLoadModel;
-        private System.Windows.Forms.Button buttonGenerate;
+        private System.Windows.Forms.Button buttonGenerateList;
         private System.Windows.Forms.CheckBox checkBoxCSharp;
         private System.Windows.Forms.CheckBox checkBoxAndroid;
         private System.Windows.Forms.CheckBox checkBoxSwift;
@@ -202,7 +216,8 @@
         private System.Windows.Forms.TextBox textBoxNameSpace;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.TextBox textBoxTitle;
-        private System.Windows.Forms.Button buttonGenerateMvcForm;
+        private System.Windows.Forms.Button buttonGenerateCreate;
+        private System.Windows.Forms.Button buttonGenerateUpdate;
     }
 }
 
