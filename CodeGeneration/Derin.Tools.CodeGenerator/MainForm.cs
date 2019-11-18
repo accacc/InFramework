@@ -1,5 +1,6 @@
 ﻿using IF.CodeGeneration.Application;
 using IF.CodeGeneration.Application.Generator;
+using IF.CodeGeneration.Application.Generator.Get;
 using IF.CodeGeneration.Application.Generator.List;
 using IF.CodeGeneration.Application.Generator.Update;
 using IF.CodeGeneration.Core;
@@ -339,6 +340,44 @@ namespace Derin.Tools.CodeGenerator
             UpdateGeneratorForm listGenerator = new UpdateGeneratorForm(codeGenerator);
             listGenerator.Show();
             //fileSystem.ExploreDirectory(basePath);
+        }
+
+        private void buttonGenerateGet_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(textBoxName.Text))
+            {
+                MessageBox.Show(@"Please enter the Name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            if (String.IsNullOrWhiteSpace(textBoxNameSpace.Text))
+            {
+                MessageBox.Show(@"Please enter the NameSpace.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            var classTreeList = new List<ClassTree>();
+
+            MakeClassTree(modelTreeView.Nodes, classTreeList);
+
+            Assembly assembly = assembiler.AllAssembilies().Where(s => s.Key.GetName().Name == classTreeList.First().Name).SingleOrDefault().Key;
+
+            string name = classTreeList.First().Childs.First().Name.Split('\\')[1];
+
+            Type classType = assembiler.AllAssembilies()[assembly].Where(t => t.Name == name).SingleOrDefault();
+
+            var classTree = classTreeList.First().Childs.First();
+
+            var vsManager = new VsManager(solutionName, solutionPath, basePath);
+
+            var context = new GeneratorContext(fileSystem, textBoxName.Text, textBoxNameSpace.Text, classTree, classType, vsManager);
+
+            context.Title = textBoxTitle.Text;
+
+            CSGetGenerator codeGenerator = new CSGetGenerator(context);
+
+            GetGeneratorForm listGenerator = new GetGeneratorForm(codeGenerator);
+            listGenerator.Show();
         }
     }
 }

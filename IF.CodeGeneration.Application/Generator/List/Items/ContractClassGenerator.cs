@@ -19,14 +19,14 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
         public  void Execute()
         {
 
-            CSClass @class = new CSClass();
-            @class.Name = this.Context.className + "Dto";
+            CSClass dtoClass = new CSClass();
+            dtoClass.Name = this.Context.className + "Dto";
             //@class.NameSpace = namespaceName + ".Contract.Queries";
-            @class.Properties = new List<CSProperty>();
+            dtoClass.Properties = new List<CSProperty>();
 
             foreach (var property in this.Context.classTree.Childs)
             {
-                @class.Properties.Add(GetClassProperty(property.Name.Split('\\')[2]));
+                dtoClass.Properties.Add(GetClassProperty(property.Name.Split('\\')[2]));
             }
 
 
@@ -60,7 +60,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             classes += Environment.NewLine;
             classes += "{";
             classes += Environment.NewLine;
-            classes += @class.GenerateCode().Template + Environment.NewLine + requestClass.GenerateCode().Template + Environment.NewLine + responseClass.GenerateCode().Template + Environment.NewLine + @interface.GenerateCode().Template;
+            classes += dtoClass.GenerateCode().Template + Environment.NewLine + requestClass.GenerateCode().Template + Environment.NewLine + responseClass.GenerateCode().Template + Environment.NewLine + @interface.GenerateCode().Template;
             classes += Environment.NewLine;
             classes += "}";
 

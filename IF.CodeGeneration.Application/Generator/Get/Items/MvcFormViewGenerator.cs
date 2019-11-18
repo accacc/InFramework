@@ -30,48 +30,27 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
             builder.AppendLine($"@model {this.Context.nameSpaceName}.Models.{this.Context.className}Model");
             builder.AppendLine();
 
-            builder.AppendLine("<form>");
+            builder.AppendLine("<div>");
 
             CSClass gridClass = GenerateClass();
 
             foreach (var item in gridClass.Properties)
-            {
-                if (item.Name == "Id") continue;
-
-                string required = "required";
-
-                if (item.IsNullable)
-                {
-                    required = "";
-                }
+            {               
 
                 builder.AppendLine("<div class=\"row\">");
                 builder.AppendLine("<div class=\"col-md-6\">");
-                builder.AppendLine("<div class=\"form-group\">");
                 builder.AppendLine($"<label for=\"{item.Name}\">{item.Name}</label>");
-                builder.AppendLine($"<input type=\"text\" name=\"{item.Name}\" class=\"form-control\" value=\"@Model.{item.Name}\" {required} />");
+                builder.AppendLine($"@{item.Name}");
                 builder.AppendLine($"</div>");
                 builder.AppendLine($"</div>");
                 builder.AppendLine($"</div>");
             }
 
 
-            builder.AppendLine("<div class=\"row\">");
-            builder.AppendLine("<div class=\"col-md-6\">");
-            builder.AppendLine("<button type=\"submit\" class=\"btn btn-primary\"");
-            builder.AppendLine($"if-ajax-action=\"@Url.Action(Html.ActionName())\"");
-            builder.AppendLine("if-ajax-form-submit=\"true\"");
-            builder.AppendLine("if-ajax-method=\"post\"");
-            builder.AppendLine(">");
-            builder.AppendLine("Kaydet");
-            builder.AppendLine("</button>");
-            builder.AppendLine($"</div>");
-            builder.AppendLine($"</div>");
-
-            builder.AppendLine($"@Html.HiddenFor(model => model.Id)");
+            
 
 
-            builder.AppendLine("</form>");
+            builder.AppendLine("</div>");
 
             GetVsFile vsFile = this.GetVsFile();
 

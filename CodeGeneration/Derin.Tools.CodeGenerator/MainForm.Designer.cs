@@ -42,6 +42,7 @@
             this.textBoxTitle = new System.Windows.Forms.TextBox();
             this.buttonGenerateCreate = new System.Windows.Forms.Button();
             this.buttonGenerateUpdate = new System.Windows.Forms.Button();
+            this.buttonGenerateGet = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // modelTreeView
@@ -176,11 +177,23 @@
             this.buttonGenerateUpdate.UseVisualStyleBackColor = true;
             this.buttonGenerateUpdate.Click += new System.EventHandler(this.buttonGenerateUpdate_Click);
             // 
+            // buttonGenerateGet
+            // 
+            this.buttonGenerateGet.Location = new System.Drawing.Point(430, 461);
+            this.buttonGenerateGet.Name = "buttonGenerateGet";
+            this.buttonGenerateGet.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.buttonGenerateGet.Size = new System.Drawing.Size(120, 23);
+            this.buttonGenerateGet.TabIndex = 17;
+            this.buttonGenerateGet.Text = "Generate Get";
+            this.buttonGenerateGet.UseVisualStyleBackColor = true;
+            this.buttonGenerateGet.Click += new System.EventHandler(this.buttonGenerateGet_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1136, 508);
+            this.Controls.Add(this.buttonGenerateGet);
             this.Controls.Add(this.buttonGenerateUpdate);
             this.Controls.Add(this.buttonGenerateCreate);
             this.Controls.Add(this.labelTitle);
@@ -218,6 +231,7 @@
         private System.Windows.Forms.TextBox textBoxTitle;
         private System.Windows.Forms.Button buttonGenerateCreate;
         private System.Windows.Forms.Button buttonGenerateUpdate;
+        private System.Windows.Forms.Button buttonGenerateGet;
     }
 }
 

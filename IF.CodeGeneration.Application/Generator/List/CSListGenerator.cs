@@ -25,7 +25,7 @@ namespace IF.CodeGeneration.Application.Generator.List
         {
             this.Files.Clear();
             this.Files.Add(new ListVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.Gridview, Path = $@"{this.Context.ViewBasePath}" });
-            this.Files.Add(new ListVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = ListFileType.Contracts, Path = "Commands" });
+            this.Files.Add(new ListVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = ListFileType.Contracts, Path = "Queries" });
             this.Files.Add(new ListVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = this.Context.className, FileType = ListFileType.DataHandler, Path = "Queries" });
             this.Files.Add(new ListVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.className + "GridModel", FileType = ListFileType.MvcModel, Path = "Models" });
             this.Files.Add(new ListVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className, FileType = ListFileType.Handler, Path = "Queries" });

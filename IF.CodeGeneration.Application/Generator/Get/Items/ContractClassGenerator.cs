@@ -17,30 +17,37 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
         public void Execute()
         {
 
-            CSClass @class = new CSClass();
-            @class.Name = this.Context.className + "Dto";
+            CSClass dtoClass = new CSClass();
+            dtoClass.Name = this.Context.className + "Dto";
             //@class.NameSpace = namespaceName + ".Contract.Queries";
-            @class.Properties = new List<CSProperty>();
+            dtoClass.Properties = new List<CSProperty>();
 
             foreach (var property in this.Context.classTree.Childs)
             {
-                @class.Properties.Add(GetClassProperty(property.Name.Split('\\')[2]));
+                dtoClass.Properties.Add(GetClassProperty(property.Name.Split('\\')[2]));
             }
 
 
 
-            CSClass commandClass = new CSClass();
-            commandClass.BaseClass = this.Context.BaseCommandName;
-            commandClass.Name = this.Context.className + "Command";
+            CSClass requestClass = new CSClass();
+            //requestClass.NameSpace = namespaceName + ".Contract.Queries";
+            requestClass.BaseClass = "BaseRequest";
+            requestClass.Name = this.Context.className + "Request";
+            requestClass.Properties.Add(new CSProperty(typeof(int),"public","Id",false));
+
+            CSClass responseClass = new CSClass();
+            //responseClass.NameSpace = namespaceName + ".Contract.Queries";
+            responseClass.BaseClass = "BaseResponse";
+            responseClass.Name = this.Context.className + "Response";
             CSProperty dtoProperty = new CSProperty(null, "public", "Data", false);
             dtoProperty.PropertyTypeString = $"{this.Context.className}Dto";
-            commandClass.Properties.Add(dtoProperty);
+            responseClass.Properties.Add(dtoProperty);
 
 
 
             CSInterface @interface = new CSInterface();
-            @interface.Name = GetDataInsertCommandIntarfaceName();
-            @interface.InheritedInterfaces.Add($"IDataUpdateCommandAsync<{this.Context.className}Command>");
+            @interface.Name = GetDataQueryIntarfaceName();
+            @interface.InheritedInterfaces.Add($"IDataGetQueryAsync<{this.Context.className}Request,{this.Context.className}Response>");
 
             string classes = "";
             classes += "using IF.Core.Data;";
@@ -48,11 +55,11 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
             classes += "using System.Collections.Generic;";
             classes += Environment.NewLine;
             classes += Environment.NewLine;
-            classes += "namespace " + this.Context.nameSpaceName + ".Contract.Commands";
+            classes += "namespace " + this.Context.nameSpaceName + ".Contract.Queries";
             classes += Environment.NewLine;
             classes += "{";
             classes += Environment.NewLine;
-            classes += @class.GenerateCode().Template + Environment.NewLine + commandClass.GenerateCode().Template + Environment.NewLine + @interface.GenerateCode().Template;
+            classes += dtoClass.GenerateCode().Template + Environment.NewLine + requestClass.GenerateCode().Template + Environment.NewLine + responseClass.GenerateCode().Template + Environment.NewLine + @interface.GenerateCode().Template;
             classes += Environment.NewLine;
             classes += "}";
 

@@ -30,25 +30,16 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
             getMethodBody.AppendLine($"return View(\"~/{this.Context.ViewBasePath}/_Form.cshtml\",model);");
             getMethod.Body = getMethodBody.ToString();
 
-            CSMethod postMethod = new CSMethod($"{this.Context.className}", "ActionResult", "public");
-            postMethod.Parameters.Add(new CsMethodParameter() { Type = $"{this.Context.className}Model", Name = "model" });
-            postMethod.IsAsync = true;
-            postMethod.Attirubites.Add("HttpPost");
-            getMethodBody = new StringBuilder();
-            getMethodBody.AppendLine($"var dto = model.MapTo<{this.Context.className}Dto>();");
-            getMethodBody.AppendLine($"{this.Context.className}Command command = new {this.Context.className}Command();");
-            getMethodBody.AppendLine($"command.Data = dto;");
-            getMethodBody.AppendLine($"await dispatcher.CommandAsync(command);");
-            getMethodBody.AppendLine($"this.ShowMessage(OperationType.Update);");
-            getMethodBody.AppendLine($"return View(\"~/{this.Context.ViewBasePath}/_Form.cshtml\",model);");
-            postMethod.Body = getMethodBody.ToString();
 
 
-            var methods = getMethod.GenerateCode().Template + Environment.NewLine + postMethod.GenerateCode().Template + Environment.NewLine;
 
-            this.Context.fileSystem.FormatCode(methods, "cs", "Controller");
+            var methods = getMethod.GenerateCode().Template + Environment.NewLine;
 
             GetVsFile vsFile = this.GetVsFile();
+
+            this.Context.fileSystem.FormatCode(methods, vsFile.FileExtension, "Controller");
+
+            
 
             var controllerPath = $@"{this.Context.VsManager.GetProjectPath(vsFile.ProjectName)}\{vsFile.Path}\{this.Context.ControllerName}.{vsFile.FileExtension}";
 
