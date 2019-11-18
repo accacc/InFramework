@@ -52,7 +52,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
 
             GetVsFile vsFile = this.GetVsFile();
 
-            this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, GetDataQueryClassName(), vsFile.FileExtension);
+            this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path,vsFile.FileName, vsFile.FileExtension);
 
         }
     }

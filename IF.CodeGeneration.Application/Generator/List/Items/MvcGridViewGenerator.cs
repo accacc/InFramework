@@ -90,6 +90,20 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
             builder.AppendLine("</td>");
 
+            builder.AppendLine("<td>");
+
+            builder.AppendLine("<a class=\"btn btn-primary\"");
+            builder.AppendLine($"href=\"@Url.Action(\"{this.Context.className}Get\")\"");
+            builder.AppendLine("if-ajax=\"true\"");
+            builder.AppendLine("if-ajax-method=\"get\"");
+            builder.AppendLine("if-ajax-mode=\"replace\"");
+            builder.AppendLine("if-ajax-show-dialog=\"true\"");
+            builder.AppendLine("if-ajax-modal-id=\"@Guid.NewGuid()\">");
+            builder.AppendLine("Göster");
+            builder.AppendLine("</a>");
+
+            builder.AppendLine("</td>");
+
             builder.AppendLine("</tr>");
 
             builder.AppendLine("}");

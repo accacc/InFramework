@@ -31,8 +31,8 @@ namespace IF.CodeGeneration.Application.Generator.Get
             this.Files.Add(new GetVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = GetFileType.ContractClass, Path = "Queries" });
             this.Files.Add(new GetVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = "Security", FileType = GetFileType.ControllerMethod, Path = "Controllers" });
             this.Files.Add(new GetVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = this.Context.className, FileType = GetFileType.DataHandler, Path = "Queries" });
-            this.Files.Add(new GetVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className, FileType = GetFileType.Handler, Path = "Queries" });
-            this.Files.Add(new GetVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_Form", FileType = GetFileType.FormView, Path = $@"{this.Context.ViewBasePath}" });
+            this.Files.Add(new GetVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className +"Handler", FileType = GetFileType.Handler, Path = "Queries" });
+            this.Files.Add(new GetVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_FormView", FileType = GetFileType.FormView, Path = $@"{this.Context.ViewBasePath}" });
             this.Files.Add(new GetVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.className + "Model", FileType = GetFileType.MvcModels, Path = "Models" });
         }
 

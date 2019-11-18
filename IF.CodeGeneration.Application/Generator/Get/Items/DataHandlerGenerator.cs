@@ -51,7 +51,21 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
             handleMethod.Parameters.Add(new CsMethodParameter() { Name = "request", Type = this.Context.className + "Request" });
          
 
-            handleMethod.Body += $"var entity = await this.repository.GetQuery<{this.Context.classType.Name}>().SingleOrDefaultAsync(k => k.Id == request.Data.Id);" + Environment.NewLine;
+            handleMethod.Body += $"var entity = await this.repository.GetQuery<{this.Context.classType.Name}>()" + Environment.NewLine;
+
+
+
+            handleMethod.Body += $".Select(x => new {this.Context.className}Dto" + Environment.NewLine;
+            handleMethod.Body += $"{{" + Environment.NewLine;
+
+            foreach (var property in this.Context.classTree.Childs)
+            {
+                CSProperty classProperty = GetClassProperty(property.Name.Split('\\')[2]);
+                handleMethod.Body += $"{classProperty.Name} = x.{classProperty.Name}," + Environment.NewLine;
+            }
+
+            handleMethod.Body += $"}}).SingleOrDefaultAsync(k => k.Id == request.Id);" + Environment.NewLine;
+
             handleMethod.Body += $"if (entity == null){{ throw new BusinessException(\"{this.Context.className} : No such entity exists\");}}" + Environment.NewLine + Environment.NewLine;
 
             handleMethod.Body += $"return new {this.Context.className}Response {{ Data = entity }};" + Environment.NewLine;
