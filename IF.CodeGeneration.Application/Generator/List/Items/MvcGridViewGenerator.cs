@@ -79,7 +79,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             builder.AppendLine("<td>");
 
             builder.AppendLine("<a class=\"btn btn-primary\"");
-            builder.AppendLine($"href=\"@Url.Action(\"{this.Context.className}Edit\")\"");
+            builder.AppendLine($"href=\"@Url.Action(\"{this.Context.className}Edit\",new {{ Id = item.Id}})\"");
             builder.AppendLine("if-ajax=\"true\"");
             builder.AppendLine("if-ajax-method=\"get\"");
             builder.AppendLine("if-ajax-mode=\"replace\"");
@@ -93,7 +93,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             builder.AppendLine("<td>");
 
             builder.AppendLine("<a class=\"btn btn-primary\"");
-            builder.AppendLine($"href=\"@Url.Action(\"{this.Context.className}Get\")\"");
+            builder.AppendLine($"href=\"@Url.Action(\"{this.Context.className}Get\",new {{ Id = item.Id}})\"");
             builder.AppendLine("if-ajax=\"true\"");
             builder.AppendLine("if-ajax-method=\"get\"");
             builder.AppendLine("if-ajax-mode=\"replace\"");

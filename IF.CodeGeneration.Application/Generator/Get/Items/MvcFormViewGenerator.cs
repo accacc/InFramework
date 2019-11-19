@@ -40,8 +40,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
                 builder.AppendLine("<div class=\"row\">");
                 builder.AppendLine("<div class=\"col-md-6\">");
                 builder.AppendLine($"<label for=\"{item.Name}\">{item.Name}</label>");
-                builder.AppendLine($"@{item.Name}");
-                builder.AppendLine($"</div>");
+                builder.AppendLine($"@Model.{item.Name}");
                 builder.AppendLine($"</div>");
                 builder.AppendLine($"</div>");
             }

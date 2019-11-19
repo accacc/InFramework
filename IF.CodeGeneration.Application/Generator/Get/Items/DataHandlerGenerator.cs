@@ -64,7 +64,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
                 handleMethod.Body += $"{classProperty.Name} = x.{classProperty.Name}," + Environment.NewLine;
             }
 
-            handleMethod.Body += $"}}).SingleOrDefaultAsync(k => k.Id == request.Id);" + Environment.NewLine;
+            handleMethod.Body += $"}}).SingleOrDefaultAsync(k => k.Id == request.Id);" + Environment.NewLine + Environment.NewLine;
 
             handleMethod.Body += $"if (entity == null){{ throw new BusinessException(\"{this.Context.className} : No such entity exists\");}}" + Environment.NewLine + Environment.NewLine;
 
@@ -72,9 +72,10 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
 
             @class.Methods.Add(handleMethod);
 
-            this.Context.fileSystem.FormatCode(@class.GenerateCode(), "cs");
-
             GetVsFile vsFile = this.GetVsFile();
+
+            this.Context.fileSystem.FormatCode(@class.GenerateCode(), vsFile.FileExtension);
+            
 
             this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, GetDataQueryClassName(), vsFile.FileExtension);
         }
