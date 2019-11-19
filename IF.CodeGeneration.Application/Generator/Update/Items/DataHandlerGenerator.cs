@@ -49,7 +49,7 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
             handleMethod.IsAsync = true;
             handleMethod.Parameters.Add(new CsMethodParameter() { Name = "command", Type = this.Context.className + "Command" });
 
-            handleMethod.Body += $"var entity = this.repository.GetQuery<{this.Context.classType.Name}>().SingleOrDefault(k => k.Id == command.Data.Id);" + Environment.NewLine;
+            handleMethod.Body += $"var entity = await this.repository.GetQuery<{this.Context.classType.Name}>().SingleOrDefaultAsync(k => k.Id == command.Data.Id);" + Environment.NewLine + Environment.NewLine;
             handleMethod.Body += $"if (entity == null){{ throw new BusinessException(\"{this.Context.className} : No such entity exists\");}}" + Environment.NewLine +  Environment.NewLine;
 
 

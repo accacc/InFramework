@@ -25,8 +25,8 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
 
 
             StringBuilder getMethodBody = new StringBuilder();
-            getMethodBody.AppendLine($"var response = dispatcher.Query<{this.Context.className}GetRequest, {this.Context.className}GetResponse>(new CampaignGetRequest(){{ Id = Id }});");
-            getMethodBody.AppendLine($"var model = response.{this.Context.className}.MapTo<{this.Context.className}Model>();");
+            getMethodBody.AppendLine($"var response = await dispatcher.QueryAsync<{this.Context.className}GetRequest, {this.Context.className}GetResponse>(new {this.Context.className}GetRequest(){{ Id = Id }});");
+            getMethodBody.AppendLine($"var model = response.Data.MapTo<{this.Context.className}Model>();");
             getMethodBody.AppendLine($"return View(\"~/{this.Context.ViewBasePath}/_Form.cshtml\",model);");
             getMethod.Body = getMethodBody.ToString();
 
