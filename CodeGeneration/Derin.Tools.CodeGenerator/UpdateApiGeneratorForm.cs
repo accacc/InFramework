@@ -11,9 +11,9 @@ namespace IF.Tools.CodeGenerator
     public partial class UpdateApiGeneratorForm : Form
     {
 
-        public CSUpdateGenerator generator { get; set; }
+        public CsApiUpdateGenerator generator { get; set; }
 
-        public UpdateApiGeneratorForm(CSUpdateGenerator generator)
+        public UpdateApiGeneratorForm(CsApiUpdateGenerator generator)
         {
             InitializeComponent();
 
@@ -37,9 +37,7 @@ namespace IF.Tools.CodeGenerator
         }
 
         private void buttonGenerate_Click(object sender, EventArgs e)
-        {
-
-            
+        {  
 
 
             if (String.IsNullOrWhiteSpace(textBoxControllerName.Text))

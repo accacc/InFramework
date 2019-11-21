@@ -78,7 +78,7 @@
             this.Controls.Add(this.checkedListBoxVsFiles);
             this.Controls.Add(this.buttonGenerate);
             this.Name = "UpdateApiGeneratorForm";
-            this.Text = "Update Generator";
+            this.Text = "Update Api Generator";
             this.ResumeLayout(false);
             this.PerformLayout();
 

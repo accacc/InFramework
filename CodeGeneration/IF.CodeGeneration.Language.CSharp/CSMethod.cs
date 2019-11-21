@@ -35,9 +35,17 @@ namespace IF.CodeGeneration.CSharp
 
             string @params = String.Empty;
 
+
             foreach (var parameter in this.Parameters)
             {
-                @params += String.Format("{0} {1}",parameter.Type,parameter.Name);
+                if(!String.IsNullOrWhiteSpace(parameter.Attirubite))
+                {
+                    @params += $"[{parameter.Attirubite}] ";
+                }
+
+                
+
+                @params += String.Format("{0} {1}", parameter.Type, parameter.Name);
 
                 if (this.Parameters.Last().Name != parameter.Name)
                 {
@@ -70,7 +78,7 @@ namespace IF.CodeGeneration.CSharp
 
             foreach (var att in this.Attirubites)
             {
-                builder.Append($"[{att}]");
+                builder.AppendLine($"[{att}]");
             }
 
             builder.AppendLine($"{accessType} {returnType} {name} ({@params})");
@@ -95,5 +103,7 @@ namespace IF.CodeGeneration.CSharp
     {
         public string Name { get; set; }
         public string Type { get; set; }
+
+        public string Attirubite { get; set; }
     }
 }

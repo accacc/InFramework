@@ -63,7 +63,7 @@ namespace Derin.Tools.CodeGenerator
 
             if (args.Name.Contains("IF.Persistence.EF"))
             {
-                return Assembly.ReflectionOnlyLoadFrom($@"{solutionPath}\{solutionName}\packages\InFramework\IF.Persistence.EFdll");
+                return Assembly.ReflectionOnlyLoadFrom($@"{solutionPath}\{solutionName}\packages\InFramework\IF.Persistence.EF.dll");
             }
 
             return Assembly.ReflectionOnlyLoad(args.Name);
@@ -340,10 +340,21 @@ namespace Derin.Tools.CodeGenerator
 
             context.Title = textBoxTitle.Text;
 
-            CSUpdateGenerator codeGenerator = new CSUpdateGenerator(context);
+            
 
-            UpdateGeneratorForm listGenerator = new UpdateGeneratorForm(codeGenerator);
-            listGenerator.Show();
+            if (checkBoxApiCode.Checked)
+            {
+
+                CsApiUpdateGenerator codeGenerator = new CsApiUpdateGenerator(context);
+                UpdateApiGeneratorForm listGenerator = new UpdateApiGeneratorForm(codeGenerator);
+                listGenerator.Show();
+            }
+            else
+            {
+                CSUpdateGenerator codeGenerator = new CSUpdateGenerator(context);
+                UpdateGeneratorForm listGenerator = new UpdateGeneratorForm(codeGenerator);
+                listGenerator.Show();
+            }
             //fileSystem.ExploreDirectory(basePath);
         }
 

@@ -15,6 +15,7 @@ namespace IF.CodeGeneration.Application.Generator
 
         UpdateContractClass,
         UpdateControllerMethod,
+        UpdateApiControllerMethod,
         UpdateDataHandler,
         UpdateHandler,
         UpdateFormView,

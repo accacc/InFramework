@@ -12,7 +12,7 @@ namespace IF.CodeGeneration.Application.Generator
         
         public readonly GeneratorContext Context;
 
-        public List<IVsFile> Files { get; set; }
+        public List<IFVsFile> Files { get; set; }
         public List<IGenerateItem> Items { get; set; }
 
         protected VSFileType FileType;
@@ -22,7 +22,7 @@ namespace IF.CodeGeneration.Application.Generator
             this.Context = context;            
         }
 
-        public IVsFile GetVsFile()
+        public IFVsFile GetVsFile()
         {
             return this.Files.SingleOrDefault(f => f.FileType == this.FileType);
         }

@@ -43,6 +43,7 @@
             this.buttonGenerateCreate = new System.Windows.Forms.Button();
             this.buttonGenerateUpdate = new System.Windows.Forms.Button();
             this.buttonGenerateGet = new System.Windows.Forms.Button();
+            this.checkBoxApiCode = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // modelTreeView
@@ -188,11 +189,22 @@
             this.buttonGenerateGet.UseVisualStyleBackColor = true;
             this.buttonGenerateGet.Click += new System.EventHandler(this.buttonGenerateGet_Click);
             // 
+            // checkBoxApiCode
+            // 
+            this.checkBoxApiCode.AutoSize = true;
+            this.checkBoxApiCode.Location = new System.Drawing.Point(919, 240);
+            this.checkBoxApiCode.Name = "checkBoxApiCode";
+            this.checkBoxApiCode.Size = new System.Drawing.Size(69, 17);
+            this.checkBoxApiCode.TabIndex = 18;
+            this.checkBoxApiCode.Text = "Api Code";
+            this.checkBoxApiCode.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1136, 508);
+            this.Controls.Add(this.checkBoxApiCode);
             this.Controls.Add(this.buttonGenerateGet);
             this.Controls.Add(this.buttonGenerateUpdate);
             this.Controls.Add(this.buttonGenerateCreate);
@@ -232,6 +244,7 @@
         private System.Windows.Forms.Button buttonGenerateCreate;
         private System.Windows.Forms.Button buttonGenerateUpdate;
         private System.Windows.Forms.Button buttonGenerateGet;
+        private System.Windows.Forms.CheckBox checkBoxApiCode;
     }
 }
 
