@@ -72,7 +72,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
 
             @class.Methods.Add(handleMethod);
 
-            IFVsFile vsFile = this.GetIFVsFile();
+            IFVsFile vsFile = this.GetVsFile();
 
             this.Context.fileSystem.FormatCode(@class.GenerateCode(), vsFile.FileExtension);
             

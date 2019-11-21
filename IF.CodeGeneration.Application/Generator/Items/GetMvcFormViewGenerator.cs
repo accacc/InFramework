@@ -51,7 +51,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
 
             builder.AppendLine("</div>");
 
-            IFVsFile vsFile = this.GetIFVsFile();
+            IFVsFile vsFile = this.GetVsFile();
 
             this.Context.fileSystem.FormatCode(builder.ToString(), vsFile.FileExtension, vsFile.FileName);
 

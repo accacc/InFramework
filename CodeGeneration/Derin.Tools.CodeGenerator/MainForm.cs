@@ -390,10 +390,23 @@ namespace Derin.Tools.CodeGenerator
 
             context.Title = textBoxTitle.Text;
 
-            CSGetGenerator codeGenerator = new CSGetGenerator(context);
+            if(checkBoxApiCode.Checked)
+            {
+                CsApiGetGenerator codeGenerator = new CsApiGetGenerator(context);
+                GetApiGeneratorForm generatorForm = new GetApiGeneratorForm(codeGenerator);
+                generatorForm.Show();
+            }
+            else
+            {
+                CSGetGenerator codeGenerator = new CSGetGenerator(context);
+                GetGeneratorForm generatorForm = new GetGeneratorForm(codeGenerator);
+                generatorForm.Show();
+            }
 
-            GetGeneratorForm listGenerator = new GetGeneratorForm(codeGenerator);
-            listGenerator.Show();
+            
+
+
+            
         }
     }
 }

@@ -91,6 +91,12 @@
     <Compile Include="AddGeneratorForm.Designer.cs">
       <DependentUpon>AddGeneratorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GetApiGeneratorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GetApiGeneratorForm.Designer.cs">
+      <DependentUpon>GetApiGeneratorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GetGeneratorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +131,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AddGeneratorForm.resx">
       <DependentUpon>AddGeneratorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GetApiGeneratorForm.resx">
+      <DependentUpon>GetApiGeneratorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GetGeneratorForm.resx">
       <DependentUpon>GetGeneratorForm.cs</DependentUpon>

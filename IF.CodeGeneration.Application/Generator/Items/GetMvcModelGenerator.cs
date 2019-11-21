@@ -18,7 +18,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
 
             gridClass.NameSpace = this.Context.nameSpaceName + ".Models";
 
-            IFVsFile vsFile = this.GetIFVsFile();
+            IFVsFile vsFile = this.GetVsFile();
 
             this.Context.fileSystem.FormatCode(gridClass.GenerateCode(), vsFile.FileExtension);
 

@@ -9,6 +9,8 @@ namespace IF.CodeGeneration.Core
     {
         public static void AddCodeBottom(string path,string method)
         {
+
+            return;
             var lines = System.IO.File.ReadAllLines(path);
             if (lines != null)
             {

@@ -45,9 +45,9 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
 
 
 
-            CSInterface @interface = new CSInterface();
-            @interface.Name = GetDataQueryIntarfaceName();
-            @interface.InheritedInterfaces.Add($"IDataGetQueryAsync<{this.Context.className}Request,{this.Context.className}Response>");
+            //CSInterface @interface = new CSInterface();
+            //@interface.Name = GetDataQueryIntarfaceName();
+            //@interface.InheritedInterfaces.Add($"IDataGetQueryAsync<{this.Context.className}Request,{this.Context.className}Response>");
 
             string classes = "";
             classes += "using IF.Core.Data;";
@@ -59,13 +59,15 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
             classes += Environment.NewLine;
             classes += "{";
             classes += Environment.NewLine;
-            classes += dtoClass.GenerateCode().Template + Environment.NewLine + requestClass.GenerateCode().Template + Environment.NewLine + responseClass.GenerateCode().Template + Environment.NewLine + @interface.GenerateCode().Template;
+            classes += dtoClass.GenerateCode().Template + Environment.NewLine + requestClass.GenerateCode().Template + Environment.NewLine + responseClass.GenerateCode().Template + Environment.NewLine
+                //+ @interface.GenerateCode().Template
+                ;
             classes += Environment.NewLine;
             classes += "}";
 
             this.Context.fileSystem.FormatCode(classes, "cs", this.Context.className);
 
-            IFVsFile vsFile = this.GetIFVsFile();
+            IFVsFile vsFile = this.GetVsFile();
 
             this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, this.Context.className, vsFile.FileExtension);
 

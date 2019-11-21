@@ -19,7 +19,9 @@ namespace IF.CodeGeneration.Application.Generator
 
         public CSGeneratorBase(GeneratorContext context)
         {
-            this.Context = context;            
+            this.Context = context;
+            this.Files = new List<IFVsFile>();
+            this.Items = new List<IGenerateItem>();            
         }
 
         public IFVsFile GetVsFile()

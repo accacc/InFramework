@@ -9,15 +9,10 @@ namespace IF.CodeGeneration.Application.Generator.Get
     public class CSGetGenerator : CSGeneratorBase
     {
 
-        public List<IFVsFile> Files { get; set; }
-        public List<IGenerateItem> Items { get; set; }
-
-        protected VSFileType FileType;
 
         public CSGetGenerator(GeneratorContext context) : base(context)
         {
-            this.Files = new List<IFVsFile>();
-            this.Items = new List<IGenerateItem>();
+           
             this.UpdateContext();
         }
 
@@ -65,30 +60,5 @@ namespace IF.CodeGeneration.Application.Generator.Get
             }
 
         }
-
-        public void Generate()
-        {
-
-            foreach (var item in Items)
-            {
-                item.Execute();
-            }
-        }
-
-        public IFVsFile GetIFVsFile()
-        {
-            return this.Files.SingleOrDefault(f => f.FileType == this.FileType);
-        }
-
-
-
-
-
-
-
-
-
-
-
     }
 }

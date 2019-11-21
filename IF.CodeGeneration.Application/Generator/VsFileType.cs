@@ -25,6 +25,7 @@ namespace IF.CodeGeneration.Application.Generator
 
         GetContractClass,
         GetControllerMethod,
+        GetApiControllerMethod,
         GetDataHandler,
         GetHandler,
         GetFormView,
