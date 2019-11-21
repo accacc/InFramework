@@ -1,6 +1,6 @@
 ﻿namespace IF.Tools.CodeGenerator
 {
-    partial class UpdateApiGeneratorForm
+    partial class ApiUpdateGeneratorForm
     {
         /// <summary>
         /// Required designer variable.

@@ -1,6 +1,6 @@
 ﻿namespace IF.Tools.CodeGenerator
 {
-    partial class GetApiGeneratorForm
+    partial class ApiGetGeneratorForm
     {
         /// <summary>
         /// Required designer variable.

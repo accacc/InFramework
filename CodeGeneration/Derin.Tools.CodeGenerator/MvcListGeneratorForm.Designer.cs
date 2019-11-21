@@ -1,6 +1,6 @@
 ﻿namespace IF.Tools.CodeGenerator
 {
-    partial class UpdateGeneratorForm
+    partial class MvcListGeneratorForm
     {
         /// <summary>
         /// Required designer variable.
@@ -97,8 +97,8 @@
             this.Controls.Add(this.textBoxViewBasePath);
             this.Controls.Add(this.checkedListBoxVsFiles);
             this.Controls.Add(this.buttonGenerate);
-            this.Name = "UpdateGeneratorForm";
-            this.Text = "Update Generator";
+            this.Name = "ListGeneratorForm";
+            this.Text = "ListGenerator";
             this.ResumeLayout(false);
             this.PerformLayout();
 

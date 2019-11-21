@@ -1,4 +1,5 @@
 ﻿using IF.CodeGeneration.Application.Generator;
+using IF.CodeGeneration.Application.Generator.Get;
 using IF.CodeGeneration.Application.Generator.List;
 using IF.CodeGeneration.Application.Generator.Update;
 using System;
@@ -8,18 +9,18 @@ using System.Windows.Forms;
 
 namespace IF.Tools.CodeGenerator
 {
-    public partial class UpdateGeneratorForm : Form
+    public partial class ApiGetGeneratorForm : Form
     {
 
-        public CSUpdateGenerator generator { get; set; }
+        public ApiCsGetGenerator generator { get; set; }
 
-        public UpdateGeneratorForm(CSUpdateGenerator generator)
+        public ApiGetGeneratorForm(ApiCsGetGenerator generator)
         {
             InitializeComponent();
 
             generator.UpdateContext();
 
-            textBoxViewBasePath.Text = @"Views/Security/User";
+            //textBoxViewBasePath.Text = @"Views/Security/User";
             textBoxControllerName.Text = "SecurityController";          
 
             this.generator = generator;
@@ -40,11 +41,11 @@ namespace IF.Tools.CodeGenerator
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
 
-            if (String.IsNullOrWhiteSpace(textBoxViewBasePath.Text))
-            {
-                MessageBox.Show(@"Please enter the View Base Path.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
+            //if (String.IsNullOrWhiteSpace(textBoxViewBasePath.Text))
+            //{
+            //    MessageBox.Show(@"Please enter the View Base Path.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    return;
+            //}
 
 
             if (String.IsNullOrWhiteSpace(textBoxControllerName.Text))
@@ -53,7 +54,7 @@ namespace IF.Tools.CodeGenerator
                 return;
             }
 
-            generator.Context.ViewBasePath = textBoxViewBasePath.Text;
+            //generator.Context.ViewBasePath = textBoxViewBasePath.Text;
             generator.Context.ControllerName = textBoxControllerName.Text;
             
             generator.UpdateContext();

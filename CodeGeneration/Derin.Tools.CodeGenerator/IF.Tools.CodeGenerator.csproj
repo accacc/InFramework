@@ -85,35 +85,35 @@
     <Reference Include="netstandard" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddGeneratorForm.cs">
+    <Compile Include="MvcAddGeneratorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddGeneratorForm.Designer.cs">
-      <DependentUpon>AddGeneratorForm.cs</DependentUpon>
+    <Compile Include="MvcAddGeneratorForm.Designer.cs">
+      <DependentUpon>MvcAddGeneratorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GetApiGeneratorForm.cs">
+    <Compile Include="ApiGetGeneratorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GetApiGeneratorForm.Designer.cs">
-      <DependentUpon>GetApiGeneratorForm.cs</DependentUpon>
+    <Compile Include="ApiGetGeneratorForm.Designer.cs">
+      <DependentUpon>ApiGetGeneratorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GetGeneratorForm.cs">
+    <Compile Include="MvcGetGeneratorForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GetGeneratorForm.Designer.cs">
-      <DependentUpon>GetGeneratorForm.cs</DependentUpon>
+      <DependentUpon>MvcGetGeneratorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UpdateApiGeneratorForm.cs">
+    <Compile Include="ApiUpdateGeneratorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UpdateApiGeneratorForm.Designer.cs">
-      <DependentUpon>UpdateApiGeneratorForm.cs</DependentUpon>
+    <Compile Include="ApiUpdateGeneratorForm.Designer.cs">
+      <DependentUpon>ApiUpdateGeneratorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UpdateGeneratorForm.cs">
+    <Compile Include="MvcUpdateGeneratorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UpdateGeneratorForm.Designer.cs">
-      <DependentUpon>UpdateGeneratorForm.cs</DependentUpon>
+    <Compile Include="MvcUpdateGeneratorForm.Designer.cs">
+      <DependentUpon>MvcUpdateGeneratorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -121,34 +121,34 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListGeneratorForm.cs">
+    <Compile Include="MvcListGeneratorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListGeneratorForm.Designer.cs">
-      <DependentUpon>ListGeneratorForm.cs</DependentUpon>
+    <Compile Include="MvcListGeneratorForm.Designer.cs">
+      <DependentUpon>MvcListGeneratorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AddGeneratorForm.resx">
-      <DependentUpon>AddGeneratorForm.cs</DependentUpon>
+    <EmbeddedResource Include="MvcAddGeneratorForm.resx">
+      <DependentUpon>MvcAddGeneratorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GetApiGeneratorForm.resx">
-      <DependentUpon>GetApiGeneratorForm.cs</DependentUpon>
+    <EmbeddedResource Include="ApiGetGeneratorForm.resx">
+      <DependentUpon>ApiGetGeneratorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GetGeneratorForm.resx">
-      <DependentUpon>GetGeneratorForm.cs</DependentUpon>
+      <DependentUpon>MvcGetGeneratorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UpdateApiGeneratorForm.resx">
-      <DependentUpon>UpdateApiGeneratorForm.cs</DependentUpon>
+    <EmbeddedResource Include="ApiUpdateGeneratorForm.resx">
+      <DependentUpon>ApiUpdateGeneratorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UpdateGeneratorForm.resx">
-      <DependentUpon>UpdateGeneratorForm.cs</DependentUpon>
+    <EmbeddedResource Include="MvcUpdateGeneratorForm.resx">
+      <DependentUpon>MvcUpdateGeneratorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ListGeneratorForm.resx">
-      <DependentUpon>ListGeneratorForm.cs</DependentUpon>
+    <EmbeddedResource Include="MvcListGeneratorForm.resx">
+      <DependentUpon>MvcListGeneratorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

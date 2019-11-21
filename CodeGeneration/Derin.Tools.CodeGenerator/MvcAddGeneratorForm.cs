@@ -1,7 +1,6 @@
-﻿using IF.CodeGeneration.Application.Generator;
-using IF.CodeGeneration.Application.Generator.Get;
+﻿using IF.CodeGeneration.Application;
+using IF.CodeGeneration.Application.Generator;
 using IF.CodeGeneration.Application.Generator.List;
-using IF.CodeGeneration.Application.Generator.Update;
 using System;
 using System.Linq;
 using System.Web.UI.WebControls;
@@ -9,12 +8,12 @@ using System.Windows.Forms;
 
 namespace IF.Tools.CodeGenerator
 {
-    public partial class GetGeneratorForm : Form
+    public partial class MvcAddGeneratorForm : Form
     {
 
-        public CSGetGenerator generator { get; set; }
+        public CSInsertGenerator generator { get; set; }
 
-        public GetGeneratorForm(CSGetGenerator generator)
+        public MvcAddGeneratorForm(CSInsertGenerator generator)
         {
             InitializeComponent();
 
@@ -69,6 +68,14 @@ namespace IF.Tools.CodeGenerator
             }
               
             generator.Generate();
+
+            //this.generator.GenerateContractClasses();
+            //this.generator.GenerateDataQueryHandlerClass();
+            //this.generator.GenerateHandlerClass();
+            //this.generator.GenerateControllerMethods();
+            //this.generator.GenerateMvcModels();
+            //this.generator.GenerateMvcIndexView();
+            //this.generator.GenerateMvcGridView();
         }
     }
 }

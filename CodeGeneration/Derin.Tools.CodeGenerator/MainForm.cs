@@ -261,7 +261,7 @@ namespace Derin.Tools.CodeGenerator
 
             CSListGenerator codeGenerator = new CSListGenerator(context);            
 
-            ListGeneratorForm listGenerator = new ListGeneratorForm(codeGenerator);
+            MvcListGeneratorForm listGenerator = new MvcListGeneratorForm(codeGenerator);
             listGenerator.Show();
             //fileSystem.ExploreDirectory(basePath);
 
@@ -302,7 +302,7 @@ namespace Derin.Tools.CodeGenerator
 
             CSInsertGenerator codeGenerator = new CSInsertGenerator(context);
 
-            AddGeneratorForm listGenerator = new AddGeneratorForm(codeGenerator);
+            MvcAddGeneratorForm listGenerator = new MvcAddGeneratorForm(codeGenerator);
             listGenerator.Show();
             //fileSystem.ExploreDirectory(basePath);
         }
@@ -346,13 +346,13 @@ namespace Derin.Tools.CodeGenerator
             {
 
                 ApiCsUpdateGenerator codeGenerator = new ApiCsUpdateGenerator(context);
-                UpdateApiGeneratorForm listGenerator = new UpdateApiGeneratorForm(codeGenerator);
+                ApiUpdateGeneratorForm listGenerator = new ApiUpdateGeneratorForm(codeGenerator);
                 listGenerator.Show();
             }
             else
             {
                 CSUpdateGenerator codeGenerator = new CSUpdateGenerator(context);
-                UpdateGeneratorForm listGenerator = new UpdateGeneratorForm(codeGenerator);
+                MvcUpdateGeneratorForm listGenerator = new MvcUpdateGeneratorForm(codeGenerator);
                 listGenerator.Show();
             }
             //fileSystem.ExploreDirectory(basePath);
@@ -393,13 +393,13 @@ namespace Derin.Tools.CodeGenerator
             if(checkBoxApiCode.Checked)
             {
                 ApiCsGetGenerator codeGenerator = new ApiCsGetGenerator(context);
-                GetApiGeneratorForm generatorForm = new GetApiGeneratorForm(codeGenerator);
+                ApiGetGeneratorForm generatorForm = new ApiGetGeneratorForm(codeGenerator);
                 generatorForm.Show();
             }
             else
             {
                 CSGetGenerator codeGenerator = new CSGetGenerator(context);
-                GetGeneratorForm generatorForm = new GetGeneratorForm(codeGenerator);
+                MvcGetGeneratorForm generatorForm = new MvcGetGeneratorForm(codeGenerator);
                 generatorForm.Show();
             }
 

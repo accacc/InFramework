@@ -1,6 +1,6 @@
 ﻿namespace IF.Tools.CodeGenerator
 {
-    partial class AddGeneratorForm
+    partial class MvcAddGeneratorForm
     {
         /// <summary>
         /// Required designer variable.
