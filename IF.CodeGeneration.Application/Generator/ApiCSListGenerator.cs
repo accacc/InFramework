@@ -20,7 +20,7 @@ namespace IF.CodeGeneration.Application.Generator.List
 
             this.Files.Add(new IFVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.ListContracts, Path = "Queries" });
             this.Files.Add(new IFVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.ListHandler, Path = "Queries" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.ControllerName + "Controller", FileType = VSFileType.ListMvcControllerMethods, Path = "Controllers" });
+            this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.ControllerName + "Controller", FileType = VSFileType.ApiListControllerMethods, Path = "Controllers" });
             
         }
 
@@ -39,8 +39,8 @@ namespace IF.CodeGeneration.Application.Generator.List
                 case VSFileType.ListHandler:
                     this.Items.Add(new ListHandlerClassGenerator(this.Context));
                     break;
-                case VSFileType.ListMvcControllerMethods:
-                    this.Items.Add(new ListControllerMethodGenerator(this.Context));
+                case VSFileType.ApiListControllerMethods:
+                    this.Items.Add(new ApiListControllerMethodGenerator(this.Context));
                     break;
                 
                 default:

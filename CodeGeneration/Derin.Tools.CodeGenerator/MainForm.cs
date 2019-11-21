@@ -259,10 +259,22 @@ namespace Derin.Tools.CodeGenerator
 
             context.Title = textBoxTitle.Text;
 
-            CSListGenerator codeGenerator = new CSListGenerator(context);            
+            
 
-            MvcListGeneratorForm listGenerator = new MvcListGeneratorForm(codeGenerator);
-            listGenerator.Show();
+            if (checkBoxApiCode.Checked)
+            {
+                ApiCSListGenerator codeGenerator = new ApiCSListGenerator(context);
+                ApiListGeneratorForm generatorForm = new ApiListGeneratorForm(codeGenerator);
+                generatorForm.Show();
+            }
+            else
+            {
+                CSListGenerator codeGenerator = new CSListGenerator(context);
+                MvcListGeneratorForm listGenerator = new MvcListGeneratorForm(codeGenerator);
+                listGenerator.Show();
+            }
+
+
             //fileSystem.ExploreDirectory(basePath);
 
         }

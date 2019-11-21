@@ -46,9 +46,9 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
 
 
-            CSInterface @interface = new CSInterface();
-            @interface.Name = GetDataQueryIntarfaceName();
-            @interface.InheritedInterfaces.Add($"IDataGetQueryAsync<{this.Context.className}Request,{this.Context.className}Response>");
+            //CSInterface @interface = new CSInterface();
+            //@interface.Name = GetDataQueryIntarfaceName();
+            //@interface.InheritedInterfaces.Add($"IDataGetQueryAsync<{this.Context.className}Request,{this.Context.className}Response>");
 
             string classes = "";
             classes += "using IF.Core.Data;";

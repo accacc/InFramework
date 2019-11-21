@@ -6,7 +6,7 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.List.Items
 {
-    public class ApiListControllerMethodGenerator : CSListGenerator, IGenerateItem
+    public class ApiListControllerMethodGenerator : ApiCSListGenerator, IGenerateItem
     {
         
 
@@ -14,7 +14,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
         {
             //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = VSFileType.MvcMethods, Path = "" });
 
-            this.FileType = VSFileType.ApiListMvcControllerMethods;
+            this.FileType = VSFileType.ApiListControllerMethods;
         }
 
         public void Execute()

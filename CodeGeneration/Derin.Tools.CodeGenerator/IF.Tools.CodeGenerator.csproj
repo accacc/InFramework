@@ -109,6 +109,12 @@
     <Compile Include="ApiUpdateGeneratorForm.Designer.cs">
       <DependentUpon>ApiUpdateGeneratorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ApiListGeneratorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ApiListGeneratorForm.Designer.cs">
+      <DependentUpon>ApiListGeneratorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MvcUpdateGeneratorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ApiUpdateGeneratorForm.resx">
       <DependentUpon>ApiUpdateGeneratorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ApiListGeneratorForm.resx">
+      <DependentUpon>ApiListGeneratorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MvcUpdateGeneratorForm.resx">
       <DependentUpon>MvcUpdateGeneratorForm.cs</DependentUpon>

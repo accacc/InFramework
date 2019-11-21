@@ -25,16 +25,16 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
             @class.InheritedInterfaces.Add($"IQueryHandlerAsync<{this.Context.className}Request, {this.Context.className}Response>");
 
-            var repositoryProperty = new CSProperty("private", "query", false);
+            var repositoryProperty = new CSProperty("private", "repository", false);
             repositoryProperty.PropertyTypeString = GetDataQueryIntarfaceName();
             repositoryProperty.IsReadOnly = true;
             @class.Properties.Add(repositoryProperty);
 
 
             CSMethod constructorMethod = new CSMethod(@class.Name, "", "public");
-            constructorMethod.Parameters.Add(new CsMethodParameter() { Name = "query", Type = GetDataQueryIntarfaceName() });
+            constructorMethod.Parameters.Add(new CsMethodParameter() { Name = "repository", Type = GetDataQueryIntarfaceName() });
             StringBuilder methodBody = new StringBuilder();
-            methodBody.AppendFormat("this.query = query;");
+            methodBody.AppendFormat("this.repository = repository;");
             methodBody.AppendLine();
             constructorMethod.Body = methodBody.ToString();
             @class.Methods.Add(constructorMethod);
