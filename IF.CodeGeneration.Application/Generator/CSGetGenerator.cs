@@ -50,7 +50,7 @@ namespace IF.CodeGeneration.Application.Generator.Get
                     this.Items.Add(new GetMvcFormViewGenerator(this.Context));
                     break;
                 case VSFileType.GetHandler:
-                    this.Items.Add(new GeHandlerGenerator(this.Context));
+                    this.Items.Add(new GetHandlerGenerator(this.Context));
                     break;
                 case VSFileType.GetMvcModels:
                     this.Items.Add(new GetMvcModelGenerator(this.Context));

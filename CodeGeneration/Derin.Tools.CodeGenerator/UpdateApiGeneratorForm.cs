@@ -11,9 +11,9 @@ namespace IF.Tools.CodeGenerator
     public partial class UpdateApiGeneratorForm : Form
     {
 
-        public CsApiUpdateGenerator generator { get; set; }
+        public ApiCsUpdateGenerator generator { get; set; }
 
-        public UpdateApiGeneratorForm(CsApiUpdateGenerator generator)
+        public UpdateApiGeneratorForm(ApiCsUpdateGenerator generator)
         {
             InitializeComponent();
 

@@ -7,9 +7,9 @@ using System.Text;
 namespace IF.CodeGeneration.Application.Generator
 {
 
-    public class CsApiUpdateGenerator : CSGeneratorBase
+    public class ApiCsUpdateGenerator : CSGeneratorBase
     {
-        public CsApiUpdateGenerator(GeneratorContext context) : base(context)
+        public ApiCsUpdateGenerator(GeneratorContext context) : base(context)
         {
             this.Files = new List<IFVsFile>();
             this.Items = new List<IGenerateItem>();
@@ -24,7 +24,7 @@ namespace IF.CodeGeneration.Application.Generator
             this.Files.Clear();
             this.Items.Clear();
             this.Files.Add(new IFVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.UpdateContractClass, Path = "Commands" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Api", FileExtension = "cs", FileName = this.Context.ControllerName +"Controller", FileType = VSFileType.UpdateApiControllerMethod, Path = "Controllers" });
+            this.Files.Add(new IFVsFile() { ProjectName = "Api", FileExtension = "cs", FileName = this.Context.ControllerName +"Controller", FileType = VSFileType.ApiUpdateControllerMethod, Path = "Controllers" });
             //this.Files.Add(new IFVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.UpdateDataHandler, Path = "Commands" });
             this.Files.Add(new IFVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.UpdateHandler, Path = "Commands" });
             //this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_Form", FileType = VSFileType.UpdateFormView, Path = $@"{this.Context.ViewBasePath}" });
@@ -40,8 +40,8 @@ namespace IF.CodeGeneration.Application.Generator
                 case VSFileType.UpdateContractClass:
                     this.Items.Add(new UpdateContractClassGenerator(this.Context));
                     break;
-                case VSFileType.UpdateApiControllerMethod:
-                    this.Items.Add(new UpdateApiControllerMethodGenerator(this.Context));
+                case VSFileType.ApiUpdateControllerMethod:
+                    this.Items.Add(new ApiUpdateControllerMethodGenerator(this.Context));
                     break;
                 //case VSFileType.UpdateDataHandler:
                 //    this.Items.Add(new UpdateDataHandlerGenerator(this.Context));

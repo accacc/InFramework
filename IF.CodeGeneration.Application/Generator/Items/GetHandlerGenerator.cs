@@ -7,10 +7,10 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
 {
 
 
-    public class GeHandlerGenerator : CSGetGenerator, IGenerateItem
+    public class GetHandlerGenerator : CSGetGenerator, IGenerateItem
     {
 
-        public GeHandlerGenerator(GeneratorContext context) : base(context)
+        public GetHandlerGenerator(GeneratorContext context) : base(context)
         {
             this.FileType = VSFileType.GetHandler;
         }

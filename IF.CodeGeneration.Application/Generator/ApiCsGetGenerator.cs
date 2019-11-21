@@ -8,11 +8,11 @@ namespace IF.CodeGeneration.Application.Generator
 {
 
 
-    public class CsApiGetGenerator : CSGeneratorBase
+    public class ApiCsGetGenerator : CSGeneratorBase
     {
 
 
-        public CsApiGetGenerator(GeneratorContext context) : base(context)
+        public ApiCsGetGenerator(GeneratorContext context) : base(context)
         {
 
             this.UpdateContext();
@@ -26,7 +26,7 @@ namespace IF.CodeGeneration.Application.Generator
             this.Files.Clear();
             this.Items.Clear();
             this.Files.Add(new IFVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.GetContractClass, Path = "Queries" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Api", FileExtension = "cs", FileName = this.Context.ControllerName + "Controller", FileType = VSFileType.GetApiControllerMethod, Path = "Controllers" });
+            this.Files.Add(new IFVsFile() { ProjectName = "Api", FileExtension = "cs", FileName = this.Context.ControllerName + "Controller", FileType = VSFileType.ApiGetControllerMethod, Path = "Controllers" });
             this.Files.Add(new IFVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className + "Handler", FileType = VSFileType.GetHandler, Path = "Queries" });
             
         }
@@ -40,11 +40,11 @@ namespace IF.CodeGeneration.Application.Generator
                 case VSFileType.GetContractClass:
                     this.Items.Add(new GetContractClassGenerator(this.Context));
                     break;
-                case VSFileType.GetApiControllerMethod:
-                    this.Items.Add(new GetApiControllerMethodGenerator(this.Context));
+                case VSFileType.ApiGetControllerMethod:
+                    this.Items.Add(new ApiGetControllerMethodGenerator(this.Context));
                     break;                
                 case VSFileType.GetHandler:
-                    this.Items.Add(new GeHandlerGenerator(this.Context));
+                    this.Items.Add(new GetHandlerGenerator(this.Context));
                     break;
                 
                 default:

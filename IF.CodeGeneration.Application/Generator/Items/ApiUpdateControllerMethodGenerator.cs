@@ -8,13 +8,13 @@ namespace IF.CodeGeneration.Application.Generator.Items
 {
     
 
-    public class UpdateApiControllerMethodGenerator : CsApiUpdateGenerator, IGenerateItem
+    public class ApiUpdateControllerMethodGenerator : ApiCsUpdateGenerator, IGenerateItem
     {
 
 
-        public UpdateApiControllerMethodGenerator(GeneratorContext context) : base(context)
+        public ApiUpdateControllerMethodGenerator(GeneratorContext context) : base(context)
         {
-            this.FileType = VSFileType.UpdateApiControllerMethod;
+            this.FileType = VSFileType.ApiUpdateControllerMethod;
         }
         public void Execute()
         {

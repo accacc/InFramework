@@ -15,7 +15,7 @@ namespace IF.CodeGeneration.Application.Generator
 
         UpdateContractClass,
         UpdateControllerMethod,
-        UpdateApiControllerMethod,
+        ApiUpdateControllerMethod,
         UpdateDataHandler,
         UpdateHandler,
         UpdateFormView,
@@ -25,7 +25,7 @@ namespace IF.CodeGeneration.Application.Generator
 
         GetContractClass,
         GetControllerMethod,
-        GetApiControllerMethod,
+        ApiGetControllerMethod,
         GetDataHandler,
         GetHandler,
         GetFormView,
@@ -37,6 +37,7 @@ namespace IF.CodeGeneration.Application.Generator
         ListMvcModel,
         ListHandler,
         ListMvcControllerMethods,
+        ApiListMvcControllerMethods,
         ListIndexView
 
 

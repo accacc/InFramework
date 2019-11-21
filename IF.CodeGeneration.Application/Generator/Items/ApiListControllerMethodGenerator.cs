@@ -4,21 +4,21 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace IF.CodeGeneration.Application.Generator.Items
-{ 
-
-
-    public class GetApiControllerMethodGenerator : CsApiGetGenerator, IGenerateItem
+namespace IF.CodeGeneration.Application.Generator.List.Items
+{
+    public class ApiListControllerMethodGenerator : CSListGenerator, IGenerateItem
     {
+        
 
-
-        public GetApiControllerMethodGenerator(GeneratorContext context) : base(context)
+        public  ApiListControllerMethodGenerator(GeneratorContext context) : base(context)
         {
-            this.FileType = VSFileType.GetApiControllerMethod;
+            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = VSFileType.MvcMethods, Path = "" });
+
+            this.FileType = VSFileType.ApiListMvcControllerMethods;
         }
+
         public void Execute()
         {
-
             CSMethod getMethod = new CSMethod($"{this.Context.className}", "IActionResult", "public");
             getMethod.IsAsync = true;
             getMethod.Attirubites.Add("HttpGet");
@@ -36,7 +36,7 @@ namespace IF.CodeGeneration.Application.Generator.Items
 
             var methods = getMethod.GenerateCode().Template + Environment.NewLine;
 
-            IFVsFile vsFile =  this.GetVsFile();
+            IFVsFile vsFile = this.GetVsFile();
 
             this.Context.fileSystem.FormatCode(methods, vsFile.FileExtension, "Controller");
 
@@ -46,6 +46,6 @@ namespace IF.CodeGeneration.Application.Generator.Items
 
             CodeGenerationHelper.AddCodeBottom(controllerPath, methods);
         }
+
     }
 }
-

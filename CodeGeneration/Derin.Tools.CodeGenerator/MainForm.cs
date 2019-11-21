@@ -345,7 +345,7 @@ namespace Derin.Tools.CodeGenerator
             if (checkBoxApiCode.Checked)
             {
 
-                CsApiUpdateGenerator codeGenerator = new CsApiUpdateGenerator(context);
+                ApiCsUpdateGenerator codeGenerator = new ApiCsUpdateGenerator(context);
                 UpdateApiGeneratorForm listGenerator = new UpdateApiGeneratorForm(codeGenerator);
                 listGenerator.Show();
             }
@@ -392,7 +392,7 @@ namespace Derin.Tools.CodeGenerator
 
             if(checkBoxApiCode.Checked)
             {
-                CsApiGetGenerator codeGenerator = new CsApiGetGenerator(context);
+                ApiCsGetGenerator codeGenerator = new ApiCsGetGenerator(context);
                 GetApiGeneratorForm generatorForm = new GetApiGeneratorForm(codeGenerator);
                 generatorForm.Show();
             }

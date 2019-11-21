@@ -12,9 +12,9 @@ namespace IF.Tools.CodeGenerator
     public partial class GetApiGeneratorForm : Form
     {
 
-        public CsApiGetGenerator generator { get; set; }
+        public ApiCsGetGenerator generator { get; set; }
 
-        public GetApiGeneratorForm(CsApiGetGenerator generator)
+        public GetApiGeneratorForm(ApiCsGetGenerator generator)
         {
             InitializeComponent();
 
