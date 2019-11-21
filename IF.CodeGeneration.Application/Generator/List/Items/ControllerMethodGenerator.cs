@@ -12,9 +12,9 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
         public  ControllerMethodGenerator(GeneratorContext context) : base(context)
         {
-            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.MvcMethods, Path = "" });
+            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = VSFileType.MvcMethods, Path = "" });
 
-            this.FileType = ListFileType.MvcControllerMethods;
+            this.FileType = VSFileType.ListMvcControllerMethods;
         }
 
         public void Execute()
@@ -36,7 +36,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
             this.Context.fileSystem.FormatCode(method.GenerateCode(), "cs");
 
-            ListVsFile vsFile = this.GetVsFile();
+            IFVsFile vsFile = this.GetVsFile();
 
             var controllerPath = $@"{this.Context.VsManager.GetProjectPath(vsFile.ProjectName)}\{vsFile.Path}\{this.Context.ControllerName}.{vsFile.FileExtension}";
 

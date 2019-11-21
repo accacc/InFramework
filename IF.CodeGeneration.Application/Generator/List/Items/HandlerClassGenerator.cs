@@ -10,8 +10,8 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
     {
         public HandlerClassGenerator(GeneratorContext context) : base(context)
         {
-            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.Handler, Path = "" });
-            this.FileType = ListFileType.Handler;
+            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = VSFileType.Handler, Path = "" });
+            this.FileType = VSFileType.ListHandler;
         }
         public void Execute()
         {
@@ -48,7 +48,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
             this.Context.fileSystem.FormatCode(@class.GenerateCode(), "cs");
 
-            ListVsFile vsFile = this.GetVsFile();
+            IFVsFile vsFile = this.GetVsFile();
 
             this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, this.Context.className + "Handler", vsFile.FileExtension);
         }

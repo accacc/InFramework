@@ -9,7 +9,7 @@ namespace IF.CodeGeneration.Application.Generator.Add.Items
     {
         public MvcModelGenerator(GeneratorContext context) : base(context)
         {
-            this.FileType = AddFileType.MvcModels;
+            this.FileType = VSFileType.AddMvcModels;
         }
 
         public void Execute()
@@ -17,7 +17,7 @@ namespace IF.CodeGeneration.Application.Generator.Add.Items
             CSClass gridClass = GenerateClass("Model");
             gridClass.NameSpace = this.Context.nameSpaceName + ".Models";
 
-            AddVsFile vsFile = this.GetVsFile();
+            IVsFile vsFile = this.GetVsFile();
 
             this.Context.fileSystem.FormatCode(gridClass.GenerateCode(), vsFile.FileExtension);
 

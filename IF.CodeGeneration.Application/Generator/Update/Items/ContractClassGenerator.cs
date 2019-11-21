@@ -11,7 +11,7 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
 
         public ContractClassGenerator(GeneratorContext context) : base(context)
         {
-            this.FileType = UpdateFileType.ContractClass;
+            this.FileType = VSFileType.UpdateContractClass;
         }
 
         public void Execute()
@@ -58,7 +58,7 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
 
             this.Context.fileSystem.FormatCode(classes, "cs", this.Context.className);
 
-            UpdateVsFile vsFile = this.GetVsFile();
+            IFVsFile vsFile = this.GetVsFile();
 
             this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, this.Context.className, vsFile.FileExtension);
 

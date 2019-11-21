@@ -61,6 +61,11 @@ namespace Derin.Tools.CodeGenerator
                 return Assembly.ReflectionOnlyLoadFrom($@"{solutionPath}\{solutionName}\{solutionName}.Contract\bin\Debug\netstandard2.0\Gedik.SSO.Contract.dll");
             }
 
+            if (args.Name.Contains("IF.Persistence.EF"))
+            {
+                return Assembly.ReflectionOnlyLoadFrom($@"{solutionPath}\{solutionName}\packages\InFramework\IF.Persistence.EFdll");
+            }
+
             return Assembly.ReflectionOnlyLoad(args.Name);
 
 

@@ -61,7 +61,7 @@ namespace IF.Tools.CodeGenerator
 
             foreach (var item in checkedListBoxVsFiles.CheckedItems)
             {
-                var vsFile = generator.Files.SingleOrDefault(f => f.FileType == (GetFileType)item);
+                var vsFile = generator.Files.SingleOrDefault(f => f.FileType == (VSFileType)item);
                 if (vsFile != null)
                 {
                     this.generator.SetItemActive(vsFile.FileType);

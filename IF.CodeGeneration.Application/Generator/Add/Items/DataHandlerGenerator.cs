@@ -10,7 +10,7 @@ namespace IF.CodeGeneration.Application.Generator.Add.Items
 
         public DataHandlerGenerator(GeneratorContext context) : base(context)
         {
-            this.FileType = AddFileType.DataHandler;
+            this.FileType = VSFileType.AddDataHandler;
         }
         public void Execute()
         {
@@ -67,7 +67,7 @@ namespace IF.CodeGeneration.Application.Generator.Add.Items
 
             this.Context.fileSystem.FormatCode(@class.GenerateCode(), "cs");
 
-            AddVsFile vsFile = this.GetVsFile();
+            IVsFile vsFile = this.GetVsFile();
 
             this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, GetDataInsertCommandClassName(), vsFile.FileExtension);
         }

@@ -11,7 +11,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
 
         public DataHandlerGenerator(GeneratorContext context) : base(context)
         {
-            this.FileType = GetFileType.DataHandler;
+            this.FileType = VSFileType.GetDataHandler;
         }
         public void Execute()
         {
@@ -72,7 +72,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
 
             @class.Methods.Add(handleMethod);
 
-            GetVsFile vsFile = this.GetVsFile();
+            IFVsFile vsFile = this.GetIFVsFile();
 
             this.Context.fileSystem.FormatCode(@class.GenerateCode(), vsFile.FileExtension);
             

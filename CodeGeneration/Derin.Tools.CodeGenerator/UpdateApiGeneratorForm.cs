@@ -1,6 +1,6 @@
-﻿using IF.CodeGeneration.Application;
-using IF.CodeGeneration.Application.Generator;
+﻿using IF.CodeGeneration.Application.Generator;
 using IF.CodeGeneration.Application.Generator.List;
+using IF.CodeGeneration.Application.Generator.Update;
 using System;
 using System.Linq;
 using System.Web.UI.WebControls;
@@ -8,18 +8,17 @@ using System.Windows.Forms;
 
 namespace IF.Tools.CodeGenerator
 {
-    public partial class AddGeneratorForm : Form
+    public partial class UpdateApiGeneratorForm : Form
     {
 
-        public CSInsertGenerator generator { get; set; }
+        public CSUpdateGenerator generator { get; set; }
 
-        public AddGeneratorForm(CSInsertGenerator generator)
+        public UpdateApiGeneratorForm(CSUpdateGenerator generator)
         {
             InitializeComponent();
 
             generator.UpdateContext();
 
-            textBoxViewBasePath.Text = @"Views/Security/User";
             textBoxControllerName.Text = "SecurityController";          
 
             this.generator = generator;
@@ -40,11 +39,7 @@ namespace IF.Tools.CodeGenerator
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
 
-            if (String.IsNullOrWhiteSpace(textBoxViewBasePath.Text))
-            {
-                MessageBox.Show(@"Please enter the View Base Path.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
+            
 
 
             if (String.IsNullOrWhiteSpace(textBoxControllerName.Text))
@@ -53,7 +48,6 @@ namespace IF.Tools.CodeGenerator
                 return;
             }
 
-            generator.Context.ViewBasePath = textBoxViewBasePath.Text;
             generator.Context.ControllerName = textBoxControllerName.Text;
             
             generator.UpdateContext();
@@ -68,14 +62,6 @@ namespace IF.Tools.CodeGenerator
             }
               
             generator.Generate();
-
-            //this.generator.GenerateContractClasses();
-            //this.generator.GenerateDataQueryHandlerClass();
-            //this.generator.GenerateHandlerClass();
-            //this.generator.GenerateControllerMethods();
-            //this.generator.GenerateMvcModels();
-            //this.generator.GenerateMvcIndexView();
-            //this.generator.GenerateMvcGridView();
         }
     }
 }

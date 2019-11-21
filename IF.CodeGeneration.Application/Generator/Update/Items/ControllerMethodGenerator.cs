@@ -13,7 +13,7 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
 
         public ControllerMethodGenerator(GeneratorContext context) : base(context)
         {
-            this.FileType = UpdateFileType.ControllerMethod;
+            this.FileType = VSFileType.UpdateControllerMethod;
         }
         public void Execute()
         {
@@ -48,7 +48,7 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
 
             this.Context.fileSystem.FormatCode(methods, "cs", "Controller");
 
-            UpdateVsFile vsFile = this.GetVsFile();
+            IFVsFile vsFile = this.GetVsFile();
 
             var controllerPath = $@"{this.Context.VsManager.GetProjectPath(vsFile.ProjectName)}\{vsFile.Path}\{this.Context.ControllerName}.{vsFile.FileExtension}";
 

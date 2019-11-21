@@ -2,6 +2,8 @@
 using IF.CodeGeneration.CSharp;
 using IF.Tools.CodeGenerator.VsAutomation;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IF.CodeGeneration.Application.Generator
 {
@@ -10,9 +12,28 @@ namespace IF.CodeGeneration.Application.Generator
         
         public readonly GeneratorContext Context;
 
+        public List<IVsFile> Files { get; set; }
+        public List<IGenerateItem> Items { get; set; }
+
+        protected VSFileType FileType;
+
         public CSGeneratorBase(GeneratorContext context)
         {
             this.Context = context;            
+        }
+
+        public IVsFile GetVsFile()
+        {
+            return this.Files.SingleOrDefault(f => f.FileType == this.FileType);
+        }
+
+        public void Generate()
+        {
+
+            foreach (var item in Items)
+            {
+                item.Execute();
+            }
         }
 
         public CSClass GenerateClass(string plus = "")

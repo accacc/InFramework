@@ -12,7 +12,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
 
         public HandlerGenerator(GeneratorContext context) : base(context)
         {
-            this.FileType = GetFileType.Handler;
+            this.FileType = VSFileType.GetHandler;
         }
 
 
@@ -50,7 +50,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
             @class.Methods.Add(handleMethod);
             this.Context.fileSystem.FormatCode(@class.GenerateCode(), "cs");
 
-            GetVsFile vsFile = this.GetVsFile();
+            IFVsFile vsFile = this.GetIFVsFile();
 
             this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path,vsFile.FileName, vsFile.FileExtension);
 

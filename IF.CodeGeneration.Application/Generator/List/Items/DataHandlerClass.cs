@@ -11,8 +11,8 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
         public DataHandlerClass(GeneratorContext context) : base(context)
         {
-            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.DataHandler, Path = "" });
-            this.FileType = ListFileType.DataHandler;
+            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = VSFileType.DataHandler, Path = "" });
+            this.FileType = VSFileType.ListDataHandler;
         }
 
         public void Execute()
@@ -68,7 +68,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
             this.Context.fileSystem.FormatCode(@class.GenerateCode(), "cs");
 
-            ListVsFile vsFile = this.GetVsFile();
+            IFVsFile vsFile = this.GetVsFile();
 
             this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, GetDataQueryClassName(), vsFile.FileExtension);
         }

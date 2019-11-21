@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Text;
 
-namespace IF.CodeGeneration.Application.Generator
-{
-    public enum ListFileType
-    {
-        Gridview,
-        Contracts,
-        DataHandler,
-        MvcModel,
-        Handler,
-        MvcControllerMethods,
-        IndexView
-    }
-}
+//namespace IF.CodeGeneration.Application.Generator
+//{
+//    public enum VSFileType
+//    {
+      
+//    }
+//}

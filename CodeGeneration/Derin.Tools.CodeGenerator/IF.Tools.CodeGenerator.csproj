@@ -97,6 +97,12 @@
     <Compile Include="GetGeneratorForm.Designer.cs">
       <DependentUpon>GetGeneratorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UpdateApiGeneratorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateApiGeneratorForm.Designer.cs">
+      <DependentUpon>UpdateApiGeneratorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UpdateGeneratorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GetGeneratorForm.resx">
       <DependentUpon>GetGeneratorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateApiGeneratorForm.resx">
+      <DependentUpon>UpdateApiGeneratorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UpdateGeneratorForm.resx">
       <DependentUpon>UpdateGeneratorForm.cs</DependentUpon>
@@ -182,8 +191,6 @@
       <Name>IF.CodeGeneration.VisualStudio</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="VsAutomation\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

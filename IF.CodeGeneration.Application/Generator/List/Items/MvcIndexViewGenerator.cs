@@ -9,8 +9,8 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
     {
         public MvcIndexViewGenerator(GeneratorContext context) : base(context)
         {
-            //this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "Index", FileType = ListFileType.IndexView, Path = "" });
-            this.FileType = ListFileType.IndexView;
+            //this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "Index", FileType = VSFileType.IndexView, Path = "" });
+            this.FileType = VSFileType.ListIndexView;
 
         }
 
@@ -32,7 +32,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             builder.AppendLine();
             builder.AppendLine("}");
 
-            ListVsFile vsFile = this.GetVsFile();
+            IFVsFile vsFile = this.GetVsFile();
 
             this.Context.fileSystem.FormatCode(builder.ToString(), vsFile.FileExtension, vsFile.FileName);            
 

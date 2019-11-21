@@ -12,71 +12,99 @@ namespace IF.CodeGeneration.Application.Generator
         string Path { get; set; }
 
         string ProjectName { get; set; }
+
+        VSFileType FileType { get; set; }
     }
 
-    public class ListVsFile:IVsFile
+    //public class IFVsFile:IVsFile
+    //{
+    //    public IFVsFile()
+    //    {
+    //    }
+
+    //    //public VSFileType FileType { get; set; }
+    //    public string FileName { get; set; }
+    //    public string FileExtension { get; set; }
+
+    //    public string Path { get; set; }
+
+    //    public string ProjectName { get; set; }
+    //    public string FileType { get; set; }
+
+
+    //}
+
+
+    public class IFVsFile : IVsFile
     {
-        public ListVsFile()
+        public IFVsFile()
         {
         }
 
-        public ListFileType FileType { get; set; }
+        public VSFileType FileType { get; set; }
         public string FileName { get; set; }
         public string FileExtension { get; set; }
 
         public string Path { get; set; }
 
         public string ProjectName { get; set; }
+        
 
 
     }
 
-    public class AddVsFile : IVsFile
-    {
-        public AddVsFile()
-        {
-        }
+    //public class AddVsFile : IVsFile
+    //{
+    //    public AddVsFile()
+    //    {
+    //    }
 
-        public AddFileType FileType { get; set; }
-        public string FileName { get; set; }
-        public string FileExtension { get; set; }
+    //    //public AddFileType FileType { get; set; }
+    //    public string FileName { get; set; }
+    //    public string FileExtension { get; set; }
 
-        public string Path { get; set; }
+    //    public string Path { get; set; }
 
-        public string ProjectName { get; set; }
+    //    public string ProjectName { get; set; }
+
+    //    public string FileType { get; set; }
 
 
-    }
+    //}
 
-    public class UpdateVsFile : IVsFile
-    {
-        public UpdateVsFile()
-        {
-        }
+    //public class IFVsFile : IVsFile
+    //{
+    //    public IFVsFile()
+    //    {
+    //    }
 
-        public UpdateFileType FileType { get; set; }
-        public string FileName { get; set; }
-        public string FileExtension { get; set; }
+    //    //public UpdateFileType FileType { get; set; }
+    //    public string FileName { get; set; }
+    //    public string FileExtension { get; set; }
 
-        public string Path { get; set; }
+    //    public string Path { get; set; }
 
-        public string ProjectName { get; set; }
+    //    public string ProjectName { get; set; }
 
-    }
+    //    public string FileType { get; set; }
 
-    public class GetVsFile : IVsFile
-    {
-        public GetVsFile()
-        {
-        }
+    //}
 
-        public GetFileType FileType { get; set; }
-        public string FileName { get; set; }
-        public string FileExtension { get; set; }
+    //public class GetVsFile : IVsFile
+    //{
+    //    public GetVsFile()
+    //    {
+    //    }
 
-        public string Path { get; set; }
+    //    //public GetFileType FileType { get; set; }
+    //    public string FileName { get; set; }
+    //    public string FileExtension { get; set; }
 
-        public string ProjectName { get; set; }
+    //    public string Path { get; set; }
 
-    }
+    //    public string ProjectName { get; set; }
+
+    //    public string FileType { get; set; }
+
+    //}
 }

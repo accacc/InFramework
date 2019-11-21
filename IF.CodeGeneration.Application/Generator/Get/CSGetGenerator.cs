@@ -9,14 +9,14 @@ namespace IF.CodeGeneration.Application.Generator.Get
     public class CSGetGenerator : CSGeneratorBase
     {
 
-        public List<GetVsFile> Files { get; set; }
+        public List<IFVsFile> Files { get; set; }
         public List<IGenerateItem> Items { get; set; }
 
-        protected GetFileType FileType;
+        protected VSFileType FileType;
 
         public CSGetGenerator(GeneratorContext context) : base(context)
         {
-            this.Files = new List<GetVsFile>();
+            this.Files = new List<IFVsFile>();
             this.Items = new List<IGenerateItem>();
             this.UpdateContext();
         }
@@ -28,36 +28,36 @@ namespace IF.CodeGeneration.Application.Generator.Get
         {
             this.Files.Clear();
             this.Items.Clear();
-            this.Files.Add(new GetVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = GetFileType.ContractClass, Path = "Queries" });
-            this.Files.Add(new GetVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = "Security", FileType = GetFileType.ControllerMethod, Path = "Controllers" });
-            this.Files.Add(new GetVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = this.Context.className, FileType = GetFileType.DataHandler, Path = "Queries" });
-            this.Files.Add(new GetVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className +"Handler", FileType = GetFileType.Handler, Path = "Queries" });
-            this.Files.Add(new GetVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_FormView", FileType = GetFileType.FormView, Path = $@"{this.Context.ViewBasePath}" });
-            this.Files.Add(new GetVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.className + "Model", FileType = GetFileType.MvcModels, Path = "Models" });
+            this.Files.Add(new IFVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.GetContractClass, Path = "Queries" });
+            this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = "Security", FileType = VSFileType.GetControllerMethod, Path = "Controllers" });
+            this.Files.Add(new IFVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.GetDataHandler, Path = "Queries" });
+            this.Files.Add(new IFVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className +"Handler", FileType = VSFileType.GetHandler, Path = "Queries" });
+            this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_FormView", FileType = VSFileType.GetFormView, Path = $@"{this.Context.ViewBasePath}" });
+            this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.className + "Model", FileType = VSFileType.GetMvcModels, Path = "Models" });
         }
 
-        public void SetItemActive(GetFileType type)
+        public void SetItemActive(VSFileType type)
         {
 
 
             switch (type)
             {
-                case GetFileType.ContractClass:
+                case VSFileType.GetContractClass:
                     this.Items.Add(new ContractClassGenerator(this.Context));
                     break;
-                case GetFileType.ControllerMethod:
+                case VSFileType.GetControllerMethod:
                     this.Items.Add(new ControllerMethodGenerator(this.Context));
                     break;
-                case GetFileType.DataHandler:
+                case VSFileType.GetDataHandler:
                     this.Items.Add(new DataHandlerGenerator(this.Context));
                     break;
-                case GetFileType.FormView:
+                case VSFileType.GetFormView:
                     this.Items.Add(new MvcFormViewGenerator(this.Context));
                     break;
-                case GetFileType.Handler:
+                case VSFileType.GetHandler:
                     this.Items.Add(new HandlerGenerator(this.Context));
                     break;
-                case GetFileType.MvcModels:
+                case VSFileType.GetMvcModels:
                     this.Items.Add(new MvcModelGenerator(this.Context));
                     break;
                 default:
@@ -75,7 +75,7 @@ namespace IF.CodeGeneration.Application.Generator.Get
             }
         }
 
-        public GetVsFile GetVsFile()
+        public IFVsFile GetIFVsFile()
         {
             return this.Files.SingleOrDefault(f => f.FileType == this.FileType);
         }

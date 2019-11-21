@@ -13,8 +13,8 @@ namespace IF.CodeGeneration.Application.Generator.Add.Items
 
         public MvcFormViewGenerator(GeneratorContext context) : base(context)
         {
-            //this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "_GridView", FileType = ListFileType.Gridview, Path = "" });
-            this.FileType = AddFileType.FormView;
+            //this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "_GridView", FileType = VSFileType.Gridview, Path = "" });
+            this.FileType = VSFileType.AddFormView;
         }
 
         public void Execute()
@@ -73,7 +73,7 @@ namespace IF.CodeGeneration.Application.Generator.Add.Items
 
             builder.AppendLine("</form>");            
 
-            AddVsFile vsFile = this.GetVsFile();
+            IVsFile vsFile = this.GetVsFile();
 
             this.Context.fileSystem.FormatCode(builder.ToString(), vsFile.FileExtension, vsFile.FileName);
 

@@ -11,8 +11,8 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
         public MvcModelGenerator(GeneratorContext context) : base(context)
         {
-            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = ListFileType.MvcModel, Path = "" });
-            this.FileType = ListFileType.MvcModel;
+            //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = VSFileType.MvcModel, Path = "" });
+            this.FileType = VSFileType.ListMvcModel;
         }
 
         public void Execute()
@@ -21,7 +21,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             gridClass.NameSpace = this.Context.nameSpaceName + ".Models";
             this.Context.fileSystem.FormatCode(gridClass.GenerateCode(), "cs");
 
-            ListVsFile vsFile = this.GetVsFile();
+            IFVsFile vsFile = this.GetVsFile();
 
             this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, vsFile.FileName, vsFile.FileExtension);
         }

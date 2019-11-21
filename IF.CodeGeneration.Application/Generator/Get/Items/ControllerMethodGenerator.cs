@@ -13,7 +13,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
 
         public ControllerMethodGenerator(GeneratorContext context) : base(context)
         {
-            this.FileType = GetFileType.ControllerMethod;
+            this.FileType = VSFileType.GetControllerMethod;
         }
         public void Execute()
         {
@@ -35,7 +35,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
 
             var methods = getMethod.GenerateCode().Template + Environment.NewLine;
 
-            GetVsFile vsFile = this.GetVsFile();
+            IFVsFile vsFile = this.GetIFVsFile();
 
             this.Context.fileSystem.FormatCode(methods, vsFile.FileExtension, "Controller");
 

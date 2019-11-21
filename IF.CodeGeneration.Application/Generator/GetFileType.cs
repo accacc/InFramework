@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Text;
 
-namespace IF.CodeGeneration.Application.Generator
-{
-    public enum GetFileType
-    {
-        ContractClass,
-        ControllerMethod,
-        DataHandler,
-        Handler,
-        FormView,
-        MvcModels,
-    }
-}
+//namespace IF.CodeGeneration.Application.Generator
+//{
+//    public enum GetFileType
+//    {
+       
+//    }
+//}
