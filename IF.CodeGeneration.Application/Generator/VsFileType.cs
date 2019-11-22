@@ -7,6 +7,7 @@ namespace IF.CodeGeneration.Application.Generator
     public enum VSFileType
     {
         AddContractClass,
+        ApiAddControllerMethod,
         AddControllerMethod,
         AddDataHandler,
         AddHandler,

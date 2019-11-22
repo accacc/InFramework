@@ -6,7 +6,7 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.List.Items
 {
-    public class ApiListControllerMethodGenerator : ApiCSListGenerator, IGenerateItem
+    public class ApiListControllerMethodGenerator : ApiCsListGenerator, IGenerateItem
     {
         
 

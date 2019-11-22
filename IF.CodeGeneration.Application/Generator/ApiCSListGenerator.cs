@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace IF.CodeGeneration.Application.Generator.List
 {
-    public class ApiCSListGenerator : CSGeneratorBase
+    public class ApiCsListGenerator : CSGeneratorBase
     {
         
 
-        public ApiCSListGenerator(GeneratorContext context) : base(context)
+        public ApiCsListGenerator(GeneratorContext context) : base(context)
         {
             this.UpdateContext();
             

@@ -263,7 +263,7 @@ namespace Derin.Tools.CodeGenerator
 
             if (checkBoxApiCode.Checked)
             {
-                ApiCSListGenerator codeGenerator = new ApiCSListGenerator(context);
+                ApiCsListGenerator codeGenerator = new ApiCsListGenerator(context);
                 ApiListGeneratorForm generatorForm = new ApiListGeneratorForm(codeGenerator);
                 generatorForm.Show();
             }

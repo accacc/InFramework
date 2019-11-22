@@ -60,7 +60,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             classes += Environment.NewLine;
             classes += "{";
             classes += Environment.NewLine;
-            classes += dtoClass.GenerateCode().Template + Environment.NewLine + requestClass.GenerateCode().Template + Environment.NewLine + responseClass.GenerateCode().Template + Environment.NewLine + @interface.GenerateCode().Template;
+            classes += dtoClass.GenerateCode().Template + Environment.NewLine + requestClass.GenerateCode().Template + Environment.NewLine + responseClass.GenerateCode().Template + Environment.NewLine;
             classes += Environment.NewLine;
             classes += "}";
 

@@ -10,9 +10,9 @@ namespace IF.Tools.CodeGenerator
     public partial class ApiListGeneratorForm : Form
     {
 
-        public ApiCSListGenerator generator { get; set; }
+        public ApiCsListGenerator generator { get; set; }
 
-        public ApiListGeneratorForm(ApiCSListGenerator generator)
+        public ApiListGeneratorForm(ApiCsListGenerator generator)
         {
             InitializeComponent();
 
