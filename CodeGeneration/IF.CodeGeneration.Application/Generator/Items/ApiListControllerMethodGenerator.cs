@@ -44,7 +44,13 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
             var controllerPath = $@"{this.Context.VsManager.GetProjectPath(vsFile.ProjectName)}\{vsFile.Path}\{vsFile.FileName}.{vsFile.FileExtension}";
 
+
+
+
             CodeGenerationHelper.AddCodeBottom(controllerPath, methods);
+
+
+            
         }
 
     }

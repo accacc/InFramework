@@ -435,7 +435,7 @@ namespace Derin.Tools.CodeGenerator
 
         private void comboBoxProjects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((comboBoxProjects.SelectedItem as NameValueDto) != null)
+            if (comboBoxProjects.SelectedItem != null)
             {
                 textBoxNameSpace.Text = (comboBoxProjects.SelectedItem as NameValueDto).Value.ToString();
             }

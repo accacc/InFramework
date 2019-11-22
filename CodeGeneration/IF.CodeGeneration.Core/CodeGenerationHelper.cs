@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -8,9 +12,7 @@ namespace IF.CodeGeneration.Core
     public static class CodeGenerationHelper
     {
         public static void AddCodeBottom(string path,string method)
-        {
-
-            return;
+        {            
             var lines = System.IO.File.ReadAllLines(path);
             if (lines != null)
             {
@@ -42,6 +44,34 @@ namespace IF.CodeGeneration.Core
 
 
                 System.IO.File.WriteAllLines(path, lines.Reverse());
+            }
+        }
+
+
+        public static bool IsMethodExist(string path,string name,List<string> parameters)
+        {
+
+
+            var code = new StreamReader(path).ReadToEnd();
+
+            SyntaxTree Tree = CSharpSyntaxTree.ParseText(code);
+
+
+
+            SyntaxNode Root = Tree.GetRoot();
+
+            var Methods = Root.DescendantNodes().OfType<MethodDeclarationSyntax>().ToList();
+
+            foreach (var method in Methods)
+            {
+                
+
+
+                foreach (ParameterSyntax item in method.ParameterList.Parameters)
+                {
+                
+                }
+
             }
         }
     }
