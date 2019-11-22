@@ -68,9 +68,9 @@ namespace Derin.Tools.CodeGenerator
                 return Assembly.ReflectionOnlyLoadFrom(@"C:\Projects\InFramework\packages\Microsoft.EntityFrameworkCore.2.2.6\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll");
             }
 
-            if (args.Name.Contains("{}.Contract"))
+            if (args.Name.Contains($"{solutionName}.Contract"))
             {
-                return Assembly.ReflectionOnlyLoadFrom($@"{solutionPath}\{solutionName}\{solutionName}.Contract\bin\Debug\netstandard2.0\Gedik.SSO.Contract.dll");
+                return Assembly.ReflectionOnlyLoadFrom($@"{solutionPath}\{solutionName}\{solutionName}.Contract\bin\Debug\netstandard2.0\{solutionName}.Contract.dll");
             }
 
             if (args.Name.Contains("IF.Persistence.EF"))
@@ -431,6 +431,14 @@ namespace Derin.Tools.CodeGenerator
 
 
             
+        }
+
+        private void comboBoxProjects_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if ((comboBoxProjects.SelectedItem as NameValueDto) != null)
+            {
+                textBoxNameSpace.Text = (comboBoxProjects.SelectedItem as NameValueDto).Value.ToString();
+            }
         }
     }
 }

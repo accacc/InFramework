@@ -172,7 +172,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IF.Core\IF.Core.csproj">
+    <ProjectReference Include="..\..\IF.Core\IF.Core.csproj">
       <Project>{95504fa0-7454-4e21-8857-c77917fe1799}</Project>
       <Name>IF.Core</Name>
     </ProjectReference>

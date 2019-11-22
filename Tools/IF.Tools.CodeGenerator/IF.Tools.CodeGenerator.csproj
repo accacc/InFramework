@@ -184,8 +184,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\IF.CodeGeneration.Application\IF.CodeGeneration.Application.csproj">
-      <Project>{321D8CFD-215F-4893-8945-0C81BAEA3199}</Project>
+    <ProjectReference Include="..\..\CodeGeneration\IF.CodeGeneration.Application\IF.CodeGeneration.Application.csproj">
+      <Project>{F106A3A7-91DD-4EEF-840B-2EA3A67E5AA7}</Project>
       <Name>IF.CodeGeneration.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\IF.Core\IF.Core.csproj">
@@ -196,15 +196,15 @@
       <Project>{E3383244-F33B-45A3-9A1A-6620BFC33672}</Project>
       <Name>IF.Persistence</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IF.CodeGeneration.Core\IF.CodeGeneration.Core.csproj">
+    <ProjectReference Include="..\..\CodeGeneration\IF.CodeGeneration.Core\IF.CodeGeneration.Core.csproj">
       <Project>{a76acf78-8ea6-4068-979a-da3d5cca4b54}</Project>
       <Name>IF.CodeGeneration.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IF.CodeGeneration.Language.CSharp\IF.CodeGeneration.Language.CSharp.csproj">
+    <ProjectReference Include="..\..\CodeGeneration\IF.CodeGeneration.Language.CSharp\IF.CodeGeneration.Language.CSharp.csproj">
       <Project>{ad0ee137-e7c8-4580-bba3-9f07885135f5}</Project>
       <Name>IF.CodeGeneration.Language.CSharp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IF.CodeGeneration.VisualStudio\IF.CodeGeneration.VisualStudio.csproj">
+    <ProjectReference Include="..\..\CodeGeneration\IF.CodeGeneration.VisualStudio\IF.CodeGeneration.VisualStudio.csproj">
       <Project>{678249DC-9BEB-4D0F-9CE0-499B2B37194C}</Project>
       <Name>IF.CodeGeneration.VisualStudio</Name>
     </ProjectReference>

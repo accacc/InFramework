@@ -210,6 +210,7 @@
             this.comboBoxProjects.Name = "comboBoxProjects";
             this.comboBoxProjects.Size = new System.Drawing.Size(163, 21);
             this.comboBoxProjects.TabIndex = 19;
+            this.comboBoxProjects.SelectedIndexChanged += new System.EventHandler(this.comboBoxProjects_SelectedIndexChanged);
             // 
             // MainForm
             // 
