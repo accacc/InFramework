@@ -9,6 +9,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="MongoDB.Driver" Version="2.9.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +42,9 @@
     </Reference>
     <Reference Include="IF.EventBus.RabbitMQ.Integration">
       <HintPath>..\packages\InFramework\IF.EventBus.RabbitMQ.Integration.dll</HintPath>
+    </Reference>
+    <Reference Include="IF.MongoDB.Integration">
+      <HintPath>..\packages\InFramework\IF.MongoDB.Integration.dll</HintPath>
     </Reference>
     <Reference Include="IF.Persistence">
       <HintPath>..\packages\InFramework\IF.Persistence.dll</HintPath>

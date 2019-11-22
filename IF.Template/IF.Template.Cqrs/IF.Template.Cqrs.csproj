@@ -14,10 +14,14 @@
     <Reference Include="IF.Cqrs">
       <HintPath>..\packages\InFramework\IF.Cqrs.dll</HintPath>
     </Reference>
+    <Reference Include="IF.Persistence">
+      <HintPath>..\packages\InFramework\IF.Persistence.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\IF.Template.Contract\IF.Template.Contract.csproj" />
+    <ProjectReference Include="..\IF.Template.Persistence.EF\IF.Template.Persistence.EF.csproj" />
   </ItemGroup>
 
 </Project>

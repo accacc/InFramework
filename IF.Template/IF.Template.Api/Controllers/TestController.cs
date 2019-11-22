@@ -18,19 +18,12 @@ namespace IF.Template.Api.Controllers
 
 
         [HttpGet]
-        [Route("api/Test/Get")]
-        public async Task<TestListResponse> Get([FromQuery] TestListRequest request)
+        [Route("api/Resource/TestList")]
+        public async Task<IActionResult> TestList([FromQuery] TestListRequest request)
         {
-            var result = await dispatcher.QueryAsync<TestListRequest, TestListResponse>(request);
-            return result;
-        }
+            var response = await dispatcher.QueryAsync<TestListRequest, TestListResponse>(new TestListRequest());
+            return Ok(response);
 
-        [HttpPost]
-        [Route("api/Test/Add")]
-        public async Task<TestListResponse> Add([FromBody] TestListRequest request)
-        {
-            var result = await dispatcher.QueryAsync<TestListRequest, TestListResponse>(request);
-            return result;
         }
     }
 }

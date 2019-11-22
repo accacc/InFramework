@@ -25,7 +25,7 @@ namespace Derin.Tools.CodeGenerator
 
         private readonly string basePath = @"C:\temp";
         private readonly string solutionPath = @"C:\Projects";
-        private readonly string solutionName = @"Gedik.SSO";
+        private string solutionName;
         
 
         
@@ -37,16 +37,28 @@ namespace Derin.Tools.CodeGenerator
 
             this.fileSystem = new FileSystemCodeFormatProvider(basePath);
             this.assembiler = new Assembiler();
-            
-
 
             this.modelTreeView.CheckBoxes = true;
 
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ReflectionOnlyAssemblyResolve;
 
-            this.textBoxName.Text = "UserUpdate";
-            this.textBoxNameSpace.Text = "Gedik.SSO";
-            this.textBoxTitle.Text = "Kullanıcı Yönetimi";
+            List<NameValueDto> publishModes = new List<NameValueDto>
+            {
+                new NameValueDto( "Gedik.SSO","Gedik.SSO"),
+                new NameValueDto( "Gedik.Resource","Gedik.Resource")
+            };
+
+            bindingSourceProjects.DataSource = publishModes;
+
+            comboBoxProjects.DataSource = bindingSourceProjects;
+
+            comboBoxProjects.DisplayMember = "Name";
+            comboBoxProjects.ValueMember = "Value";
+
+
+            //this.textBoxName.Text = "UserUpdate";
+            //this.textBoxNameSpace.Text = "Gedik.SSO";
+            //this.textBoxTitle.Text = "Kullanıcı Yönetimi";
         }
 
         public  Assembly ReflectionOnlyAssemblyResolve(object sender,ResolveEventArgs args)
@@ -56,7 +68,7 @@ namespace Derin.Tools.CodeGenerator
                 return Assembly.ReflectionOnlyLoadFrom(@"C:\Projects\InFramework\packages\Microsoft.EntityFrameworkCore.2.2.6\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll");
             }
 
-            if (args.Name.Contains("Gedik.SSO.Contract"))
+            if (args.Name.Contains("{}.Contract"))
             {
                 return Assembly.ReflectionOnlyLoadFrom($@"{solutionPath}\{solutionName}\{solutionName}.Contract\bin\Debug\netstandard2.0\Gedik.SSO.Contract.dll");
             }
@@ -74,9 +86,9 @@ namespace Derin.Tools.CodeGenerator
         private void buttonLoadModel_Click(object sender, EventArgs e)
         {
 
-           
+            this.solutionName = comboBoxProjects.SelectedValue.ToString();
 
-            assembiler.AddAssemly<Entity>(@"C:\Projects\Gedik.SSO\Gedik.SSO.Persistence.EF\bin\Debug\netstandard2.0\Gedik.SSO.Persistence.EF.dll");
+            assembiler.AddAssemly<Entity>($@"{solutionPath}\{solutionName}\{solutionName}.Persistence.EF\bin\Debug\netstandard2.0\{solutionName}.Persistence.EF.dll");
 
             modelTreeView.Nodes.Clear();
 

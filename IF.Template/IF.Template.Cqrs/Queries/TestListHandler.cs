@@ -1,5 +1,6 @@
 ﻿using IF.Core.Data;
 using IF.Template.Contract.Queries;
+using IF.Template.Persistence.EF.Repository;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,17 +8,21 @@ namespace IF.Template.Cqrs.Queries
 {
     public class TestListHandler : IQueryHandlerAsync<TestListRequest, TestListResponse>
     {
-        private readonly ITestListQueryAsync listQuery;
+        private readonly ITestRepository testRepository;
 
 
-        public TestListHandler(ITestListQueryAsync repository)
+        public TestListHandler(ITestRepository testRepository)
         {
-            this.listQuery = repository;
+            this.testRepository = testRepository;
         }
 
         public async Task<TestListResponse> HandleAsync(TestListRequest request)
         {
-            return await this.listQuery.GetAsync(request);
+            TestListResponse response = new TestListResponse();
+
+            response.Data =  await this.testRepository.GetTestList();
+
+            return response;
         }
     }
 }

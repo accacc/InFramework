@@ -1,21 +1,24 @@
 ﻿using Autofac;
+
 using IF.Configuration;
 using IF.Core.DependencyInjection.Interface;
 using IF.Cqrs.Builders;
 using IF.Dependency.AutoFac;
 using IF.EventBus.RabbitMQ.Integration;
+using IF.MongoDB.Integration;
 using IF.Persistence;
-using IF.Persistence.EF.Core;
 using IF.Persistence.EF.SqlServer.Integration;
 using IF.Swagger.Integration;
+using IF.Template.Api.Infrastracture;
 using IF.Template.Cqrs;
 using IF.Template.Persistence.EF;
+using IF.Template.Persistence.EF.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using System;
 using System.Reflection;
 
@@ -42,12 +45,24 @@ namespace IF.Template.Api
 
             var settings = this.Configuration.GetSettings<IFTemplateAppSettings>();
 
-            @if.AddDbContext<TestDbContext>(services, settings.Database.ConnectionString);
+            @if.AddDbContext<TestDbContext>(services, "Data Source=31.210.86.2;Initial Catalog=DerinCampaign;Persist Security Info=false;User Id=sa;Password=_Response2048;MultipleActiveResultSets=true;");
 
             var handlers = Assembly.Load("IF.Template.Cqrs");
+            var repos = Assembly.Load("IF.Template.Persistence.EF");
 
             @if.AddSwagger(services, "v1", "InFramework Template Api", true)
+                .AddNewstonJson(json => json.Build())
                    .AddApplicationSettings<IIFTemplateAppSettings>(settings)
+                   .AddMongo(m => m.AddMongoPerServiceConnectionStrategy(settings.MongoConnection, c =>
+                   {
+                       c.AddApplicationLogger();
+                       c.AddAuditLogger();
+                       c.AddPerformanceLogger();
+                       c.AddSmsLogger();
+                       c.AddAuditLogger();
+                       c.AddEmailLogger();
+                   }
+            ))
                    .AddCqrs(cqrs =>
                    {
 
@@ -106,6 +121,7 @@ namespace IF.Template.Api
                     {
                         bus.AddRabbitMQEventBus(services, settings.RabbitMQConnection, "if_template").Build(new Assembly[] { handlers });
                     })
+                    .RegisterType<TestRepository, ITestRepository>(DependencyScope.PerInstance);
 
                 ;
 
@@ -119,6 +135,8 @@ namespace IF.Template.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware(typeof(WebApiExceptionHandler));
 
             app.UseMvc();
             @if.UseSwagger(app, "v1", "InFramework Template Api");

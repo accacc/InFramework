@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.modelTreeView = new System.Windows.Forms.TreeView();
             this.buttonLoadModel = new System.Windows.Forms.Button();
             this.buttonGenerateList = new System.Windows.Forms.Button();
@@ -44,6 +45,9 @@
             this.buttonGenerateUpdate = new System.Windows.Forms.Button();
             this.buttonGenerateGet = new System.Windows.Forms.Button();
             this.checkBoxApiCode = new System.Windows.Forms.CheckBox();
+            this.comboBoxProjects = new System.Windows.Forms.ComboBox();
+            this.bindingSourceProjects = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceProjects)).BeginInit();
             this.SuspendLayout();
             // 
             // modelTreeView
@@ -57,7 +61,7 @@
             // 
             // buttonLoadModel
             // 
-            this.buttonLoadModel.Location = new System.Drawing.Point(13, 13);
+            this.buttonLoadModel.Location = new System.Drawing.Point(182, 19);
             this.buttonLoadModel.Name = "buttonLoadModel";
             this.buttonLoadModel.Size = new System.Drawing.Size(120, 23);
             this.buttonLoadModel.TabIndex = 1;
@@ -79,7 +83,7 @@
             // checkBoxCSharp
             // 
             this.checkBoxCSharp.AutoSize = true;
-            this.checkBoxCSharp.Location = new System.Drawing.Point(243, 19);
+            this.checkBoxCSharp.Location = new System.Drawing.Point(553, 19);
             this.checkBoxCSharp.Name = "checkBoxCSharp";
             this.checkBoxCSharp.Size = new System.Drawing.Size(40, 17);
             this.checkBoxCSharp.TabIndex = 6;
@@ -89,7 +93,7 @@
             // checkBoxAndroid
             // 
             this.checkBoxAndroid.AutoSize = true;
-            this.checkBoxAndroid.Location = new System.Drawing.Point(324, 19);
+            this.checkBoxAndroid.Location = new System.Drawing.Point(634, 19);
             this.checkBoxAndroid.Name = "checkBoxAndroid";
             this.checkBoxAndroid.Size = new System.Drawing.Size(62, 17);
             this.checkBoxAndroid.TabIndex = 7;
@@ -99,7 +103,7 @@
             // checkBoxSwift
             // 
             this.checkBoxSwift.AutoSize = true;
-            this.checkBoxSwift.Location = new System.Drawing.Point(430, 19);
+            this.checkBoxSwift.Location = new System.Drawing.Point(740, 19);
             this.checkBoxSwift.Name = "checkBoxSwift";
             this.checkBoxSwift.Size = new System.Drawing.Size(49, 17);
             this.checkBoxSwift.TabIndex = 8;
@@ -199,11 +203,20 @@
             this.checkBoxApiCode.Text = "Api Code";
             this.checkBoxApiCode.UseVisualStyleBackColor = true;
             // 
+            // comboBoxProjects
+            // 
+            this.comboBoxProjects.FormattingEnabled = true;
+            this.comboBoxProjects.Location = new System.Drawing.Point(13, 19);
+            this.comboBoxProjects.Name = "comboBoxProjects";
+            this.comboBoxProjects.Size = new System.Drawing.Size(163, 21);
+            this.comboBoxProjects.TabIndex = 19;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1136, 508);
+            this.Controls.Add(this.comboBoxProjects);
             this.Controls.Add(this.checkBoxApiCode);
             this.Controls.Add(this.buttonGenerateGet);
             this.Controls.Add(this.buttonGenerateUpdate);
@@ -222,6 +235,7 @@
             this.Controls.Add(this.modelTreeView);
             this.Name = "MainForm";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceProjects)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,6 +259,8 @@
         private System.Windows.Forms.Button buttonGenerateUpdate;
         private System.Windows.Forms.Button buttonGenerateGet;
         private System.Windows.Forms.CheckBox checkBoxApiCode;
+        private System.Windows.Forms.ComboBox comboBoxProjects;
+        private System.Windows.Forms.BindingSource bindingSourceProjects;
     }
 }
 
