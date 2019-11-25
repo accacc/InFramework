@@ -71,7 +71,7 @@ namespace IF.CodeGeneration.CSharp
                     returnType = "Task";
                 }
 
-                name = name + "Async";
+                //name = name + "Async";
             }
 
             StringBuilder builder = new StringBuilder();

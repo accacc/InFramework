@@ -21,26 +21,26 @@ namespace IF.Tools.CodeGenerator.VsAutomation
 
         public void AddVisualStudio(string projectName, string directory, string itemName,string fileExtension)
         {
-            //var p = new Microsoft.Build.Evaluation.Project(GetProjectFilePath(projectName));
+            var p = new Microsoft.Build.Evaluation.Project(GetProjectFilePath(projectName));
 
-            
-            
-            //if (!Directory.Exists($@"{GetProjectPath(projectName)}/{directory}"))
-            //{
-            //    p.AddItem("Folder", $@"{GetProjectPath(projectName)}/{directory}");
-            //    Directory.CreateDirectory($@"{GetProjectPath(projectName)}\{directory}");
-            //}
 
-            //if (!File.Exists($@"{GetProjectPath(projectName)}/{directory}/{itemName}.{fileExtension}"))
-            //{
-            //    p.AddItem("Compile", $@"{GetProjectPath(projectName)}/{directory}/{itemName}.{fileExtension}");
-            //}
-            
-            //p.Save();
 
-            //File.Copy($@"{basePath}\{itemName}.{fileExtension}", $@"{GetProjectPath(projectName)}/{directory}/{itemName}.{fileExtension}", true);
+            if (!Directory.Exists($@"{GetProjectPath(projectName)}/{directory}"))
+            {
+                p.AddItem("Folder", $@"{GetProjectPath(projectName)}/{directory}");
+                Directory.CreateDirectory($@"{GetProjectPath(projectName)}\{directory}");
+            }
 
-            //p.ProjectCollection.UnloadProject(p);
+            if (!File.Exists($@"{GetProjectPath(projectName)}/{directory}/{itemName}.{fileExtension}"))
+            {
+                p.AddItem("Compile", $@"{GetProjectPath(projectName)}/{directory}/{itemName}.{fileExtension}");
+            }
+
+            p.Save();
+
+            File.Copy($@"{basePath}\{itemName}.{fileExtension}", $@"{GetProjectPath(projectName)}/{directory}/{itemName}.{fileExtension}", true);
+
+            p.ProjectCollection.UnloadProject(p);
         }
 
         public string GetProjectFilePath(string projectName)

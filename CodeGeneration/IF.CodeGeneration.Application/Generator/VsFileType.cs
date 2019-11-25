@@ -39,6 +39,7 @@ namespace IF.CodeGeneration.Application.Generator
         ListHandler,
         ListMvcControllerMethods,
         ApiListControllerMethods,
+        ListRepositorytMethods,
         ListIndexView
 
 

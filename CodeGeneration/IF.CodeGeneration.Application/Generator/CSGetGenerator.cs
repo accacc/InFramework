@@ -19,7 +19,7 @@ namespace IF.CodeGeneration.Application.Generator.Get
 
 
 
-        public void UpdateContext()
+        public  void UpdateContext()
         {
             this.Files.Clear();
             this.Items.Clear();

@@ -21,7 +21,7 @@ namespace IF.CodeGeneration.Application.Generator
 
 
 
-        public void UpdateContext()
+        public  void UpdateContext()
         {
             this.Files.Clear();
             this.Items.Clear();

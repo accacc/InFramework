@@ -47,7 +47,7 @@ namespace IF.CodeGeneration.Application.Generator.Add.Items
 
             var controllerPath = $@"{this.Context.VsManager.GetProjectPath(vsFile.ProjectName)}\{vsFile.Path}\{this.Context.ControllerName}.{vsFile.FileExtension}";
 
-            CodeGenerationHelper.AddCodeBottom(controllerPath, methods);
+            CodeGenerationHelper.AddCodeToClassBottom(controllerPath, methods);
         }
     }
 }

@@ -21,28 +21,32 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             @class.Usings.Add("IF.Core.Data");
             @class.Usings.Add($"{this.Context.nameSpaceName}.Contract.Queries");
             @class.Usings.Add("System.Threading.Tasks");
-            @class.Usings.Add($"{this.Context.nameSpaceName}.Persistence.EF.Queries");
+            @class.Usings.Add($"{this.Context.nameSpaceName}.Persistence.EF.Repositories");
+            
 
             @class.InheritedInterfaces.Add($"IQueryHandlerAsync<{this.Context.className}Request, {this.Context.className}Response>");
 
             var repositoryProperty = new CSProperty("private", "repository", false);
-            repositoryProperty.PropertyTypeString = GetDataQueryIntarfaceName();
+            repositoryProperty.PropertyTypeString =$"I{this.Context.ControllerName}Repository";
             repositoryProperty.IsReadOnly = true;
             @class.Properties.Add(repositoryProperty);
 
 
             CSMethod constructorMethod = new CSMethod(@class.Name, "", "public");
-            constructorMethod.Parameters.Add(new CsMethodParameter() { Name = "repository", Type = GetDataQueryIntarfaceName() });
+            constructorMethod.Parameters.Add(new CsMethodParameter() { Name = "repository", Type = $"I{this.Context.ControllerName}Repository" });
             StringBuilder methodBody = new StringBuilder();
             methodBody.AppendFormat("this.repository = repository;");
             methodBody.AppendLine();
             constructorMethod.Body = methodBody.ToString();
             @class.Methods.Add(constructorMethod);
 
-            CSMethod handleMethod = new CSMethod("Handle", this.Context.className + "Response", "public");
+            CSMethod handleMethod = new CSMethod("HandleAsync", this.Context.className + "Response", "public");
             handleMethod.IsAsync = true;
             handleMethod.Parameters.Add(new CsMethodParameter() { Name = "request", Type = this.Context.className + "Request" });
-            handleMethod.Body += $"return await this.query.GetAsync(request);" + Environment.NewLine;
+
+            handleMethod.Body += $"{this.Context.className}Response response = new {this.Context.className}Response();" + Environment.NewLine;
+            handleMethod.Body += $"response.Data =   await this.repository.Get{this.Context.className}();" + Environment.NewLine;
+            handleMethod.Body += $"return response;" + Environment.NewLine;
 
             @class.Methods.Add(handleMethod);
 

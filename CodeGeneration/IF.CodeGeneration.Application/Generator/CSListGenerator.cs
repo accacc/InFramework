@@ -21,7 +21,7 @@ namespace IF.CodeGeneration.Application.Generator.List
             
         }
 
-        public void UpdateContext()
+        public  void UpdateContext()
         {
             this.Files.Clear();
             this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_GridView", FileType = VSFileType.ListGridview, Path = $@"{this.Context.ViewBasePath}" });

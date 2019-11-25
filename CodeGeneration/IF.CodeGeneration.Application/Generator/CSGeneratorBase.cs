@@ -12,6 +12,8 @@ namespace IF.CodeGeneration.Application.Generator
         
         public readonly GeneratorContext Context;
 
+        //public abstract void UpdateContext();
+
         public List<IFVsFile> Files { get; set; }
         public List<IGenerateItem> Items { get; set; }
 
@@ -31,6 +33,7 @@ namespace IF.CodeGeneration.Application.Generator
 
         public void Generate()
         {
+            //this.UpdateContext();
 
             foreach (var item in Items)
             {
