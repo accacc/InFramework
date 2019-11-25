@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IF.Core.Data;
+using System;
 
 
 namespace IF.Core.Localization
@@ -9,7 +10,7 @@ namespace IF.Core.Localization
         //public virtual string Name { get; set; }
     }
 
-    public interface ILanguageEntity
+    public interface ILanguageEntity: IEntity
     {
          int ObjectId { get; set; }
          int LanguageId { get; set; }

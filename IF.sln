@@ -149,6 +149,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Tools.Templates.Editor",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.CodeGeneration.Application", "CodeGeneration\IF.CodeGeneration.Application\IF.CodeGeneration.Application.csproj", "{F106A3A7-91DD-4EEF-840B-2EA3A67E5AA7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Persistence.EF.Localization", "IF.Persistence.EF.Localization\IF.Persistence.EF.Localization.csproj", "{6F2645DD-9C8F-4413-B5C6-7C80CB6058AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -427,6 +429,10 @@ Global
 		{F106A3A7-91DD-4EEF-840B-2EA3A67E5AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F106A3A7-91DD-4EEF-840B-2EA3A67E5AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F106A3A7-91DD-4EEF-840B-2EA3A67E5AA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F2645DD-9C8F-4413-B5C6-7C80CB6058AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F2645DD-9C8F-4413-B5C6-7C80CB6058AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F2645DD-9C8F-4413-B5C6-7C80CB6058AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F2645DD-9C8F-4413-B5C6-7C80CB6058AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
