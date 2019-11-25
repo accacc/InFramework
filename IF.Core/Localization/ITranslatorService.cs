@@ -15,8 +15,8 @@ namespace IF.Core.Localization
         //void TranslateConstant<LD>(IEnumerable<LD> languageModelList) where LD : LanguageDTO;
 
 
-        void TranslateListCurrent<P>(IEnumerable<P> languageModelList)
-            where P : LanguageDto;
+        //void TranslateListCurrent<P>(IEnumerable<P> languageModelList)
+        //    where P : LanguageDto;
 
 
         L GetObjectCurrentLanguageCache<L>(int objectId) where L : class, ILanguageEntity;

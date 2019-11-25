@@ -4,7 +4,7 @@ using System;
 
 namespace IF.Core.Localization
 {
-    public interface  ILanguageableEntity
+    public interface  ILanguageableEntity:IEntity
     {
         
         //public virtual string Name { get; set; }
