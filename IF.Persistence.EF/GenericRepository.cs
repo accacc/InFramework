@@ -33,7 +33,15 @@ namespace IF.Persistence.EF
 
         public IQueryable<TEntity> GetQuery<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class, IEntity
         {
+            
+
             return GetQuery<TEntity>().Where(predicate);
+        }
+
+        public string GetPrimarykeyName(Type type)
+        {
+            var pk = context.Model.FindEntityType(type).FindPrimaryKey();
+            return pk.Properties.First().Name;
         }
 
 

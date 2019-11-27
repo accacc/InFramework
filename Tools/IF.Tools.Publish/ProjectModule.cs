@@ -81,6 +81,8 @@ namespace IF.Tools.Publish
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Batch", Type = ProjectType.Standart , Version = ProjectNetCoreVersion.Version_2_0 });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Batch.MongoDb", Type = ProjectType.Standart , Version = ProjectNetCoreVersion.Version_2_0 });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Persistence.EF.SqlServer.Integration", Type = ProjectType.Standart , Version = ProjectNetCoreVersion.Version_2_0});
+            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Persistence.EF.Localization", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0 });
+
 
 
 

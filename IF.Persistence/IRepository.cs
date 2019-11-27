@@ -89,4 +89,9 @@ namespace IF.Persistence
 
         Task<int> CountNoLockAsync<T>(IQueryable<T> query);      
     }
+
+    public partial interface IRepository
+    {
+        string GetPrimarykeyName(Type type);
+    }
 }

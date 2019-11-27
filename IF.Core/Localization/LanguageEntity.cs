@@ -14,6 +14,8 @@ namespace IF.Core.Localization
     {
          int ObjectId { get; set; }
          int LanguageId { get; set; }
+
+        
     }
 
     [System.AttributeUsage(System.AttributeTargets.Class , AllowMultiple = true)]
