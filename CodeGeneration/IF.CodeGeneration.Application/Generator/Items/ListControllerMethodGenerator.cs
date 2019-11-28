@@ -31,7 +31,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
             methodBody.AppendLine($"var list = await this.dispatcher.QueryAsync<{this.Context.className}Request, {this.Context.className}Response>(new {this.Context.className}Request());");
             methodBody.AppendLine($"var model = list.Data.MapTo<{this.Context.className}GridModel>();");
-            methodBody.AppendFormat($"return View(\"~/{this.Context.ViewBasePath}/Index.cshtml\", model);");
+            methodBody.AppendFormat($"return View(\"~/{this.Context.RepositoryName}/Index.cshtml\", model);");
             method.Body = methodBody.ToString();
 
             this.Context.fileSystem.FormatCode(method.GenerateCode(), "cs");

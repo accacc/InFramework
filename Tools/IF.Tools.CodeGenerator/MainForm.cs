@@ -63,20 +63,20 @@ namespace Derin.Tools.CodeGenerator
 
         public  Assembly ReflectionOnlyAssemblyResolve(object sender,ResolveEventArgs args)
         {
-            if(args.Name.Contains("Microsoft.EntityFrameworkCore"))
-            {
-                return Assembly.ReflectionOnlyLoadFrom(@"C:\Projects\InFramework\packages\Microsoft.EntityFrameworkCore.2.2.6\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll");
-            }
+            //if(args.Name.Contains("Microsoft.EntityFrameworkCore"))
+            //{
+            //    return Assembly.ReflectionOnlyLoadFrom(@"C:\Projects\InFramework\packages\Microsoft.EntityFrameworkCore.2.2.6\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll");
+            //}
 
-            if (args.Name.Contains($"{solutionName}.Contract"))
-            {
-                return Assembly.ReflectionOnlyLoadFrom($@"{solutionPath}\{solutionName}\{solutionName}.Contract\bin\Debug\netstandard2.0\{solutionName}.Contract.dll");
-            }
+            //if (args.Name.Contains($"{solutionName}.Contract"))
+            //{
+            //    return Assembly.ReflectionOnlyLoadFrom($@"{solutionPath}\{solutionName}\{solutionName}.Contract\bin\Debug\netstandard2.0\{solutionName}.Contract.dll");
+            //}
 
-            if (args.Name.Contains("IF.Persistence.EF"))
-            {
-                return Assembly.ReflectionOnlyLoadFrom($@"{solutionPath}\{solutionName}\packages\InFramework\IF.Persistence.EF.dll");
-            }
+            //if (args.Name.Contains("IF.Persistence.EF"))
+            //{
+            //    return Assembly.ReflectionOnlyLoadFrom($@"{solutionPath}\{solutionName}\packages\InFramework\IF.Persistence.EF.dll");
+            //}
 
             return Assembly.ReflectionOnlyLoad(args.Name);
 
@@ -88,7 +88,7 @@ namespace Derin.Tools.CodeGenerator
 
             this.solutionName = comboBoxProjects.SelectedValue.ToString();
 
-            assembiler.AddAssemly<Entity>($@"{solutionPath}\{solutionName}\{solutionName}.Persistence.EF\bin\Debug\netstandard2.0\{solutionName}.Persistence.EF.dll");
+            assembiler.AddAssemly<Entity>($@"{solutionPath}\{solutionName}\{solutionName}.Contract\bin\Debug\netstandard2.0\{solutionName}.Contract.dll");
 
             modelTreeView.Nodes.Clear();
 

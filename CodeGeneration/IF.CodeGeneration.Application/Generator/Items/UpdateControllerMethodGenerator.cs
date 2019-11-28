@@ -27,7 +27,7 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
             StringBuilder getMethodBody = new StringBuilder();
             getMethodBody.AppendLine($"var response = await dispatcher.QueryAsync<{this.Context.className}GetRequest, {this.Context.className}GetResponse>(new {this.Context.className}GetRequest(){{ Id = Id }});");
             getMethodBody.AppendLine($"var model = response.Data.MapTo<{this.Context.className}Model>();");
-            getMethodBody.AppendLine($"return View(\"~/{this.Context.ViewBasePath}/_Form.cshtml\",model);");
+            getMethodBody.AppendLine($"return View(\"~/{this.Context.RepositoryName}/_Form.cshtml\",model);");
             getMethod.Body = getMethodBody.ToString();
 
             CSMethod postMethod = new CSMethod($"{this.Context.className}", "ActionResult", "public");
@@ -40,7 +40,7 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
             getMethodBody.AppendLine($"command.Data = dto;");
             getMethodBody.AppendLine($"await dispatcher.CommandAsync(command);");
             getMethodBody.AppendLine($"this.ShowMessage(OperationType.Update);");
-            getMethodBody.AppendLine($"return View(\"~/{this.Context.ViewBasePath}/_Form.cshtml\",model);");
+            getMethodBody.AppendLine($"return View(\"~/{this.Context.RepositoryName}/_Form.cshtml\",model);");
             postMethod.Body = getMethodBody.ToString();
 
 

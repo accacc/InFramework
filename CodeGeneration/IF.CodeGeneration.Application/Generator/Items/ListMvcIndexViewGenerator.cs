@@ -28,7 +28,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             builder.AppendLine("@section GridView");
             builder.AppendLine("{");
             builder.AppendLine();
-            builder.AppendLine($"@{{await Html.RenderPartialAsync(\"~/{this.Context.ViewBasePath}/_GridView.cshtml\", Model);}}");
+            builder.AppendLine($"@{{await Html.RenderPartialAsync(\"~/{this.Context.RepositoryName}/_GridView.cshtml\", Model);}}");
             builder.AppendLine();
             builder.AppendLine("}");
 

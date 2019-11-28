@@ -27,7 +27,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
             StringBuilder getMethodBody = new StringBuilder();
             getMethodBody.AppendLine($"var response = await dispatcher.QueryAsync<{this.Context.className}Request, {this.Context.className}Response>(new {this.Context.className}Request(){{ Id = Id }});");
             getMethodBody.AppendLine($"var model = response.Data.MapTo<{this.Context.className}Model>();");
-            getMethodBody.AppendLine($"return View(\"~/{this.Context.ViewBasePath}/_FormView.cshtml\",model);");
+            getMethodBody.AppendLine($"return View(\"~/{this.Context.RepositoryName}/_FormView.cshtml\",model);");
             getMethod.Body = getMethodBody.ToString();
 
 

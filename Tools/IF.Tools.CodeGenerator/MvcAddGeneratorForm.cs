@@ -53,7 +53,7 @@ namespace IF.Tools.CodeGenerator
                 return;
             }
 
-            generator.Context.ViewBasePath = textBoxViewBasePath.Text;
+            generator.Context.RepositoryName = textBoxViewBasePath.Text;
             generator.Context.ControllerName = textBoxControllerName.Text;
             
             generator.UpdateContext();

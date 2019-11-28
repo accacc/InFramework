@@ -27,13 +27,13 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             @class.InheritedInterfaces.Add($"IQueryHandlerAsync<{this.Context.className}Request, {this.Context.className}Response>");
 
             var repositoryProperty = new CSProperty("private", "repository", false);
-            repositoryProperty.PropertyTypeString =$"I{this.Context.ControllerName}Repository";
+            repositoryProperty.PropertyTypeString =$"I{this.Context.RepositoryName}Repository";
             repositoryProperty.IsReadOnly = true;
             @class.Properties.Add(repositoryProperty);
 
 
             CSMethod constructorMethod = new CSMethod(@class.Name, "", "public");
-            constructorMethod.Parameters.Add(new CsMethodParameter() { Name = "repository", Type = $"I{this.Context.ControllerName}Repository" });
+            constructorMethod.Parameters.Add(new CsMethodParameter() { Name = "repository", Type = $"I{this.Context.RepositoryName}Repository" });
             StringBuilder methodBody = new StringBuilder();
             methodBody.AppendFormat("this.repository = repository;");
             methodBody.AppendLine();

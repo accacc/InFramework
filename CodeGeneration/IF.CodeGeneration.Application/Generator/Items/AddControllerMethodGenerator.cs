@@ -22,7 +22,7 @@ namespace IF.CodeGeneration.Application.Generator.Add.Items
             getMethod.IsAsync = true;
             getMethod.Attirubites.Add("HttpGet");
             StringBuilder methodBody = new StringBuilder();
-            methodBody.AppendLine($"return View(\"~/{this.Context.ViewBasePath}/_Form.cshtml\", new {this.Context.className}Model());");
+            methodBody.AppendLine($"return View(\"~/{this.Context.RepositoryName}/_Form.cshtml\", new {this.Context.className}Model());");
             getMethod.Body = methodBody.ToString();
 
             CSMethod postMethod = new CSMethod($"{this.Context.className}", "ActionResult", "public");
@@ -35,7 +35,7 @@ namespace IF.CodeGeneration.Application.Generator.Add.Items
             methodBody.AppendLine($"command.Data = dto;");
             methodBody.AppendLine($"await dispatcher.CommandAsync(command);");
             methodBody.AppendLine($"this.ShowMessage(OperationType.Insert);");
-            methodBody.AppendLine($"return View(\"~/{this.Context.ViewBasePath}/_Form.cshtml\",model);");
+            methodBody.AppendLine($"return View(\"~/{this.Context.RepositoryName}/_Form.cshtml\",model);");
             postMethod.Body = methodBody.ToString();
 
 

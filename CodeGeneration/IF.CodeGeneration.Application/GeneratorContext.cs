@@ -17,7 +17,7 @@ namespace IF.CodeGeneration.Application
         internal string nameSpaceName;
         
 
-        public string ViewBasePath { get; set; }
+        public string RepositoryName { get; set; }
         public string ControllerName { get; set; }
 
         public string Title { get; set; }

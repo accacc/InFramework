@@ -39,11 +39,11 @@ namespace IF.Tools.CodeGenerator
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
 
-            //if (String.IsNullOrWhiteSpace(textBoxViewBasePath.Text))
-            //{
-            //    MessageBox.Show(@"Please enter the View Base Path.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //    return;
-            //}
+            if (String.IsNullOrWhiteSpace(textBoxRepositoryName.Text))
+            {
+                MessageBox.Show(@"Please enter the View Repository Name.", @"Required", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
 
 
             if (String.IsNullOrWhiteSpace(textBoxControllerName.Text))
@@ -52,7 +52,7 @@ namespace IF.Tools.CodeGenerator
                 return;
             }
 
-            //generator.Context.ViewBasePath = textBoxViewBasePath.Text;
+            generator.Context.RepositoryName = textBoxRepositoryName.Text;
             generator.Context.ControllerName = textBoxControllerName.Text;
             
             generator.UpdateContext();

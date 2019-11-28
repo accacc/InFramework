@@ -32,6 +32,8 @@
             this.checkedListBoxVsFiles = new System.Windows.Forms.CheckedListBox();
             this.labelControllerName = new System.Windows.Forms.Label();
             this.textBoxControllerName = new System.Windows.Forms.TextBox();
+            this.labelRepositoryName = new System.Windows.Forms.Label();
+            this.textBoxRepositoryName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonGenerate
@@ -68,11 +70,29 @@
             this.textBoxControllerName.Size = new System.Drawing.Size(195, 20);
             this.textBoxControllerName.TabIndex = 17;
             // 
+            // labelRepositoryName
+            // 
+            this.labelRepositoryName.AutoSize = true;
+            this.labelRepositoryName.Location = new System.Drawing.Point(285, 85);
+            this.labelRepositoryName.Name = "labelRepositoryName";
+            this.labelRepositoryName.Size = new System.Drawing.Size(88, 13);
+            this.labelRepositoryName.TabIndex = 20;
+            this.labelRepositoryName.Text = "Repository Name";
+            // 
+            // textBoxRepositoryName
+            // 
+            this.textBoxRepositoryName.Location = new System.Drawing.Point(376, 82);
+            this.textBoxRepositoryName.Name = "textBoxRepositoryName";
+            this.textBoxRepositoryName.Size = new System.Drawing.Size(195, 20);
+            this.textBoxRepositoryName.TabIndex = 19;
+            // 
             // ApiListGeneratorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelRepositoryName);
+            this.Controls.Add(this.textBoxRepositoryName);
             this.Controls.Add(this.labelControllerName);
             this.Controls.Add(this.textBoxControllerName);
             this.Controls.Add(this.checkedListBoxVsFiles);
@@ -90,5 +110,7 @@
         private System.Windows.Forms.CheckedListBox checkedListBoxVsFiles;
         private System.Windows.Forms.Label labelControllerName;
         private System.Windows.Forms.TextBox textBoxControllerName;
+        private System.Windows.Forms.Label labelRepositoryName;
+        private System.Windows.Forms.TextBox textBoxRepositoryName;
     }
 }
