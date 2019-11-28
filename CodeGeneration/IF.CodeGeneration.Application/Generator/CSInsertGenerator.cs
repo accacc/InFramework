@@ -13,7 +13,7 @@ namespace IF.CodeGeneration.Application.Generator
             this.UpdateContext();
         }
 
-        public  void UpdateContext()
+        public override void UpdateContext()
         {
             this.Files.Clear();
             this.Items.Clear();
@@ -25,7 +25,7 @@ namespace IF.CodeGeneration.Application.Generator
             this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.className + "Model", FileType = VSFileType.AddMvcModels, Path = "Models" });
         }
 
-        public void SetItemActive(VSFileType type)
+        public override void SetItemActive(VSFileType type)
         {
 
 

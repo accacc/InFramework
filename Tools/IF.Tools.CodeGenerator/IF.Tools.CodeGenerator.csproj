@@ -103,6 +103,12 @@
     <Reference Include="netstandard" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiGeneratorBaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ApiGeneratorBaseForm.Designer.cs">
+      <DependentUpon>ApiGeneratorBaseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MvcAddGeneratorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +159,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ApiGeneratorBaseForm.resx">
+      <DependentUpon>ApiGeneratorBaseForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MvcAddGeneratorForm.resx">
       <DependentUpon>MvcAddGeneratorForm.cs</DependentUpon>
     </EmbeddedResource>

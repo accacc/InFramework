@@ -12,7 +12,9 @@ namespace IF.CodeGeneration.Application.Generator
         
         public readonly GeneratorContext Context;
 
-        //public abstract void UpdateContext();
+        public abstract void UpdateContext();
+
+        public abstract void SetItemActive(VSFileType type);
 
         public List<IFVsFile> Files { get; set; }
         public List<IGenerateItem> Items { get; set; }

@@ -21,7 +21,7 @@ namespace IF.CodeGeneration.Application.Generator.List
             
         }
 
-        public  void UpdateContext()
+        public override void UpdateContext()
         {
             this.Files.Clear();
             this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_GridView", FileType = VSFileType.ListGridview, Path = $@"{this.Context.RepositoryName}" });
@@ -33,7 +33,7 @@ namespace IF.CodeGeneration.Application.Generator.List
             this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "Index", FileType = VSFileType.ListIndexView, Path = $@"{this.Context.RepositoryName}" });
         }
 
-        public void SetItemActive(VSFileType type)
+        public override void SetItemActive(VSFileType type)
         {
          
 

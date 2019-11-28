@@ -11,7 +11,7 @@ namespace IF.CodeGeneration.Application.Generator
             this.UpdateContext();
         }
 
-        public void UpdateContext()
+        public override void UpdateContext()
         {
             this.Files.Clear();
             this.Items.Clear();
@@ -22,7 +22,7 @@ namespace IF.CodeGeneration.Application.Generator
             
         }
 
-        public void SetItemActive(VSFileType type)
+        public override void SetItemActive(VSFileType type)
         {
 
 
