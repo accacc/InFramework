@@ -49,6 +49,8 @@ namespace IF.Persistence.EF.Localization
         public int Id { get; set; }
         public int Index { get; set; }
         public int LanguageId { get; set; }
+
+        public string  LanguageCode { get; set; }
         public List<LanguageItemModel> Items { get; set; }
     }
 
