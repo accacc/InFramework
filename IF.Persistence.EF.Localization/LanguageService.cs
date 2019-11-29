@@ -272,13 +272,14 @@ namespace IF.Persistence.EF.Localization
 
 
             var result = typeof(LanguageService)
-               .GetMethod("UpdateLanguages2")
+               .GetMethod("UpdateLanguagesGeneric")
                .MakeGenericMethod(languageEntityAttribute.Type)
                .Invoke(this, new object[] { model });
 
         }
 
-        public void UpdateLanguages2<L>(LanguageFormModel model) where L : class, ILanguageEntity
+
+        public void UpdateLanguagesGeneric<L>(LanguageFormModel model) where L : class, ILanguageEntity
         {
             foreach (var language in model.Languages)
             {
