@@ -23,7 +23,7 @@ namespace IF.Core.Localization
         T GetLanguageObject<T>(object Id) where T : class, ILanguageEntity;
 
 
-        void UpdateLanguages<L>(LanguageFormModel model) where L : class,ILanguageEntity;
+        //void UpdateLanguages<L>(LanguageFormModel model) where L : class,ILanguageEntity;
 
         void UpdateLanguages(Type entityType, LanguageFormModel model);
     }

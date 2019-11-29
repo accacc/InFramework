@@ -147,7 +147,7 @@ namespace IF.Persistence.EF.Localization
 
 
 
-            IEnumerable<ILanguageEntity> languageItems = (IEnumerable<ILanguageEntity>)obj;
+            ILanguageEntity languageItems = (ILanguageEntity)obj;
 
             LanguageFormModel model = GetLanguageModels(languageItems,entityType);
 
@@ -218,7 +218,7 @@ namespace IF.Persistence.EF.Localization
             return languageModel;
         }
 
-        private LanguageFormModel GetLanguageModels(IEnumerable<ILanguageEntity> languageItems, Type entityType)
+        private LanguageFormModel GetLanguageModels(ILanguageEntity languageObject, Type entityType)
         {
 
             LanguageFormModel model = new LanguageFormModel();
@@ -233,17 +233,7 @@ namespace IF.Persistence.EF.Localization
 
                 var systemLanguage = languages.ElementAt(i);
 
-                if (systemLanguage.Id == 2) continue;
-
-                object languageObject = null;
-
-                if (languageItems != null)
-                {
-                    languageObject = languageItems.Where(l => l.LanguageId == systemLanguage.Id).SingleOrDefault();
-                }
-
-
-                //Type entityType = GetObjectType(true);
+                if (systemLanguage.Id == 2) continue;             
 
                 object[] attrs = entityType.GetCustomAttributes(typeof(LanguageEntityAttribute), true);
 
@@ -268,9 +258,11 @@ namespace IF.Persistence.EF.Localization
 
         public T GetLanguageObject<T>(object Id) where T : class, ILanguageEntity
         {
-            string primaryKeys = this.repository.GetPrimarykeyName(typeof(T));
-            return this.repository.GetQuery<T>().Where($"{primaryKeys} == @0", Id).SingleOrDefault();            
+            string primaryKeys = this.repository.GetPrimarykeyName(typeof(T));            
+            return this.repository.GetQuery<T>().Where($"{primaryKeys} == @0", System.Convert.ChangeType(Id, typeof(int))).SingleOrDefault();            
         }
+
+        
 
         public void UpdateLanguages(Type entityType,LanguageFormModel model)
         {
@@ -279,14 +271,14 @@ namespace IF.Persistence.EF.Localization
             var languageEntityAttribute = attrs.First() as LanguageEntityAttribute;
 
 
-            var result = typeof(ILanguageService)
-               .GetMethod("UpdateLanguages")
+            var result = typeof(LanguageService)
+               .GetMethod("UpdateLanguages2")
                .MakeGenericMethod(languageEntityAttribute.Type)
                .Invoke(this, new object[] { model });
 
         }
 
-        public void UpdateLanguages<L>(LanguageFormModel model) where L : class, ILanguageEntity
+        public void UpdateLanguages2<L>(LanguageFormModel model) where L : class, ILanguageEntity
         {
             foreach (var language in model.Languages)
             {

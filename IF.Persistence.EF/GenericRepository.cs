@@ -26,6 +26,11 @@ namespace IF.Persistence.EF
             return this.context.Find<TEntity>(keyValue);
         }
 
+        public IQueryable<object> GetQuery(Type type)
+        {
+            return (IQueryable<object>)this.context.GetType().GetMethod("Set").MakeGenericMethod(type).Invoke(context, null);
+        }
+
         public IQueryable<TEntity> GetQuery<TEntity>() where TEntity : class, IEntity
         {
             return this.context.Set<TEntity>().AsQueryable();
@@ -345,6 +350,8 @@ namespace IF.Persistence.EF
                 return toReturn;
             }
         }
+
+        
 
         public IUnitOfWork UnitOfWork
         {

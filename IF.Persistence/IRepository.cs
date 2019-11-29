@@ -11,6 +11,8 @@ namespace IF.Persistence
     {
         TEntity GetByKey<TEntity>(object keyValue) where TEntity : class, IEntity;
         IQueryable<TEntity> GetQuery<TEntity>() where TEntity : class, IEntity;
+
+        IQueryable<object> GetQuery(Type type);
         IQueryable<TEntity> GetQuery<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class, IEntity;
         //IQueryable<TEntity> GetQuery<TEntity>(ISpecification<TEntity> criteria) where TEntity : class;
         TEntity Single<TEntity>(Expression<Func<TEntity, bool>> criteria) where TEntity : class, IEntity;
