@@ -156,7 +156,9 @@ namespace IF.Persistence.EF.Localization
             return model;
         }
 
-        private static LanguageViewModel GetLanguageModel(Type languageType, object languageObject, int languageId)
+        
+
+        private LanguageViewModel GetLanguageModel(Type languageType, object languageObject, int languageId)
         {
             LanguageViewModel languageModel = new LanguageViewModel();
 
