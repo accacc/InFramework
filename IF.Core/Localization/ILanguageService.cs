@@ -1,6 +1,7 @@
 ﻿using IF.Persistence.EF.Localization;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -21,10 +22,12 @@ namespace IF.Core.Localization
         IEnumerable<T> GetLanguageObjectList<T>() where T : class, ILanguageableEntity;
 
         T GetLanguageObject<T>(object Id) where T : class, ILanguageEntity;
-
-
-        //void UpdateLanguages<L>(LanguageFormModel model) where L : class,ILanguageEntity;
-
         void UpdateLanguages(Type entityType, LanguageFormModel model);
+
+        CultureInfo[] Cultures { get; }
+        CultureInfo DefaultCulture { get; }
+
+        CultureInfo CurrentCulture { get; }
+        bool IsDefaultLanguage();
     }
 }

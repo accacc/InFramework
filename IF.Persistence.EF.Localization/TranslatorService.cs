@@ -8,37 +8,29 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 
+
 namespace IF.Persistence.EF.Localization
 {
     public class TranslatorService : ITranslatorService
     {
         private readonly ICacheService cacheService;
         private readonly IRepository repository;
-
-        public bool IsDefaultLanguage()
-        {
-            return this.CurrentCulture.LCID == this.DefaultCulture.LCID;
-        }
-
-        public CultureInfo CurrentCulture
-        {
-            get { return Thread.CurrentThread.CurrentCulture; }
-        }
-
-        public CultureInfo DefaultCulture { get; set; }
+        private readonly ILanguageService languageService;
 
 
-        public TranslatorService(IRepository repository, ICacheService cacheService)
+
+
+        public TranslatorService(IRepository repository, ICacheService cacheService,ILanguageService languageService)
         {
             this.cacheService = cacheService;
             this.repository = repository;
-            this.DefaultCulture = new CultureInfo("tr-TR");
+            this.languageService = languageService;
         }
 
 
         public L GetObjectCurrentLanguage<L>(int objectId) where L : class, ILanguageEntity
         {
-            return this.repository.GetQuery<L>(cl => cl.ObjectId == objectId && cl.LanguageId == this.CurrentCulture.LCID).SingleOrDefault();
+            return this.repository.GetQuery<L>(cl => cl.ObjectId == objectId && cl.LanguageId == this.languageService.CurrentCulture.LCID).SingleOrDefault();
         }
 
         public L GetObjectCurrentLanguageCache<L>(int objectId) where L : class, ILanguageEntity
@@ -52,14 +44,14 @@ namespace IF.Persistence.EF.Localization
 
         private string GetLanguageKeyName<L>(int objectId) where L : class, ILanguageEntity
         {
-            return typeof(L).Name + this.CurrentCulture.LCID.ToString() + objectId.ToString();
+            return typeof(L).Name + this.languageService.CurrentCulture.LCID.ToString() + objectId.ToString();
         }
 
 
         public void Translate<LD>(IEnumerable<LD> languageModelList)
             where LD : LanguageDto
         {
-            if (IsDefaultLanguage())
+            if (this.languageService.IsDefaultLanguage())
             {
                 return;
             }

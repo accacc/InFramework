@@ -7,18 +7,11 @@ namespace IF.Core.DependencyInjection
 {
     public class LocalizationBuilder : ILocalizationBuilder
     {
-        public IInFrameworkBuilder Builder { get; }
-
+        public IInFrameworkBuilder Container { get; }
 
         public LocalizationBuilder(IInFrameworkBuilder dependencyInjection)
         {
-            this.Builder = dependencyInjection;
-        
-        }
-
-        public IInFrameworkBuilder Build()
-        {            
-            return this.Builder;
+            this.Container = dependencyInjection;
         }
     }
 }

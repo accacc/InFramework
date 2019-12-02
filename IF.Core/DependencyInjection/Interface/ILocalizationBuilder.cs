@@ -7,6 +7,6 @@ namespace IF.Core.DependencyInjection.Interface
 
     public interface ILocalizationBuilder
     {
-        IInFrameworkBuilder Build();
+        IInFrameworkBuilder Container { get; }
     }
 }

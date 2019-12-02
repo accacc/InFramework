@@ -4,11 +4,13 @@ using IF.Core.Localization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 
 namespace IF.Persistence.EF.Localization
 {
@@ -17,12 +19,30 @@ namespace IF.Persistence.EF.Localization
 
         private readonly ICacheService cacheService;
         private readonly IRepository repository;
+        private readonly Assembly[] assembiles;
 
-        public LanguageService(IRepository repository, ICacheService cacheService)
-            
+        public CultureInfo[] Cultures { get; }
+        public CultureInfo DefaultCulture { get; }
+
+        public bool IsDefaultLanguage()
+        {
+            return this.CurrentCulture.LCID == this.DefaultCulture.LCID;
+        }
+
+        public CultureInfo CurrentCulture
+        {
+            get { return Thread.CurrentThread.CurrentCulture; }
+        }
+
+        
+
+        public LanguageService(IRepository repository, ICacheService cacheService, LocalizationSettings settings)            
         {
             this.cacheService = cacheService;
             this.repository = repository;
+            this.assembiles = settings.Assemblies;
+            this.Cultures = settings.Cultures;
+            this.DefaultCulture = this.Cultures.SingleOrDefault(l => l.LCID == settings.DefaultLanguage);            
         }
 
 
@@ -225,23 +245,19 @@ namespace IF.Persistence.EF.Localization
 
             LanguageFormModel model = new LanguageFormModel();
 
-            List<SystemLanguageDto> languages = new List<SystemLanguageDto>();
 
-            languages.Add(new SystemLanguageDto { Id = 1, Name = "English", Code = "en-US" });
-            languages.Add(new SystemLanguageDto { Id = 2, Name = "Türkçe", Code = "tr-TR" });
-
-            for (int i = 0; i < languages.Count; i++)
+            for (int i = 0; i < this.Cultures.Length; i++)
             {
 
-                var systemLanguage = languages.ElementAt(i);
+                var systemLanguage = this.Cultures.ElementAt(i);
 
-                if (systemLanguage.Id == 2) continue;             
+                if (systemLanguage.LCID == this.DefaultCulture.LCID) continue;             
 
                 object[] attrs = entityType.GetCustomAttributes(typeof(LanguageEntityAttribute), true);
 
                 var languageEntityAttribute = attrs.First() as LanguageEntityAttribute;
 
-                LanguageViewModel languageModel = GetLanguageModel(languageEntityAttribute.Type, languageObject, systemLanguage.Id);
+                LanguageViewModel languageModel = GetLanguageModel(languageEntityAttribute.Type, languageObject, Convert.ToInt32(systemLanguage.LCID));
 
                 languageModel.Index = i;
 

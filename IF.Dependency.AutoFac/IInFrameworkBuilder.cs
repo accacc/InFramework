@@ -80,6 +80,12 @@ namespace IF.Dependency.AutoFac
             return this;
         }
 
+        public IInFrameworkBuilder AddLocalization(Action<ILocalizationBuilder> action)
+        {
+            action(new LocalizationBuilder(this));
+            return this;
+        }
+
         public IInFrameworkBuilder AddApplicationLogger(Action<IApplicationLoggerBuilder> action)
         {
             action(new ApplicationLoggerBuilder(this));
