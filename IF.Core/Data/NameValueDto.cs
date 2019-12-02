@@ -2,7 +2,7 @@
 
 namespace IF.Core.Data
 {
-    public class NameValueDto : LanguageDto
+    public class NameValueDto
     {
         public string Name { get; set; }
 

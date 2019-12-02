@@ -3,21 +3,21 @@
 namespace IF.Core.Localization
 {
 
-    public interface LanguageDto : ILanguageProperty
-    {
-        //int Id { get; set; }
-    }
+    //public interface LanguageDto : ILanguageProperty
+    //{
+    //    //int Id { get; set; }
+    //}
 
-    public class LanguageDto<T> : LanguageDto where T : ILanguageProperty, new()
-    {
-        public LanguageDto()
-        {
-            this.Current = new T();
-        }
+    //public class LanguageDto<T> : LanguageDto where T : ILanguageProperty, new()
+    //{
+    //    public LanguageDto()
+    //    {
+    //        this.Current = new T();
+    //    }
 
 
-        public T Current { get; set; }
-    }
+    //    public T Current { get; set; }
+    //}
 
 
     
@@ -40,15 +40,15 @@ namespace IF.Core.Localization
 
        
    
-    [System.AttributeUsage(System.AttributeTargets.Property , AllowMultiple = true)]
-    public class ConstantLanguagePropertyAttribute : Attribute
-    {
-        public string Id { get; set; }
+    //[System.AttributeUsage(System.AttributeTargets.Property , AllowMultiple = true)]
+    //public class ConstantLanguagePropertyAttribute : Attribute
+    //{
+    //    public string Id { get; set; }
 
-        public ConstantLanguagePropertyAttribute(string Id)
-        {
-            this.Id = Id;
-        }
+    //    public ConstantLanguagePropertyAttribute(string Id)
+    //    {
+    //        this.Id = Id;
+    //    }
 
-    }
+    //}
 }

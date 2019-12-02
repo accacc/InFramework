@@ -6,7 +6,7 @@ namespace IF.Core.Localization
 {
     public interface ITranslatorService
     {
-        void Translate<LD>(IEnumerable<LD> languageModelList) where LD : LanguageDto;      
+        void Translate<LD>(IEnumerable<LD> languageModelList) where LD : class;      
         L GetObjectCurrentLanguageCache<L>(int objectId) where L : class, ILanguageEntity;
     }
 }

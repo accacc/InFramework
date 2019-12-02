@@ -42,6 +42,7 @@ namespace IF.Persistence.EF.Localization
 
 
 
+
         private string GetLanguageKeyName<L>(int objectId) where L : class, ILanguageEntity
         {
             return typeof(L).Name + this.languageService.CurrentCulture.LCID.ToString() + objectId.ToString();
@@ -49,7 +50,7 @@ namespace IF.Persistence.EF.Localization
 
 
         public void Translate<LD>(IEnumerable<LD> languageModelList)
-            where LD : LanguageDto
+            where LD : class
         {
             if (this.languageService.IsDefaultLanguage())
             {

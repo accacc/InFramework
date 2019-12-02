@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IF.Core\IF.Core.csproj" />
+    <ProjectReference Include="..\IF.Persistence.EF.Localization\IF.Persistence.EF.Localization.csproj" />
+    <ProjectReference Include="..\IF.Web.Mvc\IF.Web.Mvc.csproj" />
+  </ItemGroup>
+
+</Project>

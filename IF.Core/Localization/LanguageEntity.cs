@@ -6,8 +6,6 @@ namespace IF.Core.Localization
 {
     public interface  ILanguageableEntity:IEntity
     {
-        
-        //public virtual string Name { get; set; }
     }
 
     public interface ILanguageEntity: IEntity
