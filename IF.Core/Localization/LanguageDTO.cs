@@ -3,10 +3,10 @@
 namespace IF.Core.Localization
 {
 
-    //public interface LanguageDto : ILanguageProperty
-    //{
-    //    //int Id { get; set; }
-    //}
+    public interface LanguageDto
+    {
+        int Id { get; set; }
+    }
 
     //public class LanguageDto<T> : LanguageDto where T : ILanguageProperty, new()
     //{
@@ -20,7 +20,7 @@ namespace IF.Core.Localization
     //}
 
 
-    
+
 
     [System.AttributeUsage(System.AttributeTargets.Property, AllowMultiple = true)]
     public class LanguagePropertyAttribute : Attribute

@@ -1,12 +1,10 @@
 ﻿using IF.Core.Cache;
 using IF.Core.Localization;
-using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 
 
 namespace IF.Persistence.EF.Localization
@@ -16,15 +14,17 @@ namespace IF.Persistence.EF.Localization
         private readonly ICacheService cacheService;
         private readonly IRepository repository;
         private readonly ILanguageService languageService;
+        private readonly LanguageMapper languageMapper;
 
 
 
 
-        public TranslatorService(IRepository repository, ICacheService cacheService,ILanguageService languageService)
+        public TranslatorService(IRepository repository, ICacheService cacheService,ILanguageService languageService, LanguageMapper languageMapper)
         {
             this.cacheService = cacheService;
             this.repository = repository;
             this.languageService = languageService;
+            this.languageMapper = languageMapper;
         }
 
 
@@ -39,64 +39,93 @@ namespace IF.Persistence.EF.Localization
 
             return this.cacheService.Get<L>(cacheKey, () => this.GetObjectCurrentLanguage<L>(objectId));
         }
-
-
-
-
+                     
         private string GetLanguageKeyName<L>(int objectId) where L : class, ILanguageEntity
         {
             return typeof(L).Name + this.languageService.CurrentCulture.LCID.ToString() + objectId.ToString();
         }
 
 
-        public void Translate<LD>(IEnumerable<LD> languageModelList)
-            where LD : class
+        public void Translate<T>(IEnumerable<T> dto) where T : LanguageDto
         {
-            if (this.languageService.IsDefaultLanguage())
-            {
-                return;
-            }
 
+            var currentMap = this.languageMapper.LanguageMaps.SingleOrDefault(l => l.Dto == typeof(T));
 
-            var properties = typeof(LD).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var properties = currentMap.Language.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
-            foreach (var languageModel in languageModelList)
+            foreach (var item in dto)
             {
 
-                foreach (PropertyInfo property in properties)
-                {
-                    LanguagePropertyAttribute languageProperty = property.GetCustomAttributes(typeof(LanguagePropertyAttribute), false).FirstOrDefault() as LanguagePropertyAttribute;
-
-                    {
-                        if (null != languageProperty)
-                        {
-                            string name = languageProperty.PropertyName;
-
-                            int Id = Convert.ToInt32(languageModel.GetType().GetProperty(languageProperty.Id).GetValue(languageModel, null));
-
-                            var languageObject = typeof(ITranslatorService)
+                var languageObject = typeof(ITranslatorService)
                                     .GetMethod("GetObjectCurrentLanguageCache")
-                                    .MakeGenericMethod(languageProperty.Type)
-                                    .Invoke(this, new object[] { Id });
+                                    .MakeGenericMethod(currentMap.Language)
+                                    .Invoke(this, new object[] { item.Id });
 
-                            if (languageObject != null)
-                            {
+                foreach (var property in properties)
+                {
+                    if (property.Name == "Id" || property.Name == "ObjectId" || property.Name == "LanguageId") continue;
 
-                                ILanguageEntity languageEntity = (ILanguageEntity)languageObject;
+                    currentMap.Dto
+                                   .GetProperty(property.Name)
+                                   .SetValue(item, currentMap.Language
+                                                   .GetProperty(property.Name)
+                                                   .GetValue(languageObject, null)
+                                                   , null);
 
-                                languageModel.GetType()
-                                    .GetProperty(property.Name)
-                                    .SetValue(languageModel, languageEntity
-                                                    .GetType()
-                                                    .GetProperty(languageProperty.PropertyName)
-                                                    .GetValue(languageEntity, null)
-                                                    , null);
-                            }
-                        }
-                    }
                 }
             }
         }
+
+
+
+        //public void Translate<LD>(IEnumerable<LD> languageModelList)
+        //        where LD : class
+        //{
+        //    if (this.languageService.IsDefaultLanguage())
+        //    {
+        //        return;
+        //    }
+
+
+        //    var properties = typeof(LD).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+        //    foreach (var languageModel in languageModelList)
+        //    {
+
+        //        foreach (PropertyInfo property in properties)
+        //        {
+        //            LanguagePropertyAttribute languageProperty = property.GetCustomAttributes(typeof(LanguagePropertyAttribute), false).FirstOrDefault() as LanguagePropertyAttribute;
+
+        //            {
+        //                if (null != languageProperty)
+        //                {
+        //                    string name = languageProperty.PropertyName;
+
+        //                    int Id = Convert.ToInt32(languageModel.GetType().GetProperty(languageProperty.Id).GetValue(languageModel, null));
+
+        //                    var languageObject = typeof(ITranslatorService)
+        //                            .GetMethod("GetObjectCurrentLanguageCache")
+        //                            .MakeGenericMethod(languageProperty.Type)
+        //                            .Invoke(this, new object[] { Id });
+
+        //                    if (languageObject != null)
+        //                    {
+
+        //                        ILanguageEntity languageEntity = (ILanguageEntity)languageObject;
+
+        //                        languageModel.GetType()
+        //                            .GetProperty(property.Name)
+        //                            .SetValue(languageModel, languageEntity
+        //                                            .GetType()
+        //                                            .GetProperty(languageProperty.PropertyName)
+        //                                            .GetValue(languageEntity, null)
+        //                                            , null);
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
 
         //public void TranslateListCurrent<LD>(IEnumerable<LD> languageModelList)
