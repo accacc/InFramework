@@ -3,7 +3,7 @@
 namespace IF.Core.Localization
 {
 
-    public interface LanguageDto
+    public interface ILanguageDto
     {
         int Id { get; set; }
     }

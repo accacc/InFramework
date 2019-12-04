@@ -1,4 +1,5 @@
 ﻿using IF.Core.Cache;
+using IF.Core.Data;
 using IF.Core.Localization;
 
 using System;
@@ -20,9 +21,12 @@ namespace IF.Persistence.EF.Localization
         private readonly ICacheService cacheService;
         private readonly IRepository repository;
         private readonly Assembly[] assembiles;
+        
 
         public CultureInfo[] Cultures { get; }
         public CultureInfo DefaultCulture { get; }
+
+        public LanguageMapper Mapper { get; }
 
         public bool IsDefaultLanguage()
         {
@@ -36,14 +40,33 @@ namespace IF.Persistence.EF.Localization
 
         
 
-        public LanguageService(IRepository repository, ICacheService cacheService, LocalizationSettings settings)            
+        public LanguageService(IRepository repository, ICacheService cacheService, LocalizationSettings settings, LanguageMapper languageMapper)            
         {
             this.cacheService = cacheService;
             this.repository = repository;
+            this.Mapper = languageMapper;
             this.assembiles = settings.Assemblies;
             this.Cultures = settings.Cultures;
             this.DefaultCulture = this.Cultures.SingleOrDefault(l => l.LCID == settings.DefaultLanguage);            
         }
+
+        public L GetObjectCurrentLanguage<L>(int objectId) where L : class, ILanguageEntity
+        {
+            return this.repository.GetQuery<L>(cl => cl.ObjectId == objectId && cl.LanguageId == this.CurrentCulture.LCID).SingleOrDefault();
+        }
+
+        public L GetObjectCurrentLanguageCache<L>(int objectId) where L : class, ILanguageEntity
+        {
+            string cacheKey = GetLanguageKeyName<L>(objectId);
+
+            return this.cacheService.Get<L>(cacheKey, () => this.GetObjectCurrentLanguage<L>(objectId));
+        }
+
+        private string GetLanguageKeyName<L>(int objectId) where L : class, ILanguageEntity
+        {
+            return typeof(L).Name + this.CurrentCulture.LCID.ToString() + objectId.ToString();
+        }
+
 
 
         public LanguageGridModel GetLanguageGridModel(string LanguageObject)
@@ -54,28 +77,29 @@ namespace IF.Persistence.EF.Localization
             {
                 
 
-                Type entityType = Type.GetType(LanguageObject);
+                Type dtoType = Type.GetType(LanguageObject);
+
+                var mapping = this.Mapper.GetMapByDto(dtoType);
 
 
                 var obj = typeof(ILanguageService)
                            .GetMethod("GetLanguageObjectList")
-                           .MakeGenericMethod(entityType)
+                           .MakeGenericMethod(mapping.Entity)
                            .Invoke(this, new object[] { });
 
-                IEnumerable<ILanguageableEntity> languages = (IEnumerable<ILanguageableEntity>)obj;
+                IEnumerable<IEntity> languages = (IEnumerable<IEntity>)obj;
 
-                var properties = entityType.GetProperties();
+                var properties = dtoType.GetProperties();
 
                 var identityColumnName = properties.Where(prop => Attribute.IsDefined(prop, typeof(KeyAttribute))).First().Name;
 
-
                 model.Columns.Add(identityColumnName);
 
-                object[] attrs = entityType.GetCustomAttributes(typeof(LanguageEntityAttribute), true);
+                //object[] attrs = entityType.GetCustomAttributes(typeof(LanguageEntityAttribute), true);
 
-                var languageEntityAttribute = attrs.First() as LanguageEntityAttribute;
+                //var languageEntityAttribute = attrs.First() as LanguageEntityAttribute;
 
-                var languageableEntityProperties = languageEntityAttribute.Type.GetProperties().Where(p => p.PropertyType == typeof(string));
+                var languageableEntityProperties = mapping.Entity.GetProperties().Where(p => p.PropertyType == typeof(string));
 
                 foreach (var property in languageableEntityProperties)
                 {
@@ -117,7 +141,7 @@ namespace IF.Persistence.EF.Localization
 
             try
             {
-                var t = typeof(ILanguageableEntity);
+                var t = typeof(ILanguageEntity);
 
                 list = assemblies.SelectMany(x => x.GetTypes())
                      .Where(x => t.IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract && x.UnderlyingSystemType != t)
@@ -148,22 +172,15 @@ namespace IF.Persistence.EF.Localization
         }
 
         public LanguageFormModel GetLanguageFormModel(Type entityType, object Id)
-        {
-
-            
-
-            object[] attrs = entityType.GetCustomAttributes(typeof(LanguageEntityAttribute), true);
-
-            var languageEntityAttribute = attrs.First() as LanguageEntityAttribute;
-
+        {         
 
             var obj = typeof(ILanguageService)
                      .GetMethod("GetLanguageObject")
-                     .MakeGenericMethod(languageEntityAttribute.Type)
+                     .MakeGenericMethod(entityType)
                      .Invoke(this, new object[] { Id });
 
 
-            var languageableEntityProperties = languageEntityAttribute.Type.GetProperties().Where(p => p.PropertyType == typeof(string));
+            var languageableEntityProperties = entityType.GetProperties().Where(p => p.PropertyType == typeof(string));
 
 
 
@@ -253,11 +270,9 @@ namespace IF.Persistence.EF.Localization
 
                 if (systemLanguage.LCID == this.DefaultCulture.LCID) continue;             
 
-                object[] attrs = entityType.GetCustomAttributes(typeof(LanguageEntityAttribute), true);
+                
 
-                var languageEntityAttribute = attrs.First() as LanguageEntityAttribute;
-
-                LanguageViewModel languageModel = GetLanguageModel(languageEntityAttribute.Type, languageObject, Convert.ToInt32(systemLanguage.LCID));
+                LanguageViewModel languageModel = GetLanguageModel(entityType, languageObject, Convert.ToInt32(systemLanguage.LCID));
 
                 languageModel.Index = i;
 
@@ -284,14 +299,10 @@ namespace IF.Persistence.EF.Localization
 
         public void UpdateLanguages(Type entityType,LanguageFormModel model)
         {
-            object[] attrs = entityType.GetCustomAttributes(typeof(LanguageEntityAttribute), true);
-
-            var languageEntityAttribute = attrs.First() as LanguageEntityAttribute;
-
 
             var result = typeof(LanguageService)
                .GetMethod("UpdateLanguagesGeneric")
-               .MakeGenericMethod(languageEntityAttribute.Type)
+               .MakeGenericMethod(entityType)
                .Invoke(this, new object[] { model });
 
         }

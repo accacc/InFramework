@@ -13,44 +13,28 @@ namespace IF.Persistence.EF.Localization
         private readonly ICacheService cacheService;
         private readonly IRepository repository;
         private readonly ILanguageService languageService;
-        private readonly LanguageMapper languageMapper;
+        
 
 
 
 
-        public TranslatorService(IRepository repository, ICacheService cacheService,ILanguageService languageService, LanguageMapper languageMapper)
+        public TranslatorService(IRepository repository, ILanguageService languageService)
         {
             this.cacheService = cacheService;
             this.repository = repository;
             this.languageService = languageService;
-            this.languageMapper = languageMapper;
+            
         }
 
 
-        public L GetObjectCurrentLanguage<L>(int objectId) where L : class, ILanguageEntity
-        {
-            return this.repository.GetQuery<L>(cl => cl.ObjectId == objectId && cl.LanguageId == this.languageService.CurrentCulture.LCID).SingleOrDefault();
-        }
+        
 
-        public L GetObjectCurrentLanguageCache<L>(int objectId) where L : class, ILanguageEntity
-        {
-            string cacheKey = GetLanguageKeyName<L>(objectId);
-
-            return this.cacheService.Get<L>(cacheKey, () => this.GetObjectCurrentLanguage<L>(objectId));
-        }
-                     
-        private string GetLanguageKeyName<L>(int objectId) where L : class, ILanguageEntity
-        {
-            return typeof(L).Name + this.languageService.CurrentCulture.LCID.ToString() + objectId.ToString();
-        }
-
-
-        public void Translate<T>(IEnumerable<T> dto) where T : LanguageDto
+        public void Translate<T>(IEnumerable<T> dto) where T : ILanguageDto
         {
 
             if (languageService.IsDefaultLanguage()) return;
 
-            var currentMap = this.languageMapper.LanguageMaps.SingleOrDefault(l => l.Dto == typeof(T));
+            var currentMap = this.languageService.Mapper.GetMapByDto<T>();
 
             var properties = currentMap.Language.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 

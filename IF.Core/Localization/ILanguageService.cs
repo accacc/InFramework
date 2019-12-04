@@ -12,7 +12,7 @@ namespace IF.Core.Localization
     public interface ILanguageService
     {
 
-
+        L GetObjectCurrentLanguageCache<L>(int objectId) where L : class, ILanguageEntity;
         LanguageFormModel GetLanguageFormModel(Type entityType, object Id);
 
         List<Type> GetAllLanguageEntities(Assembly[] assemblies);
@@ -28,6 +28,8 @@ namespace IF.Core.Localization
         CultureInfo DefaultCulture { get; }
 
         CultureInfo CurrentCulture { get; }
+
+        LanguageMapper Mapper { get; }
         bool IsDefaultLanguage();
     }
 }

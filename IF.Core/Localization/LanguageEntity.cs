@@ -4,7 +4,7 @@ using System;
 
 namespace IF.Core.Localization
 {
-    public interface  ILanguageableEntity:IEntity
+    public interface ILanguageableEntity : IEntity
     {
     }
 
@@ -16,15 +16,15 @@ namespace IF.Core.Localization
         
     }
 
-    [System.AttributeUsage(System.AttributeTargets.Class , AllowMultiple = true)]
-    public class LanguageEntityAttribute : Attribute
-    {
-        public Type Type { get; set; }
-        public LanguageEntityAttribute(Type type)
-        {
-            this.Type = type;
-        }
-    }
+    //[System.AttributeUsage(System.AttributeTargets.Class , AllowMultiple = true)]
+    //public class LanguageEntityAttribute : Attribute
+    //{
+    //    public Type Type { get; set; }
+    //    public LanguageEntityAttribute(Type type)
+    //    {
+    //        this.Type = type;
+    //    }
+    //}
 
     //public abstract class LanguageEntity<D> : LanguageEntity where D : LanguageableEntity
     //{
