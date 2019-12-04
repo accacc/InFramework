@@ -15,7 +15,7 @@ namespace IF.Core.Localization
             LanguageMaps.Clear();
         }
 
-        public LanguageMap GetMapByDto<T>() where T : ILanguageDto
+        public LanguageMap GetMapByDto<T>() where T : ILanguageData
         {
             return this.LanguageMaps.SingleOrDefault(l => l.Dto == typeof(T));
             
@@ -37,7 +37,7 @@ namespace IF.Core.Localization
             return this.LanguageMaps.SingleOrDefault(l => l.Language == type);
         }
 
-        public void AddMap<D, L,E>() where D : ILanguageDto where L : ILanguageEntity where E : IEntity
+        public void AddMap<D, L,E>() where D : ILanguageData where L : ILanguageEntity where E : IEntity
         {
             LanguageMaps.Add(new LanguageMap { Dto = typeof(D), Language = typeof(L) , Entity = typeof(E) });
         }

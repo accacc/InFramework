@@ -1,4 +1,5 @@
 ﻿using IF.Core.Data;
+using IF.Core.Localization;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +8,7 @@ namespace IF.Core.Security
 
 
 
-    public class PermissionDto : TreeDto<PermissionDto>
+    public class PermissionDto : TreeDto<PermissionDto>,IPermissionLanguage
     {
         public string ActionName { get; set; }
         public string ControllerName { get; set; }
@@ -39,6 +40,12 @@ namespace IF.Core.Security
         public string AuthorizationCode { get; set; }
 
         
+
+    }
+
+    public interface IPermissionLanguage : ILanguageData
+    {
+        string Text { get; set; }
 
     }
 

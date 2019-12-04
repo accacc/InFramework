@@ -29,7 +29,7 @@ namespace IF.Persistence.EF.Localization
 
         
 
-        public void Translate<T>(IEnumerable<T> dto) where T : ILanguageDto
+        public void Translate<T>(IEnumerable<T> dto) where T : ILanguageData
         {
 
             if (languageService.IsDefaultLanguage()) return;
