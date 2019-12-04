@@ -154,12 +154,39 @@ namespace IF.Dependency.AutoFac
         {
             this.RegisterType<AppSettingsCore, IAppSettingsCore>(DependencyScope.Single);
             //this.RegisterType<Setting, ISettings>(DependencyScope.Single);
-            this.RegisterInstance<ISettings>(settings, DependencyScope.Single);
+            this.Register<ISettings>(settings, DependencyScope.Single);
+            return this;
+        }
+
+        public IInFrameworkBuilder RegisterIntance<T>(T instance, DependencyScope scope) where T : class
+        {
+            var reg = this.builder.RegisterInstance(instance).As<T>();
+
+            switch (scope)
+            {
+                case DependencyScope.Single:
+                    reg.SingleInstance();
+                    break;
+
+                case DependencyScope.PerScope:
+                    reg.InstancePerLifetimeScope();
+                    break;
+                case DependencyScope.PerRequest:
+                    reg.InstancePerRequest();
+                    break;
+                case DependencyScope.PerInstance:
+                    reg.InstancePerDependency();
+                    break;
+                default:
+                    reg.InstancePerRequest();
+                    break;
+            }
+
             return this;
         }
 
 
-        public IInFrameworkBuilder RegisterInstance<T>(T instance, DependencyScope scope)
+        public IInFrameworkBuilder Register<T>(T instance, DependencyScope scope)
         {
             var reg = this.builder.Register<T>(c => instance).As<T>();
 

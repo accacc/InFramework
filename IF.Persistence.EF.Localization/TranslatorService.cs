@@ -1,7 +1,6 @@
 ﻿using IF.Core.Cache;
 using IF.Core.Localization;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -49,6 +48,8 @@ namespace IF.Persistence.EF.Localization
         public void Translate<T>(IEnumerable<T> dto) where T : LanguageDto
         {
 
+            if (languageService.IsDefaultLanguage()) return;
+
             var currentMap = this.languageMapper.LanguageMaps.SingleOrDefault(l => l.Dto == typeof(T));
 
             var properties = currentMap.Language.GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -61,16 +62,21 @@ namespace IF.Persistence.EF.Localization
                                     .MakeGenericMethod(currentMap.Language)
                                     .Invoke(this, new object[] { item.Id });
 
-                foreach (var property in properties)
+                if (languageObject != null)
                 {
-                    if (property.Name == "Id" || property.Name == "ObjectId" || property.Name == "LanguageId") continue;
 
-                    currentMap.Dto
-                                   .GetProperty(property.Name)
-                                   .SetValue(item, currentMap.Language
-                                                   .GetProperty(property.Name)
-                                                   .GetValue(languageObject, null)
-                                                   , null);
+                    foreach (var property in properties)
+                    {
+                        if (property.Name == "Id" || property.Name == "ObjectId" || property.Name == "LanguageId") continue;
+
+                        currentMap.Dto
+                                       .GetProperty(property.Name)
+                                       .SetValue(item, currentMap.Language
+                                                       .GetProperty(property.Name)
+                                                       .GetValue(languageObject, null)
+                                                       , null);
+
+                    }
 
                 }
             }

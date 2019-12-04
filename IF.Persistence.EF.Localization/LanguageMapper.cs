@@ -14,7 +14,7 @@ namespace IF.Persistence.EF.Localization
             LanguageMaps.Clear();
         }
 
-        public void AddMap<L, D>() where L : LanguageDto where D : ILanguageEntity
+        public void AddMap<D, L>() where D : LanguageDto where L : ILanguageEntity
         {
             LanguageMaps.Add(new LanguageMap { Dto = typeof(D), Language = typeof(L) });
         }

@@ -9,13 +9,15 @@ using System.Linq;
 
 namespace IF.Localization.Integration
 {
+    
+
     public static class IntegrationExtension
     {
         public static ILocalizationBuilder AddEntityFramework(this ILocalizationBuilder builder, IServiceCollection services, LanguageMapper languageMapper, LocalizationSettings settings)
         {
 
-            builder.Container.RegisterInstance(settings, DependencyScope.Single);
-            builder.Container.RegisterInstance(languageMapper, DependencyScope.Single);
+            builder.Container.RegisterIntance(settings, DependencyScope.Single);
+            builder.Container.RegisterIntance(languageMapper, DependencyScope.Single);
             builder.Container.RegisterType<LanguageService, ILanguageService>(DependencyScope.PerInstance);
             builder.Container.RegisterType<TranslatorService, ITranslatorService>(DependencyScope.PerInstance);
 

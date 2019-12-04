@@ -19,7 +19,7 @@ namespace IF.Core.DependencyInjection.Interface
 
         //IInFrameworkBuilder AddRedisCache(Action<IRedisCacheBuilder> action);
 
-        IInFrameworkBuilder RegisterInstance<T>(T instance, DependencyScope scope);
+        IInFrameworkBuilder Register<T>(T instance, DependencyScope scope);
 
         IInFrameworkBuilder AddEventBus(Action<IEventBusLogBuilder> action);
         IInFrameworkBuilder AddRazorTemplates(Action<IRazorTemlateBuilder> action);
@@ -62,7 +62,7 @@ namespace IF.Core.DependencyInjection.Interface
 
         IInFrameworkBuilder AddApplicationSettings<ISettings>(ISettings settings) where ISettings : IAppSettingsCore;
 
-        
+        IInFrameworkBuilder RegisterIntance<T>(T instance, DependencyScope scope) where T : class;
 
 
     }
