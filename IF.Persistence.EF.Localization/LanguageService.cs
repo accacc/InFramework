@@ -79,7 +79,7 @@ namespace IF.Persistence.EF.Localization
 
                 Type dtoType = Type.GetType(LanguageObject);
 
-                var mapping = this.Mapper.GetMapByDto(dtoType);
+                var mapping = this.Mapper.GetMapByLanguageEntity(dtoType);
 
 
                 var obj = typeof(ILanguageService)
