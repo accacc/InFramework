@@ -1,0 +1,54 @@
+﻿<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            @Html.Label("LanguageObject", "Language Object")
+
+            @Html.DropDownList("LanguageObject", new SelectList((IEnumerable<Type>)ViewBag.LanguagesObject, "AssemblyQualifiedName", "Name"), new { @class = "form-control" })
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    $("#LanguageObject").change(function () {
+        $.ajax('@Url.Action("RetrieveLanguageObjectList")',
+            {
+                type: 'GET',
+                data: { LanguageObject: this.value },
+                success: function (data, status, xhr) {
+                    $('#LanguageGridDiv').html(data);
+                }
+            })
+    });
+</script>
+
+@*@(Html.IF().BootstrapAjaxFilterForm()
+                             .Content(FormContent().ToHtmlString())
+                             .ActionName("RetrieveLanguageObjectList")
+                             .Id("LanguageFilterForm")
+                             .DefaultSubmitButton(b => b.Id("LanguageFilterButton"))
+                             .AjaxOptions(ajax => ajax.UpdatedTargetId("LanguageGridDiv"))
+                             .Render())
+
+    @helper FormContent()
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.Label("LanguageObject", "Language Object")
+
+                    @Html.DropDownList("LanguageObject", new SelectList((IEnumerable<Type>)ViewBag.LanguagesObject, "AssemblyQualifiedName", "Name"), new { @class = "form-control" })
+                </div>
+
+            </div>
+        </div>
+
+    }*@
+
+
+
+
+
+
+

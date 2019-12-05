@@ -1,0 +1,39 @@
+﻿@using IF.Web.Mvc.FluentHtml.Extension
+
+@using  IF.Web.Mvc.Extensions
+
+@model IF.Persistence.EF.Localization.LanguageFormModel
+
+@{
+    Layout = "~/Views/Shared/_DialogFormLayout.cshtml";
+}
+
+
+<form>
+
+    @(Html.IF().Tab().Items(items =>
+    {
+             foreach (var language in Model.Languages)
+
+             {
+                   items.Add()
+                        .Content(@<text>@await Html.PartialAsync("~/Views/Dictionary/_LanguageObjectItem.cshtml", language)</text>)
+                        .Text(new System.Globalization.CultureInfo(language.LanguageId).EnglishName.Split(' ')[0])
+                        .Active(true);
+            }
+            }).Render())
+
+    <div class="row">
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-primary"
+                    if-ajax-action="@Url.Action(Html.ActionName())"
+                    if-ajax-form-submit="true"
+                    if-ajax-method="post">
+                Kaydet
+            </button>
+        </div>
+    </div>
+
+    @Html.HiddenFor(m => m.Id)
+</form>
+

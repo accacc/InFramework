@@ -1,0 +1,48 @@
+﻿@model IF.Persistence.EF.Localization.LanguageGridModel
+
+<div id="LanguageGridDiv">
+    @if (Model != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    @foreach (var item in Model.Columns)
+                    {
+                        <th>@item</th>
+                    }
+                    <th>Düzenle</th>
+                </tr>
+                
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.Rows)
+                {
+                    <tr>
+
+                        @foreach (var data in item.Data)
+                        {
+                            <td>@data</td>
+                        }
+                        <td>
+                            @*@Html.IF().ActionLinkOpenDialog("Edit", "LanguageObjectUpdate", "Dictionary").RouteValues(new { Id = @item.Data.First() }).IconClassName("icon-edit").Render()*@
+
+
+                            <a class="btn btn-primary"
+                               href="@Url.Action("LanguageObjectUpdate",new { Id = item.Data.First() })"
+                               if-ajax="true"
+                               if-ajax-method="get"
+                               if-ajax-mode="replace"
+                               if-ajax-show-dialog="true"
+                               if-ajax-modal-id="@Guid.NewGuid()">
+                                Düzenle
+                            </a>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+</div>

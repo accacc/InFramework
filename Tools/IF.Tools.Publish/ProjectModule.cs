@@ -19,10 +19,13 @@ namespace IF.Tools.Publish
         public ProjectModule()
         {
             this.UseIn = false;
+            
         }
 
         public string Name { get; set; }
         public string ModuleName { get; set; }
+
+        public string Path { get; set; }
 
         public ProjectType Type { get; set; }
 
@@ -83,7 +86,8 @@ namespace IF.Tools.Publish
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Persistence.EF.SqlServer.Integration", Type = ProjectType.Standart , Version = ProjectNetCoreVersion.Version_2_0});
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Persistence.EF.Localization", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0 });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Localization.Integration", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0 });
-
+            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Module.Dictionary", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0, Path = "Modules" });
+            
 
 
 

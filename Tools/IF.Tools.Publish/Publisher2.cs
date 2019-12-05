@@ -400,7 +400,7 @@ namespace IF.Tools.Publish
             else if (projectModule.Type == ProjectType.Standart)
             {
                 //C:\Projects\DerinWebCore\IF.Persistence.EF.Core\bin\Debug\netcoreapp2.1
-                var dllPath = baseFrameworkPath + "/" + projectModule.ModuleName + "/bin/" + binFolder + "/netstandard2.0/" + projectModule.ModuleName + ".dll";
+                var dllPath = $"{baseFrameworkPath}/{(projectModule.Path == null ? "" : projectModule.Path + "/" )}{projectModule.ModuleName}/bin/{binFolder}/netstandard2.0/{projectModule.ModuleName}.dll";
 
                 var dllName = projectModule.ModuleName + ".dll";
 
