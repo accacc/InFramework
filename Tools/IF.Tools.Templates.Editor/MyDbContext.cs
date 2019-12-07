@@ -15,8 +15,8 @@ namespace IF.Tools.Templates.Editor
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(@"Data Source=../../ProjectTemplate.db;");
-            
+            optionsBuilder.UseSqlite(@"Data Source=../../../ProjectTemplate.db;");
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

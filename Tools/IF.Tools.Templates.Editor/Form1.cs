@@ -25,7 +25,7 @@ namespace IF.Tools.Templates.Editor
             {
                
 
-                foreach (var template in ctx.ProjectTemplates)
+                foreach (var template in ctx.ProjectTemplates.ToList())
                 {
                     projectTemplates.Add(new NameValueDto {Name = template.Name,Value = template.Code });
 
