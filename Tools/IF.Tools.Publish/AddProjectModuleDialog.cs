@@ -8,9 +8,9 @@ namespace IF.Tools.Publish
     public partial class AddProjectModuleDialog : ProjectDialog
     {
         Project project;
-        Publisher2 publisher;
+        Publisher publisher;
 
-        public AddProjectModuleDialog(Publisher2 publisher)
+        public AddProjectModuleDialog(Publisher publisher)
         {
             InitializeComponent();
 

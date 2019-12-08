@@ -18,7 +18,7 @@ namespace IF.Tools.Publish
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Publisher2());
+            Application.Run(new Publisher());
         }
     }
 }
