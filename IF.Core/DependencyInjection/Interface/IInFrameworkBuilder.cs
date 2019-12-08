@@ -22,6 +22,8 @@ namespace IF.Core.DependencyInjection.Interface
         IInFrameworkBuilder Register<T>(T instance, DependencyScope scope);
 
         IInFrameworkBuilder AddEventBus(Action<IEventBusLogBuilder> action);
+
+        IInFrameworkBuilder AddModule(Action<IModuleBuilder> action);
         IInFrameworkBuilder AddRazorTemplates(Action<IRazorTemlateBuilder> action);
 
         IInFrameworkBuilder AddLocalization(Action<ILocalizationBuilder> action);

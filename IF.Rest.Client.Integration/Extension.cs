@@ -1,10 +1,6 @@
 ﻿using IF.Core.DependencyInjection.Interface;
-using IF.Core.DependencyInjection.Interface;
-using IF.Core.Notification;
-using IF.Core.OneSignal;
 using IF.Core.Rest;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace IF.Rest.Client.Integration
 {

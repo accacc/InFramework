@@ -80,6 +80,12 @@ namespace IF.Dependency.AutoFac
             return this;
         }
 
+        public IInFrameworkBuilder AddModule(Action<IModuleBuilder> action)
+        {
+            action(new ModuleBuilder(this));
+            return this;
+        }
+
         public IInFrameworkBuilder AddLocalization(Action<ILocalizationBuilder> action)
         {
             action(new LocalizationBuilder(this));

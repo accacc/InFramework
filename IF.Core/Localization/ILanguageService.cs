@@ -31,5 +31,7 @@ namespace IF.Core.Localization
 
         LanguageMapper Mapper { get; }
         bool IsDefaultLanguage();
+
+        Assembly[] GetLanguageAssembilies();
     }
 }

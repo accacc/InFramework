@@ -29,7 +29,7 @@ namespace Gedik.SSO.Dictionary
                 return RedirectToAction("LanguageObjectsList");
             }
 
-            List<Type> list = this.languageService.GetAllLanguageEntities(new Assembly[] { Assembly.Load("Gedik.SSO.Contract") });
+            List<Type> list = this.languageService.GetAllLanguageEntities(this.languageService.GetLanguageAssembilies());
 
             ViewBag.LanguagesObject = list;
 

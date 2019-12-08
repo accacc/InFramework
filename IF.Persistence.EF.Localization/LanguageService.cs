@@ -325,5 +325,10 @@ namespace IF.Persistence.EF.Localization
 
             this.repository.UnitOfWork.SaveChanges();
         }
+
+        public Assembly[] GetLanguageAssembilies()
+        {
+            return this.assembiles;
+        }
     }
 }
