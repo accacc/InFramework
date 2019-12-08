@@ -16,7 +16,7 @@ namespace IF.Core.DependencyInjection
 
         public IInFrameworkBuilder Build(Assembly[] assemblies)
         {
-            this.Builder.RegisterClosedType(assemblies, typeof(IIFEventHandler<>), DependencyScope.PerRequest);
+            this.Builder.RegisterClosedType(assemblies, typeof(IIFEventHandler<>), DependencyScope.PerInstance);
             return this.Builder;
         }
     }

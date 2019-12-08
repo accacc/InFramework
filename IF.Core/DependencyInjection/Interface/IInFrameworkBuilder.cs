@@ -9,13 +9,13 @@ namespace IF.Core.DependencyInjection.Interface
 
     public interface IInFrameworkBuilder
     {
-
+        IInFrameworkBuilder RegisterRepositories<T>(Assembly[] assembly);
         IInFrameworkBuilder RegisterAggregateService<TInterface>() where TInterface : class;
 
         IInFrameworkBuilder AddEmailLogger(Action<IEmailLoggerBuilder> action);
         IInFrameworkBuilder RegisterType<T, K>(DependencyScope scope);
 
-        IInFrameworkBuilder AddServices<T>(Assembly[] assembly);
+        IInFrameworkBuilder RegisterBaseClassType<T>(Assembly[] assembly,DependencyScope scope);
 
         //IInFrameworkBuilder AddRedisCache(Action<IRedisCacheBuilder> action);
 
@@ -46,14 +46,14 @@ namespace IF.Core.DependencyInjection.Interface
 
         IInFrameworkBuilder AddMongo(Action<IMongoBuilder> action);
 
-        void RegisterClosedType(Assembly[] assembly, Type type, DependencyScope scope);
+        IInFrameworkBuilder RegisterClosedType(Assembly[] assembly, Type type, DependencyScope scope);
 
-        void RegisterImplementedInterface<T>(Assembly[] assembly,  DependencyScope scope);
+        IInFrameworkBuilder RegisterBaseInterfaceType<T>(Assembly[] assembly,  DependencyScope scope);
 
         void Build();
 
         IInFrameworkBuilder AddCqrs(Action<ICqrsBuilder> action);
-        void RegisterDecorators(Assembly[] assemblies, List<Type> handlers);
+        IInFrameworkBuilder RegisterDecorators(Assembly[] assemblies, List<Type> handlers);
 
        
 

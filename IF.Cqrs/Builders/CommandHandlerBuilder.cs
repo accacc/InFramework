@@ -37,11 +37,11 @@ namespace IF.Dependency.Builders
         public IInFrameworkBuilder Build(Assembly[] assemblies)
         {
             dependencyInjection.RegisterDecorators(assemblies, this.handlers);
-            dependencyInjection.RegisterImplementedInterface<IDataCommand>(assemblies, DependencyScope.PerInstance);
+            dependencyInjection.RegisterBaseInterfaceType<IDataCommand>(assemblies, DependencyScope.PerInstance);
 
             if (this.IsAsync)
             {
-                dependencyInjection.RegisterImplementedInterface<IDataCommandAsync>(assemblies, DependencyScope.PerInstance);
+                dependencyInjection.RegisterBaseInterfaceType<IDataCommandAsync>(assemblies, DependencyScope.PerInstance);
             }
 
             return this.dependencyInjection;

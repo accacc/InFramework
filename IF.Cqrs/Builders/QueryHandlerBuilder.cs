@@ -39,11 +39,11 @@ namespace IF.Dependency.Builders
         public IInFrameworkBuilder Build(Assembly[] assemblies)
         {
             dependencyInjection.RegisterDecorators(assemblies, this.handlers);
-            dependencyInjection.RegisterImplementedInterface<IDataQuery>(assemblies, DependencyScope.PerInstance);
+            dependencyInjection.RegisterBaseInterfaceType<IDataQuery>(assemblies, DependencyScope.PerInstance);
             
             if (this.IsAsync)
             {
-                dependencyInjection.RegisterImplementedInterface<IDataQueryAsync>(assemblies, DependencyScope.PerInstance);
+                dependencyInjection.RegisterBaseInterfaceType<IDataQueryAsync>(assemblies, DependencyScope.PerInstance);
             }
 
             return this.dependencyInjection;

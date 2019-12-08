@@ -42,13 +42,7 @@ namespace IF.Dependency.AutoFac
             return this;
         }
 
-        public IInFrameworkBuilder AddServices<T>(Assembly[] assembly)
-        {
-            builder.RegisterAssemblyTypes(assembly).AssignableTo<T>().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies).InstancePerDependency();
-
-            return this;
-        }
-
+      
 
         public IInFrameworkBuilder AddEventBus(Action<IEventBusLogBuilder> action)
         {
@@ -219,31 +213,7 @@ namespace IF.Dependency.AutoFac
             return this;
         }
 
-        public void RegisterClosedType(Assembly[] assembly, Type type, DependencyScope scope)
-        {
-            var reg = builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(type);
-
-            switch (scope)
-            {
-                case DependencyScope.Single:
-                    reg.SingleInstance();
-                    break;
-
-                case DependencyScope.PerScope:
-                    reg.InstancePerLifetimeScope();
-                    break;
-                case DependencyScope.PerRequest:
-                    reg.InstancePerRequest();
-                    break;
-                case DependencyScope.PerInstance:
-                    reg.InstancePerDependency();
-                    break;
-                default:
-                    reg.InstancePerRequest();
-                    break;
-            }
-        }
-
+       
 
         public IInFrameworkBuilder RegisterType<C, A>(DependencyScope scope)
         {
@@ -276,7 +246,7 @@ namespace IF.Dependency.AutoFac
 
 
 
-        public void RegisterDecorators(Assembly[] assemblies, List<Type> decorators)
+        public IInFrameworkBuilder RegisterDecorators(Assembly[] assemblies, List<Type> decorators)
         {
 
             if (decorators.Count == 1)
@@ -303,6 +273,8 @@ namespace IF.Dependency.AutoFac
                 }
 
             }
+
+            return this;
         }
 
         public void Build()
@@ -322,7 +294,7 @@ namespace IF.Dependency.AutoFac
             return this;
         }
 
-        public void RegisterImplementedInterface<T>(Assembly[] assembly, DependencyScope scope)
+        public IInFrameworkBuilder RegisterBaseInterfaceType<T>(Assembly[] assembly, DependencyScope scope)
         {
 
             var reg = builder.RegisterAssemblyTypes(assembly).AssignableTo<T>().AsImplementedInterfaces();
@@ -346,6 +318,72 @@ namespace IF.Dependency.AutoFac
                     reg.InstancePerRequest();
                     break;
             }
+
+            return this;
         }
+
+        public IInFrameworkBuilder RegisterClosedType(Assembly[] assembly, Type type, DependencyScope scope)
+        {
+            var reg = builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(type);
+
+            switch (scope)
+            {
+                case DependencyScope.Single:
+                    reg.SingleInstance();
+                    break;
+
+                case DependencyScope.PerScope:
+                    reg.InstancePerLifetimeScope();
+                    break;
+                case DependencyScope.PerRequest:
+                    reg.InstancePerRequest();
+                    break;
+                case DependencyScope.PerInstance:
+                    reg.InstancePerDependency();
+                    break;
+                default:
+                    reg.InstancePerRequest();
+                    break;
+            }
+
+            return this;
+        }
+
+
+        public IInFrameworkBuilder RegisterRepositories<T>(Assembly[] assembly)
+        {
+            return this.RegisterBaseInterfaceType<T>(assembly, DependencyScope.PerInstance);
+        }
+
+        public IInFrameworkBuilder RegisterBaseClassType<T>(Assembly[] assembly, DependencyScope scope)
+        {
+            var reg = builder.RegisterAssemblyTypes(assembly).AssignableTo<T>()
+                //.PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies)
+                .InstancePerDependency();
+
+
+            switch (scope)
+            {
+                case DependencyScope.Single:
+                    reg.SingleInstance();
+                    break;
+
+                case DependencyScope.PerScope:
+                    reg.InstancePerLifetimeScope();
+                    break;
+                case DependencyScope.PerRequest:
+                    reg.InstancePerRequest();
+                    break;
+                case DependencyScope.PerInstance:
+                    reg.InstancePerDependency();
+                    break;
+                default:
+                    reg.InstancePerRequest();
+                    break;
+            }
+
+            return this;
+        }
+
     }
 }

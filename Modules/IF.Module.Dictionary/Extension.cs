@@ -15,7 +15,7 @@ namespace IF.Module.Dictionary
 {
     public static class ModuleIntegrationExtension
     {
-        public static IModuleBuilder  (this IModuleBuilder moduleBuilder, IMvcBuilder mvc)
+        public static IModuleBuilder AddDictionary(this IModuleBuilder moduleBuilder, IMvcBuilder mvc)
         {           
 
 
