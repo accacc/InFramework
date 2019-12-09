@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IF.Template.Persistence.EF.Models
+namespace IF.Template.Contract.Models
 {
     public class TestEntity: IF.Core.Data.Entity
     {

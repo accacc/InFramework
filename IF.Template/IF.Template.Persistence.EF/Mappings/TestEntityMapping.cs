@@ -1,9 +1,6 @@
-﻿using IF.Template.Persistence.EF.Models;
+﻿using IF.Template.Contract.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IF.Template.Persistence.EF.Mappings
 {

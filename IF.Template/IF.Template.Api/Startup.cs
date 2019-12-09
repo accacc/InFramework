@@ -6,7 +6,6 @@ using IF.Cqrs.Builders;
 using IF.Dependency.AutoFac;
 using IF.EventBus.RabbitMQ.Integration;
 using IF.MongoDB.Integration;
-using IF.Persistence;
 using IF.Persistence.EF.SqlServer.Integration;
 using IF.Swagger.Integration;
 using IF.Template.Api.Infrastracture;

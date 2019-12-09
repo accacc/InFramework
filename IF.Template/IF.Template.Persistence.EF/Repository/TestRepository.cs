@@ -1,11 +1,10 @@
 ﻿using IF.Persistence.EF;
+using IF.Template.Contract.Models;
 using IF.Template.Contract.Queries;
-using IF.Template.Persistence.EF.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IF.Template.Persistence.EF.Repository
