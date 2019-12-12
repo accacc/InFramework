@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Derin.Tools.CodeGenerator
+namespace IF.Tools.CodeGenerator
 {
     static class Program
     {

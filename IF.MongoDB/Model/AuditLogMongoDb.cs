@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IF.MongoDB.Model
 {
-    public class AuditLog:IAuditLog
+    public class AuditLogMongoDb:IAuditLog
     {
 
         [BsonId]

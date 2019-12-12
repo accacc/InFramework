@@ -61,9 +61,19 @@ namespace IF.MongoDB.Repository.Abstract
             await this.GetQuery<T>().InsertOneAsync(item);
         }
 
+        public async Task AddAsync<T>(T item,string tableName)
+        {
+            await this.GetQuery<T>(tableName).InsertOneAsync(item);
+        }
+
         public void Add<T>(T item)
         {
             this.GetQuery<T>().InsertOne(item);
+        }
+
+        public void Add<T>(T item,string tableName)
+        {
+            this.GetQuery<T>(tableName).InsertOne(item);
         }
 
         public async Task DropDatabaseAsync(string dbName)

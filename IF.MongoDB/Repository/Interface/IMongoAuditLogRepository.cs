@@ -11,12 +11,10 @@ namespace IF.MongoDB.Repository.Interface
 {
     public interface IMongoAuditLogRepository:IMongoDbGenericRepository
     {
-        
+        Task<AuditLog> GetDetailAsync(Guid uniqueId);
+
+        Task<PagedListResponse<AuditLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string Source, string UserId, int PageNumber = 0, int PageSize = 50);
 
 
-        Task<IAuditLog> GetDetailAsync(Guid uniqueId);
-
-        Task<PagedListResponse<IAuditLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string Source, string UserId,int PageNumber = 0, int PageSize = 50);
-        
     }
 }

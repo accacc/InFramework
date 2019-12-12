@@ -14,7 +14,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace Derin.Tools.CodeGenerator
+namespace IF.Tools.CodeGenerator
 {
     public partial class MainForm : Form
     {

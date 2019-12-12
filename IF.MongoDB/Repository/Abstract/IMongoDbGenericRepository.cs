@@ -21,10 +21,13 @@ namespace IF.MongoDB.Repository.Abstract
 
 
         Task AddAsync<T>(T item);
+        Task AddAsync<T>(T item,string tableName);
 
         void Add<T>(T item);
 
         Task DropDatabaseAsync(string dbName);
+
+        void Add<T>(T item, string tableName);
 
     }
 }

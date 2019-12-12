@@ -1,4 +1,4 @@
-﻿namespace Derin.Tools.CodeGenerator
+﻿namespace IF.Tools.CodeGenerator
 {
     partial class MainForm
     {

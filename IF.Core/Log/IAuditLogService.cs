@@ -14,8 +14,8 @@ namespace IF.Core.Log
 
         
 
-        Task<IAuditLog> GetDetailAsync(Guid uniqueId);
+        Task<AuditLog> GetDetailAsync(Guid uniqueId);
 
-        Task<PagedListResponse<IAuditLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string Source, string UserId, int PageNumber = 0, int PageSize = 50);
+        Task<PagedListResponse<AuditLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string Source, string UserId, int PageNumber = 0, int PageSize = 50);
     }
 }

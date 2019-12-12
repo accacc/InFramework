@@ -17,7 +17,7 @@ namespace IF.System.UI.AuditLog.Pages
         private readonly IAuditLogService auditLogService;
         private readonly IEventLogService eventLogService;
 
-        public PagedListResponse<IAuditLog> Logs { get; set; }
+        public PagedListResponse<IF.Core.Log.AuditLog> Logs { get; set; }
 
         
 

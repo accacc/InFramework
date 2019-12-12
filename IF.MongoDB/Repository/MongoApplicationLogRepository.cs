@@ -38,7 +38,7 @@ namespace IF.MongoDB.Repository
           
                 var fields = Builders<ApplicationErrorLogMongoDB>.Projection.Include(e => e.StackTrace);
 
-                var log = await this.GetQuery<ApplicationErrorLogMongoDB>()
+                var log = await this.GetQuery<ApplicationErrorLogMongoDB>(nameof(ApplicationErrorLog))
                                 .Find(e => e.UniqueId == id)
                                 .Project<ApplicationErrorLogMongoDB>(fields)
                                 .SingleOrDefaultAsync();
