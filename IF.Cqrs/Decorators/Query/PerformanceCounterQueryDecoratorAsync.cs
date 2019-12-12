@@ -43,9 +43,8 @@ namespace IF.Cqrs.Decorators.Query
 
         private async Task Log(TRequest request, Stopwatch stopwatch)
         {
-            //Type type = typeof(TRequest);
-            string name = nameof(TRequest);
-
+            Type type = typeof(TRequest);
+            string name = type.Name;
             await this.performanceLogService.LogAsync(DateTime.Now, stopwatch.Elapsed.TotalMilliseconds, name, request.UniqueId);
         }
     }

@@ -63,7 +63,7 @@ namespace IF.MongoDB.Repository.Abstract
 
         public async Task AddAsync<T>(T item,string tableName)
         {
-            await this.GetQuery<T>(tableName).InsertOneAsync(item);
+            await this.GetQuery<T>(tableName).InsertOneAsync(item).ConfigureAwait(false);
         }
 
         public void Add<T>(T item)

@@ -43,8 +43,6 @@ namespace IF.Cqrs.Decorators.Query
         {
             Type type = typeof(TRequest);
             string name = type.Name;
-
-
             this.performanceLogService.Log(DateTime.Now, stopwatch.Elapsed.TotalMilliseconds, name, request.UniqueId);
         }
     }
