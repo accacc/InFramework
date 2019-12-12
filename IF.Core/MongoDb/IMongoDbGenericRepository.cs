@@ -23,6 +23,8 @@ namespace IF.Core.MongoDb
 
         Task AddAsync<T>(T item, string tableName);
 
+        void Add<T>(T item, string tableName);
+
         void Add<T>(T item);
 
         Task DropDatabaseAsync(string dbName);
