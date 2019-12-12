@@ -1,5 +1,6 @@
 ﻿using IF.Core.Data;
 using IF.Core.Log;
+using IF.Core.MongoDb;
 using IF.MongoDB.Repository.Abstract;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,7 @@
 ﻿using IF.Core.Data;
 using IF.Core.EventBus;
 using IF.Core.EventBus.Log;
+using IF.Core.MongoDb;
 using IF.MongoDB.Repository.Abstract;
 using System;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.705
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Template.Api", "IF.Template.Api\IF.Template.Api.csproj", "{6A664B6D-5198-4945-8DD0-71CAA5BFB339}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Template.Persistence.EF", "IF.Template.Persistence.EF\IF.Template.Persistence.EF.csproj", "{56125BB2-CA80-4A30-81CD-ADB442BEF2D2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Template.NoSql.MongoDB", "IF.Template.NoSql.MongoDB\IF.Template.NoSql.MongoDB.csproj", "{37AD6F53-5863-4826-B5EA-82B913C188FC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Template.Scheduler", "Derin.Notification.Scheduler\IF.Template.Scheduler.csproj", "{0B91BDBC-FB87-467B-BC70-D9D84D2F1ED2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{37AD6F53-5863-4826-B5EA-82B913C188FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37AD6F53-5863-4826-B5EA-82B913C188FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37AD6F53-5863-4826-B5EA-82B913C188FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B91BDBC-FB87-467B-BC70-D9D84D2F1ED2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B91BDBC-FB87-467B-BC70-D9D84D2F1ED2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B91BDBC-FB87-467B-BC70-D9D84D2F1ED2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B91BDBC-FB87-467B-BC70-D9D84D2F1ED2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
