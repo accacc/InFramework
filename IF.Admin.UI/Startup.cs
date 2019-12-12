@@ -95,7 +95,7 @@ namespace IF.Admin.UI
             //        minutes = minutesParsed;
             //    }
 
-            //    checks.AddSqlCheck("TutumluAnne", dbSetting.ConnectionString, TimeSpan.FromMinutes(minutes));
+            //    checks.AddSqlCheck("IF", dbSetting.ConnectionString, TimeSpan.FromMinutes(minutes));
 
             //    RabbitMQConnectionSettings settings = Configuration.GetSettings<RabbitMQConnectionSettings>();
 

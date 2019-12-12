@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Derin.Notification.MongoDB
+namespace IF.Notification.MongoDB
 {
     public class BatchRepositoryBase: MongoDbGenericRepository, IBatchRepositoryBase
     {

@@ -21,7 +21,7 @@ namespace IF.MongoDB.Service
         {
             ApplicationErrorLogMongoDB applicationLog = GetLog(exception, logger, message, UserId,UniqueId,IpAdress,Channel);
 
-            this.mongoLogRepository.AddAsync(applicationLog);
+            this.mongoLogRepository.AddAsync(applicationLog,nameof(ApplicationErrorLog));
         }
 
 
@@ -29,7 +29,7 @@ namespace IF.MongoDB.Service
         {
             ApplicationErrorLogMongoDB applicationLog = GetLog(exception, logger, message, UserId,UniqueId,IpAdress, Channel);
 
-            await this.mongoLogRepository.AddAsync(applicationLog);
+            await this.mongoLogRepository.AddAsync(applicationLog,nameof(ApplicationErrorLog));
 
 
         }

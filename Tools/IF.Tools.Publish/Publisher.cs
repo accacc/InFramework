@@ -234,33 +234,6 @@ namespace IF.Tools.Publish
 
         private void BindComboBox()
         {
-            //    List<NameValueDto> publishDirectories = new List<NameValueDto>
-            //    {
-            //        new NameValueDto(@"C:/Projects/caglar.tutumluanne.api.cqrs/src/packages/InFramework","TutumluAnne Api Yeni"),
-            //        new NameValueDto(@"C:/Projects/Tutumluanne.Web.Dotnetcore/src/packages/InFramework","TutumluAnne Web Yeni"),
-            //        new NameValueDto(@"C:/Projects/derinsis-b2b/packages/InFramework","DerinSIS B2B"),
-            //        new NameValueDto(@"C:/Projects/TutumluAnne.ViewRenderService/packages/InFramework", "Razor Template Engine"),
-            //        //new NameValueDto(@"C:/Users/MBC-PC/Documents/Source/Repos/yeni.tutumluanne/yeni.tutumluanne/packages/InFramework", "Tutumlu Anne İyzico İş"),
-            //        new NameValueDto(@"C:/Projects/groseri/packages/InFramework","Groseri Kampanya"),
-            //        new NameValueDto(@"C:/Projects/b2c.nezih/b2c.nezih/packages/InFramework","Nezih Ev"),
-            //        new NameValueDto(@"C:/temp/packages/"+frameworkIndent,"Temp"),
-            //        new NameValueDto(@"C:/Projects/DerinCampaignCore/packages/InFramework","Kampanya Core"),
-            //        new NameValueDto(@"C:/Projects/DerinPaymentCore/packages/InFramework","Payment Core"),
-
-            //        new NameValueDto(@"C:/Projects/yeni.tutumluanne/packages/InFramework","TutumluAnne"),
-            //        new NameValueDto(@"C:/temp/MNM/InFramework","Campaign")
-            //    };
-
-
-            //    publishDirectoryBindingSource.DataSource = publishDirectories;
-
-            //    comboBoxPublishDirectory.DataSource = publishDirectoryBindingSource;
-
-            //    comboBoxPublishDirectory.DisplayMember = "Name";
-            //    comboBoxPublishDirectory.ValueMember = "Value";
-
-
-
             List<NameValueDto> publishModes = new List<NameValueDto>
             {
                 new NameValueDto( "Debug","Debug"),

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace IF.Core.Log
 {
-    public interface IApplicationErrorLog:IIFSystemTable
+    public interface IApplicationErrorLog : IIFSystemTable
     {
 
         string Channel { get; set; }
@@ -28,10 +28,10 @@ namespace IF.Core.Log
     }
 
 
-    public class ApplicationErrorLog: IApplicationErrorLog
+    public class ApplicationErrorLog : IApplicationErrorLog
     {
 
-    public     string Channel { get; set; }
+        public string Channel { get; set; }
 
         public string ExceptionMessage { get; set; }
 
