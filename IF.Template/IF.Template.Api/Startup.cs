@@ -44,7 +44,7 @@ namespace IF.Template.Api
 
             var settings = this.Configuration.GetSettings<IFTemplateAppSettings>();
 
-            @if.AddDbContext<TestDbContext>(services, "Data Source=31.210.86.2;Initial Catalog=DerinCampaign;Persist Security Info=false;User Id=sa;Password=_Response2048;MultipleActiveResultSets=true;");
+            @if.AddDbContext<TestDbContext>(services,settings.Database.ConnectionString);
 
             var handlers = Assembly.Load("IF.Template.Cqrs");
             var repos = Assembly.Load("IF.Template.Persistence.EF");

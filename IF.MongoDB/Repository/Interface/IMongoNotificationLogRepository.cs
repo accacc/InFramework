@@ -1,4 +1,5 @@
 ﻿using IF.Core.Data;
+using IF.Core.MongoDb;
 using IF.Core.Notification;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Abstract;
@@ -10,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace IF.MongoDB.Repository.Interface
 {
-    public interface IMongoNotificationLogRepository:IMongoDbGenericRepository
+    public interface IMongoNotificationLogRepository : IMongoDbGenericRepository
     {
-        
 
-        
+
+
 
         Task<PagedListResponse<INotificationLog>> GetPaginatedAsync(DateTime BeginDate, DateTime EndDate, string userId, string logger, int PageNumber = 0, int PageSize = 50);
 
