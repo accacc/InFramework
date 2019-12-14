@@ -52,7 +52,7 @@ namespace IF.CodeGeneration.Application.Generator.Add.Items
             classes += Environment.NewLine;
             classes += "{";
             classes += Environment.NewLine;
-            classes += @class.GenerateCode().Template + Environment.NewLine + commandClass.GenerateCode().Template + Environment.NewLine + @interface.GenerateCode().Template;
+            classes += @class.GenerateCode().Template + Environment.NewLine + commandClass.GenerateCode().Template + Environment.NewLine;
             classes += Environment.NewLine;
             classes += "}";
 

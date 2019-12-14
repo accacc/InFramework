@@ -70,7 +70,7 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
 
             IFVsFile vsFile = this.GetVsFile();
 
-            this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, GetDataUpdateCommandClassName(), vsFile.FileExtension);
+            this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, this.Context.className + "Handler", vsFile.FileExtension);
         }
     }
 
