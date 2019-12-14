@@ -7,19 +7,19 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
 {
 
 
-    public class UpdateHandlerGenerator : CSUpdateGenerator, IGenerateItem
+    public class CommandHandlerGenerator :  ApplicationCodeGenerateItem
     {
 
-        public UpdateHandlerGenerator(GeneratorContext context) : base(context)
+        public CommandHandlerGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
-            this.FileType = VSFileType.UpdateHandler;
+            this.FileType = VSFileType.CommandHandler;
         }
 
 
-        public void Execute()
+        public override void Execute()
         {
             CSClass @class = new CSClass();
-            @class.Name = GetDataUpdateCommandClassName();
+            @class.Name = $"{this.Context.className}Handler";
             @class.NameSpace = this.Context.nameSpaceName + ".Commands.Cqrs";
             @class.Usings.Add("IF.Core.Data");
             @class.Usings.Add($"{this.Context.nameSpaceName}.Contract.Commands");

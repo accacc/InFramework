@@ -25,7 +25,7 @@ namespace IF.Tools.CodeGenerator
 
             this.checkedListBoxVsFiles.Items.Clear();
 
-            foreach (var item in generator.Files)
+            foreach (var item in generator.Context.Files)
             {
                 this.checkedListBoxVsFiles.Items.Add(item.FileType);
             }
@@ -52,7 +52,7 @@ namespace IF.Tools.CodeGenerator
 
             foreach (var item in checkedListBoxVsFiles.CheckedItems)
             {
-                var vsFile = generator.Files.SingleOrDefault(f => f.FileType == (VSFileType)item);
+                var vsFile = generator.Context.Files.SingleOrDefault(f => f.FileType == (VSFileType)item);
                 if (vsFile != null)
                 {
                     this.generator.SetItemActive(vsFile.FileType);

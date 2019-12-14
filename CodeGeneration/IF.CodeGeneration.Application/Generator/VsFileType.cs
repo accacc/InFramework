@@ -10,7 +10,7 @@ namespace IF.CodeGeneration.Application.Generator
         ApiAddControllerMethod,
         AddControllerMethod,
         AddDataHandler,
-        AddHandler,
+        CommandHandler,
         AddFormView,
         AddMvcModels,
 
@@ -18,7 +18,7 @@ namespace IF.CodeGeneration.Application.Generator
         UpdateControllerMethod,
         ApiUpdateControllerMethod,
         UpdateDataHandler,
-        UpdateHandler,
+        //UpdateHandler,
         UpdateFormView,
         UpdateMvcModels,
 

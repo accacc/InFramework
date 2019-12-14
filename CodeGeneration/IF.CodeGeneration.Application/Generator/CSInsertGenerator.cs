@@ -1,28 +1,27 @@
 ﻿using IF.CodeGeneration.Application.Generator.Add.Items;
-
+using IF.CodeGeneration.Application.Generator.Update.Items;
 using System.Collections.Generic;
 
 namespace IF.CodeGeneration.Application.Generator
 {
-    public class CSInsertGenerator: CSGeneratorBase
+    public class CSInsertGenerator: CSApplicationCodeGeneratorEngineBase
     {
-        public CSInsertGenerator(GeneratorContext context) : base(context)
+        public CSInsertGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
-            this.Files = new List<IFVsFile>();
-            this.Items = new List<IGenerateItem>();
+            this.Items = new List<ApplicationCodeGenerateItem>();
             this.UpdateContext();
         }
 
         public override void UpdateContext()
         {
-            this.Files.Clear();
+            this.Context.Files.Clear();
             this.Items.Clear();
-            this.Files.Add(new IFVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.AddContractClass, Path = "Commands" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = "Security", FileType = VSFileType.AddControllerMethod, Path = "Controllers" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.AddDataHandler, Path = "Commands" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.AddHandler, Path = "Commands" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_Form", FileType = VSFileType.AddFormView, Path = $@"{this.Context.RepositoryName}" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.className + "Model", FileType = VSFileType.AddMvcModels, Path = "Models" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.AddContractClass, Path = "Commands" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = "Security", FileType = VSFileType.AddControllerMethod, Path = "Controllers" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.AddDataHandler, Path = "Commands" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.CommandHandler, Path = "Commands" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_Form", FileType = VSFileType.AddFormView, Path = $@"{this.Context.RepositoryName}" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.className + "Model", FileType = VSFileType.AddMvcModels, Path = "Models" });
         }
 
         public override void SetItemActive(VSFileType type)
@@ -44,8 +43,8 @@ namespace IF.CodeGeneration.Application.Generator
                 case VSFileType.AddFormView:
                     this.Items.Add(new AddMvcFormViewGenerator(this.Context));
                     break;
-                case VSFileType.AddHandler:
-                    this.Items.Add(new AddHandlerGenerator(this.Context));
+                case VSFileType.CommandHandler:
+                    this.Items.Add(new CommandHandlerGenerator(this.Context));
                     break;
                 case VSFileType.AddMvcModels:
                     this.Items.Add(new AddMvcModelGenerator(this.Context));

@@ -7,16 +7,16 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.List.Items
 {
-    public class ListContractClassGenerator : CSListGenerator, IGenerateItem
+    public class ListContractClassGenerator :  ApplicationCodeGenerateItem
     {
 
        
-        public ListContractClassGenerator(GeneratorContext context) : base(context)
+        public ListContractClassGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
             //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = VSFileType.Contracts, Path = "" });
             this.FileType = VSFileType.ListContracts;
         }
-        public  void Execute()
+        public override void Execute()
         {
 
             CSClass dtoClass = new CSClass();

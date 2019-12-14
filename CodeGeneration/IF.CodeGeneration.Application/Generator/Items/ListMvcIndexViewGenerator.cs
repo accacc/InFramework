@@ -5,16 +5,16 @@ using IF.CodeGeneration.Core;
 
 namespace IF.CodeGeneration.Application.Generator.List.Items
 {
-    public class ListMvcIndexViewGenerator : CSListGenerator, IGenerateItem
+    public class ListMvcIndexViewGenerator :  ApplicationCodeGenerateItem
     {
-        public ListMvcIndexViewGenerator(GeneratorContext context) : base(context)
+        public ListMvcIndexViewGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
             //this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "Index", FileType = VSFileType.IndexView, Path = "" });
             this.FileType = VSFileType.ListIndexView;
 
         }
 
-        public void Execute()
+        public override void Execute()
         {
             StringBuilder builder = new StringBuilder();
             builder.AppendLine($"@model List<{this.Context.nameSpaceName}.Models.{this.Context.className}GridModel>");

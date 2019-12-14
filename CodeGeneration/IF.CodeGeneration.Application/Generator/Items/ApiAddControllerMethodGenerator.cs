@@ -6,34 +6,18 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.Items
 {
-    
-
-    public class ApiUpdateControllerMethodGenerator : ApplicationCodeGenerateItem
+    public class ApiAddControllerMethodGenerator:ApplicationCodeGenerateItem
     {
 
-
-        public ApiUpdateControllerMethodGenerator(ApplicationCodeGeneratorContext context) : base(context)
+        public ApiAddControllerMethodGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
-            this.FileType = VSFileType.ApiUpdateControllerMethod;
+            this.FileType = VSFileType.ApiAddControllerMethod;
         }
+
         public override void Execute()
-
         {
-
-
-
-        //     [HttpPost]
-        //[Route("api/Role/CreateRole")]
-        //public async Task<IActionResult> CreateRole([FromBody] RoleCreateCommand command)
-        //{
-        //    await _dispatcher.CommandAsync(command);
-        //    return Ok(command);
-        //}
-
-      
-
             CSMethod postMethod = new CSMethod($"{this.Context.className}", "IActionResult", "public");
-            postMethod.Parameters.Add(new CsMethodParameter() { Type = $"{this.Context.className}Command", Name = "command" ,Attirubite="FromBody" });
+            postMethod.Parameters.Add(new CsMethodParameter() { Type = $"{this.Context.className}Command", Name = "command", Attirubite = "FromBody" });
             postMethod.IsAsync = true;
             postMethod.Attirubites.Add("HttpPost");
             postMethod.Attirubites.Add($"Route(\"api/{this.Context.ControllerName}/{this.Context.className}\")");
@@ -49,7 +33,7 @@ namespace IF.CodeGeneration.Application.Generator.Items
 
             IFVsFile vsFile = this.GetVsFile();
 
-            this.Context.fileSystem.FormatCode(methods,vsFile.FileExtension , vsFile.FileName);            
+            this.Context.fileSystem.FormatCode(methods, vsFile.FileExtension, vsFile.FileName);
 
             var controllerPath = $@"{this.Context.VsManager.GetProjectPath(vsFile.ProjectName)}\{vsFile.Path}\{vsFile.FileName}.{vsFile.FileExtension}";
 

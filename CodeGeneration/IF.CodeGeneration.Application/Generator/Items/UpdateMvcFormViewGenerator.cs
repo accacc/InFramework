@@ -7,17 +7,17 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
 {
 
 
-    public class UpdateMvcFormViewGenerator : CSUpdateGenerator, IGenerateItem
+    public class UpdateMvcFormViewGenerator :  ApplicationCodeGenerateItem
     {
 
 
-        public UpdateMvcFormViewGenerator(GeneratorContext context) : base(context)
+        public UpdateMvcFormViewGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
             //this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "_GridView", FileType = VSFileType.Gridview, Path = "" });
             this.FileType = VSFileType.UpdateFormView;
         }
 
-        public void Execute()
+        public override void Execute()
         {
 
             StringBuilder builder = new StringBuilder();

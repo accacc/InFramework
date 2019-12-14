@@ -7,15 +7,15 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.Items
 {
-    public class ListRepositoryMethodsGenerator : ApiCsListGenerator, IGenerateItem
+    public class ListRepositoryMethodsGenerator :  ApplicationCodeGenerateItem
     {
-        public ListRepositoryMethodsGenerator(GeneratorContext context) : base(context)
+        public ListRepositoryMethodsGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {            
 
             this.FileType = VSFileType.ListRepositorytMethods;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             StringBuilder interfaceMethod = new StringBuilder();
 

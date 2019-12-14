@@ -6,14 +6,14 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.Get.Items
 {
-    public class GetDataHandlerGenerator : CSGetGenerator, IGenerateItem
+    public class GetDataHandlerGenerator :  ApplicationCodeGenerateItem
     {
 
-        public GetDataHandlerGenerator(GeneratorContext context) : base(context)
+        public GetDataHandlerGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
             this.FileType = VSFileType.GetDataHandler;
         }
-        public void Execute()
+        public override void Execute()
         {
             CSClass @class = new CSClass();
 

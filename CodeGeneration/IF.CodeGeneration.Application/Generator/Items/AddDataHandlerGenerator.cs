@@ -5,14 +5,14 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.Add.Items
 {
-    public class AddDataHandlerGenerator : CSInsertGenerator, IGenerateItem
+    public class AddDataHandlerGenerator :  ApplicationCodeGenerateItem
     {
 
-        public AddDataHandlerGenerator(GeneratorContext context) : base(context)
+        public AddDataHandlerGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
             this.FileType = VSFileType.AddDataHandler;
         }
-        public void Execute()
+        public override void Execute()
         {
             CSClass @class = new CSClass();
 

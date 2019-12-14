@@ -7,15 +7,15 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.Get.Items
 {
-    public class GetControllerMethodGenerator : CSGetGenerator, IGenerateItem
+    public class GetControllerMethodGenerator : ApplicationCodeGenerateItem
     {
 
 
-        public GetControllerMethodGenerator(GeneratorContext context) : base(context)
+        public GetControllerMethodGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
             this.FileType = VSFileType.GetControllerMethod;
         }
-        public void Execute()
+        public override void Execute()
         {
 
             CSMethod getMethod = new CSMethod($"{this.Context.className}", "ActionResult", "public");

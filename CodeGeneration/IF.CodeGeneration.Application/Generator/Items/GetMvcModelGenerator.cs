@@ -5,14 +5,14 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.Get.Items
 {
-    public class GetMvcModelGenerator : CSGetGenerator, IGenerateItem
+    public class GetMvcModelGenerator :  ApplicationCodeGenerateItem
     {
-        public GetMvcModelGenerator(GeneratorContext context) : base(context)
+        public GetMvcModelGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
             this.FileType = VSFileType.GetMvcModels;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             CSClass gridClass = GenerateClass("Model");
 

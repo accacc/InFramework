@@ -6,16 +6,16 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.List.Items
 {
-    public class ListDataHandlerClass: CSListGenerator, IGenerateItem
+    public class ListDataHandlerClass:  ApplicationCodeGenerateItem
     {
 
-        public ListDataHandlerClass(GeneratorContext context) : base(context)
+        public ListDataHandlerClass(ApplicationCodeGeneratorContext context) : base(context)
         {
             //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = VSFileType.DataHandler, Path = "" });
             this.FileType = VSFileType.ListDataHandler;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             CSClass @class = new CSClass();
 

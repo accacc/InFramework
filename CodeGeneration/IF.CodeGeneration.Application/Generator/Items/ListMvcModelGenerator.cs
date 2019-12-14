@@ -6,16 +6,16 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.List.Items
 {
-    public class ListMvcModelGenerator : CSListGenerator, IGenerateItem
+    public class ListMvcModelGenerator :  ApplicationCodeGenerateItem
     {
 
-        public ListMvcModelGenerator(GeneratorContext context) : base(context)
+        public ListMvcModelGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
             //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = VSFileType.MvcModel, Path = "" });
             this.FileType = VSFileType.ListMvcModel;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             CSClass gridClass = GenerateClass("GridModel");
             gridClass.NameSpace = this.Context.nameSpaceName + ".Models";

@@ -6,15 +6,15 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.Update.Items
 {
-    public class UpdateContractClassGenerator : CSUpdateGenerator, IGenerateItem
+    public class UpdateContractClassGenerator : ApplicationCodeGenerateItem
     {
 
-        public UpdateContractClassGenerator(GeneratorContext context) : base(context)
+        public UpdateContractClassGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
             this.FileType = VSFileType.UpdateContractClass;
         }
 
-        public void Execute()
+        public override void Execute()
         {
 
             CSClass @class = new CSClass();

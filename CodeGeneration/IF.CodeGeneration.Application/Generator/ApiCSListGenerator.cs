@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace IF.CodeGeneration.Application.Generator.List
 {
-    public class ApiCsListGenerator : CSGeneratorBase
+    public class ApiCsListGenerator : CSApplicationCodeGeneratorEngineBase
     {
         
 
-        public ApiCsListGenerator(GeneratorContext context) : base(context)
+        public ApiCsListGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
             this.UpdateContext();
             
@@ -17,12 +17,12 @@ namespace IF.CodeGeneration.Application.Generator.List
 
         public override void UpdateContext()
         {
-            this.Files.Clear();
+            this.Context.Files.Clear();
             this.Items.Clear();
-            this.Files.Add(new IFVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.ListContracts, Path = "Queries" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.ListHandler, Path = "Queries" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Api", FileExtension = "cs", FileName = this.Context.ControllerName + "Controller", FileType = VSFileType.ApiListControllerMethods, Path = "Controllers" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = $"{this.Context.RepositoryName}Repository", FileType = VSFileType.ListRepositorytMethods,Path= "Repositories"});
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.ListContracts, Path = "Queries" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.ListHandler, Path = "Queries" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Api", FileExtension = "cs", FileName = this.Context.ControllerName + "Controller", FileType = VSFileType.ApiListControllerMethods, Path = "Controllers" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = $"{this.Context.RepositoryName}Repository", FileType = VSFileType.ListRepositorytMethods,Path= "Repositories"});
 
         }
 

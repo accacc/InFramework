@@ -6,17 +6,17 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.List.Items
 {
-    public class ListMvcGridViewGenerator: CSListGenerator, IGenerateItem
+    public class ListMvcGridViewGenerator:  ApplicationCodeGenerateItem
     {
 
 
-        public ListMvcGridViewGenerator(GeneratorContext context):base(context)
+        public ListMvcGridViewGenerator(ApplicationCodeGeneratorContext context):base(context)
         {
             //this.Files.Add(new VsFile() { FileExtension = "cshtml", FileName = "_GridView", FileType = VSFileType.Gridview, Path = "" });
             this.FileType = VSFileType.ListGridview;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             StringBuilder builder = new StringBuilder();
 

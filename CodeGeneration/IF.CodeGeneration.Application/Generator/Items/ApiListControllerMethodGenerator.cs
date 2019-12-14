@@ -6,18 +6,18 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.List.Items
 {
-    public class ApiListControllerMethodGenerator : ApiCsListGenerator, IGenerateItem
+    public class ApiListControllerMethodGenerator : ApplicationCodeGenerateItem
     {
         
 
-        public  ApiListControllerMethodGenerator(GeneratorContext context) : base(context)
+        public  ApiListControllerMethodGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
             //this.Files.Add(new VsFile() { FileExtension = "cs", FileName = "_GridView", FileType = VSFileType.MvcMethods, Path = "" });
 
             this.FileType = VSFileType.ApiListControllerMethods;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             CSMethod getMethod = new CSMethod($"{this.Context.className}", "IActionResult", "public");
             getMethod.IsAsync = true;

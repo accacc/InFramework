@@ -7,16 +7,16 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
 {
 
 
-    public class GetHandlerGenerator : CSGetGenerator, IGenerateItem
+    public class GetHandlerGenerator :  ApplicationCodeGenerateItem
     {
 
-        public GetHandlerGenerator(GeneratorContext context) : base(context)
+        public GetHandlerGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
             this.FileType = VSFileType.GetHandler;
         }
 
 
-        public void Execute()
+        public override void Execute()
         {
             CSClass @class = new CSClass();
             @class.Name = this.Context.className + "Handler";

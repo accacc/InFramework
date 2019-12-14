@@ -8,15 +8,15 @@ namespace IF.CodeGeneration.Application.Generator.Items
 { 
 
 
-    public class ApiGetControllerMethodGenerator : ApiCsGetGenerator, IGenerateItem
+    public class ApiGetControllerMethodGenerator : ApplicationCodeGenerateItem
     {
 
 
-        public ApiGetControllerMethodGenerator(GeneratorContext context) : base(context)
+        public ApiGetControllerMethodGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
             this.FileType = VSFileType.ApiGetControllerMethod;
         }
-        public void Execute()
+        public override void Execute()
         {
 
             CSMethod getMethod = new CSMethod($"{this.Context.className}", "IActionResult", "public");

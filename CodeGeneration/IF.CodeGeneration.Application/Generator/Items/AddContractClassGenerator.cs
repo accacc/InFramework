@@ -6,15 +6,15 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.Add.Items
 {
-    public class AddContractClassGenerator : CSInsertGenerator, IGenerateItem
+    public class AddContractClassGenerator : ApplicationCodeGenerateItem
     {
 
-        public AddContractClassGenerator(GeneratorContext context) : base(context)
+        public AddContractClassGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
             this.FileType = VSFileType.AddContractClass;
         }
 
-        public void Execute()
+        public override void Execute()
         {
 
             CSClass @class = new CSClass();
@@ -38,9 +38,9 @@ namespace IF.CodeGeneration.Application.Generator.Add.Items
 
 
 
-            CSInterface @interface = new CSInterface();
-            @interface.Name = GetDataInsertCommandIntarfaceName();
-            @interface.InheritedInterfaces.Add($"IDataInsertCommandAsync<{this.Context.className}Command>");
+            //CSInterface @interface = new CSInterface();
+            //@interface.Name = GetDataInsertCommandIntarfaceName();
+            //@interface.InheritedInterfaces.Add($"IDataInsertCommandAsync<{this.Context.className}Command>");
 
             string classes = "";
             classes += "using IF.Core.Data;";
