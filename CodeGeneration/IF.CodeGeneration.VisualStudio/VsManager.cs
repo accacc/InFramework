@@ -38,7 +38,7 @@ namespace IF.Tools.CodeGenerator.VsAutomation
 
             //p.Save();
 
-            File.Copy($@"{basePath}\{itemName}.{fileExtension}", $@"{GetProjectPath(projectName)}/{directory}/{itemName}.{fileExtension}", true);
+            //File.Copy($@"{basePath}\{itemName}.{fileExtension}", $@"{GetProjectPath(projectName)}/{directory}/{itemName}.{fileExtension}", true);
 
             //p.ProjectCollection.UnloadProject(p);
         }

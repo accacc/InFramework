@@ -42,7 +42,7 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
             constructorMethod.Body = methodBody.ToString();
             @class.Methods.Add(constructorMethod);
 
-            CSMethod handleMethod = new CSMethod("Handle", "void", "public");
+            CSMethod handleMethod = new CSMethod("HandleAsync", "void", "public");
             handleMethod.IsAsync = true;
             handleMethod.Parameters.Add(new CsMethodParameter() { Name = "command", Type = $"{this.Context.className}Command" });
             handleMethod.Body += $"await this.repository.{this.Context.className}(command);" + Environment.NewLine;
@@ -53,7 +53,7 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
 
             IFVsFile vsFile = this.GetVsFile();
 
-            this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, this.Context.className + "Handler", vsFile.FileExtension);
+            this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, vsFile.FileName, vsFile.FileExtension);
 
         }
     }
