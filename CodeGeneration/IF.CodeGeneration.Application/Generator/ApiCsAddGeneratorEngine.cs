@@ -21,7 +21,7 @@ namespace IF.CodeGeneration.Application.Generator
             this.Context.Files.Clear();
             this.Context.Files.Add(new IFVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.AddContractClass, Path = "Commands" });
             this.Context.Files.Add(new IFVsFile() { ProjectName = "Api", FileExtension = "cs", FileName = this.Context.ControllerName + "Controller", FileType = VSFileType.ApiAddControllerMethod, Path = "Controllers" });
-            this.Context.Files.Add(new IFVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = $"{this.Context.RepositoryName}Repository", FileType = VSFileType.ApiAddRepositoryClass, Path = "Repositories" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = $"{this.Context.RepositoryName}Repository", FileType = VSFileType.AddRepositoryClass, Path = "Repositories" });
             this.Context.Files.Add(new IFVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = $"{this.Context.className}CommandHandler", FileType = VSFileType.CommandHandler, Path = "Commands" });
             
         }
@@ -39,8 +39,8 @@ namespace IF.CodeGeneration.Application.Generator
                 case VSFileType.ApiAddControllerMethod:
                     this.Items.Add(new ApiAddControllerMethodGenerator(this.Context));
                     break;
-                case VSFileType.ApiAddRepositoryClass:
-                    this.Items.Add(new ApiAddRepositoryGenerator(this.Context));
+                case VSFileType.AddRepositoryClass:
+                    this.Items.Add(new AddRepositoryGenerator(this.Context));
                     break;
                 
                 case VSFileType.CommandHandler:

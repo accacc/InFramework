@@ -41,9 +41,9 @@ namespace IF.CodeGeneration.Application.Generator.Add.Items
 
             var methods = getMethod.GenerateCode().Template + Environment.NewLine + postMethod.GenerateCode().Template + Environment.NewLine;
 
-            this.Context.fileSystem.FormatCode(methods, "cs", "Controller");
-
             IFVsFile vsFile = this.GetVsFile();
+
+            this.Context.fileSystem.FormatCode(methods,vsFile.FileExtension,vsFile.FileName);            
 
             var controllerPath = $@"{this.Context.VsManager.GetProjectPath(vsFile.ProjectName)}\{vsFile.Path}\{this.Context.ControllerName}.{vsFile.FileExtension}";
 

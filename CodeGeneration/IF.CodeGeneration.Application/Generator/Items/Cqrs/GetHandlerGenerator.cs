@@ -22,7 +22,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
             @class.Name = this.Context.className + "Handler";
             @class.NameSpace = this.Context.nameSpaceName + ".Queries.Cqrs";
             @class.Usings.Add("IF.Core.Data");
-            @class.Usings.Add($"{this.Context.nameSpaceName}.Contract.Queries");
+            @class.Usings.Add($"{this.Context.nameSpaceName}.Contract.Services");
             @class.Usings.Add("System.Threading.Tasks");
             @class.Usings.Add($"{this.Context.nameSpaceName}.Persistence.EF.Queries");
 
@@ -42,10 +42,10 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
             constructorMethod.Body = methodBody.ToString();
             @class.Methods.Add(constructorMethod);
 
-            CSMethod handleMethod = new CSMethod("Handle", this.Context.className + "Response", "public");
+            CSMethod handleMethod = new CSMethod("HandleAsync", this.Context.className + "Response", "public");
             handleMethod.IsAsync = true;
             handleMethod.Parameters.Add(new CsMethodParameter() { Name = "request", Type = this.Context.className + "Request" });
-            handleMethod.Body += $"await this.repository.{this.Context.className}(request);" + Environment.NewLine;
+            handleMethod.Body += $"await this.repository.{this.Context.className}(request.Id);" + Environment.NewLine;
 
             @class.Methods.Add(handleMethod);
             this.Context.fileSystem.FormatCode(@class.GenerateCode(), "cs");
