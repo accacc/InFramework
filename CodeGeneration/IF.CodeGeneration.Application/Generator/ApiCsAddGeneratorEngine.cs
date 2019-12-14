@@ -42,15 +42,11 @@ namespace IF.CodeGeneration.Application.Generator
                 case VSFileType.ApiAddRepositoryClass:
                     this.Items.Add(new ApiAddRepositoryGenerator(this.Context));
                     break;
-                //case VSFileType.AddFormView:
-                //    this.Items.Add(new AddMvcFormViewGenerator(this.Context));
-                //    break;
+                
                 case VSFileType.CommandHandler:
                     this.Items.Add(new CommandHandlerGenerator(this.Context));
                     break;
-                //case VSFileType.AddMvcModels:
-                //    this.Items.Add(new AddMvcModelGenerator(this.Context));
-                //    break;
+                
                 default:
                     break;
             }

@@ -5,29 +5,30 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.Items.Repository
 {
-    public class ApiAddRepositoryGenerator : ApplicationCodeGenerateItem
+
+    public class ApiUpdateRepositoryGenerator : ApplicationCodeGenerateItem
     {
-        public ApiAddRepositoryGenerator(ApplicationCodeGeneratorContext context) : base(context)
+        public ApiUpdateRepositoryGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
-            this.FileType = VSFileType.ApiAddRepositoryClass;
+            this.FileType = VSFileType.ApiUpdateRepositoryClass;
         }
 
         public override void Execute()
         {
             StringBuilder interfaceMethod = new StringBuilder();
 
-            interfaceMethod.AppendLine($"Task {this.Context.className}();");
+            interfaceMethod.AppendLine($"Task {this.Context.className}(command.Data);");
             interfaceMethod.AppendLine("");
             IFVsFile vsFile = this.GetVsFile();
-            this.Context.fileSystem.FormatCode(interfaceMethod.ToString(), vsFile.FileExtension,$"I{vsFile.FileName}");
+            this.Context.fileSystem.FormatCode(interfaceMethod.ToString(), vsFile.FileExtension, $"I{vsFile.FileName}");
 
 
-            CSMethod repositoryMethod = new CSMethod("this.Context.className", "void", "public");
+            CSMethod repositoryMethod = new CSMethod(this.Context.className, "void", "public");
             repositoryMethod.IsAsync = true;
             repositoryMethod.Parameters.Add(new CsMethodParameter() { Name = "command", Type = this.Context.className + "Command" });
 
-            repositoryMethod.Body += $"var entity = await this.repository.GetQuery<{this.Context.classType.Name}>().SingleOrDefaultAsync(k => k.Id == command.Data.Id);" + Environment.NewLine + Environment.NewLine;
-            repositoryMethod.Body += $"if (entity == null){{ throw new BusinessException(\"{this.Context.className} : No such entity exists\");}}" + Environment.NewLine + Environment.NewLine;
+
+            repositoryMethod.Body += $"{this.Context.classType.Name} entity = new {this.Context.classType.Name}();" + Environment.NewLine;
 
 
             foreach (var property in this.Context.classTree.Childs)
@@ -36,9 +37,10 @@ namespace IF.CodeGeneration.Application.Generator.Items.Repository
                 repositoryMethod.Body += $"entity.{classProperty.Name} = command.Data.{classProperty.Name};" + Environment.NewLine;
             }
 
+            repositoryMethod.Body += $"this.Add(entity);" + Environment.NewLine;
 
-            repositoryMethod.Body += $"this.repository.Update(entity);" + Environment.NewLine;
             repositoryMethod.Body += $"await this.UnitOfWork.SaveChangesAsync();" + Environment.NewLine;
+            repositoryMethod.Body += $"command.Data.Id = entity.Id;" + Environment.NewLine;
 
             var repositoryMethodCode = repositoryMethod.GenerateCode().Template;
 

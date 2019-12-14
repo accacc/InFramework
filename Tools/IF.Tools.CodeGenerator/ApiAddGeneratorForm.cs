@@ -15,7 +15,7 @@ namespace IF.Tools.CodeGenerator
     {
         public ApiAddGeneratorForm(ApiCsAddGeneratorEngine generator):base(generator)
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }

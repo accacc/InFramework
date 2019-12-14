@@ -1,4 +1,5 @@
 ﻿using IF.CodeGeneration.Application.Generator.Items;
+using IF.CodeGeneration.Application.Generator.Items.Repository;
 using IF.CodeGeneration.Application.Generator.Update.Items;
 using System;
 using System.Collections.Generic;
@@ -25,10 +26,9 @@ namespace IF.CodeGeneration.Application.Generator
             this.Items.Clear();
             this.Context.Files.Add(new IFVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.UpdateContractClass, Path = "Commands" });
             this.Context.Files.Add(new IFVsFile() { ProjectName = "Api", FileExtension = "cs", FileName = this.Context.ControllerName +"Controller", FileType = VSFileType.ApiUpdateControllerMethod, Path = "Controllers" });
-            //this.Context.Files.Add(new IFVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.UpdateDataHandler, Path = "Commands" });
-            this.Context.Files.Add(new IFVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.CommandHandler, Path = "Commands" });
-            //this.Context.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_Form", FileType = VSFileType.UpdateFormView, Path = $@"{this.Context.ViewBasePath}" });
-            //this.Context.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.className + "Model", FileType = VSFileType.UpdateMvcModels, Path = "Models" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = $"{this.Context.RepositoryName}Repository", FileType = VSFileType.ApiUpdateRepositoryClass, Path = "Repositories" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = $"{this.Context.className}CommandHandler", FileType = VSFileType.CommandHandler, Path = "Commands" });
+            
         }
 
         public override void SetItemActive(VSFileType type)
@@ -43,18 +43,13 @@ namespace IF.CodeGeneration.Application.Generator
                 case VSFileType.ApiUpdateControllerMethod:
                     this.Items.Add(new ApiUpdateControllerMethodGenerator(this.Context));
                     break;
-                //case VSFileType.UpdateDataHandler:
-                //    this.Items.Add(new UpdateDataHandlerGenerator(this.Context));
-                //    break;
-                //case VSFileType.UpdateFormView:
-                //    this.Items.Add(new UpdateMvcFormViewGenerator(this.Context));
-                //    break;
+                case VSFileType.ApiUpdateRepositoryClass:
+                    this.Items.Add(new ApiUpdateRepositoryGenerator(this.Context));
+                    break;
+
                 case VSFileType.CommandHandler:
                     this.Items.Add(new CommandHandlerGenerator(this.Context));
-                    break;
-                //case VSFileType.UpdateMvcModels:
-                //    this.Items.Add(new UpdateMvcModelGenerator(this.Context));
-                //    break;
+                    break;                
                 default:
                     break;
             }

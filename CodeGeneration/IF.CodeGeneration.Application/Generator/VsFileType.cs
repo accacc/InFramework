@@ -22,8 +22,8 @@ namespace IF.CodeGeneration.Application.Generator
         //UpdateHandler,
         UpdateFormView,
         UpdateMvcModels,
+        ApiUpdateRepositoryClass,
 
-       
 
         GetContractClass,
         GetControllerMethod,
