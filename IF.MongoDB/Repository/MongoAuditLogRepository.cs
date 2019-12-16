@@ -61,7 +61,7 @@ namespace IF.MongoDB.Repository
 
             var fields = Builders<AuditLogMongoDb>.Projection.Exclude(e => e.JsonObject).Exclude("_id");
 
-            var list = await this.GetQuery<AuditLogMongoDb>(nameof(AuditLog)).Find(filter).Project<AuditLog>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.LogDate).ToListAsync();
+            var list = await this.GetQuery<AuditLogMongoDb>(nameof(AuditLog)).Find(filter).Project<AuditLog>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).ToListAsync();
 
 
             var count = await this.GetQuery<AuditLogMongoDb>(nameof(AuditLog)).CountDocumentsAsync(filter);
