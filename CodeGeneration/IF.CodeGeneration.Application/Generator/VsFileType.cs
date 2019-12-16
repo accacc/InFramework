@@ -7,10 +7,11 @@ namespace IF.CodeGeneration.Application.Generator
     public enum VSFileType
     {
         AddContractClass,
+        AddRepositoryClass,
         ApiAddControllerMethod,
         AddControllerMethod,
         AddDataHandler,
-        AddHandler,
+        CommandHandler,
         AddFormView,
         AddMvcModels,
 
@@ -18,11 +19,11 @@ namespace IF.CodeGeneration.Application.Generator
         UpdateControllerMethod,
         ApiUpdateControllerMethod,
         UpdateDataHandler,
-        UpdateHandler,
+        //UpdateHandler,
         UpdateFormView,
         UpdateMvcModels,
+        UpdateRepositoryClass,
 
-       
 
         GetContractClass,
         GetControllerMethod,
@@ -31,6 +32,8 @@ namespace IF.CodeGeneration.Application.Generator
         GetHandler,
         GetFormView,
         GetMvcModels,
+        GetRepositorytMethods,
+
 
         ListGridview,
         ListContracts,

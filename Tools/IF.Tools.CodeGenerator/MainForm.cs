@@ -267,7 +267,7 @@ namespace IF.Tools.CodeGenerator
 
             var vsManager = new VsManager(solutionName, solutionPath, basePath);
 
-            var context = new GeneratorContext(fileSystem, textBoxName.Text, textBoxNameSpace.Text, classTree, classType, vsManager);
+            var context = new ApplicationCodeGeneratorContext(fileSystem, textBoxName.Text, textBoxNameSpace.Text, classTree, classType, vsManager);
 
             context.Title = textBoxTitle.Text;
 
@@ -320,14 +320,26 @@ namespace IF.Tools.CodeGenerator
 
             var vsManager = new VsManager(solutionName, solutionPath, basePath);
 
-            var context = new GeneratorContext(fileSystem, textBoxName.Text, textBoxNameSpace.Text, classTree, classType, vsManager);
+            var context = new ApplicationCodeGeneratorContext(fileSystem, textBoxName.Text, textBoxNameSpace.Text, classTree, classType, vsManager);
 
             context.Title = textBoxTitle.Text;
 
-            CSInsertGenerator codeGenerator = new CSInsertGenerator(context);
+            if (checkBoxApiCode.Checked)
+            {
 
-            MvcAddGeneratorForm listGenerator = new MvcAddGeneratorForm(codeGenerator);
-            listGenerator.Show();
+                ApiCsAddGeneratorEngine codeGenerator = new ApiCsAddGeneratorEngine(context);
+                ApiAddGeneratorForm listGenerator = new ApiAddGeneratorForm(codeGenerator);
+                listGenerator.Show();
+            }
+            else
+            {
+                CSInsertGenerator codeGenerator = new CSInsertGenerator(context);
+
+                MvcAddGeneratorForm listGenerator = new MvcAddGeneratorForm(codeGenerator);
+                listGenerator.Show();
+            }
+
+           
             //fileSystem.ExploreDirectory(basePath);
         }
 
@@ -360,7 +372,7 @@ namespace IF.Tools.CodeGenerator
 
             var vsManager = new VsManager(solutionName, solutionPath, basePath);
 
-            var context = new GeneratorContext(fileSystem, textBoxName.Text, textBoxNameSpace.Text, classTree, classType, vsManager);
+            var context = new ApplicationCodeGeneratorContext(fileSystem, textBoxName.Text, textBoxNameSpace.Text, classTree, classType, vsManager);
 
             context.Title = textBoxTitle.Text;
 
@@ -410,7 +422,7 @@ namespace IF.Tools.CodeGenerator
 
             var vsManager = new VsManager(solutionName, solutionPath, basePath);
 
-            var context = new GeneratorContext(fileSystem, textBoxName.Text, textBoxNameSpace.Text, classTree, classType, vsManager);
+            var context = new ApplicationCodeGeneratorContext(fileSystem, textBoxName.Text, textBoxNameSpace.Text, classTree, classType, vsManager);
 
             context.Title = textBoxTitle.Text;
 

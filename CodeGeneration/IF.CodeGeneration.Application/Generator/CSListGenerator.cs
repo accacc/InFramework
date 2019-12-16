@@ -4,33 +4,33 @@ using System.Linq;
 
 namespace IF.CodeGeneration.Application.Generator.List
 {
-    public class CSListGenerator : CSGeneratorBase
+    public class CSListGenerator : CSApplicationCodeGeneratorEngineBase
     {
         public List<IFVsFile> Files { get; set; }
-        public List<IGenerateItem> Items { get; set; }
+        public List<ApplicationCodeGenerateItem> Items { get; set; }
 
         protected VSFileType FileType;
 
         
 
-        public CSListGenerator(GeneratorContext context) : base(context)
+        public CSListGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
             this.Files = new List<IFVsFile>();
-            this.Items = new List<IGenerateItem>();
+            this.Items = new List<ApplicationCodeGenerateItem>();
             this.UpdateContext();
             
         }
 
         public override void UpdateContext()
         {
-            this.Files.Clear();
-            this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_GridView", FileType = VSFileType.ListGridview, Path = $@"{this.Context.RepositoryName}" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.ListContracts, Path = "Queries" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.ListDataHandler, Path = "Queries" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.className + "GridModel", FileType = VSFileType.ListMvcModel, Path = "Models" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.ListHandler, Path = "Queries" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = "Security", FileType = VSFileType.ListMvcControllerMethods, Path = "Controllers" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "Index", FileType = VSFileType.ListIndexView, Path = $@"{this.Context.RepositoryName}" });
+            this.Context.Files.Clear();
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_GridView", FileType = VSFileType.ListGridview, Path = $@"{this.Context.RepositoryName}" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.ListContracts, Path = "Queries" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.ListDataHandler, Path = "Queries" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.className + "GridModel", FileType = VSFileType.ListMvcModel, Path = "Models" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.ListHandler, Path = "Queries" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = "Security", FileType = VSFileType.ListMvcControllerMethods, Path = "Controllers" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "Index", FileType = VSFileType.ListIndexView, Path = $@"{this.Context.RepositoryName}" });
         }
 
         public override void SetItemActive(VSFileType type)

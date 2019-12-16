@@ -1,18 +1,18 @@
-﻿namespace IF.Core.Security
-{
-    public interface ISecurityService
-    {
+﻿//namespace IF.Core.Security
+//{
+//    public interface ISecurityService
+//    {
 
 
-        PermissionListResponse GetPermissionList(PermissionListRequest request);
-        PermissionMapListResponse GetPermissionMapList(PermissionMapListRequest request);
+//        PermissionListResponse GetPermissionList(PermissionListRequest request);
+//        PermissionMapListResponse GetPermissionMapList(PermissionMapListRequest request);
 
-        void AddPermissionMap(PermissionMapDto dto);
-        void UpdatePermissionMap(PermissionMapUpdateCommand command);
+//        void AddPermissionMap(PermissionMapDto dto);
+//        void UpdatePermissionMap(PermissionMapUpdateCommand command);
 
-        PermissionGetResponse GetPermissionGet(PermissionGetRequest request);
+//        PermissionGetResponse GetPermissionGet(PermissionGetRequest request);
 
-        void UpdatePermission(PermissionUpdateCommand permissionUpdateCommand);
-        void AddPermission(PermissionAddCommand permissionAddCommand);
-    }
-}
+//        void UpdatePermission(PermissionUpdateCommand permissionUpdateCommand);
+//        void AddPermission(PermissionAddCommand permissionAddCommand);
+//    }
+//}

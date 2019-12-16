@@ -85,11 +85,11 @@ namespace IF.CodeGeneration.Core
 
         public static void AddCodeToClassBottom(string path, string method,string methodName ,string[] parameters)
         {
-            bool methodExist = IsMethodExist(path, methodName,parameters);
+            //bool methodExist = IsMethodExist(path, methodName,parameters);
 
-            if (methodExist) throw new Exception("Bu method daha önce eklenmiş");
+            //if (methodExist) throw new Exception("Bu method daha önce eklenmiş");
 
-            AddCodeToClassBottom(path, method);
+            //AddCodeToClassBottom(path, method);
 
         }
 

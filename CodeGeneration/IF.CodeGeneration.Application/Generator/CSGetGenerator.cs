@@ -6,11 +6,11 @@ using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.Get
 {
-    public class CSGetGenerator : CSGeneratorBase
+    public class CSGetGenerator : CSApplicationCodeGeneratorEngineBase
     {
 
 
-        public CSGetGenerator(GeneratorContext context) : base(context)
+        public CSGetGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
            
             this.UpdateContext();
@@ -21,14 +21,14 @@ namespace IF.CodeGeneration.Application.Generator.Get
 
         public override void UpdateContext()
         {
-            this.Files.Clear();
+            this.Context.Files.Clear();
             this.Items.Clear();
-            this.Files.Add(new IFVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.GetContractClass, Path = "Queries" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = "Security", FileType = VSFileType.GetControllerMethod, Path = "Controllers" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.GetDataHandler, Path = "Queries" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className +"Handler", FileType = VSFileType.GetHandler, Path = "Queries" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_FormView", FileType = VSFileType.GetFormView, Path = $@"{this.Context.RepositoryName}" });
-            this.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.className + "Model", FileType = VSFileType.GetMvcModels, Path = "Models" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.GetContractClass, Path = "Queries" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = "Security", FileType = VSFileType.GetControllerMethod, Path = "Controllers" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.GetDataHandler, Path = "Queries" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Cqrs", FileExtension = "cs", FileName = this.Context.className +"Handler", FileType = VSFileType.GetHandler, Path = "Queries" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_FormView", FileType = VSFileType.GetFormView, Path = $@"{this.Context.RepositoryName}" });
+            this.Context.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cs", FileName = this.Context.className + "Model", FileType = VSFileType.GetMvcModels, Path = "Models" });
         }
 
         public override void SetItemActive(VSFileType type)
