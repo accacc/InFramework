@@ -1,3 +1,5 @@
+using IF.Configuration;
+using IF.Core.Database;
 using IF.Core.DependencyInjection;
 using IF.Core.DependencyInjection.Interface;
 using IF.Core.EventBus.Log;
@@ -16,6 +18,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using IF.HealthChecks;
+using IF.Core.RabbitMQ;
+using IF.HealthChecks.RabbitMQ;
+using IF.HealthChecks.SqlServer;
+using IF.HealthChecks.Checks;
 
 namespace IF.Admin.UI
 {
@@ -84,57 +91,51 @@ namespace IF.Admin.UI
             @if.RegisterType<MongoEventBusLogService, IEventLogService>(DependencyScope.Single);
             @if.RegisterType<MongoEventBusLogRepository,IMongoEventBusLogRepository>(DependencyScope.Single);
 
-            //var dbSetting = Configuration.GetSettings<DatabaseSettings>();
+            var dbSetting = Configuration.GetSettings<DatabaseSettings>();
 
-            //services.AddHealthChecks(checks =>
-            //{
-            //    var minutes = 1;
+            services.AddHealthChecks(checks =>
+            {
+                var minutes = 1;
 
-            //    if (int.TryParse(Configuration["HealthCheck:Timeout"], out var minutesParsed))
-            //    {
-            //        minutes = minutesParsed;
-            //    }
+                if (int.TryParse(Configuration["HealthCheck:Timeout"], out var minutesParsed))
+                {
+                    minutes = minutesParsed;
+                }
 
-            //    checks.AddSqlCheck("IF", dbSetting.ConnectionString, TimeSpan.FromMinutes(minutes));
+                checks.AddSqlCheck("IF", dbSetting.ConnectionString, TimeSpan.FromMinutes(minutes));
 
-            //    RabbitMQConnectionSettings settings = Configuration.GetSettings<RabbitMQConnectionSettings>();
+                RabbitMQConnectionSettings settings = Configuration.GetSettings<RabbitMQConnectionSettings>();
 
-            //    checks.AddRabbitMQCheck("Rabbit MQ", settings);
-            //    checks.AddMongoDbCheck("Mongo Db", mongoConnectionString);
+                checks.AddRabbitMQCheck("Rabbit MQ", settings);
+                checks.AddMongoDbCheck("Mongo Db", mongoSettings.ConnectionString);
 
-            //    //checks.AddElasticSearchLoggerCheck("Elastic Search", Configuration["ElasticsearchLog:Host"]);
+                //checks.AddElasticSearchLoggerCheck("Elastic Search", Configuration["ElasticsearchLog:Host"]);
 
-            //    checks.AddHealthCheckGroup(
-            //        "Api",
-            //        group => group
-            //        .AddUrlCheck(Configuration["HealthCheck:CoreApiUrl"] + "/HealthCheck/Status", "Core Api", TimeSpan.FromMinutes(minutes))
-            //        .AddUrlCheck(Configuration["HealthCheck:EmailApiUrl"] + "/HealthCheck/Status", "Email Api", TimeSpan.FromMinutes(minutes))
-            //        .AddUrlCheck(Configuration["HealthCheck:SmsApiUrl"] + "/HealthCheck/Status", "Sms Api", TimeSpan.FromMinutes(minutes))
-            //        .AddUrlCheck(Configuration["HealthCheck:MarketingUrl"] + "/HealthCheck/Status", "Market Api", TimeSpan.FromMinutes(minutes))
-            //        .AddUrlCheck(Configuration["HealthCheck:NotificationUrl"] + "/HealthCheck/Status", "App Push Api", TimeSpan.FromMinutes(minutes))
-            //        .AddUrlCheck(Configuration["HealthCheck:SearchingUrl"] + "/HealthCheck/Status", "Search Api", TimeSpan.FromMinutes(minutes))
-            //        .AddUrlCheck(Configuration["HealthCheck:SchedulerUrl"] + "/HealthCheck/Status", "Scheduler Api", TimeSpan.FromMinutes(minutes))
-            //        .AddUrlCheck(Configuration["HealthCheck:WebSiteUrl"], "Web Site", TimeSpan.FromMinutes(minutes))
-            //    );
+                checks.AddHealthCheckGroup(
+                    "Api",
+                    group => group
+                    .AddUrlCheck(Configuration["HealthCheck:SSO"] + "/HealthCheck/Status", "SSO Api", TimeSpan.FromMinutes(minutes))
+                    .AddUrlCheck(Configuration["HealthCheck:Resource"] + "/HealthCheck/Status", "Resource Api", TimeSpan.FromMinutes(minutes))
+                );
 
-            //    //checks.AddHealthCheckGroup(
-            //    //          "Memory",
-            //    //         group => group.AddPrivateMemorySizeCheck(1)
-            //    //                        .AddVirtualMemorySizeCheck(2)
-            //    //                        .AddWorkingSetCheck(1)
+                //checks.AddHealthCheckGroup(
+                //          "Memory",
+                //         group => group.AddPrivateMemorySizeCheck(1)
+                //                        .AddVirtualMemorySizeCheck(2)
+                //                        .AddWorkingSetCheck(1)
 
-            //    //                        .AddSystemStorageCheck("Linux",options =>
-            //    //                        {
-            //    //                            options.AddDrive("C:\\", 500000);
-            //    //                            options.AddDrive("D:\\", 500000);
-            //    //                        })
+                //                        .AddSystemStorageCheck("Linux",options =>
+                //                        {
+                //                            options.AddDrive("C:\\", 500000);
+                //                            options.AddDrive("D:\\", 500000);
+                //                        })
 
-            //    //                        ,CheckStatus.Unhealthy
-            //    //      );
+                //                        ,CheckStatus.Unhealthy
+                //      );
 
-            //    //checks.AddCheck("Long-running", async cancellationToken => { await Task.Delay(10000, cancellationToken); return HealthCheckResult.Healthy("I ran too long"); });
-            //    //checks.AddCheck<CustomHealthCheck>("Custom");
-            //});
+                //checks.AddCheck("Long-running", async cancellationToken => { await Task.Delay(10000, cancellationToken); return HealthCheckResult.Healthy("I ran too long"); });
+                //checks.AddCheck<CustomHealthCheck>("Custom");
+            });
 
 
             return services.Build(@if);
