@@ -27,7 +27,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
 
             StringBuilder getMethodBody = new StringBuilder();
-            getMethodBody.AppendLine($"var response = await dispatcher.QueryAsync<{this.Context.className}Request, {this.Context.className}Response>(new {this.Context.className}Request());");
+            getMethodBody.AppendLine($"var response = await dispatcher.QueryAsync<{this.Context.className}Request, {this.Context.className}Response>(request);");
             getMethodBody.AppendLine($"return Ok(response);");
             getMethod.Body = getMethodBody.ToString();
 

@@ -43,7 +43,9 @@ namespace IF.Cqrs.Decorators.Command
             {
 
 
-                string name = nameof(TCommand);
+                Type type = typeof(TCommand);
+
+                string name = type.Name;
 
                 await this.auditLogService.LogAsync(command, command.UniqueId, DateTime.Now, name, command.ClientIp, command.ApplicationCode,command.UserId.ToString());
             }
