@@ -35,9 +35,11 @@ namespace IF.Cqrs.Decorators.Command
         }
 
         private async Task Log(TCommand command, Stopwatch stopwatch)
-        {           
+        {
 
-            string name = nameof(TCommand);
+            Type type = typeof(TCommand);
+
+            string name = type.Name;
 
             await this.performanceLogService.LogAsync(DateTime.Now, stopwatch.Elapsed.Milliseconds, name, command.UniqueId);
         }

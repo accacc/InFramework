@@ -3,6 +3,7 @@ using IF.Core.MongoDb;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace IF.MongoDB.Repository.Abstract
@@ -46,6 +47,24 @@ namespace IF.MongoDB.Repository.Abstract
         public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
             return await this.GetQuery<T>().Find(_ => true).ToListAsync();
+
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync<T>(Expression<Func<T, bool>> filter)
+        {
+            return await this.GetQuery<T>().Find(filter).ToListAsync();
+
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync<T>(string tableName)
+        {
+            return await this.GetQuery<T>(tableName).Find(_ => true).ToListAsync();
+
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync<T>(Expression<Func<T, bool>> filter, string tableName)
+        {
+            return await this.GetQuery<T>(tableName).Find(filter).ToListAsync();
 
         }
 
