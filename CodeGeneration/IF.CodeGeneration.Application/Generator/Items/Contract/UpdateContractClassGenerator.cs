@@ -34,13 +34,7 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
             commandClass.Name = this.Context.className + "Command";
             CSProperty dtoProperty = new CSProperty(null, "public", "Data", false);
             dtoProperty.PropertyTypeString = $"{this.Context.className}Dto";
-            commandClass.Properties.Add(dtoProperty);
-
-
-
-            CSInterface @interface = new CSInterface();
-            @interface.Name = GetDataInsertCommandIntarfaceName();
-            @interface.InheritedInterfaces.Add($"IDataUpdateCommandAsync<{this.Context.className}Command>");
+            commandClass.Properties.Add(dtoProperty);            
 
             string classes = "";
             classes += "using IF.Core.Data;";
@@ -52,7 +46,7 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
             classes += Environment.NewLine;
             classes += "{";
             classes += Environment.NewLine;
-            classes += @class.GenerateCode().Template + Environment.NewLine + commandClass.GenerateCode().Template + Environment.NewLine + @interface.GenerateCode().Template;
+            classes += @class.GenerateCode().Template + Environment.NewLine + commandClass.GenerateCode().Template + Environment.NewLine;
             classes += Environment.NewLine;
             classes += "}";
 

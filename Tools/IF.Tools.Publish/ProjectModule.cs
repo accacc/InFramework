@@ -85,6 +85,8 @@ namespace IF.Tools.Publish
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Batch", Type = ProjectType.Standart , Version = ProjectNetCoreVersion.Version_2_0 });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Batch.MongoDb", Type = ProjectType.Standart , Version = ProjectNetCoreVersion.Version_2_0 });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Persistence.EF.SqlServer.Integration", Type = ProjectType.Standart , Version = ProjectNetCoreVersion.Version_2_0});
+            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Persistence.EF.PostgreSql.Integration", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0 });
+            
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Persistence.EF.Localization", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0 });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Localization.Integration", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0 });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Module.Dictionary", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0, Path = "Modules" });
