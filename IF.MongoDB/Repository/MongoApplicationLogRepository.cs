@@ -87,7 +87,7 @@ namespace IF.MongoDB.Repository
 
             var fields = Builders<ApplicationErrorLogMongoDB>.Projection.Exclude(e => e.StackTrace).Exclude("_id"); 
 
-            var list = await this.GetQuery<ApplicationErrorLogMongoDB>(nameof(ApplicationErrorLog)).Find(filter).Project<ApplicationErrorLog>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).ToListAsync();
+            var list = await this.GetQuery<ApplicationErrorLogMongoDB>(nameof(ApplicationErrorLog)).Find(filter).Project<ApplicationErrorLog>(fields).Skip((PageNumber - 1) * PageSize).Limit(PageSize).SortByDescending(s => s.LogDate).ToListAsync();
 
             var count = await this.GetQuery<ApplicationErrorLogMongoDB>(nameof(ApplicationErrorLog)).CountDocumentsAsync(filter);
 

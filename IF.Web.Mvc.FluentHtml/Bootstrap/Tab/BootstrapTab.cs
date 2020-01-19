@@ -31,7 +31,7 @@ namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
             //this.Builder.AddCssClass("tabbable");
 
             TagBuilder ul = new TagBuilder("ul");
-            ul.AddCssClass("nav nav-pills");
+            ul.AddCssClass("nav nav-pills nav-fill");
 
             HtmlDivElement content = new HtmlDivElement(htmlHelper);
             content.Build();

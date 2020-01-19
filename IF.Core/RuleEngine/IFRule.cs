@@ -1,50 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Text;
 
-namespace IF.Core.RuleEngine
-{
+//namespace IF.Core.RuleEngine
+//{ 
 
-    public interface IRuleEngine<Request>
-    {
-        void Execute(Request request);
-    }
+//    public abstract class IFRule<T>
 
-    public abstract class IFRule<Request, Response>
+//    {
 
-    {
-
-        private IFRule<Request, Response> Next;
+//        private IFRule<T> Next;
 
 
 
-        public IFRule()
-        {
-        }
+//        public IFRule()
+//        {
+//        }
 
-        public IFRule<Request, Response> SetNext(IFRule<Request, Response> next)
-        {
-            this.Next = next;
-            return next;
-        }
+//        public IFRule<T> SetNext(IFRule<T> next)
+//        {
+//            this.Next = next;
+//            return next;
+//        }
 
-        public virtual bool Run(Request request, Response response)
-        {
+//        public virtual bool Run(T context)
+//        {
 
-            if (this.IsSuccess(request, response))
-            {
-                if (this.Next != null)
-                {
-                    return this.Next.Run(request, response);
-                }
+//            if (this.IsSuccess(context))
+//            {
+//                if (this.Next != null)
+//                {
+//                    return this.Next.Run(context);
+//                }
 
-                return true;
-            }
+//                return true;
+//            }
 
 
-            return false;
-        }
+//            return false;
+//        }
 
-        public abstract bool IsSuccess(Request request, Response response);
-    }
-}
+//        public abstract bool IsSuccess(T  context);
+//    }
+//}
