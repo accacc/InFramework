@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IF.Core\IF.Core.csproj" />
+    <ProjectReference Include="..\IF.Persistence.EF\IF.Persistence.EF.csproj" />
+    <ProjectReference Include="..\IF.Persistence\IF.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -157,6 +157,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Module.Dictionary", "Mod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF.Tools.Templates.Editor", "Tools\IF.Tools.Templates.Editor\IF.Tools.Templates.Editor.csproj", "{91022B63-F1E8-47FE-9506-350C8BED763E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF.Persistence.EF.PostgreSql.Integration", "IF.Persistence.EF.PostgreSql.Integration\IF.Persistence.EF.PostgreSql.Integration.csproj", "{A6304017-4C0B-4698-8630-D4F7684D21D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -447,6 +449,10 @@ Global
 		{91022B63-F1E8-47FE-9506-350C8BED763E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91022B63-F1E8-47FE-9506-350C8BED763E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91022B63-F1E8-47FE-9506-350C8BED763E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6304017-4C0B-4698-8630-D4F7684D21D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6304017-4C0B-4698-8630-D4F7684D21D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6304017-4C0B-4698-8630-D4F7684D21D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6304017-4C0B-4698-8630-D4F7684D21D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
