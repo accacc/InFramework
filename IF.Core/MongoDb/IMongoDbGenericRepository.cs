@@ -25,6 +25,9 @@ namespace IF.Core.MongoDb
 
         Task<T> GetAsync<T>(Guid id) where T : IIFSystemTable;
 
+        Task<T> GetAsync<T>(Expression<Func<T, bool>> filter);
+        Task<T> GetAsync<T>(Expression<Func<T, bool>> filter, string tableName);
+
 
         Task AddAsync<T>(T item);
 

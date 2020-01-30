@@ -68,6 +68,16 @@ namespace IF.MongoDB.Repository.Abstract
 
         }
 
+        public async Task<T> GetAsync<T>(Expression<Func<T, bool>> filter)
+        {
+            return await this.GetQuery<T>().Find(filter).SingleOrDefaultAsync();
+        }
+
+        public async Task<T> GetAsync<T>(Expression<Func<T, bool>> filter, string tableName)
+        {
+            return await this.GetQuery<T>(tableName).Find(filter).SingleOrDefaultAsync();
+        }
+
         public async Task<T> GetAsync<T>(Guid id) where T : IIFSystemTable
         {
 
@@ -99,6 +109,8 @@ namespace IF.MongoDB.Repository.Abstract
         {
             await this.client.DropDatabaseAsync(dbName);
         }
+
+        
     }
 
 }

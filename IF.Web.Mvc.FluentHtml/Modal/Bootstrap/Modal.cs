@@ -68,19 +68,19 @@ namespace IF.Web.Mvc.FluentHtml.Modal.Bootstrap
 
             this.CloseButton.Builder.InnerHtml.AppendHtml(buttonImage);
 
-            TagBuilder h2 = new TagBuilder("h2");
+            TagBuilder title = new TagBuilder("h2");
 
-            h2.AddCssClass("modal-title");
+            title.AddCssClass("modal-title");
 
             TagBuilder b = new TagBuilder("b");
 
             b.InnerHtml.AppendHtml(this.Title);
 
-            h2.InnerHtml.AppendHtml(b);
+            title.InnerHtml.AppendHtml(b);          
+            
+            header.InnerHtml.AppendHtml(title);
 
             header.InnerHtml.AppendHtml(this.CloseButton.Builder);
-            
-            header.InnerHtml.AppendHtml(h2);
 
 
             TagBuilder body = new TagBuilder("div");

@@ -19,7 +19,7 @@ namespace IF.Core.Cache
         {
         }
 
-        public T Get<T>(string key, Func<T> getItemCallback) where T : class
+        public T Get<T>(string key, Func<T> getItemCallback, int cacheTime = 100) where T : class
         {
             T data = default(T);
 
@@ -38,7 +38,7 @@ namespace IF.Core.Cache
 
                         if (data == null)
                         {
-                            Cache.Add(key, CachedNullValue.Value, GetPolicy(100));
+                            Cache.Add(key, CachedNullValue.Value, GetPolicy(cacheTime));
                         }
                         else
                         {
@@ -53,7 +53,7 @@ namespace IF.Core.Cache
             return data;
         }
 
-        public async Task<T> GetAsync<T>(string key, Func<Task<T>> getItemCallback) where T : class
+        public async Task<T> GetAsync<T>(string key, Func<Task<T>> getItemCallback, int cacheTime=100) where T : class
         {
             T data = default(T);
 
@@ -74,7 +74,7 @@ namespace IF.Core.Cache
 
                         if (data == null)
                         {
-                            Cache.Add(key, CachedNullValue.Value, GetPolicy(100));
+                            Cache.Add(key, CachedNullValue.Value, GetPolicy(cacheTime));
                         }
                         else
                         {

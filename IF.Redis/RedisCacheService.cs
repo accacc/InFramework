@@ -29,10 +29,10 @@ namespace IF.Redis
         }
 
 
-        public T Get<T>(string key, Func<T> getItemCallback) where T : class
+        public T Get<T>(string key, Func<T> getItemCallback, int cacheTime = 100) where T : class
         {
 
-            var data = this.Get<T>(key);
+            var data = this.Get<T>(key,cacheTime);
 
             if (!(data is CachedNullValue))
             {
@@ -56,7 +56,7 @@ namespace IF.Redis
             return data;
         }
 
-        private T Get<T>(string key)
+        private T Get<T>(string key, int cacheTime = 100)
         {
             var json = this.distributedCache.Get(key);
 
@@ -70,6 +70,8 @@ namespace IF.Redis
                 return default(T);
             }
         }
+
+
 
         public void Invalidate(string key)
         {
@@ -91,7 +93,7 @@ namespace IF.Redis
             this.distributedCache.Set(key, serializer.Serialize(data));
         }
 
-        public async Task<T> GetAsync<T>(string key, Func<Task<T>> getItemCallback) where T : class
+        public async Task<T> GetAsync<T>(string key, Func<Task<T>> getItemCallback, int cacheTime=100) where T : class
         {
             var data = this.Get<T>(key);
 

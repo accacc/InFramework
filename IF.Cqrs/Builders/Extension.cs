@@ -13,7 +13,7 @@ namespace IF.Cqrs.Builders
         {
             cqrsBuilder.Builder.RegisterType<DispatcherWithDI, IDispatcher>(DependencyScope.PerInstance);
             cqrsBuilder.Builder.RegisterAggregateService<IHandlerFactory>();
-            cqrsBuilder.Builder.RegisterAggregateService<IElasticSearchHandlerFactory>();
+            //cqrsBuilder.Builder.RegisterAggregateService<IElasticSearchHandlerFactory>();
             action(new HandlerBuilder(cqrsBuilder.Builder));
 
 

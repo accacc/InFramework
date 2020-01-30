@@ -1,9 +1,6 @@
-﻿using IF.Core.Exception;
-using IF.Core.Data;
-using IF.Core.Security;
-using System.Threading.Tasks;
+﻿using IF.Core.Data;
 using IF.Cqrs.Exception;
-using IF.Core.Data;
+using System.Threading.Tasks;
 
 namespace IF.Cqrs
 {
@@ -11,7 +8,6 @@ namespace IF.Cqrs
     {
 
         IHandlerFactory handlerFactory;
-        //IIdentityService identityService;
         public DispatcherWithDI(IHandlerFactory handlerFactory)
         {
             this.handlerFactory = handlerFactory;
@@ -27,7 +23,7 @@ namespace IF.Cqrs
             }
 
 
-            await commandHandler.HandleAsync(command);
+            await commandHandler.HandleAsync(command).ConfigureAwait(false);
         }
 
         
@@ -61,10 +57,10 @@ namespace IF.Cqrs
             }
 
 
-            Task<TResponse> result = queryHandler.HandleAsync(request);
+            var result = await queryHandler.HandleAsync(request).ConfigureAwait(false); ;
 
 
-            return await result;
+            return result;
 
         }
 

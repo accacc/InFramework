@@ -1,7 +1,6 @@
-﻿using IF.Core.DependencyInjection;
-using IF.Core.Data;
+﻿using IF.Core.Data;
+using IF.Core.DependencyInjection;
 using IF.Core.DependencyInjection.Interface;
-using IF.Core.Data;
 
 namespace IF.Dependency.Builders
 {
@@ -46,9 +45,7 @@ namespace IF.Dependency.Builders
 
         public ICommandHandlerBuilder AddCommandAsyncHandlers()
         {
-
             return new CommandHandlerBuilder(dependencyInjection, typeof(ICommandHandlerAsync<>), true);
-
         }
 
     }

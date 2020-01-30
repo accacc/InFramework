@@ -155,7 +155,7 @@
             this.buttonPublish2.Name = "buttonPublish2";
             this.buttonPublish2.Size = new System.Drawing.Size(75, 23);
             this.buttonPublish2.TabIndex = 28;
-            this.buttonPublish2.Text = "Publish Yeni";
+            this.buttonPublish2.Text = "Publish";
             this.buttonPublish2.UseVisualStyleBackColor = true;
             this.buttonPublish2.Click += new System.EventHandler(this.buttonPublish2_Click);
             // 

@@ -6,8 +6,8 @@ namespace IF.Core.Cache
 {
     public interface ICacheService
     {
-        T Get<T>(string key, Func<T> getItemCallback) where T : class;
-        Task<T> GetAsync<T>(string key, Func<Task<T>> getItemCallback) where T : class;
+        T Get<T>(string key, Func<T> getItemCallback, int cacheTime = 100) where T : class;
+        Task<T> GetAsync<T>(string key, Func<Task<T>> getItemCallback, int cacheTime = 100) where T : class;
 
         bool Contains(string key);
         void Set(string key, object data, int cacheTime);
