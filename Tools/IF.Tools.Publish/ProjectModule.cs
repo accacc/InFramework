@@ -90,7 +90,14 @@ namespace IF.Tools.Publish
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Persistence.EF.Localization", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0 });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Localization.Integration", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0 });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Module.Dictionary", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0, Path = "Modules" });
-            
+
+
+            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.CodeGeneration.Application", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0, Path = "CodeGeneration" });
+            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.CodeGeneration.Core", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0, Path = "CodeGeneration" });
+            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.CodeGeneration.Language.CSharp", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0, Path = "CodeGeneration" });
+            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.CodeGeneration.VisualStudio", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0, Path = "CodeGeneration" });
+
+
 
 
 
