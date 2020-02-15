@@ -44,8 +44,8 @@ namespace IF.Tools.CodeGenerator
 
             List<NameValueDto> publishModes = new List<NameValueDto>
             {
-                new NameValueDto( "Gedik.SSO","Gedik.SSO"),
-                new NameValueDto( "Gedik.Resource","Gedik.Resource")
+                new NameValueDto( "IF.Manager","IF.Manager")
+                //new NameValueDto( "Gedik.Resource","Gedik.Resource")
             };
 
             bindingSourceProjects.DataSource = publishModes;
@@ -88,7 +88,7 @@ namespace IF.Tools.CodeGenerator
 
             this.solutionName = comboBoxProjects.SelectedValue.ToString();
 
-            assembiler.AddAssemly<Entity>($@"{solutionPath}\{solutionName}\{solutionName}.Contract\bin\Debug\netstandard2.0\{solutionName}.Contract.dll");
+            assembiler.AddAssemly<Entity>($@"{solutionPath}\{solutionName}\{solutionName}.Contracts\bin\Debug\netstandard2.0\{solutionName}.Contracts.dll");
 
             modelTreeView.Nodes.Clear();
 

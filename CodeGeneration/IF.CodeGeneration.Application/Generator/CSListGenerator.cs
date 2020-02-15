@@ -6,17 +6,17 @@ namespace IF.CodeGeneration.Application.Generator.List
 {
     public class CSListGenerator : CSApplicationCodeGeneratorEngineBase
     {
-        public List<IFVsFile> Files { get; set; }
-        public List<ApplicationCodeGenerateItem> Items { get; set; }
+        //public List<IFVsFile> Files { get; set; }
+        //public List<ApplicationCodeGenerateItem> Items { get; set; }
 
-        protected VSFileType FileType;
+        //protected VSFileType FileType;
 
         
 
         public CSListGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
-            this.Files = new List<IFVsFile>();
-            this.Items = new List<ApplicationCodeGenerateItem>();
+            //this.Files = new List<IFVsFile>();
+            //this.Items = new List<ApplicationCodeGenerateItem>();
             this.UpdateContext();
             
         }
@@ -24,6 +24,7 @@ namespace IF.CodeGeneration.Application.Generator.List
         public override void UpdateContext()
         {
             this.Context.Files.Clear();
+            this.Items.Clear();
             this.Context.Files.Add(new IFVsFile() { ProjectName = "Admin.UI", FileExtension = "cshtml", FileName = "_GridView", FileType = VSFileType.ListGridview, Path = $@"{this.Context.RepositoryName}" });
             this.Context.Files.Add(new IFVsFile() { ProjectName = "Contract", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.ListContracts, Path = "Queries" });
             this.Context.Files.Add(new IFVsFile() { ProjectName = "Persistence.EF", FileExtension = "cs", FileName = this.Context.className, FileType = VSFileType.ListDataHandler, Path = "Queries" });
@@ -64,20 +65,6 @@ namespace IF.CodeGeneration.Application.Generator.List
                     break;
             }
 
-        }
-
-        public void Generate()
-        {           
-            
-            foreach (var item in Items)
-            {
-                item.Execute();
-            }
-        }
-
-        public IFVsFile GetVsFile()
-        {
-            return this.Files.SingleOrDefault(f => f.FileType == this.FileType);
-        }
+        }       
     }
 }

@@ -8,7 +8,7 @@ namespace IF.CodeGeneration.Application.Generator
     {
         public CSInsertGenerator(ApplicationCodeGeneratorContext context) : base(context)
         {
-            this.Items = new List<ApplicationCodeGenerateItem>();
+            
             this.UpdateContext();
         }
 
@@ -54,20 +54,5 @@ namespace IF.CodeGeneration.Application.Generator
             }
 
         }
-
-        
-
-      
-
-
-
-
-
-
-
-
-
-
-
     }
 }
