@@ -30,32 +30,64 @@ namespace IF.CodeGeneration.CSharp
         public string Name { get; set; }
 
         public string Body { get; set; }
+
+        public bool IsConstructor { get; set; }
+
+        public bool IsOvveride { get; set; }
+
         public CodeTemplate GenerateCode()
         {
 
             string @params = String.Empty;
+            string @baseParams = String.Empty;
+
+            
+                foreach (var parameter in this.Parameters)
+                {
+                    if (!String.IsNullOrWhiteSpace(parameter.Attirubite))
+                    {
+                        @params += $"[{parameter.Attirubite}] ";
+                    }
 
 
-            foreach (var parameter in this.Parameters)
+
+                    @params += String.Format("{0} {1}", parameter.Type, parameter.Name);
+
+                    if (this.Parameters.Last().Name != parameter.Name)
+                    {
+                        @params += ",";
+                    }
+                }
+            if (this.IsConstructor)
             {
-                if(!String.IsNullOrWhiteSpace(parameter.Attirubite))
+                ReturnType = String.Empty;
+
+                foreach (var parameter in this.Parameters.Where(p => p.UseBase))
                 {
-                    @params += $"[{parameter.Attirubite}] ";
+                   
+
+
+                    @baseParams += parameter.Name;
+
+                    if (this.Parameters.Last().Name != parameter.Name)
+                    {
+                        @baseParams += ",";
+                    }
                 }
 
-                
-
-                @params += String.Format("{0} {1}", parameter.Type, parameter.Name);
-
-                if (this.Parameters.Last().Name != parameter.Name)
-                {
-                    @params += ",";
-                }
+                baseParams = $" : base ({baseParams})";
             }
+
 
             string accessType = this.AccessType;
             string returnType = this.ReturnType;
             string name = this.Name;
+            string @override = String.Empty;
+
+            if(this.IsOvveride)
+            {
+                @override = "override";
+            }
 
             if (this.IsAsync)
             {
@@ -71,7 +103,6 @@ namespace IF.CodeGeneration.CSharp
                     returnType = "Task";
                 }
 
-                //name = name + "Async";
             }
 
             StringBuilder builder = new StringBuilder();
@@ -81,7 +112,7 @@ namespace IF.CodeGeneration.CSharp
                 builder.AppendLine($"[{att}]");
             }
 
-            builder.AppendLine($"{accessType} {returnType} {name} ({@params})");
+            builder.AppendLine($"{accessType} {@override} {returnType} {name} ({@params}) {baseParams}");
 
             builder.AppendLine("{");
 
@@ -104,6 +135,7 @@ namespace IF.CodeGeneration.CSharp
         public string Name { get; set; }
         public string Type { get; set; }
 
+        public bool UseBase { get; set; }
         public string Attirubite { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using IF.CodeGeneration.Core;
 
 using System;
+using System.Collections.Generic;
 
 namespace IF.CodeGeneration.CSharp
 {
@@ -17,12 +18,15 @@ namespace IF.CodeGeneration.CSharp
 
         public string PropertyTypeString { get; set; }
 
+        public List<string> Attirubites { get; set; }
+
         public CSProperty(Type type, string accessType, string Name, bool IsNullable)
         {
             this.PropertyType = type;
             this.AccessType = accessType;
             this.Name = Name;
             this.IsNullable = IsNullable;
+            this.Attirubites = new List<string>();
         }
 
         public CSProperty(string accessType, string Name, bool IsNullable)
@@ -30,13 +34,12 @@ namespace IF.CodeGeneration.CSharp
             this.AccessType = accessType;
             this.Name = Name;
             this.IsNullable = IsNullable;
+            this.Attirubites = new List<string>();
         }
 
         public CodeTemplate GenerateCode()
         {
-            //string codeTemplate = @"{0} {1} {2} {{ get; set; }}";
-
-            CodeTemplate template = new CodeTemplate();
+            //string codeTemplate = @"{0} {1} {2} {{ get; set; }}";            
 
             string type = this.PropertyTypeString;
 
@@ -59,7 +62,15 @@ namespace IF.CodeGeneration.CSharp
                 getset = ";";
             }
 
-            template.Template = $"{AccessType} {@readonly} {type} {Name} {getset}";
+            CodeTemplate template = new CodeTemplate();
+
+            foreach (var att in this.Attirubites)
+            {
+                template.Template += $"[{att}]" + Environment.NewLine;
+                
+            }
+
+            template.Template += $"{AccessType} {@readonly} {type} {Name} {getset}";
 
             return template;
         }

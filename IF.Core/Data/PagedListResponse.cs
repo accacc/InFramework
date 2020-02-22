@@ -177,7 +177,7 @@ namespace IF.Core.Data
             this.PageSize = pageSize;
             this.PageNumber = pageNumber;
             this.Data = new List<T>();
-            this.Data.AddRange(source.Skip(pageNumber * pageSize).Take(pageSize).ToList());
+            this.Data.AddRange(source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList());
         }
 
       
