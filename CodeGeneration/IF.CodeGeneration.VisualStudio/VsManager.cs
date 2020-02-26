@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace IF.Tools.CodeGenerator.VsAutomation
 {
@@ -19,28 +14,28 @@ namespace IF.Tools.CodeGenerator.VsAutomation
             this.basePath = path;
         }
 
-        public void AddVisualStudio(string projectName, string directory, string itemName,string fileExtension)
+        public void AddFile(string projectName, string directory, string itemName,string fileExtension)
         {
-            //var p = new Microsoft.Build.Evaluation.Project(GetProjectFilePath(projectName));
+            var p = new Microsoft.Build.Evaluation.Project(GetProjectFilePath(projectName));
 
 
 
-            //if (!Directory.Exists($@"{GetProjectPath(projectName)}/{directory}"))
-            //{
-            //    p.AddItem("Folder", $@"{GetProjectPath(projectName)}/{directory}");
-            //    Directory.CreateDirectory($@"{GetProjectPath(projectName)}\{directory}");
-            //}
+            if (!Directory.Exists($@"{GetProjectPath(projectName)}/{directory}"))
+            {
+                p.AddItem("Folder", $@"{GetProjectPath(projectName)}/{directory}");
+                Directory.CreateDirectory($@"{GetProjectPath(projectName)}\{directory}");
+            }
 
-            //if (!File.Exists($@"{GetProjectPath(projectName)}/{directory}/{itemName}.{fileExtension}"))
-            //{
-            //    p.AddItem("Compile", $@"{GetProjectPath(projectName)}/{directory}/{itemName}.{fileExtension}");
-            //}
+            if (!File.Exists($@"{GetProjectPath(projectName)}/{directory}/{itemName}.{fileExtension}"))
+            {
+                p.AddItem("Compile", $@"{GetProjectPath(projectName)}/{directory}/{itemName}.{fileExtension}");
+            }
 
-            //p.Save();
+            p.Save();
 
-            //File.Copy($@"{basePath}\{itemName}.{fileExtension}", $@"{GetProjectPath(projectName)}/{directory}/{itemName}.{fileExtension}", true);
+            File.Copy($@"{basePath}\{itemName}.{fileExtension}", $@"{GetProjectPath(projectName)}/{directory}/{itemName}.{fileExtension}", true);
 
-            //p.ProjectCollection.UnloadProject(p);
+            p.ProjectCollection.UnloadProject(p);
         }
 
         public string GetProjectFilePath(string projectName)

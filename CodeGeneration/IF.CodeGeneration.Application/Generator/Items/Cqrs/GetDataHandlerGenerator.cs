@@ -77,7 +77,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
             this.Context.fileSystem.FormatCode(@class.GenerateCode(), vsFile.FileExtension);
             
 
-            this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, GetDataQueryClassName(), vsFile.FileExtension);
+            this.Context.VsManager.AddFile(vsFile.ProjectName, vsFile.Path, GetDataQueryClassName(), vsFile.FileExtension);
         }
     }
 

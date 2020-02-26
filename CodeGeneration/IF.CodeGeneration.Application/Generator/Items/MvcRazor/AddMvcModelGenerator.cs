@@ -22,7 +22,7 @@ namespace IF.CodeGeneration.Application.Generator.Add.Items
             this.Context.fileSystem.FormatCode(gridClass.GenerateCode(), vsFile.FileExtension);
 
 
-            this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, vsFile.FileName, vsFile.FileExtension);
+            this.Context.VsManager.AddFile(vsFile.ProjectName, vsFile.Path, vsFile.FileName, vsFile.FileExtension);
         }
     }
 

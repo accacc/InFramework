@@ -23,7 +23,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
 
             IFVsFile vsFile = this.GetVsFile();
 
-            this.Context.VsManager.AddVisualStudio(vsFile.ProjectName, vsFile.Path, vsFile.FileName, vsFile.FileExtension);
+            this.Context.VsManager.AddFile(vsFile.ProjectName, vsFile.Path, vsFile.FileName, vsFile.FileExtension);
         }
 
         
