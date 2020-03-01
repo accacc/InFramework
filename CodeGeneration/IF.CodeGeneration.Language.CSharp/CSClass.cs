@@ -68,6 +68,10 @@ namespace IF.CodeGeneration.CSharp
                 {
                     builder.Append(" : ");
                 }
+                else
+                {
+                    builder.Append(" , ");
+                }
 
                 builder.Append(String.Join(",", InheritedInterfaces));
             }

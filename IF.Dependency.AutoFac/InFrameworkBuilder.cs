@@ -13,15 +13,24 @@ namespace IF.Dependency.AutoFac
 {
     public class InFrameworkBuilder : IInFrameworkBuilder
     {
-        internal readonly ContainerBuilder builder;
-        internal IContainer container { get; private set; }
+        ContainerBuilder autofacContainerBuilder;
+        internal IContainer autofacContainer { get; private set; }
 
+        public InFrameworkBuilder(ContainerBuilder builder)
+        {
+            this.autofacContainerBuilder = builder;
 
+        }
 
         public InFrameworkBuilder()
         {
-            builder = new ContainerBuilder();
+            this.autofacContainerBuilder = new ContainerBuilder();
 
+        }
+
+        public void SetContainerBuilder(ContainerBuilder builder)
+        {
+            this.autofacContainerBuilder = builder;
         }
 
         public IInFrameworkBuilder AddCqrs(Action<ICqrsBuilder> action)
@@ -38,7 +47,7 @@ namespace IF.Dependency.AutoFac
 
         public IInFrameworkBuilder RegisterAggregateService<TInterface>() where TInterface : class
         {
-            builder.RegisterAggregateService<TInterface>();
+            autofacContainerBuilder.RegisterAggregateService<TInterface>();
             return this;
         }
 
@@ -160,7 +169,7 @@ namespace IF.Dependency.AutoFac
 
         public IInFrameworkBuilder RegisterIntance<T>(T instance, DependencyScope scope) where T : class
         {
-            var reg = this.builder.RegisterInstance(instance).As<T>();
+            var reg = this.autofacContainerBuilder.RegisterInstance(instance).As<T>();
 
             switch (scope)
             {
@@ -188,7 +197,7 @@ namespace IF.Dependency.AutoFac
 
         public IInFrameworkBuilder Register<T>(T instance, DependencyScope scope)
         {
-            var reg = this.builder.Register<T>(c => instance).As<T>();
+            var reg = this.autofacContainerBuilder.Register<T>(c => instance).As<T>();
 
             switch (scope)
             {
@@ -217,7 +226,7 @@ namespace IF.Dependency.AutoFac
 
         public IInFrameworkBuilder RegisterType<C, A>(DependencyScope scope)
         {
-            var reg = builder.RegisterType<C>().As<A>();
+            var reg = autofacContainerBuilder.RegisterType<C>().As<A>();
 
             switch (scope)
             {
@@ -251,12 +260,12 @@ namespace IF.Dependency.AutoFac
 
             if (decorators.Count == 1)
             {
-                builder.RegisterAssemblyTypes(assemblies).AsClosedTypesOf(decorators[0]).InstancePerDependency();
+                autofacContainerBuilder.RegisterAssemblyTypes(assemblies).AsClosedTypesOf(decorators[0]).InstancePerDependency();
 
             }
             else
             {
-                builder.RegisterAssemblyTypes(assemblies).AsClosedTypesOf(decorators[0], decorators[0].Name).InstancePerDependency();
+                autofacContainerBuilder.RegisterAssemblyTypes(assemblies).AsClosedTypesOf(decorators[0], decorators[0].Name).InstancePerDependency();
 
                 for (int i = 0; i < decorators.Count; i++)
                 {
@@ -264,11 +273,11 @@ namespace IF.Dependency.AutoFac
 
                     if (decorators.Count == i + 1)
                     {
-                        builder.RegisterGenericDecorator(decorators[i], decorators[0], fromKey: decorators[i - 1].Name).InstancePerDependency();
+                        autofacContainerBuilder.RegisterGenericDecorator(decorators[i], decorators[0], fromKey: decorators[i - 1].Name).InstancePerDependency();
                     }
                     else
                     {
-                        builder.RegisterGenericDecorator(decorators[i], decorators[0], fromKey: decorators[i - 1].Name, toKey: decorators[i].Name).InstancePerDependency();
+                        autofacContainerBuilder.RegisterGenericDecorator(decorators[i], decorators[0], fromKey: decorators[i - 1].Name, toKey: decorators[i].Name).InstancePerDependency();
                     }
                 }
 
@@ -279,7 +288,7 @@ namespace IF.Dependency.AutoFac
 
         public void Build()
         {
-            this.container = this.builder.Build();
+            this.autofacContainer = this.autofacContainerBuilder.Build();
         }
 
         public IInFrameworkBuilder AddSmsSender(Action<ISmsBuilder> action)
@@ -297,7 +306,7 @@ namespace IF.Dependency.AutoFac
         public IInFrameworkBuilder RegisterBaseInterfaceType<T>(Assembly[] assembly, DependencyScope scope)
         {
 
-            var reg = builder.RegisterAssemblyTypes(assembly).AssignableTo<T>().AsImplementedInterfaces();
+            var reg = autofacContainerBuilder.RegisterAssemblyTypes(assembly).AssignableTo<T>().AsImplementedInterfaces();
 
             switch (scope)
             {
@@ -324,7 +333,7 @@ namespace IF.Dependency.AutoFac
 
         public IInFrameworkBuilder RegisterClosedType(Assembly[] assembly, Type type, DependencyScope scope)
         {
-            var reg = builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(type);
+            var reg = autofacContainerBuilder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(type);
 
             switch (scope)
             {
@@ -357,7 +366,7 @@ namespace IF.Dependency.AutoFac
 
         public IInFrameworkBuilder RegisterBaseClassType<T>(Assembly[] assembly, DependencyScope scope)
         {
-            var reg = builder.RegisterAssemblyTypes(assembly).AssignableTo<T>()
+            var reg = autofacContainerBuilder.RegisterAssemblyTypes(assembly).AssignableTo<T>()
                 //.PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies)
                 .InstancePerDependency();
 

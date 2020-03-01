@@ -1,10 +1,10 @@
-﻿using IF.Core.DependencyInjection;
-using IF.Core.DependencyInjection.Interface;
+﻿using IF.Core.DependencyInjection.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.Swagger;
-using System;
 using System.Collections.Generic;
+using Swashbuckle.AspNetCore.SwaggerUI;
+using Swashbuckle.Swagger;
+using Microsoft.OpenApi.Models;
 
 namespace IF.Swagger.Integration
 {
@@ -14,8 +14,7 @@ namespace IF.Swagger.Integration
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = apiName + " Api v1", Version = version });
-
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = apiName + " Api v1", Version = version });
 
                 if (addTokenIntegration)
                 {
@@ -25,15 +24,32 @@ namespace IF.Swagger.Integration
                     {"Bearer", new string[] { }},
                 };
 
-                    c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                     {
                         Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
                         Name = "Authorization",
-                        In = "header",
-                        Type = "apiKey"
+                        In = ParameterLocation.Header,
+                        Type = SecuritySchemeType.ApiKey,
                     });
 
-                    c.AddSecurityRequirement(security);
+                    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                      {
+                        {
+                          new OpenApiSecurityScheme
+                          {
+                            Reference = new OpenApiReference
+                              {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                              },
+                              Scheme = "oauth2",
+                              Name = "Bearer",
+                              In = ParameterLocation.Header,
+
+                            },
+                            new List<string>()
+                          }
+                        });
 
                 }
 
@@ -47,7 +63,7 @@ namespace IF.Swagger.Integration
         {
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/"+ version +"/swagger.json", apiName + " " + version));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/" + version + "/swagger.json", apiName + " " + version));
 
             return @if;
         }

@@ -9,6 +9,7 @@ namespace IF.Core.DependencyInjection.Interface
 
     public interface IInFrameworkBuilder
     {
+        
         IInFrameworkBuilder RegisterRepositories<T>(Assembly[] assembly);
         IInFrameworkBuilder RegisterAggregateService<TInterface>() where TInterface : class;
 
