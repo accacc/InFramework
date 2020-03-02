@@ -30,6 +30,7 @@ namespace IF.CodeGeneration.CSharp
 
         public string BaseClass { get; set; }
 
+        
 
         public CodeTemplate GenerateCode()
         {

@@ -33,6 +33,8 @@ namespace IF.CodeGeneration.CSharp
 
         public bool IsConstructor { get; set; }
 
+        public bool IsStatic { get; set; }
+
         public bool IsOvveride { get; set; }
 
         public CodeTemplate GenerateCode()
@@ -81,12 +83,18 @@ namespace IF.CodeGeneration.CSharp
 
             string accessType = this.AccessType;
             string returnType = this.ReturnType;
+            string @static = String.Empty;
             string name = this.Name;
             string @override = String.Empty;
 
             if(this.IsOvveride)
             {
                 @override = "override";
+            }
+
+            if (this.IsStatic)
+            {
+                @static = "static";
             }
 
             if (this.IsAsync)
@@ -112,7 +120,7 @@ namespace IF.CodeGeneration.CSharp
                 builder.AppendLine($"[{att}]");
             }
 
-            builder.AppendLine($"{accessType} {@override} {returnType} {name} ({@params}) {baseParams}");
+            builder.AppendLine($"{accessType} {@static} {@override} {returnType} {name} ({@params}) {baseParams}");
 
             builder.AppendLine("{");
 
