@@ -8,7 +8,7 @@ namespace IF.Core.Data
 {
     public class TreeDto<T> : BaseDto
     {
-        public IEnumerable<T> Childs { get; set; }
+        public IList<T> Childs { get; set; }
 
         public int? ParentId { get; set; }
 
