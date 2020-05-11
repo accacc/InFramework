@@ -1,6 +1,6 @@
 ﻿using IF.Core.Cache;
 using IF.Core.Localization;
-
+using IF.Core.Persistence;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;

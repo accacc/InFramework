@@ -14,6 +14,11 @@ namespace IF.CodeGeneration.Core
         public FileSystemCodeFormatProvider(string rootPath)
         {
             this.rootPath = rootPath;
+
+            if (!Directory.Exists(rootPath))
+            {
+                Directory.CreateDirectory(rootPath);
+            }
         }
 
         public override void FormatCode(CodeTemplate template,string extension,string indent="", string path="")

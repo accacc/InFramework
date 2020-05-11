@@ -15,7 +15,7 @@ namespace IF.Persistence.EF.PostgreSql.Integration
                 options.UseNpgsql(connectionString);
             }, ServiceLifetime.Transient);
 
-            services.AddTransient<IRepository>(provider => new GenericRepository(provider.GetService<T>()));
+            services.AddTransient<Core.Persistence.IRepository>(provider => new GenericRepository(provider.GetService<T>()));
 
 
             return @if;

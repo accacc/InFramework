@@ -1,7 +1,7 @@
 ﻿using IF.Core.Cache;
 using IF.Core.Data;
 using IF.Core.Localization;
-
+using IF.Core.Persistence;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

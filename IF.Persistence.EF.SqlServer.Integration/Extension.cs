@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using IF.Core.Persistence;
 
 namespace IF.Persistence.EF.SqlServer.Integration
 {
