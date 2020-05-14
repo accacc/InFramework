@@ -7,12 +7,12 @@ namespace IF.Persistence.EF.PostgreSql.Integration
 {
     public static class Extension
     {
-        public static IInFrameworkBuilder AddDbContext<T>(this IInFrameworkBuilder @if, IServiceCollection services, string connectionString) where T : DbContext
+        public static IInFrameworkBuilder AddDbContext<T>(this IInFrameworkBuilder @if, IServiceCollection services, string connectionString, string workingAssembly) where T : DbContext
         {
             
             services.AddDbContext<T>(options =>
             {
-                options.UseNpgsql(connectionString);
+                options.UseNpgsql(connectionString, b => b.MigrationsAssembly(workingAssembly));
             }, ServiceLifetime.Transient);
 
             services.AddTransient<Core.Persistence.IRepository>(provider => new GenericRepository(provider.GetService<T>()));

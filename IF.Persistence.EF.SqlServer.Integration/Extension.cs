@@ -9,12 +9,23 @@ namespace IF.Persistence.EF.SqlServer.Integration
 {
     public static class Extension
     {
-        public static IInFrameworkBuilder AddDbContext<T>(this IInFrameworkBuilder @if, IServiceCollection services, string connectionString) where T : DbContext
+        public static IInFrameworkBuilder AddDbContext<T>(this IInFrameworkBuilder @if, IServiceCollection services, string connectionString,string workingAssembly=null) where T : DbContext
         {
-            services.AddDbContext<T>(options =>
+
+            if (workingAssembly != null)
             {
-                options.UseSqlServer(connectionString);
-            }, ServiceLifetime.Transient);
+                services.AddDbContext<T>(options =>
+                {
+                    options.UseSqlServer(connectionString, b => b.MigrationsAssembly(workingAssembly));
+                }, ServiceLifetime.Transient);
+            }
+            else
+            {
+                services.AddDbContext<T>(options =>
+                {
+                    options.UseSqlServer(connectionString);
+                }, ServiceLifetime.Transient);
+            }
 
             services.AddTransient<IRepository>(provider => new  GenericRepository(provider.GetService<T>()));
 
