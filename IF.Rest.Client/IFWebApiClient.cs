@@ -1,5 +1,6 @@
 ﻿using IF.Core.Data;
 using IF.Core.Exception;
+using IF.Core.Extensions;
 using IF.Core.Rest;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace IF.Rest.Client
 {
-    
+
 
     public partial class IFWebApiClient : IIFWebApiClient
     {
@@ -161,7 +162,7 @@ namespace IF.Rest.Client
         {
             var requestBody = JsonConvert.SerializeObject(@object);
 
-            var endpoint = this.BuildUrl(this.BaseEndpoint + urlPath);
+            var endpoint = this.BaseEndpoint + urlPath;
 
             return await MakeRequest<T>(RestMethodType.PUT, requestBody, endpoint, cancellationToken);
         }
@@ -175,7 +176,7 @@ namespace IF.Rest.Client
 
             var requestBody = JsonConvert.SerializeObject(@object);
 
-            var endpoint = this.BuildUrl(this.BaseEndpoint + urlPath);
+            var endpoint = this.BaseEndpoint + urlPath;
 
             return await MakeRequest<T>(RestMethodType.POST, requestBody, endpoint, cancellationToken);
         }
@@ -189,7 +190,7 @@ namespace IF.Rest.Client
 
             var requestBody = JsonConvert.SerializeObject(@object);
 
-            var endpoint = this.BuildUrl(this.BaseEndpoint + urlPath);
+            var endpoint = this.BaseEndpoint + urlPath;
 
             return await MakeRequest<T>(RestMethodType.DELETE, requestBody, endpoint, cancellationToken);
         }
@@ -200,9 +201,7 @@ namespace IF.Rest.Client
         Dictionary<string, string> requestHeaders = null,
         CancellationToken cancellationToken = default(CancellationToken)) where T : BaseResponse
         {
-            var queryString = JsonConvert.SerializeObject(@params);
-
-            var endpoint = this.BuildUrl(this.BaseEndpoint + urlPath, queryString);
+            var endpoint = await this.BuildUrl(this.BaseEndpoint + urlPath, @params);
 
             return await MakeRequest<T>(RestMethodType.GET, null, endpoint, cancellationToken);
         }
@@ -253,7 +252,9 @@ namespace IF.Rest.Client
                     string msg = result.ErrorMessage;
 
                     if (!_env.IsDevelopment())
+                    {
                         msg = $"Api hatası :{msg}";
+                    }
 
                     if (result.Messages != null && result.Messages.Any())
                     {
@@ -280,81 +281,107 @@ namespace IF.Rest.Client
         }
 
 
-
-        private string BuildUrl(string urlpath, string queryParams = null)
+        private async Task<string> BuildUrl(string urlpath, object obj)
         {
-            string url = null;
-
-            //if (this.Version != null)
-            //{
-            //    url = this.Version + "/" + urlpath;
-            //}
-            //else
-            //{
-            url = urlpath;
-            //}
-
-            if (queryParams != null)
-            {
-                var ds_query_params = this.ParseJson(queryParams);
-                string query = "?";
-                foreach (var pair in ds_query_params)
-                {
-                    foreach (var element in pair.Value)
-                    {
-                        if (query != "?")
-                        {
-                            query = query + "&";
-                        }
-
-                        query = query + pair.Key + "=" + element;
-                    }
-                }
-
-                url = url + query;
-            }
-
-            return url;
+            string qs = await obj.ToQueryString();
+            return urlpath + "?" + qs;
         }
 
-        private Dictionary<string, List<object>> ParseJson(string json)
-        {
-            var dict = new Dictionary<string, List<object>>();
+        //private string BuildUrl(string urlpath, string queryParams = null)
+        //{
 
-            using (var sr = new StringReader(json))
-            using (var reader = new JsonTextReader(sr))
-            {
-                var propertyName = string.Empty;
-                while (reader.Read())
-                {
-                    switch (reader.TokenType)
-                    {
-                        case JsonToken.PropertyName:
-                            {
-                                propertyName = reader.Value.ToString();
-                                if (!dict.ContainsKey(propertyName))
-                                {
-                                    dict.Add(propertyName, new List<object>());
-                                }
+        //    var jObj = (JObject)JsonConvert.DeserializeObject(queryParams);
 
-                                break;
-                            }
+        //    var query2 = String.Join("&",
+        //                    jObj.Children().Cast<JProperty>()
+        //                    .Select(jp => jp.Name + "=" + HttpUtility.UrlEncode(jp.Value.ToString())));
 
-                        case JsonToken.Boolean:
-                        case JsonToken.Integer:
-                        case JsonToken.Float:
-                        case JsonToken.Bytes:
-                        case JsonToken.String:
-                        case JsonToken.Date:
-                            {
-                                dict[propertyName].Add(reader.Value);
-                                break;
-                            }
-                    }
-                }
-            }
+        //    if (query2 != null)
+        //    {
+        //        return urlpath  +"?"+ query2;
+        //    }
 
-            return dict;
-        }
+        //    return urlpath;
+
+        //    string url = null;
+
+        //    //if (this.Version != null)
+        //    //{
+        //    //    url = this.Version + "/" + urlpath;
+        //    //}
+        //    //else
+        //    //{
+        //    url = urlpath;
+        //    //}
+
+        //    if (queryParams != null)
+        //    {
+        //        var ds_query_params = this.ParseJson(queryParams);
+        //        string query = "?";
+        //        foreach (var pair in ds_query_params)
+        //        {
+        //            foreach (var element in pair.Value)
+        //            {
+        //                if (query != "?")
+        //                {
+        //                    query = query + "&";
+        //                }
+
+        //                query = query + pair.Key + "=" + element;
+        //            }
+        //        }
+
+        //        url = url + query;
+        //    }
+
+        //    return url;
+        //}
+
+        //private Dictionary<string, List<object>> ParseJson(string json)
+        //{
+
+        //    var jObj = (JObject)JsonConvert.DeserializeObject(json);
+
+        //    var query = String.Join("&",
+        //                    jObj.Children().Cast<JProperty>()
+        //                    .Select(jp => jp.Name + "=" + HttpUtility.UrlEncode(jp.Value.ToString())));
+
+        //    var dict = new Dictionary<string, List<object>>();
+
+        //    using (var sr = new StringReader(json))
+        //    using (var reader = new JsonTextReader(sr))
+        //    {
+        //        var propertyName = string.Empty;
+        //        while (reader.Read())
+        //        {
+        //            switch (reader.TokenType)
+        //            {
+        //                case JsonToken.PropertyName:
+        //                    {
+        //                        propertyName = reader.Value.ToString();
+        //                        if (!dict.ContainsKey(propertyName))
+        //                        {
+        //                            dict.Add(propertyName, new List<object>());
+        //                        }
+
+        //                        break;
+        //                    }
+
+        //                case JsonToken.Boolean:
+        //                case JsonToken.Integer:
+        //                case JsonToken.Float:
+        //                case JsonToken.Bytes:
+        //                case JsonToken.String:
+        //                case JsonToken.Date:
+        //                    {
+        //                        dict[propertyName].Add(reader.Value);
+        //                        break;
+        //                    }
+        //            }
+        //        }
+        //    }
+
+        //    return dict;
+        //}
     }
 }
