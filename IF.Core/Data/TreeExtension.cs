@@ -37,9 +37,9 @@ namespace IF.Core.Data
             return parents;
         }
 
-        public static List<T> ToTreeSiblings<T>(this IEnumerable<T> list, int categoryId) where T : TreeDto<T>
+        public static List<T> ToTreeSiblings<T>(this IEnumerable<T> list, int Id) where T : TreeDto<T>
         {
-            var sibling = list.Where(c => c.Id == categoryId).SingleOrDefault();
+            var sibling = list.Where(c => c.Id == Id).SingleOrDefault();
 
             List<T> parents = list.Where(c => c.ParentId == sibling.ParentId).ToList();
 
@@ -105,17 +105,17 @@ namespace IF.Core.Data
             if (item != null)
             {
 
-                var cat = item;
 
-                while (cat != null)
+                while (item != null)
                 {
-                    var parent = all.Where(a => a.Id == cat.ParentId).SingleOrDefault();
+                    var parent = all.Where(a => a.Id == item.ParentId).SingleOrDefault();
 
                     if (parent != null)
                     {
                         list.Add(parent);
                     }
-                    cat = parent;
+                    
+                    item = parent;
 
                 }
 
