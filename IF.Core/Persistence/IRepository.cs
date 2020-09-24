@@ -39,6 +39,9 @@ namespace IF.Core.Persistence
         //int Count<TEntity>(ISpecification<TEntity> criteria) where TEntity : class;
         IUnitOfWork UnitOfWork { get; }
 
+        void MoveUpOne<TEntity>(int position, Expression<Func<TEntity, bool>> criteria = null) where TEntity : class, IMoveable, IEntity;
+        void MoveDownOne<TEntity>(int position, Expression<Func<TEntity, bool>> criteria = null) where TEntity : class, IMoveable, IEntity;
+        void ChangeState<TEntity>(int Id) where TEntity : class, IActiveableEntity, IUniqueable, IEntity, new();
 
 
     }

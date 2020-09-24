@@ -352,7 +352,87 @@ namespace IF.Persistence.EF
             }
         }
 
-        
+        public void MoveUpOne<TEntity>(int position, Expression<Func<TEntity, bool>> criteria = null) where TEntity : class, IEntity, IMoveable
+        {
+
+            IQueryable<TEntity> entity;
+
+            if (criteria != null)
+            {
+                entity = this.GetQuery<TEntity>(criteria);
+            }
+            else
+            {
+                entity = this.GetQuery<TEntity>();
+            }
+
+            if (entity.Any(i => i.Sequence < position))
+            {
+                var swapEntity = entity.SingleOrDefault(i1 => entity.Where(i2 => i2.Sequence < position).Max(i3 => i3.Sequence) == i1.Sequence);
+                if (swapEntity == null) return;
+
+                IMoveable item = entity.SingleOrDefault(i => i.Sequence == position);
+                if (item == null)
+                    throw new ApplicationException("There is no item at position");
+
+                int tempPosition = swapEntity.Sequence;
+                swapEntity.Sequence = item.Sequence;
+                item.Sequence = tempPosition;
+                this.UnitOfWork.SaveChanges();
+
+            }
+        }
+
+        public void MoveDownOne<TEntity>(int position, Expression<Func<TEntity, bool>> criteria = null) where TEntity : class, IEntity, IMoveable
+        {
+
+            IQueryable<TEntity> entity;
+
+            if (criteria != null)
+            {
+                entity = this.GetQuery<TEntity>(criteria);
+            }
+            else
+            {
+                entity = this.GetQuery<TEntity>();
+            }
+
+
+            if (entity.Any(i => i.Sequence > position))
+            {
+                var swapEntity = entity.SingleOrDefault(i1 => entity.Where(i2 => i2.Sequence > position).Min(i3 => i3.Sequence) == i1.Sequence);
+                if (swapEntity == null) return;
+
+                IMoveable item = entity.SingleOrDefault(i => i.Sequence == position);
+                if (item == null)
+                    throw new ApplicationException("There is no item at position");
+
+                int tempPosition = swapEntity.Sequence;
+                swapEntity.Sequence = item.Sequence;
+                item.Sequence = tempPosition;
+                this.UnitOfWork.SaveChanges();
+
+            }
+        }
+
+
+
+
+        public void ChangeState<TEntity>(int Id) where TEntity : class, IEntity, IActiveableEntity, IUniqueable, new()
+        {
+            var entity = this.GetByKey<TEntity>(Id);
+
+            if (entity != null)
+            {
+                entity.Active = !entity.Active;
+            }
+
+            this.DbContext.SaveChanges();
+        }
+
+      
+
+
 
         public IUnitOfWork UnitOfWork
         {
