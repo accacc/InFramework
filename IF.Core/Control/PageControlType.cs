@@ -11,7 +11,8 @@
         MultiSelect = 5,
         ListView = 7,
         Accordion = 8,
-        TreeView = 9
+        TreeView = 9,
+        Panel = 10
 
 
     }
