@@ -8,6 +8,7 @@ namespace IF.CodeGeneration.CSharp
     public class CSProperty : IGenerateCode
     {
 
+        public string GenericType { get; set; }
         public Type PropertyType { get; set; }
         public string AccessType { get; set; }
         public string Name { get; set; }
@@ -51,6 +52,10 @@ namespace IF.CodeGeneration.CSharp
             if (IsNullable && PropertyType != typeof(System.String))
             {
                 type = type + "?";
+            }
+            if(GenericType!=null)
+            {
+                type = $"{GenericType}<{type}>";
             }
 
             string @readonly = "";
