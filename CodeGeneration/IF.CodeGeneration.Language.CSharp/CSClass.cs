@@ -30,7 +30,9 @@ namespace IF.CodeGeneration.CSharp
 
         public string BaseClass { get; set; }
 
-        
+        public bool IsPartial { get; set; }
+
+
 
         public CodeTemplate GenerateCode()
         {
@@ -52,16 +54,21 @@ namespace IF.CodeGeneration.CSharp
                 builder.AppendLine("{");
             }
 
-            builder.Append("public class " + Name);
+            string partial = "";
+
+            if (this.IsPartial)
+            {
+                partial = "partial";
+            }
+
+
+            builder.Append($"public {partial} class {Name}");
+
 
             if (!String.IsNullOrEmpty(this.BaseClass))
             {
                 builder.Append(":" + BaseClass);
             }
-            //else
-            //{
-            //    builder.AppendLine();
-            //}
 
             if (this.InheritedInterfaces != null && InheritedInterfaces.Any())
             {
