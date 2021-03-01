@@ -6,7 +6,7 @@ namespace IF.Core.Data
     public static class TreeExtension
     {
 
-        public static List<T> ToTree<T>(this IEnumerable<T> list, List<T> parents = null,int level=0) where T : TreeDto<T>
+        public static List<T> ToTree<T>(this IEnumerable<T> list, List<T> parents = null,int level=0) where T : ITreeClass<T>
         {
             level++;
 
@@ -37,7 +37,7 @@ namespace IF.Core.Data
             return parents;
         }
 
-        public static List<T> ToTreeSiblings<T>(this IEnumerable<T> list, int Id) where T : TreeDto<T>
+        public static List<T> ToTreeSiblings<T>(this IEnumerable<T> list, int Id) where T : ITreeClass<T>
         {
             var sibling = list.Where(c => c.Id == Id).SingleOrDefault();
 
@@ -49,7 +49,7 @@ namespace IF.Core.Data
 
         }
 
-        public static List<T> ToSelectedTree<T>(this IEnumerable<T> list, List<int> selecteds, List<T> parents) where T : TreeDto<T>
+        public static List<T> ToSelectedTree<T>(this IEnumerable<T> list, List<int> selecteds, List<T> parents) where T : ITreeClass<T>
         {
 
             List<T> newList = new List<T>();
@@ -98,7 +98,7 @@ namespace IF.Core.Data
             return parents;
         }
 
-        public static List<T> ToParentPath<T>(this T item, IEnumerable<T> all) where T : TreeDto<T>
+        public static List<T> ToParentPath<T>(this T item, IEnumerable<T> all) where T : ITreeClass<T>
         {
             var list = new List<T>();
 
