@@ -41,13 +41,10 @@ namespace IF.Core.Persistence
 
         void MoveUpOne<TEntity>(int position, Expression<Func<TEntity, bool>> criteria = null) where TEntity : class, IMoveable, IEntity;
         void MoveDownOne<TEntity>(int position, Expression<Func<TEntity, bool>> criteria = null) where TEntity : class, IMoveable, IEntity;
-        void ChangeState<TEntity>(int Id) where TEntity : class, IActiveableEntity, IUniqueable, IEntity, new();
+        Task SoftDeleteAsync<TEntity>(object Id) where TEntity : class, ISoftDelete;
 
 
-    }
 
-    public partial interface IRepository
-    {
         //Task<IQueryable<TEntity>> GetQueryAsync<TEntity>() where TEntity : class;
         Task AddAsync<TEntity>(TEntity entity) where TEntity : class, IEntity;
         //Task UpdateAsync<TEntity>(TEntity entity) where TEntity : class, IEntity;
@@ -56,7 +53,6 @@ namespace IF.Core.Persistence
 
         //Task<IQueryable<TEntity>> GetQueryAsync<TEntity>(Expression<Func<TEntity, bool>> criteria) where TEntity : class;
 
-        void ChangeState<TEntity>(object Id) where TEntity : class, IEntity, IActiveableEntity, new();
 
         Task<PagedListResponse<TEntity>> ToPagedListResponseAsync<TEntity>(IQueryable<TEntity> source, BasePagingRequest request);
 
@@ -68,10 +64,6 @@ namespace IF.Core.Persistence
         PagedListResponse<TEntity> ToPagedListResponse<TEntity>(IQueryable<TEntity> source, BasePagingRequest request);
 
         PagedListResponse<TEntity> ToPagedListResponseNoLock<TEntity>(IQueryable<TEntity> source, BasePagingRequest request);
-    }
-
-    public partial interface IRepository
-    {
 
         List<T> ToListNoLock<T>(IQueryable<T> query);
 
@@ -94,10 +86,6 @@ namespace IF.Core.Persistence
 
 
         Task<int> CountNoLockAsync<T>(IQueryable<T> query);
-    }
-
-    public partial interface IRepository
-    {
         string GetPrimarykeyName(Type type);
     }
 }

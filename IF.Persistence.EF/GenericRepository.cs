@@ -121,16 +121,15 @@ namespace IF.Persistence.EF
             }
         }
 
-        public void ChangeState<TEntity>(object Id) where TEntity : class, IEntity, IActiveableEntity, new()
+        public async Task SoftDeleteAsync<TEntity>(object Id) where TEntity : class,ISoftDelete
         {
-            var entity = this.GetByKey<TEntity>(Id);
+            var entity = await this.DbContext.FindAsync<TEntity>(Id);
 
-            if (entity != null)
-            {
-                entity.Active = !entity.Active;
-            }
+            if (entity == null) { throw new ApplicationException($"{typeof(TEntity).Name} : No such entity exists"); }
 
-            this.DbContext.SaveChanges();
+            entity.SoftDeleted = !entity.SoftDeleted;
+
+            await this.DbContext.SaveChangesAsync();
         }
 
        
@@ -418,13 +417,13 @@ namespace IF.Persistence.EF
 
 
 
-        public void ChangeState<TEntity>(int Id) where TEntity : class, IEntity, IActiveableEntity, IUniqueable, new()
+        public void ChangeState<TEntity>(int Id) where TEntity : class, IEntity, ISoftDelete, IUniqueable, new()
         {
             var entity = this.GetByKey<TEntity>(Id);
 
             if (entity != null)
             {
-                entity.Active = !entity.Active;
+                entity.SoftDeleted  = !entity.SoftDeleted ;
             }
 
             this.DbContext.SaveChanges();
