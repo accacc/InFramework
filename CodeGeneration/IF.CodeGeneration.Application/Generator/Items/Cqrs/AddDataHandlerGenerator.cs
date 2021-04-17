@@ -65,7 +65,7 @@ namespace IF.CodeGeneration.Application.Generator.Add.Items
 
             @class.Methods.Add(handleMethod);
 
-            this.Context.fileSystem.FormatCode(@class.GenerateCode(), "cs");
+            this.Context.fileSystem.FormatCode(@class.GenerateCode(),"","", "cs");
 
             IFVsFile vsFile = this.GetVsFile();
 

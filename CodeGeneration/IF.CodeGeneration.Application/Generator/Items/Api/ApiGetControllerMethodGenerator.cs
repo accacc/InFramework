@@ -38,7 +38,7 @@ namespace IF.CodeGeneration.Application.Generator.Items
 
             IFVsFile vsFile =  this.GetVsFile();
 
-            this.Context.fileSystem.FormatCode(methods, vsFile.FileExtension, "Controller");
+            this.Context.fileSystem.FormatCode(methods, vsFile.FileExtension, "Controller","");
 
 
 

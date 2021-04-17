@@ -24,7 +24,7 @@ namespace IF.CodeGeneration.Application.Generator.Items
 
             IFVsFile vsFile = this.GetVsFile();
 
-            this.Context.fileSystem.FormatCode(interfaceMethod.ToString(), vsFile.FileExtension,vsFile.FileName);
+            this.Context.fileSystem.FormatCode(interfaceMethod.ToString(), vsFile.FileExtension,vsFile.FileName, "");
 
             var repositoryInterfacePath = $@"{this.Context.VsManager.GetProjectPath(vsFile.ProjectName)}\{vsFile.Path}\I{vsFile.FileName}.{vsFile.FileExtension}";
 
@@ -52,7 +52,7 @@ namespace IF.CodeGeneration.Application.Generator.Items
 
             var repositoryMethodCode = repositoryMethod.GenerateCode().Template;
 
-            this.Context.fileSystem.FormatCode(repositoryMethodCode, vsFile.FileExtension, vsFile.FileName);
+            this.Context.fileSystem.FormatCode(repositoryMethodCode, vsFile.FileExtension, vsFile.FileName, "");
 
             var repositoryPath = $@"{this.Context.VsManager.GetProjectPath(vsFile.ProjectName)}\{vsFile.Path}\{vsFile.FileName}.{vsFile.FileExtension}";
 

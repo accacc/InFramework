@@ -75,7 +75,7 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
 
             IFVsFile vsFile = this.GetVsFile();
 
-            this.Context.fileSystem.FormatCode(builder.ToString(), vsFile.FileExtension, vsFile.FileName);
+            this.Context.fileSystem.FormatCode(builder.ToString(), vsFile.FileExtension, vsFile.FileName, "");
 
             this.Context.VsManager.AddFile(vsFile.ProjectName, vsFile.Path,vsFile.FileName, vsFile.FileExtension);
         }

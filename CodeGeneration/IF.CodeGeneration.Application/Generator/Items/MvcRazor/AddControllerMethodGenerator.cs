@@ -43,7 +43,7 @@ namespace IF.CodeGeneration.Application.Generator.Add.Items
 
             IFVsFile vsFile = this.GetVsFile();
 
-            this.Context.fileSystem.FormatCode(methods,vsFile.FileExtension,vsFile.FileName);            
+            this.Context.fileSystem.FormatCode(methods,vsFile.FileExtension,vsFile.FileName, "");            
 
             var controllerPath = $@"{this.Context.VsManager.GetProjectPath(vsFile.ProjectName)}\{vsFile.Path}\{this.Context.ControllerName}.{vsFile.FileExtension}";
 

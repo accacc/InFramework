@@ -34,7 +34,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             methodBody.AppendFormat($"return View(\"~/{this.Context.RepositoryName}/Index.cshtml\", model);");
             method.Body = methodBody.ToString();
 
-            this.Context.fileSystem.FormatCode(method.GenerateCode(), "cs");
+            this.Context.fileSystem.FormatCode(method.GenerateCode(), "cs", "", "");
 
             IFVsFile vsFile = this.GetVsFile();
 

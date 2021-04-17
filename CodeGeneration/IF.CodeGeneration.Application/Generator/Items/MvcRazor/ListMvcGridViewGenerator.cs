@@ -114,7 +114,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
             builder.AppendLine("}");
             builder.AppendLine("</table>");
 
-            this.Context.fileSystem.FormatCode(builder.ToString(), "cshtml", "_GridView");
+            this.Context.fileSystem.FormatCode(builder.ToString(), "cshtml", "_GridView", "");
 
             IFVsFile vsFile = this.GetVsFile();
 

@@ -1,4 +1,5 @@
 ﻿using IF.CodeGeneration.CSharp;
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +8,7 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
 {
 
 
-    public class CommandHandlerGenerator :  ApplicationCodeGenerateItem
+    public class CommandHandlerGenerator : ApplicationCodeGenerateItem
     {
 
         public CommandHandlerGenerator(ApplicationCodeGeneratorContext context) : base(context)
@@ -49,7 +50,7 @@ namespace IF.CodeGeneration.Application.Generator.Update.Items
 
             @class.Methods.Add(handleMethod);
 
-            this.Context.fileSystem.FormatCode(@class.GenerateCode(), "cs");
+            this.Context.fileSystem.FormatCode(@class.GenerateCode(), "","", "cs");
 
             IFVsFile vsFile = this.GetVsFile();
 

@@ -49,7 +49,7 @@
 
 //            @class.Methods.Add(handleMethod);
 
-//            this.Context.fileSystem.FormatCode(@class.GenerateCode(), "cs");
+//            this.Context.fileSystem.FormatCode(@class.GenerateCode(),"", "cs");
 
 //            IFVsFile vsFile = this.GetVsFile();
 

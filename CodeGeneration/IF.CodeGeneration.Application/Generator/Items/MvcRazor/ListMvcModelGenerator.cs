@@ -19,7 +19,7 @@ namespace IF.CodeGeneration.Application.Generator.List.Items
         {
             CSClass gridClass = GenerateClass("GridModel");
             gridClass.NameSpace = this.Context.nameSpaceName + ".Models";
-            this.Context.fileSystem.FormatCode(gridClass.GenerateCode(), "cs");
+            this.Context.fileSystem.FormatCode(gridClass.GenerateCode(), "cs","","");
 
             IFVsFile vsFile = this.GetVsFile();
 

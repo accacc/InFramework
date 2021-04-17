@@ -1,12 +1,13 @@
 ﻿using IF.CodeGeneration.Application.Generator.Get;
 using IF.CodeGeneration.CSharp;
+
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.Get.Items
 {
-    public class GetDataHandlerGenerator :  ApplicationCodeGenerateItem
+    public class GetDataHandlerGenerator : ApplicationCodeGenerateItem
     {
 
         public GetDataHandlerGenerator(ApplicationCodeGeneratorContext context) : base(context)
@@ -49,7 +50,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
             CSMethod handleMethod = new CSMethod("Get", this.Context.className + "Response", "public");
             handleMethod.IsAsync = true;
             handleMethod.Parameters.Add(new CsMethodParameter() { Name = "request", Type = this.Context.className + "Request" });
-         
+
 
             handleMethod.Body += $"var entity = await this.repository.GetQuery<{this.Context.classType.Name}>()" + Environment.NewLine;
 
@@ -74,8 +75,8 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
 
             IFVsFile vsFile = this.GetVsFile();
 
-            this.Context.fileSystem.FormatCode(@class.GenerateCode(), vsFile.FileExtension);
-            
+            this.Context.fileSystem.FormatCode(@class.GenerateCode(), vsFile.FileExtension,"","");
+
 
             this.Context.VsManager.AddFile(vsFile.ProjectName, vsFile.Path, GetDataQueryClassName(), vsFile.FileExtension);
         }

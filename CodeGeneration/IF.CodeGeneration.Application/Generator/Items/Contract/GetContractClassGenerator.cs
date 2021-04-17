@@ -65,7 +65,7 @@ namespace IF.CodeGeneration.Application.Generator.Get.Items
             classes += Environment.NewLine;
             classes += "}";
 
-            this.Context.fileSystem.FormatCode(classes, "cs", this.Context.className);
+            this.Context.fileSystem.FormatCode(classes, "cs", this.Context.className, "");
 
             IFVsFile vsFile = this.GetVsFile();
 

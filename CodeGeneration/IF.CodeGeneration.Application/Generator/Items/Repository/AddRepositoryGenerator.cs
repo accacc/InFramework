@@ -19,7 +19,7 @@ namespace IF.CodeGeneration.Application.Generator.Items.Repository
             interfaceMethod.AppendLine($"Task {this.Context.className}();");
             interfaceMethod.AppendLine("");
             IFVsFile vsFile = this.GetVsFile();
-            this.Context.fileSystem.FormatCode(interfaceMethod.ToString(), vsFile.FileExtension,$"I{vsFile.FileName}");
+            this.Context.fileSystem.FormatCode(interfaceMethod.ToString(), vsFile.FileExtension,$"I{vsFile.FileName}", "");
 
 
             CSMethod repositoryMethod = new CSMethod("this.Context.className", "void", "public");
@@ -42,7 +42,7 @@ namespace IF.CodeGeneration.Application.Generator.Items.Repository
 
             var repositoryMethodCode = repositoryMethod.GenerateCode().Template;
 
-            this.Context.fileSystem.FormatCode(repositoryMethodCode, vsFile.FileExtension, vsFile.FileName);
+            this.Context.fileSystem.FormatCode(repositoryMethodCode, vsFile.FileExtension, vsFile.FileName, "");
 
         }
     }
