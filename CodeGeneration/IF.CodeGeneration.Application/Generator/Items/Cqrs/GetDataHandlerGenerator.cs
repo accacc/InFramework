@@ -1,8 +1,6 @@
-﻿using IF.CodeGeneration.Application.Generator.Get;
-using IF.CodeGeneration.CSharp;
+﻿using IF.CodeGeneration.CSharp;
 
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace IF.CodeGeneration.Application.Generator.Get.Items
