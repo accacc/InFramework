@@ -182,7 +182,9 @@ namespace IF.Persistence.EF.Audit
 
                 temp.ObjectId = ObjectId;
 
-                this.CreateAuditEntity(temp, temp.AuditTypeInfo, context);
+                var entity = this.CreateAuditEntity(temp, temp.AuditTypeInfo, context);
+
+                context.DbContext.Add(entity);
 
             }
         }
@@ -300,7 +302,7 @@ namespace IF.Persistence.EF.Audit
 
             //set.Add(auditEntity);
 
-            IAuditEntity auditEntity = Activator.CreateInstance(auditTypeInfo.AuditableEntityType) as IAuditEntity;
+            IShadowAuditEntity auditEntity = Activator.CreateInstance(auditTypeInfo.AuditEntityType) as IShadowAuditEntity;
 
             EntityEntry auditEntityEntry = context.DbContext.Entry(auditEntity);
 
@@ -312,15 +314,15 @@ namespace IF.Persistence.EF.Audit
             }
 
 
-            ClaimsPrincipal principal = Thread.CurrentPrincipal as ClaimsPrincipal;
+            //ClaimsPrincipal principal = Thread.CurrentPrincipal as ClaimsPrincipal;
 
-            auditEntityEntry.Property(CreatedColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == CreatedColumnName).Value;
-            auditEntityEntry.Property(CreatedByColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == CreatedByColumnName).Value;
-            auditEntityEntry.Property(ModifiedColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == ModifiedColumnName).Value;
-            auditEntityEntry.Property(ModifiedByColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == ModifiedByColumnName).Value;
-            auditEntityEntry.Property(LogDateColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == LogDateColumnName).Value;
-            auditEntityEntry.Property(UniqueIdColumnName).CurrentValue = temp.UniqueId;
-            auditEntityEntry.Property(ObjectIdColumnName).CurrentValue = temp.ObjectId;
+            //auditEntityEntry.Property(CreatedColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == CreatedColumnName).Value;
+            //auditEntityEntry.Property(CreatedByColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == CreatedByColumnName).Value;
+            //auditEntityEntry.Property(ModifiedColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == ModifiedColumnName).Value;
+            //auditEntityEntry.Property(ModifiedByColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == ModifiedByColumnName).Value;
+            //auditEntityEntry.Property(LogDateColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == LogDateColumnName).Value;
+            //auditEntityEntry.Property(UniqueIdColumnName).CurrentValue = temp.UniqueId;
+            //auditEntityEntry.Property(ObjectIdColumnName).CurrentValue = temp.ObjectId;
 
 
             int logType = 0;
@@ -345,14 +347,14 @@ namespace IF.Persistence.EF.Audit
             }
 
 
-            auditEntityEntry.Property(LogTypeColumnName).CurrentValue = logType;
+            //auditEntityEntry.Property(LogTypeColumnName).CurrentValue = logType;
 
-            var channelId = principal.Claims.Where(c => c.Type == ChannelColumnName).SingleOrDefault();
+            //var channelId = principal.Claims.Where(c => c.Type == ChannelColumnName).SingleOrDefault();
 
-            if (channelId != null)
-            {
-                auditEntityEntry.Property(ChannelColumnName).CurrentValue = channelId.Value;
-            }
+            //if (channelId != null)
+            //{
+            //    auditEntityEntry.Property(ChannelColumnName).CurrentValue = channelId.Value;
+            //}
 
             return auditEntity;
         }
