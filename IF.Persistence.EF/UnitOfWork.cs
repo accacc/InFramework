@@ -1,4 +1,6 @@
 ﻿using IF.Core.Data;
+using IF.Persistence.EF.Audit;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -138,8 +140,14 @@ namespace IF.Persistence.EF
             }
 
             this.ValidateEntities();
+            //TODO:Caglar çok çok ömenli, bu class buraya refere edilmemeli,bunu sonra çöz
+            AuditContext context = new AuditContext(_dbContext);
+            //context.AddCommand(new SimpleAuditing());
+            //context.AddCommand(new UserActivitiesAuditing());
+            context.AddCommand(new ShadowAuditing());
+            var result =  await context.SaveChangesAsync();
 
-            return await _dbContext.SaveChangesAsync();
+            return result;
         }
     }
 }

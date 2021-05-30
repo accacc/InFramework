@@ -1,450 +1,390 @@
-﻿//using System;
-//using System;
-//using System.Collections.Generic;
-//using System.Configuration;
-//using System.Data.Entity;
-//using System.Data.Entity.Infrastructure;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using IF.Core.Audit;
-//using System.Linq.Expressions;
-//using System.Threading;
-//using System.Security.Claims;
-//using System.ComponentModel.DataAnnotations.Schema;
-//using Microsoft.EntityFrameworkCore;
-//using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using IF.Core.Audit;
 
-//namespace IF.Persistence.EF.Audit
-//{
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-//    public class AuditContext : DbContext, IAuditableContext
-//    {
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Security.Claims;
+using System.Threading;
 
-//        //internal List<IAuditEntity> audits = new List<IAuditEntity>();
+namespace IF.Persistence.EF.Audit
+{
 
-//        internal Stack<IAuditCommand> auditingList = new Stack<IAuditCommand>();
+    public class ShadowAuditing : IAuditCommand
+    {
 
-//        public AuditContext()
-//        {
+        private static Dictionary<Type, AuditTypeInfo> auditTypes = new Dictionary<Type, AuditTypeInfo>();
 
-//        }
+        List<IShadowAuditableEntity> auditableEntities = new List<IShadowAuditableEntity>();
 
-//        public void AddCommand(IAuditCommand c)
-//        {
-//            auditingList.Push(c);
-//        }
+        List<TempShadowClass> tempShadows = new List<TempShadowClass>();
 
-//        public override int SaveChanges()
-//        {
-//            int result = 0;
 
-//            foreach (var audit in auditingList)
-//            {
-//                audit.BeforeSave(this);
-//            }
 
-//            base.SaveChanges();
 
+        public static bool AuditEnabled { get; private set; }
 
+        private const string CreatedColumnName = "Created";
+        private const string CreatedByColumnName = "CreatedBy";
+        private const string LogTypeColumnName = "LogType";
+        private const string ModifiedColumnName = "Modified";
+        private const string ModifiedByColumnName = "ModifiedBy";
+        private const string LogDateColumnName = "LogDate";
+        private const string ObjectIdColumnName = "ObjectId";
+        private const string UniqueIdColumnName = "UniqueId";
+        private const string ChannelColumnName = "Channel";
 
-//            foreach (var audit in auditingList)
-//            {
-//                audit.AfterSave(this);
-//            }
 
-//            base.SaveChanges();
 
-//            return result;
-//        }
-//    }
+        public static void RegisterAuditType<E, A, P>(Expression<Func<E, P>> primaryKeyName) where E : IShadowAuditableEntity where A : IShadowAuditEntity
+        {
 
-//    public interface IShadowAuditableEntity
-//    {
-//        [NotMapped]
-//        Guid UniqueId { get; set; }
 
+            Type auditableEntityType = typeof(E);
+            Type auditEntityType = typeof(A);
 
-//        //string ObjectId { get; set; }
-//    }
-//    public interface IAuditCommand
-//    {
-//        void BeforeSave(AuditContext context);
-//        void AfterSave(AuditContext context);
 
-//    }
-//    public class ShadowAuditing : IAuditCommand
-//    {
 
-//        private static Dictionary<Type, AuditTypeInfo> auditTypes = new Dictionary<Type, AuditTypeInfo>();
+            if (auditTypes.ContainsKey(auditableEntityType))
+            {
+                throw new ArgumentException("Type already registered for auditing.", "auditableEntityType");
+            }
 
-//        List<IShadowAuditableEntity> auditableEntities = new List<IShadowAuditableEntity>();
+            var iface = auditableEntityType.GetInterface("IShadowAuditableEntity");
 
-//        List<TempShadowClass> tempShadows = new List<TempShadowClass>();
 
+            if (iface == null)
+            {
+                throw new ArgumentException("Entity does implement IShadowAuditableEntity", "auditableEntityType");
+            }
 
 
 
-//        public static bool AuditEnabled { get; private set; }
+            if (auditEntityType != null)
+            {
+                //iface = auditEntityType.GetInterface("IAuditEntity");
 
-//        private const string CreatedColumnName = "Created";
-//        private const string CreatedByColumnName = "CreatedBy";
-//        private const string LogTypeColumnName = "LogType";
-//        private const string ModifiedColumnName = "Modified";
-//        private const string ModifiedByColumnName = "ModifiedBy";
-//        private const string LogDateColumnName = "LogDate";
-//        private const string ObjectIdColumnName = "ObjectId";
-//        private const string UniqueIdColumnName = "UniqueId";
-//        private const string ChannelColumnName = "Channel";
+                //if (iface == null)
+                //{
+                //    throw new ArgumentException("Entity does implement IAuditEntity", "auditEntityType");
+                //}
 
+                AuditTypeInfo info = new AuditTypeInfo { AuditableEntityType = auditableEntityType, AuditEntityType = auditEntityType };
 
 
-//        public static void RegisterAuditType<E, A, P>(Expression<Func<E, P>> primaryKeyName) where E : IShadowAuditableEntity where A : IAuditEntity
-//        {
+                MemberExpression propertyBody = primaryKeyName.Body as MemberExpression;
 
+                info.PrimaryKeyName = propertyBody.Member.Name;
 
-//            Type auditableEntityType = typeof(E);
-//            Type auditEntityType = typeof(A);
+                var properties = auditEntityType.GetProperties();
 
+                var entityProperties = auditableEntityType.GetProperties().ToDictionary(x => x.Name);
 
+                foreach (var property in properties)
+                {
+                    if (entityProperties.ContainsKey(property.Name))
+                    {
+                        if (property.PropertyType == entityProperties[property.Name].PropertyType)
+                        {
+                            info.AuditProperties.Add(property.Name);
+                        }
+                    }
+                }
 
-//            if (auditTypes.ContainsKey(auditableEntityType))
-//            {
-//                throw new ArgumentException("Type already registered for auditing.", "auditableEntityType");
-//            }
+                auditTypes.Add(auditableEntityType, info);
+            }
 
-//            var iface = auditableEntityType.GetInterface("IShadowAuditableEntity");
 
+        }
 
-//            if (iface == null)
-//            {
-//                throw new ArgumentException("Entity does implement IShadowAuditableEntity", "auditableEntityType");
-//            }
+        //static void Init()
+        //{
+        //    AuditConfigurationSection config = ConfigurationManager.GetSection("entityFramework.Audit") as AuditConfigurationSection;
 
+        //    if (config == null)
+        //    {
+        //        config = new AuditConfigurationSection();
+        //    }
 
+        //    AuditEnabled = config.Enabled;
 
-//            if (auditEntityType != null)
-//            {
-//                //iface = auditEntityType.GetInterface("IAuditEntity");
+        //    foreach (EntityElement item in config.Entities)
+        //    {
+        //        var entity = Type.GetType(item.Name);
+        //        var auditEntity = Type.GetType(item.Audit);
 
-//                //if (iface == null)
-//                //{
-//                //    throw new ArgumentException("Entity does implement IAuditEntity", "auditEntityType");
-//                //}
+        //        if (entity != null)
+        //        {
+        //            //RegisterAuditType(entity, auditEntity,null);
+        //        }
+        //    }
+        //}
 
-//                AuditTypeInfo info = new AuditTypeInfo { AuditableEntityType = auditableEntityType, AuditEntityType = auditEntityType };
 
 
-//                MemberExpression propertyBody = primaryKeyName.Body as MemberExpression;
 
-//                info.PrimaryKeyName = propertyBody.Member.Name;
+        public void BeforeSave(AuditContext context)
+        {
+            foreach (EntityEntry<IShadowAuditableEntity> auditable in context.DbContext.ChangeTracker.Entries<IShadowAuditableEntity>())
+            {
+                if (auditable.State == EntityState.Added
+                    || auditable.State == EntityState.Modified
+                    || auditable.State == EntityState.Deleted)
+                {
 
-//                var properties = auditEntityType.GetProperties();
+                    //if (auditable.State == EntityState.Modified || auditable.State == EntityState.Deleted)
+                    {
+                        Type entityType = auditable.Entity.GetType();
 
-//                var entityProperties = auditableEntityType.GetProperties().ToDictionary(x => x.Name);
+                        if (entityType.Namespace.Contains("Entity.DynamicProxies"))
+                        {
+                            entityType = entityType.BaseType;
+                        }
 
-//                foreach (var property in properties)
-//                {
-//                    if (entityProperties.ContainsKey(property.Name))
-//                    {
-//                        if (property.PropertyType == entityProperties[property.Name].PropertyType)
-//                        {
-//                            info.AuditProperties.Add(property.Name);
-//                        }
-//                    }
-//                }
+                        if (auditTypes.ContainsKey(entityType) && auditTypes[entityType].AuditEntityType != null)
+                        {
 
-//                auditTypes.Add(auditableEntityType, info);
-//            }
+                            //var auditEntity = this.CreateAuditEntity(auditable, auditTypes[entityType], context);
 
+                            var tempShadowClass = this.CreateTempShadowClass(auditable, auditTypes[entityType], context.DbContext);
+                            this.tempShadows.Add(tempShadowClass);
+                            //auditEntities.Add(auditEntity);
+                            auditableEntities.Add(auditable.Entity);
+                        }
+                    }
 
-//        }
+                }
+            }
+        }
 
-//        //static void Init()
-//        //{
-//        //    AuditConfigurationSection config = ConfigurationManager.GetSection("entityFramework.Audit") as AuditConfigurationSection;
 
-//        //    if (config == null)
-//        //    {
-//        //        config = new AuditConfigurationSection();
-//        //    }
+        public void AfterSave(AuditContext context)
+        {
+            foreach (var temp in tempShadows)
+            {
 
-//        //    AuditEnabled = config.Enabled;
+                Type auditEntityType = temp.AuditTypeInfo.AuditEntityType;
 
-//        //    foreach (EntityElement item in config.Entities)
-//        //    {
-//        //        var entity = Type.GetType(item.Name);
-//        //        var auditEntity = Type.GetType(item.Audit);
+                if (auditEntityType.Namespace.Contains("Entity.DynamicProxies"))
+                {
+                    auditEntityType = auditEntityType.BaseType;
+                }
 
-//        //        if (entity != null)
-//        //        {
-//        //            //RegisterAuditType(entity, auditEntity,null);
-//        //        }
-//        //    }
-//        //}
 
+                var auditableEntity = this.auditableEntities.Where(c => c.UniqueId == temp.UniqueId).SingleOrDefault();
 
 
+                string ObjectId = temp.AuditTypeInfo.AuditableEntityType.GetProperty(temp.AuditTypeInfo.PrimaryKeyName).GetValue(auditableEntity, null).ToString();
 
-//        public void BeforeSave(AuditContext context)
-//        {
-//            foreach (EntityEntry<IShadowAuditableEntity> auditable in context.ChangeTracker.Entries<IShadowAuditableEntity>())
-//            {
-//                if (auditable.State == EntityState.Added
-//                    || auditable.State == EntityState.Modified
-//                    || auditable.State == EntityState.Deleted)
-//                {
+                temp.ObjectId = ObjectId;
 
-//                    //if (auditable.State == EntityState.Modified || auditable.State == EntityState.Deleted)
-//                    {
-//                        Type entityType = auditable.Entity.GetType();
+                this.CreateAuditEntity(temp, temp.AuditTypeInfo, context);
 
-//                        if (entityType.Namespace.Contains("Entity.DynamicProxies"))
-//                        {
-//                            entityType = entityType.BaseType;
-//                        }
+            }
+        }
 
-//                        if (auditTypes.ContainsKey(entityType) && auditTypes[entityType].AuditEntityType != null)
-//                        {
+        private TempShadowClass CreateTempShadowClass(EntityEntry<IShadowAuditableEntity> entityEntry, AuditTypeInfo auditTypeInfo, DbContext context)
+        {
+            TempShadowClass shadowClass = new TempShadowClass();
 
-//                            //var auditEntity = this.CreateAuditEntity(auditable, auditTypes[entityType], context);
+            shadowClass.AuditTypeInfo = auditTypeInfo;
+            shadowClass.State = entityEntry.State;
 
-//                            var tempShadowClass = this.CreateTempShadowClass(auditable, auditTypes[entityType], context);
-//                            this.tempShadows.Add(tempShadowClass);
-//                            //auditEntities.Add(auditEntity);
-//                            auditableEntities.Add(auditable.Entity);
-//                        }
-//                    }
+            foreach (string propertyName in auditTypeInfo.AuditProperties)
+            {
 
-//                }
-//            }
-//        }
+                if (propertyName == UniqueIdColumnName)
+                {
+                    shadowClass.UniqueId = entityEntry.Entity.UniqueId;
+                    continue;
+                }
 
+                if (entityEntry.State == EntityState.Added)
+                {
+                    shadowClass.Properties.Add(new TempShadowClassProperty
+                    {
+                        Value = entityEntry.Property(propertyName).CurrentValue,
+                        PropertyName = propertyName,
+                    });
 
-//        public void AfterSave(AuditContext context)
-//        {
-//            foreach (var temp in tempShadows)
-//            {
 
-//                Type auditEntityType = temp.AuditTypeInfo.AuditEntityType;
+                }
+                else
+                {
+                    shadowClass.Properties.Add(new TempShadowClassProperty
+                    {
+                        Value = entityEntry.Property(propertyName).OriginalValue,
+                        PropertyName = propertyName,
+                    });
+                }
+            }
 
-//                if (auditEntityType.Namespace.Contains("Entity.DynamicProxies"))
-//                {
-//                    auditEntityType = auditEntityType.BaseType;
-//                }
+            //var UpdateDateTime = DateTime.Now; //context.Database.SqlQuery<DateTime>("select getdate()", new object[] { }).First();
 
 
-//                var auditableEntity = this.auditableEntities.Where(c => c.UniqueId == temp.UniqueId).SingleOrDefault();
+            //ClaimsPrincipal principal = Thread.CurrentPrincipal as ClaimsPrincipal;
 
+           
 
-//                string ObjectId = temp.AuditTypeInfo.AuditableEntityType.GetProperty(temp.AuditTypeInfo.PrimaryKeyName).GetValue(auditableEntity, null).ToString();
+            //string identityName = "";
 
-//                temp.ObjectId = ObjectId;
+            //if(principal!=null && principal.Identity !=null)
+            //{
+            //    identityName = principal.Identity.Name;
+            //}
 
-//                this.CreateAuditEntity(temp, temp.AuditTypeInfo, context);
+            //shadowClass.Properties.Add(new TempShadowClassProperty { PropertyName = CreatedColumnName, Value = UpdateDateTime });
+            //shadowClass.Properties.Add(new TempShadowClassProperty { PropertyName = CreatedByColumnName, Value = identityName });
+            //shadowClass.Properties.Add(new TempShadowClassProperty { PropertyName = ModifiedColumnName, Value = UpdateDateTime });
+            //shadowClass.Properties.Add(new TempShadowClassProperty { PropertyName = ModifiedByColumnName, Value = identityName });
+            //shadowClass.Properties.Add(new TempShadowClassProperty { PropertyName = LogDateColumnName, Value = UpdateDateTime });
+            //shadowClass.Properties.Add(new TempShadowClassProperty { PropertyName = UniqueIdColumnName, Value = entityEntry.Entity.UniqueId });
 
-//            }
-//        }
 
-//        private TempShadowClass CreateTempShadowClass(EntityEntry<IShadowAuditableEntity> entityEntry, AuditTypeInfo auditTypeInfo, DbContext context)
-//        {
-//            TempShadowClass shadowClass = new TempShadowClass();
 
-//            shadowClass.AuditTypeInfo = auditTypeInfo;
-//            shadowClass.State = entityEntry.State;
 
-//            foreach (string propertyName in auditTypeInfo.AuditProperties)
-//            {
 
-//                if (propertyName == UniqueIdColumnName)
-//                {
-//                    shadowClass.UniqueId = entityEntry.Entity.UniqueId;
-//                    continue;
-//                }
+            int logType = 0;
 
-//                if (entityEntry.State == EntityState.Added)
-//                {
-//                    //auditEntityEntry.Property(propertyName).CurrentValue = entityEntry.Property(propertyName).CurrentValue;
+            switch (entityEntry.State)
+            {
+                case EntityState.Detached:
+                    break;
+                case EntityState.Unchanged:
+                    break;
+                case EntityState.Added:
+                    logType = 4;
+                    break;
+                case EntityState.Deleted:
+                    logType = 8;
+                    break;
+                case EntityState.Modified:
+                    logType = 16;
+                    break;
+                default:
+                    break;
+            }
 
-//                    shadowClass.Properties.Add(new TempShadowClassProperty
-//                    {
-//                        Value = entityEntry.Property(propertyName).CurrentValue,
-//                        PropertyName = propertyName,
-//                    });
 
+            //auditEntityEntry.Property(LogTypeColumnName).CurrentValue = logType;
 
-//                }
-//                else
-//                {
-//                    //auditEntityEntry.Property(propertyName).CurrentValue = entityEntry.Property(propertyName).OriginalValue;
 
-//                    shadowClass.Properties.Add(new TempShadowClassProperty
-//                    {
-//                        Value = entityEntry.Property(propertyName).OriginalValue,
-//                        PropertyName = propertyName,
-//                    });
-//                }
-//            }
 
-//            var UpdateDateTime = DateTime.Now; //context.Database.SqlQuery<DateTime>("select getdate()", new object[] { }).First();
+            shadowClass.Properties.Add(new TempShadowClassProperty { PropertyName = LogTypeColumnName, Value = logType });
 
 
-//            ClaimsPrincipal principal = Thread.CurrentPrincipal as ClaimsPrincipal;
+            //var channelId = principal.Claims.Where(c => c.Type == ChannelColumnName).SingleOrDefault();
 
-//            //auditEntityEntry.Property(CreatedColumnName).CurrentValue = UpdateDateTime;
-//            //auditEntityEntry.Property(CreatedByColumnName).CurrentValue = principal.Identity.Name;
-//            //auditEntityEntry.Property(ModifiedColumnName).CurrentValue = UpdateDateTime;
-//            //auditEntityEntry.Property(ModifiedByColumnName).CurrentValue = principal.Identity.Name;
-//            //auditEntityEntry.Property(LogDateColumnName).CurrentValue = UpdateDateTime;
-//            //auditEntityEntry.Property(UniqueIdColumnName).CurrentValue = entityEntry.Entity.UniqueId;
+            //if (channelId != null)
+            //{
+            //    //auditEntityEntry.Property(ChannelColumnName).CurrentValue = channelId.Value;
+            //    shadowClass.Properties.Add(new TempShadowClassProperty { PropertyName = ChannelColumnName, Value = channelId.Value });
 
+            //}
 
-//            shadowClass.Properties.Add(new TempShadowClassProperty { PropertyName = CreatedColumnName, Value = UpdateDateTime });
-//            shadowClass.Properties.Add(new TempShadowClassProperty { PropertyName = CreatedByColumnName, Value = principal.Identity.Name });
-//            shadowClass.Properties.Add(new TempShadowClassProperty { PropertyName = ModifiedColumnName, Value = UpdateDateTime });
-//            shadowClass.Properties.Add(new TempShadowClassProperty { PropertyName = ModifiedByColumnName, Value = principal.Identity.Name });
-//            shadowClass.Properties.Add(new TempShadowClassProperty { PropertyName = LogDateColumnName, Value = UpdateDateTime });
-//            shadowClass.Properties.Add(new TempShadowClassProperty { PropertyName = UniqueIdColumnName, Value = entityEntry.Entity.UniqueId });
+            return shadowClass;
 
+        }
 
+        private IAuditEntity CreateAuditEntity(TempShadowClass temp, AuditTypeInfo auditTypeInfo, AuditContext context)
+        {
 
 
+            //DbSet set = context.Set(auditTypeInfo.AuditEntityType);
 
-//            int logType = 0;
+            //IAuditEntity auditEntity = set.Create() as IAuditEntity;
 
-//            switch (entityEntry.State)
-//            {
-//                case EntityState.Detached:
-//                    break;
-//                case EntityState.Unchanged:
-//                    break;
-//                case EntityState.Added:
-//                    logType = 4;
-//                    break;
-//                case EntityState.Deleted:
-//                    logType = 8;
-//                    break;
-//                case EntityState.Modified:
-//                    logType = 16;
-//                    break;
-//                default:
-//                    break;
-//            }
+            //set.Add(auditEntity);
 
+            IAuditEntity auditEntity = Activator.CreateInstance(auditTypeInfo.AuditableEntityType) as IAuditEntity;
 
-//            //auditEntityEntry.Property(LogTypeColumnName).CurrentValue = logType;
+            EntityEntry auditEntityEntry = context.DbContext.Entry(auditEntity);
 
 
+            foreach (string propertyName in auditTypeInfo.AuditProperties)
+            {
 
-//            shadowClass.Properties.Add(new TempShadowClassProperty { PropertyName = LogTypeColumnName, Value = logType });
+                auditEntityEntry.Property(propertyName).CurrentValue = temp.Properties.Single(p => p.PropertyName == propertyName).Value;
+            }
 
 
-//            var channelId = principal.Claims.Where(c => c.Type == ChannelColumnName).SingleOrDefault();
+            ClaimsPrincipal principal = Thread.CurrentPrincipal as ClaimsPrincipal;
 
-//            if (channelId != null)
-//            {
-//                //auditEntityEntry.Property(ChannelColumnName).CurrentValue = channelId.Value;
-//                shadowClass.Properties.Add(new TempShadowClassProperty { PropertyName = ChannelColumnName, Value = channelId.Value });
+            auditEntityEntry.Property(CreatedColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == CreatedColumnName).Value;
+            auditEntityEntry.Property(CreatedByColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == CreatedByColumnName).Value;
+            auditEntityEntry.Property(ModifiedColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == ModifiedColumnName).Value;
+            auditEntityEntry.Property(ModifiedByColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == ModifiedByColumnName).Value;
+            auditEntityEntry.Property(LogDateColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == LogDateColumnName).Value;
+            auditEntityEntry.Property(UniqueIdColumnName).CurrentValue = temp.UniqueId;
+            auditEntityEntry.Property(ObjectIdColumnName).CurrentValue = temp.ObjectId;
 
-//            }
 
-//            return shadowClass;
+            int logType = 0;
 
-//        }
+            switch (temp.State)
+            {
+                case EntityState.Detached:
+                    break;
+                case EntityState.Unchanged:
+                    break;
+                case EntityState.Added:
+                    logType = 4;
+                    break;
+                case EntityState.Deleted:
+                    logType = 8;
+                    break;
+                case EntityState.Modified:
+                    logType = 16;
+                    break;
+                default:
+                    break;
+            }
 
-//        private IAuditEntity CreateAuditEntity(TempShadowClass temp, AuditTypeInfo auditTypeInfo, AuditContext context)
-//        {
-            
 
-//            DbSet set = context.Set(auditTypeInfo.AuditEntityType);
+            auditEntityEntry.Property(LogTypeColumnName).CurrentValue = logType;
 
-//            IAuditEntity auditEntity = set.Create() as IAuditEntity;
+            var channelId = principal.Claims.Where(c => c.Type == ChannelColumnName).SingleOrDefault();
 
-//            set.Add(auditEntity);
+            if (channelId != null)
+            {
+                auditEntityEntry.Property(ChannelColumnName).CurrentValue = channelId.Value;
+            }
 
-//            EntityEntry auditEntityEntry = context.Entry(auditEntity);
+            return auditEntity;
+        }
 
 
-//            foreach (string propertyName in auditTypeInfo.AuditProperties)
-//            {
+    }
 
-//                auditEntityEntry.Property(propertyName).CurrentValue = temp.Properties.Single(p => p.PropertyName == propertyName).Value;
-//            }
 
+    public class TempShadowClassProperty
+    {
+        public object Value { get; set; }
 
-//            ClaimsPrincipal principal = Thread.CurrentPrincipal as ClaimsPrincipal;
+        public string PropertyName { get; set; }
+    }
 
-//            auditEntityEntry.Property(CreatedColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == CreatedColumnName).Value;
-//            auditEntityEntry.Property(CreatedByColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == CreatedByColumnName).Value;
-//            auditEntityEntry.Property(ModifiedColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == ModifiedColumnName).Value;
-//            auditEntityEntry.Property(ModifiedByColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == ModifiedByColumnName).Value;
-//            auditEntityEntry.Property(LogDateColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == LogDateColumnName).Value;
-//            auditEntityEntry.Property(UniqueIdColumnName).CurrentValue = temp.UniqueId;
-//            auditEntityEntry.Property(ObjectIdColumnName).CurrentValue = temp.ObjectId;
+    public class TempShadowClass
+    {
 
+        public TempShadowClass()
+        {
+            this.Properties = new List<TempShadowClassProperty>();
+        }
+        public EntityState State { get; set; }
 
-//            int logType = 0;
+        public List<TempShadowClassProperty> Properties { get; set; }
 
-//            switch (temp.State)
-//            {
-//                case EntityState.Detached:
-//                    break;
-//                case EntityState.Unchanged:
-//                    break;
-//                case EntityState.Added:
-//                    logType = 4;
-//                    break;
-//                case EntityState.Deleted:
-//                    logType = 8;
-//                    break;
-//                case EntityState.Modified:
-//                    logType = 16;
-//                    break;
-//                default:
-//                    break;
-//            }
 
+        public AuditTypeInfo AuditTypeInfo { get; set; }
 
-//            auditEntityEntry.Property(LogTypeColumnName).CurrentValue = logType;
+        public Guid UniqueId { get; set; }
 
-//            var channelId = principal.Claims.Where(c => c.Type == ChannelColumnName).SingleOrDefault();
+        public string ObjectId { get; set; }
 
-//            if (channelId != null)
-//            {
-//                auditEntityEntry.Property(ChannelColumnName).CurrentValue = channelId.Value;
-//            }
-
-//            return auditEntity;
-//        }
-
-
-//    }
-
-
-//    public class TempShadowClassProperty
-//    {
-//        public object Value { get; set; }
-
-//        public string PropertyName { get; set; }
-//    }
-
-//    public class TempShadowClass
-//    {
-
-//        public TempShadowClass()
-//        {
-//            this.Properties = new List<TempShadowClassProperty>();
-//        }
-//        public EntityState State { get; set; }
-
-//        public List<TempShadowClassProperty> Properties { get; set; }
-
-
-//        public AuditTypeInfo AuditTypeInfo { get; set; }
-
-//        public Guid UniqueId { get; set; }
-
-//        public string ObjectId { get; set; }
-
-//    }
-//}
+    }
+}

@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IF.Core\IF.Core.csproj" />
+    <ProjectReference Include="..\IF.Persistence.EF.Audit\IF.Persistence.EF.Audit.csproj" />
     <ProjectReference Include="..\IF.Persistence\IF.Persistence.csproj" />
   </ItemGroup>
 

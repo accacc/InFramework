@@ -45,6 +45,7 @@ namespace IF.Tools.Publish
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Web.Mvc.FluentHtml", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0 });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Web.Mvc", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0 });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Persistence.EF", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0 });
+            dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Persistence.EF.Audit", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0 });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Configuration", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0 });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.Validation.FluentValidation", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0 });
             dllUniqueNames.Add(new ProjectModule { ModuleName = "IF.EventBus.RabbitMQ.Integration", Type = ProjectType.Standart, Version = ProjectNetCoreVersion.Version_2_0 });
