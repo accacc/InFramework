@@ -309,6 +309,7 @@ namespace IF.Persistence.EF.Audit
 
             foreach (string propertyName in auditTypeInfo.AuditProperties)
             {
+                if (auditTypeInfo.PrimaryKeyName == propertyName) continue;
 
                 auditEntityEntry.Property(propertyName).CurrentValue = temp.Properties.Single(p => p.PropertyName == propertyName).Value;
             }
