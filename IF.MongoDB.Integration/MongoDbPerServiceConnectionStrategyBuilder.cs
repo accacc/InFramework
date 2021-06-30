@@ -38,7 +38,7 @@ namespace IF.MongoDB.Integration
 
         public  IAuditLoggerBuilder AddAuditLogger()
         {
-            this.dependencyInjection.RegisterType<MongoAuditLogService, IAuditLogService>(DependencyScope.Single);
+            this.dependencyInjection.RegisterType<MongoCommandAuditDataService, ICommandAuditDataService>(DependencyScope.Single);
             this.dependencyInjection.RegisterType<MongoAuditLogRepository,IMongoAuditLogRepository>(DependencyScope.Single);
             return new AuditLoggerBuilder(this.dependencyInjection);
         }

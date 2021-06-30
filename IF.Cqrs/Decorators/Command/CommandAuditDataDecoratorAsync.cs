@@ -1,27 +1,21 @@
-﻿using IF.Core.Configuration;
-using IF.Core.Data;
-using IF.Core.Data;
-using IF.Core.Json;
+﻿using IF.Core.Data;
 using IF.Core.Log;
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace IF.Cqrs.Decorators.Command
 {
-    public class SaveAllCommandDataDecoratorAsync<TCommand> : ICommandHandlerAsync<TCommand> where TCommand : BaseCommand
+    public class CommandAuditDataDecoratorAsync<TCommand> : ICommandHandlerAsync<TCommand> where TCommand : BaseCommand
     {
         private readonly ICommandHandlerAsync<TCommand> commandHandler;
-        private readonly IAuditLogService auditLogService;
+        private readonly ICommandAuditDataService commandAuditDataService;
         //private readonly IAppSettings appSettings;
 
-        public SaveAllCommandDataDecoratorAsync(ICommandHandlerAsync<TCommand> commandHandler, IAuditLogService auditLogService)
+        public CommandAuditDataDecoratorAsync(ICommandHandlerAsync<TCommand> commandHandler, ICommandAuditDataService commandAuditDataService)
         {
             this.commandHandler = commandHandler;
-            this.auditLogService = auditLogService;
+            this.commandAuditDataService = commandAuditDataService;
             //this.appSettings = appSettings;
 
         }
@@ -47,7 +41,7 @@ namespace IF.Cqrs.Decorators.Command
 
                 string name = type.Name;
 
-                await this.auditLogService.LogAsync(command, command.UniqueId, DateTime.Now, name, command.ClientIp, command.ApplicationCode,command.UserId.ToString());
+                await this.commandAuditDataService.LogAsync(command, command.UniqueId, DateTime.Now, name, command.ClientIp, command.ApplicationCode,command.UserId.ToString());
             }
         }
     }

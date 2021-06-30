@@ -15,7 +15,7 @@ namespace IF.System.UI.ApplicationLog.Pages
     {
 
         private readonly ILogService logService;
-        private readonly IAuditLogService auditLogService;
+        private readonly ICommandAuditDataService auditLogService;
 
         //public IEnumerable<ApplicationErrorLog> Logs { get; set; }
 
@@ -46,7 +46,7 @@ namespace IF.System.UI.ApplicationLog.Pages
         [BindProperty(SupportsGet = true)]
         public string Channel { get; set; }
 
-        public ApplicationLogModel(ILogService logservice, IAuditLogService auditLogService)
+        public ApplicationLogModel(ILogService logservice, ICommandAuditDataService auditLogService)
         {
             this.logService = logservice;
             this.auditLogService = auditLogService;

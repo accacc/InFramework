@@ -2,12 +2,11 @@
 using IF.Persistence.EF.Audit;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
+
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 

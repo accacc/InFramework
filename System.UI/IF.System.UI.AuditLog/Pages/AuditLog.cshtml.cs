@@ -14,7 +14,7 @@ namespace IF.System.UI.AuditLog.Pages
     //    [Authorize]
     public class AuditLogModel : PageModel
     {
-        private readonly IAuditLogService auditLogService;
+        private readonly ICommandAuditDataService auditLogService;
         private readonly IEventLogService eventLogService;
 
         public PagedListResponse<IF.Core.Log.AuditLog> Logs { get; set; }
@@ -43,7 +43,7 @@ namespace IF.System.UI.AuditLog.Pages
         [BindProperty(SupportsGet = true)]
         public string UserId { get; set; }
 
-        public AuditLogModel(IAuditLogService auditLogService, IEventLogService eventLogService)
+        public AuditLogModel(ICommandAuditDataService auditLogService, IEventLogService eventLogService)
         {
             this.auditLogService = auditLogService;
             this.eventLogService = eventLogService;

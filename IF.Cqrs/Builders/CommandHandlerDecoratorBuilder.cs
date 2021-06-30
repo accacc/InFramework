@@ -45,12 +45,12 @@ namespace IF.Dependency.Builders
         {
             if (this.IsAsync)
             {
-                this.handlers.Add(typeof(SaveAllCommandDataDecoratorAsync<>));
+                this.handlers.Add(typeof(CommandAuditDataDecoratorAsync<>));
             }
             else
             {
 
-                this.handlers.Add(typeof(SaveAllCommandDataDecorator<>));
+                this.handlers.Add(typeof(CommandAuditDataDecorator<>));
             }
 
             

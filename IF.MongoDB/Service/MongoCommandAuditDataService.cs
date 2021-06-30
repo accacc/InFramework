@@ -3,20 +3,19 @@ using IF.Core.Json;
 using IF.Core.Log;
 using IF.MongoDB.Model;
 using IF.MongoDB.Repository.Interface;
-using Newtonsoft.Json;
+
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IF.MongoDB.Service
 {
-    public class MongoAuditLogService : IAuditLogService
+    public class MongoCommandAuditDataService : ICommandAuditDataService
     {
 
         private readonly IMongoAuditLogRepository mongoLogRepository;
         private readonly IJsonSerializer jsonSerializer;
 
-        public MongoAuditLogService(IMongoAuditLogRepository mongoLogRepository, IJsonSerializer jsonSerializer)
+        public MongoCommandAuditDataService(IMongoAuditLogRepository mongoLogRepository, IJsonSerializer jsonSerializer)
         {
             this.mongoLogRepository = mongoLogRepository;
             this.jsonSerializer = jsonSerializer;

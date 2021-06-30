@@ -22,9 +22,9 @@ namespace IF.Sms.Turatel
 
         private readonly TuratelSmsClient httpClient;
         private readonly IFSmsSettings settings;
-        private readonly IAuditLogService auditLogService;
+        private readonly ICommandAuditDataService auditLogService;
 
-        public TuratelSmsService(TuratelSmsClient httpClient, IFSmsSettings settings, IAuditLogService auditLogService)
+        public TuratelSmsService(TuratelSmsClient httpClient, IFSmsSettings settings, ICommandAuditDataService auditLogService)
         {
             this.httpClient = httpClient;
             this.settings = settings;

@@ -19,11 +19,11 @@ namespace IF.Cqrs.Decorators.Query
         where TResponse : BaseResponse
     {
         private readonly IQueryHandlerAsync<TRequest, TResponse> queryHandler;
-        private readonly IAuditLogService auditLogService;
+        private readonly ICommandAuditDataService auditLogService;
         //private readonly IAppSettings appSettings;
 
 
-        public SaveAllDataQueryDecoratorAsync(IQueryHandlerAsync<TRequest, TResponse> queryHandler, IAuditLogService auditLogService)
+        public SaveAllDataQueryDecoratorAsync(IQueryHandlerAsync<TRequest, TResponse> queryHandler, ICommandAuditDataService auditLogService)
         {
             this.queryHandler = queryHandler;
             this.auditLogService = auditLogService;

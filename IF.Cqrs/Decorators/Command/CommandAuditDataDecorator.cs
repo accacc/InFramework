@@ -1,27 +1,21 @@
-﻿using IF.Core.Configuration;
-using IF.Core.Data;
-using IF.Core.Data;
-using IF.Core.Json;
+﻿using IF.Core.Data;
 using IF.Core.Log;
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace IF.Cqrs.Decorators.Command
 {
-    public class SaveAllCommandDataDecorator<TCommand> : ICommandHandler<TCommand> where TCommand : BaseCommand
+    public class CommandAuditDataDecorator<TCommand> : ICommandHandler<TCommand> where TCommand : BaseCommand
     {
         private readonly ICommandHandler<TCommand> commandHandler;
-        private readonly IAuditLogService auditLogService;
+        private readonly ICommandAuditDataService auditLogService;
         //private readonly IAppSettings appSettings;
 
-        public SaveAllCommandDataDecorator(ICommandHandler<TCommand> commandHandler, IAuditLogService auditLogService)
+        public CommandAuditDataDecorator(ICommandHandler<TCommand> commandHandler, ICommandAuditDataService commandAuditDataService)
         {
             this.commandHandler = commandHandler;
-            this.auditLogService = auditLogService;
+            this.auditLogService = commandAuditDataService;
             //this.appSettings = appSettings;
 
         }
