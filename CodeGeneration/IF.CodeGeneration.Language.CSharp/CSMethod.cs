@@ -1,15 +1,16 @@
 ﻿using IF.CodeGeneration.Core;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IF.CodeGeneration.CSharp
+namespace IF.CodeGeneration.Language.CSharp
 {
     public class CSMethod : IGenerateCode
     {
 
-        public CSMethod(string Name,string ReturnType,string AccessType)
+        public CSMethod(string Name, string ReturnType, string AccessType)
         {
             this.Name = Name;
             this.ReturnType = ReturnType;
@@ -19,7 +20,7 @@ namespace IF.CodeGeneration.CSharp
 
         }
 
-        public List<CsMethodParameter>   Parameters { get; set; }
+        public List<CsMethodParameter> Parameters { get; set; }
 
         public List<string> Attirubites { get; set; }
         public string AccessType { get; set; }
@@ -43,30 +44,30 @@ namespace IF.CodeGeneration.CSharp
             string @params = String.Empty;
             string @baseParams = String.Empty;
 
-            
-                foreach (var parameter in this.Parameters)
+
+            foreach (var parameter in this.Parameters)
+            {
+                if (!String.IsNullOrWhiteSpace(parameter.Attirubite))
                 {
-                    if (!String.IsNullOrWhiteSpace(parameter.Attirubite))
-                    {
-                        @params += $"[{parameter.Attirubite}] ";
-                    }
-
-
-
-                    @params += String.Format("{0} {1}", parameter.Type, parameter.Name);
-
-                    if (this.Parameters.Last().Name != parameter.Name)
-                    {
-                        @params += ",";
-                    }
+                    @params += $"[{parameter.Attirubite}] ";
                 }
+
+
+
+                @params += String.Format("{0} {1}", parameter.Type, parameter.Name);
+
+                if (this.Parameters.Last().Name != parameter.Name)
+                {
+                    @params += ",";
+                }
+            }
             if (this.IsConstructor)
             {
                 ReturnType = String.Empty;
 
                 foreach (var parameter in this.Parameters.Where(p => p.UseBase))
                 {
-                   
+
 
 
                     @baseParams += parameter.Name;
@@ -87,7 +88,7 @@ namespace IF.CodeGeneration.CSharp
             string name = this.Name;
             string @override = String.Empty;
 
-            if(this.IsOvveride)
+            if (this.IsOvveride)
             {
                 @override = "override";
             }
@@ -125,7 +126,7 @@ namespace IF.CodeGeneration.CSharp
             builder.AppendLine("{");
 
             builder.AppendLine();
-            builder.AppendLine();           
+            builder.AppendLine();
             builder.AppendLine(this.Body);
             builder.AppendLine("}");
 

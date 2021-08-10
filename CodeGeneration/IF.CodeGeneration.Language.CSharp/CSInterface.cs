@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IF.CodeGeneration.CSharp
+namespace IF.CodeGeneration.Language.CSharp
 {
 
     public class CSInterface : IGenerateCode

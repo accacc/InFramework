@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace IF.CodeGeneration.CSharp
+namespace IF.CodeGeneration.Language.CSharp
 {
     public class CSProperty : IGenerateCode
     {
