@@ -1,10 +1,7 @@
 ﻿using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace IF.CodeGeneration.Language.CSharp
@@ -21,10 +18,13 @@ namespace IF.CodeGeneration.Language.CSharp
             {
                 if (member is PropertyDeclarationSyntax property)
                 {
-                    cls.Properties.Add(new CSProperty(
+                    CSProperty cSProperty = new CSProperty("public",
                          property.Identifier.ValueText,
-                         property.Type.ToString(),false)
-                     );
+                         false);
+
+                    cSProperty.PropertyTypeString = property.Type.ToString();
+
+                    cls.Properties.Add(cSProperty);
                 }
 
                 if (member is NamespaceDeclarationSyntax namespaceDeclaration)
