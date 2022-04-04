@@ -6,6 +6,6 @@ namespace IF.Core.Audit
     public interface IShadowAuditableEntity: IAuditableEntity
     {
         [NotMapped]
-        Guid UniqueId { get; set; }
+        Guid UniqueId { get; }
     }
 }

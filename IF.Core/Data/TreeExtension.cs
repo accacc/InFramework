@@ -6,6 +6,22 @@ namespace IF.Core.Data
     public static class TreeExtension
     {
 
+
+        public static List<T> ToTree<T>(this IEnumerable<T> list, List<T> parents) where T : ITreeClass<T>
+        {
+            for (int i = 0; i < parents.Count; i++)
+            {
+                var childs = list.OrderBy(p => p.SortOrder).Where(l => l.ParentId == parents[i].Id).ToList();
+
+                if (childs != null)
+                {
+                    parents[i].Childs = new List<T>(childs);
+                    ToTree(list, childs);
+                }
+            }
+
+            return parents;
+        }
         public static List<T> ToTree<T>(this IEnumerable<T> list, List<T> parents = null,int level=0) where T : ITreeClass<T>
         {
             level++;
