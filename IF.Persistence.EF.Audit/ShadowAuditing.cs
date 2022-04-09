@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Claims;
@@ -27,16 +26,15 @@ namespace IF.Persistence.EF.Audit
 
 
         public static bool AuditEnabled { get; private set; }
-
-        public  static string CreatedColumnName = "Created";
-        public  static string CreatedByColumnName = "CreatedBy";
+        public static string CreatedColumnName = "Created";
+        public static string CreatedByColumnName = "CreatedBy";
         public static string LogTypeColumnName = "LogType";
         public static string ModifiedColumnName = "Modified";
-        public  static string ModifiedByColumnName = "ModifiedBy";
-        public static string  LogDateColumnName = "LogDate";
-        public static string  ObjectIdColumnName = "ObjectId";
-        public static string  UniqueIdColumnName = "UniqueId";
-        public static string  ChannelColumnName = "Channel";
+        public static string ModifiedByColumnName = "ModifiedBy";
+        public static string LogDateColumnName = "LogDate";
+        public static string ObjectIdColumnName = "ObjectId";
+        public static string UniqueIdColumnName = "UniqueId";
+        public static string ChannelColumnName = "Channel";
 
 
 
@@ -66,13 +64,6 @@ namespace IF.Persistence.EF.Audit
 
             if (auditEntityType != null)
             {
-                //iface = auditEntityType.GetInterface("IAuditEntity");
-
-                //if (iface == null)
-                //{
-                //    throw new ArgumentException("Entity does implement IAuditEntity", "auditEntityType");
-                //}
-
                 AuditTypeInfo info = new AuditTypeInfo { AuditableEntityType = auditableEntityType, AuditEntityType = auditEntityType };
 
 
@@ -101,32 +92,6 @@ namespace IF.Persistence.EF.Audit
 
         }
 
-        //static void Init()
-        //{
-        //    AuditConfigurationSection config = ConfigurationManager.GetSection("entityFramework.Audit") as AuditConfigurationSection;
-
-        //    if (config == null)
-        //    {
-        //        config = new AuditConfigurationSection();
-        //    }
-
-        //    AuditEnabled = config.Enabled;
-
-        //    foreach (EntityElement item in config.Entities)
-        //    {
-        //        var entity = Type.GetType(item.Name);
-        //        var auditEntity = Type.GetType(item.Audit);
-
-        //        if (entity != null)
-        //        {
-        //            //RegisterAuditType(entity, auditEntity,null);
-        //        }
-        //    }
-        //}
-
-
-
-
         public void BeforeSave(AuditContext context)
         {
             foreach (EntityEntry<IShadowAuditableEntity> auditable in context.DbContext.ChangeTracker.Entries<IShadowAuditableEntity>())
@@ -136,30 +101,26 @@ namespace IF.Persistence.EF.Audit
                     || auditable.State == EntityState.Deleted)
                 {
 
-                    //if (auditable.State == EntityState.Modified || auditable.State == EntityState.Deleted)
+                    Type entityType = auditable.Entity.GetType();
+
+                    if (entityType.Namespace.Contains("Entity.DynamicProxies"))
                     {
-                        Type entityType = auditable.Entity.GetType();
-
-                        if (entityType.Namespace.Contains("Entity.DynamicProxies"))
-                        {
-                            entityType = entityType.BaseType;
-                        }
-
-                        if (auditTypes.ContainsKey(entityType) && auditTypes[entityType].AuditEntityType != null)
-                        {
-
-                            //var auditEntity = this.CreateAuditEntity(auditable, auditTypes[entityType], context);
-
-                            var tempShadowClass = this.CreateTempShadowClass(auditable, auditTypes[entityType], context.DbContext);
-                            this.tempShadows.Add(tempShadowClass);
-                            //auditEntities.Add(auditEntity);
-                            auditableEntities.Add(auditable.Entity);
-                        }
+                        entityType = entityType.BaseType;
                     }
 
+                    if (auditTypes.ContainsKey(entityType) && auditTypes[entityType].AuditEntityType != null)
+                    {
+                        var tempShadowClass = this.CreateTempShadowClass(auditable, auditTypes[entityType], context.DbContext);
+
+                        this.tempShadows.Add(tempShadowClass);
+
+                        auditableEntities.Add(auditable.Entity);
+                    }
                 }
+
             }
         }
+
 
 
         public void AfterSave(AuditContext context)
@@ -199,12 +160,6 @@ namespace IF.Persistence.EF.Audit
 
             foreach (string propertyName in auditTypeInfo.AuditProperties)
             {
-
-                //if (propertyName == UniqueIdColumnName)
-                //{
-                //    shadowClass.UniqueId = entityEntry.Entity.UniqueId;
-                //    continue;
-                //}
 
                 if (entityEntry.State == EntityState.Added)
                 {
@@ -288,6 +243,7 @@ namespace IF.Persistence.EF.Audit
                 }
 
             }
+
             return shadowClass;
 
         }
@@ -317,16 +273,12 @@ namespace IF.Persistence.EF.Audit
             auditEntityEntry.Property(LogDateColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == LogDateColumnName).Value;
             auditEntityEntry.Property(LogTypeColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == LogTypeColumnName).Value;
 
-            if(temp.Properties.Any(p => p.PropertyName == ChannelColumnName))
+            if (temp.Properties.Any(p => p.PropertyName == ChannelColumnName))
             {
                 auditEntityEntry.Property(ChannelColumnName).CurrentValue = temp.Properties.Single(p => p.PropertyName == ChannelColumnName).Value;
 
             }
-          
 
-
-           
-            //auditEntityEntry.Property(UniqueIdColumnName).CurrentValue = temp.UniqueId;
             auditEntityEntry.Property(ObjectIdColumnName).CurrentValue = temp.ObjectId;
 
             return auditEntity;
@@ -336,30 +288,7 @@ namespace IF.Persistence.EF.Audit
     }
 
 
-    public class TempShadowClassProperty
-    {
-        public object Value { get; set; }
+  
 
-        public string PropertyName { get; set; }
-    }
-
-    public class TempShadowClass
-    {
-
-        public TempShadowClass()
-        {
-            this.Properties = new List<TempShadowClassProperty>();
-        }
-        public EntityState State { get; set; }
-
-        public List<TempShadowClassProperty> Properties { get; set; }
-
-
-        public AuditTypeInfo AuditTypeInfo { get; set; }
-
-        public Guid UniqueId { get; set; }
-
-        public string ObjectId { get; set; }
-
-    }
+   
 }
