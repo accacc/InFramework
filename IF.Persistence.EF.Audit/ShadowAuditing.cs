@@ -110,7 +110,7 @@ namespace IF.Persistence.EF.Audit
 
                     if (auditTypes.ContainsKey(entityType) && auditTypes[entityType].AuditEntityType != null)
                     {
-                        var tempShadowClass = this.CreateTempShadowClass(auditable, auditTypes[entityType], context.DbContext);
+                        var tempShadowClass = this.CreateTempShadowClass(auditable, auditTypes[entityType]);
 
                         this.tempShadows.Add(tempShadowClass);
 
@@ -136,7 +136,7 @@ namespace IF.Persistence.EF.Audit
                 }
 
 
-                var auditableEntity = this.auditableEntities.Where(c => c.UniqueId == temp.UniqueId).SingleOrDefault();
+                var auditableEntity = temp.Entity.Entity; //this.auditableEntities.Where(c => c.UniqueId == temp.UniqueId).SingleOrDefault();
 
 
                 string ObjectId = temp.AuditTypeInfo.AuditableEntityType.GetProperty(temp.AuditTypeInfo.PrimaryKeyName).GetValue(auditableEntity, null).ToString();
@@ -150,9 +150,11 @@ namespace IF.Persistence.EF.Audit
             }
         }
 
-        private TempShadowClass CreateTempShadowClass(EntityEntry<IShadowAuditableEntity> entityEntry, AuditTypeInfo auditTypeInfo, DbContext context)
+        private TempShadowClass CreateTempShadowClass(EntityEntry<IShadowAuditableEntity> entityEntry, AuditTypeInfo auditTypeInfo)
         {
             TempShadowClass shadowClass = new TempShadowClass();
+
+            shadowClass.Entity = entityEntry;
 
             shadowClass.AuditTypeInfo = auditTypeInfo;
             shadowClass.State = entityEntry.State;

@@ -1,6 +1,10 @@
-﻿namespace IF.Core.Audit
+﻿using System;
+
+namespace IF.Core.Audit
 {
     public interface IAuditableEntity
     {
+
+  
     }
 }
