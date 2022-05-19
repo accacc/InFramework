@@ -16,7 +16,7 @@ namespace IF.Persistence.EF.Audit
 
             public EntityState State { get; set; }
 
-        public AuditEntity AuditEntry { get; set; }
+        public AuditLog AuditEntry { get; set; }
 
 
     }

@@ -10,6 +10,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading;
 
+using Newtonsoft.Json;
+
 namespace IF.Persistence.EF.Audit
 {
     public class SimpleAudit : IAuditCommand
@@ -32,9 +34,11 @@ namespace IF.Persistence.EF.Audit
 
         List<ISimpleAuditableEntity> auditableEntities = new List<ISimpleAuditableEntity>();
 
+
+
         public void AfterSave(AuditContext context)
         {
-            var auditEntries = new List<AuditEntity>();
+            var auditEntries = new List<AuditLog>();
 
 
             foreach (var temp in tempShadows)
@@ -42,17 +46,24 @@ namespace IF.Persistence.EF.Audit
 
                 var auditEntry = temp.AuditEntry;
 
+
+                Dictionary<string, object> KeyValues = new Dictionary<string, object>();
+
+
+
                 foreach (var property in temp.Entity.Properties)
                 {
                     string propertyName = property.Metadata.Name;
 
                     if (property.Metadata.IsPrimaryKey())
                     {
-                        auditEntry.KeyValues[propertyName] = property.CurrentValue;
+                        KeyValues[propertyName] = property.CurrentValue;
                         continue;
                     }
 
                 }
+
+                auditEntry.PrimaryKey = JsonConvert.SerializeObject(KeyValues);
 
                 auditEntries.Add(auditEntry);
             }
@@ -60,7 +71,7 @@ namespace IF.Persistence.EF.Audit
 
             foreach (var auditEntry in auditEntries)
             {
-                context.DbContext.Add(auditEntry.ToAudit());
+                context.DbContext.Add(auditEntry);
             }
         }
 
@@ -96,7 +107,7 @@ namespace IF.Persistence.EF.Audit
 
             shadowClass.State = entityEntry.State;
 
-            var auditEntries = new List<AuditEntity>();
+            var auditEntries = new List<AuditLog>();
 
 
             foreach (EntityEntry<ISimpleAuditableEntity> entry in context.DbContext.ChangeTracker.Entries<ISimpleAuditableEntity>())
@@ -105,44 +116,57 @@ namespace IF.Persistence.EF.Audit
                     continue;
 
 
-                var auditEntry = new AuditEntity();
+                var auditEntry = new AuditLog();
                 auditEntry.TableName = entry.Entity.GetType().Name;
-                auditEntry.UserId = "a";
                 auditEntries.Add(auditEntry);
+
+                Dictionary<string, object> OldValues = new Dictionary<string, object>();
+                Dictionary<string, object> NewValues = new Dictionary<string, object>();
+                List<string> ChangedColumns = new List<string>();
 
 
                 foreach (var property in entry.Properties)
                 {
                     string propertyName = property.Metadata.Name;
 
-                    if (property.Metadata.IsPrimaryKey())
-                    {
-                        auditEntry.KeyValues[propertyName] = property.CurrentValue;
-                        continue;
-                    }
+                    //if (property.Metadata.IsPrimaryKey())
+                    //{
+                    //    this.KeyValues[propertyName] = property.CurrentValue;
+                    //    continue;
+                    //}
 
                     switch (entry.State)
                     {
                         case EntityState.Added:
-                            auditEntry.AuditType = AuditType.Create;
-                            auditEntry.NewValues[propertyName] = property.CurrentValue;
+                            auditEntry.Type = AuditType.Create;
+                            NewValues[propertyName] = property.CurrentValue;
+                            auditEntry.CreatedBy = "1";
+                            auditEntry.Created = DateTime.Now;
                             break;
                         case EntityState.Deleted:
-                            auditEntry.AuditType = AuditType.Delete;
-                            auditEntry.OldValues[propertyName] = property.OriginalValue;
+                            auditEntry.Type = AuditType.Delete;
+                            OldValues[propertyName] = property.OriginalValue;
                             break;
                         case EntityState.Modified:
+
                             if (property.IsModified)
                             {
-                                auditEntry.ChangedColumns.Add(propertyName);
-                                auditEntry.AuditType = AuditType.Update;
-                                auditEntry.OldValues[propertyName] = property.OriginalValue;
-                                auditEntry.NewValues[propertyName] = property.CurrentValue;
+                                ChangedColumns.Add(propertyName);
+                                auditEntry.Type = AuditType.Update;
+                                auditEntry.ModifiedBy = "1";
+                                auditEntry.Modified = DateTime.Now;
+                                OldValues[propertyName] = property.OriginalValue;
+                                NewValues[propertyName] = property.CurrentValue;
                             }
+
                             break;
                     }
                 }
 
+
+                auditEntry.OldValues = OldValues.Count == 0 ? null : JsonConvert.SerializeObject(OldValues);
+                auditEntry.NewValues = NewValues.Count == 0 ? null : JsonConvert.SerializeObject(NewValues);
+                auditEntry.AffectedColumns = ChangedColumns.Count == 0 ? null : JsonConvert.SerializeObject(ChangedColumns);
 
                 var UpdateDateTime = DateTime.Now; //context.Database.SqlQuery<DateTime>("select getdate()", new object[] { }).First();
 
@@ -158,7 +182,7 @@ namespace IF.Persistence.EF.Audit
                     identityName = principal.Identity.Name;
                 }
 
-                auditEntry.UserId = identityName;
+                //auditEntry.UserId = identityName;
 
                 int logType = 0;
 

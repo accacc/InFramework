@@ -1,4 +1,4 @@
-﻿using IF.Core.Data;
+﻿ using IF.Core.Data;
 using IF.Core.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
