@@ -144,6 +144,7 @@ namespace IF.Persistence.EF
             context.AddCommand(new SimpleAudit());
             //context.AddCommand(new UserActivitiesAuditing());
             context.AddCommand(new ShadowAuditing());
+            context.AddCommand(new SelfAuditing());
             var result =  await context.SaveChangesAsync();
 
             return result;
