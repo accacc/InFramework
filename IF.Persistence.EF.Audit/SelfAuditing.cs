@@ -31,7 +31,7 @@ namespace IF.Persistence.EF.Audit
                 else if (auditable.State == EntityState.Added)
                 {
                     auditable.Entity.Created = DateTime.Now;
-                    auditable.Entity.ModifiedBy = "user";
+                    auditable.Entity.CreatedBy = "user";
                 }
             }
         }
