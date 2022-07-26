@@ -25,6 +25,7 @@ namespace IF.Persistence.EF
         public TEntity GetByKey<TEntity>(object keyValue) where TEntity : class,IEntity
         {
             return this.context.Find<TEntity>(keyValue);
+            //return this.context.Find<TEntity>(keyValue);
         }
 
         public IQueryable<object> GetQuery(Type type)

@@ -263,14 +263,12 @@ namespace IF.Persistence.EF.Localization
             LanguageFormModel model = new LanguageFormModel();
 
 
-            for (int i = 0; i < this.Cultures.Length; i++)
+            for (int i = 0; i < this.Cultures.Where(c=>c.LCID != this.DefaultCulture.LCID).ToArray().Length; i++)
             {
 
                 var systemLanguage = this.Cultures.ElementAt(i);
 
-                if (systemLanguage.LCID == this.DefaultCulture.LCID) continue;             
-
-                
+                //if (systemLanguage.LCID == this.DefaultCulture.LCID) continue;                             
 
                 LanguageViewModel languageModel = GetLanguageModel(entityType, languageObject, Convert.ToInt32(systemLanguage.LCID));
 
@@ -291,8 +289,8 @@ namespace IF.Persistence.EF.Localization
 
         public T GetLanguageObject<T>(object Id) where T : class, ILanguageEntity
         {
-            string primaryKeys = this.repository.GetPrimarykeyName(typeof(T));            
-            return this.repository.GetQuery<T>().Where($"{primaryKeys} == @0", System.Convert.ChangeType(Id, typeof(int))).SingleOrDefault();            
+            int key = Convert.ToInt32(Id);         
+            return this.repository.GetQuery<T>().Where($"Id == @0", key).SingleOrDefault();            
         }
 
         

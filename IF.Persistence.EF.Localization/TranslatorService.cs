@@ -41,10 +41,10 @@ namespace IF.Persistence.EF.Localization
             foreach (var item in dto)
             {
 
-                var languageObject = typeof(ITranslatorService)
+                var languageObject = typeof(ILanguageService)
                                     .GetMethod("GetObjectCurrentLanguageCache")
                                     .MakeGenericMethod(currentMap.Language)
-                                    .Invoke(this, new object[] { item.Id });
+                                    .Invoke(this.languageService, new object[] { item.Id });
 
                 if (languageObject != null)
                 {

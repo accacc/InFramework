@@ -28,7 +28,7 @@ namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
             }
 
 
-            this.HtmlElement.HtmlAttributes.Add("data-toggle", "tabajax");
+            this.HtmlElement.HtmlAttributes.Add("data-bs-toggle", "tabajax");
 
             return this;
         }
@@ -45,7 +45,7 @@ namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
             }
 
 
-            this.HtmlElement.HtmlAttributes.Add("data-toggle", "tabajax");
+            this.HtmlElement.HtmlAttributes.Add("data-bs-toggle", "tabajax");
 
             return this;
         }
@@ -55,14 +55,14 @@ namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
         {
             this.HtmlElement.ActionName = ActionName;
             this.HtmlElement.ControllerName = ControllerName;
-            this.HtmlElement.HtmlAttributes.Add("data-toggle", "tabajax");
+            this.HtmlElement.HtmlAttributes.Add("data-bs-toggle", "tabajax");
             return this;
         }
 
         public BootstrapTabLinkBuilder Content(Func<object, object> content)
         {
             this.HtmlElement.Content = content;
-            this.HtmlElement.HtmlAttributes.Add("data-toggle", "tab");
+            this.HtmlElement.HtmlAttributes.Add("data-bs-toggle", "tab");
             return this;
         }
         public BootstrapTabLinkBuilder Active(bool Active)

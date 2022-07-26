@@ -56,7 +56,7 @@ namespace IF.Web.Mvc.FluentHtml.Bootstrap.Tab
 
                 
 
-                Items[i].HtmlAttributes.Add("data-target", String.Format("#tab_{0}_{1}", TabIndex, i));
+                Items[i].HtmlAttributes.Add("data-bs-target", String.Format("#tab_{0}_{1}", TabIndex, i));
 
                 li.InnerHtml.AppendHtml(Items[i].Render());
                 ul.InnerHtml.AppendHtml(li);
